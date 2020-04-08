@@ -5,16 +5,18 @@ module Api::V1
     # GET /users
     def index
       @users = User.all
-
-      render json: @users
+      
+      options = { include: [:club_users, :clubs]}
+      render json: UserSerializer.new(@users, options)
     end
 
     # GET /users/1
     def show
       options = {
-        include: [:clubs, :club_users]
+        include: [:clubs, :club_users],
+        links: {self: "/users/#{@user.id}"}
       }
-      render json: UserSerializer.new(@user, options)
+      render json: serialize(@user, options)
     end
 
     # POST /users

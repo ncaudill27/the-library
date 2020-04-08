@@ -1,5 +1,4 @@
-class ClubUserSerializer
-  include FastJsonapi::ObjectSerializer
+class ClubUserSerializer < BaseSerializer
   attributes :mod
   
   belongs_to :club
