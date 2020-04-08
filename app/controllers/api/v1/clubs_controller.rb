@@ -6,12 +6,13 @@ module Api::V1
     def index
       @clubs = Club.all
 
-      render json: @clubs
+      options = { include: [:users, :club_users] }
+      render json: ClubSerializer.new(@clubs, options)
     end
 
     # GET /clubs/1
     def show
-      render json: @club
+      render json: serialize(@club, club_options)
     end
 
     # POST /clubs
@@ -19,7 +20,7 @@ module Api::V1
       @club = Club.new(club_params)
 
       if @club.save
-        render json: @club, status: :created, location: @club
+        render json: serialize(@club, club_options), status: :created, location: @club
       else
         render json: @club.errors, status: :unprocessable_entity
       end
@@ -28,7 +29,7 @@ module Api::V1
     # PATCH/PUT /clubs/1
     def update
       if @club.update(club_params)
-        render json: @club
+        render json: serialize(@club, club_options)
       else
         render json: @club.errors, status: :unprocessable_entity
       end
@@ -37,6 +38,7 @@ module Api::V1
     # DELETE /clubs/1
     def destroy
       @club.destroy
+      destroy_response(@club)
     end
 
     private
@@ -49,5 +51,13 @@ module Api::V1
       def club_params
         params.require(:club).permit(:name, :description)
       end
+
+      def club_options
+        {
+          include: [:users, :club_users],
+          links: {self: request.base_url + "/clubs/#{@club.id}"}
+        }
+      end
+      
   end
 end

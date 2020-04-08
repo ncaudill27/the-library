@@ -6,17 +6,13 @@ module Api::V1
     def index
       @users = User.all
       
-      options = { include: [:club_users, :clubs]}
+      options = { include: [:club_users, :clubs] }
       render json: UserSerializer.new(@users, options)
     end
 
     # GET /users/1
     def show
-      options = {
-        include: [:clubs, :club_users],
-        links: {self: "/users/#{@user.id}"}
-      }
-      render json: serialize(@user, options)
+      render json: serialize(@user, user_options)
     end
 
     # POST /users
@@ -24,7 +20,7 @@ module Api::V1
       @user = User.new(user_params)
 
       if @user.save
-        render json: @user, status: :created, location: @user
+        render json: serialize(@user, user_options), status: :created, location: @user
       else
         render json: @user.errors, status: :unprocessable_entity
       end
@@ -33,7 +29,7 @@ module Api::V1
     # PATCH/PUT /users/1
     def update
       if @user.update(user_params)
-        render json: @user
+        render json: serialize(@user, user_options)
       else
         render json: @user.errors, status: :unprocessable_entity
       end
@@ -42,6 +38,7 @@ module Api::V1
     # DELETE /users/1
     def destroy
       @user.destroy
+      destroy_response(@user)
     end
 
     private
@@ -53,6 +50,13 @@ module Api::V1
       # Only allow a trusted parameter "white list" through.
       def user_params
         params.require(:user).permit(:name, :username, :email, :password_digest, :bio)
+      end
+
+      def user_options
+        {
+          include: [:clubs, :club_users],
+          links: {self: request.base_url + "/users/#{@user.id}"}
+        }
       end
   end
 end
