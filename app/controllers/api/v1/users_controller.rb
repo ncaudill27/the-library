@@ -11,7 +11,10 @@ module Api::V1
 
     # GET /users/1
     def show
-      render json: @user
+      options = {
+        include: [:clubs, :club_users]
+      }
+      render json: UserSerializer.new(@user, options)
     end
 
     # POST /users
