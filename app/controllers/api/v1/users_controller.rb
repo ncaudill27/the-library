@@ -54,7 +54,7 @@
 
       def serialization
         options = {
-          include: [:clubs, :club_users],
+          include: [:clubs, :club_users, :comments],
           links: {self: request.base_url + "/users/#{@user.id}"}
         }
         serialize(@user, options)

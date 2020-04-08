@@ -27,7 +27,7 @@ Club.all.each do |c|
 
   c.boards.each do |board|
     10.times do
-      Comment.create(user: User.all.sample, board: board)
+      Comment.create(user: User.all.sample, board: board, content: Faker::ChuckNorris.fact)
     end
   end
 end
