@@ -12,7 +12,7 @@ module Api::V1
 
     # GET /users/1
     def show
-      render json: serialize(@user, user_options)
+      render json: serialization
     end
 
     # POST /users
@@ -20,7 +20,7 @@ module Api::V1
       @user = User.new(user_params)
 
       if @user.save
-        render json: serialize(@user, user_options), status: :created, location: @user
+        render json: serialization, status: :created, location: @user
       else
         render json: @user.errors, status: :unprocessable_entity
       end
@@ -29,7 +29,7 @@ module Api::V1
     # PATCH/PUT /users/1
     def update
       if @user.update(user_params)
-        render json: serialize(@user, user_options)
+        render json: serialization
       else
         render json: @user.errors, status: :unprocessable_entity
       end
@@ -52,11 +52,12 @@ module Api::V1
         params.require(:user).permit(:name, :username, :email, :password_digest, :bio)
       end
 
-      def user_options
-        {
+      def serialization
+        options = {
           include: [:clubs, :club_users],
           links: {self: request.base_url + "/users/#{@user.id}"}
         }
+        serialize(@user, options)
       end
   end
 end

@@ -12,7 +12,7 @@ module Api::V1
 
     # GET /boards/1
     def show
-      render json: serialize(@board, board_options)
+      render json: serialization
     end
 
     # POST /boards
@@ -20,7 +20,7 @@ module Api::V1
       @board = Board.new(board_params)
 
       if @board.save
-        render json: serialize(@board, board_options), status: :created, location: @board
+        render json: serialization, status: :created, location: @board
       else
         render json: @board.errors, status: :unprocessable_entity
       end
@@ -29,7 +29,7 @@ module Api::V1
     # PATCH/PUT /boards/1
     def update
       if @board.update(board_params)
-        render json: serialize(@board, board_options)
+        render json: serialization
       else
         render json: @board.errors, status: :unprocessable_entity
       end
@@ -52,11 +52,12 @@ module Api::V1
         params.require(:board).permit(:club, :title)
       end
 
-      def board_options
-        {
+      def serialization
+        options = {
           include: [:comments, :clubs],
           links: {self: request.base_url + "/boards/#{@board.id}"}
         }
+        serialize(@board, options)
       end
   end
 end
