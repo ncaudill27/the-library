@@ -1,4 +1,3 @@
-class CommentSerializer
-  include FastJsonapi::ObjectSerializer
-  attributes :text
+class CommentSerializer < BaseSerializer
+  attributes :content
 end

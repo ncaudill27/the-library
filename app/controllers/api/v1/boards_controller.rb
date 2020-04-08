@@ -11,7 +11,7 @@ module Api::V1
 
     # GET /boards/1
     def show
-      render json: @board
+      render json: serialize(@board, board_options)
     end
 
     # POST /boards
@@ -48,6 +48,13 @@ module Api::V1
       # Only allow a trusted parameter "white list" through.
       def board_params
         params.require(:board).permit(:club, :title)
+      end
+
+      def board_options
+        {
+          include: [:comments, :clubs],
+          links: {self: request.base_url + "/boards/#{@board.id}"}
+        }
       end
   end
 end
