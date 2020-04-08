@@ -6,12 +6,13 @@ module Api::V1
     def index
       @comments = Comment.all
 
+      options = { include: [:users, :comments] }
       render json: @comments
     end
 
     # GET /comments/1
     def show
-      render json: @comment
+      render json: serialize(@comment, comment_options)
     end
 
     # POST /comments
@@ -48,6 +49,13 @@ module Api::V1
       # Only allow a trusted parameter "white list" through.
       def comment_params
         params.require(:comment).permit(:user, :club, :board, :content)
+      end
+
+      def comment_options
+        {
+          include: [:board, :user],
+          links: { self: request.base_url + "/comments/#{@comment.id}"}
+        }
       end
   end
 end

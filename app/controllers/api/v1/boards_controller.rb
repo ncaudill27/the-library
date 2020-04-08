@@ -6,7 +6,8 @@ module Api::V1
     def index
       @boards = Board.all
 
-      render json: @boards
+      options = { include: [:users, :comments] }
+      render json: BoardSerializer.new(@boards, options)
     end
 
     # GET /boards/1
@@ -19,7 +20,7 @@ module Api::V1
       @board = Board.new(board_params)
 
       if @board.save
-        render json: @board, status: :created, location: @board
+        render json: serialize(@board, board_options), status: :created, location: @board
       else
         render json: @board.errors, status: :unprocessable_entity
       end
@@ -28,7 +29,7 @@ module Api::V1
     # PATCH/PUT /boards/1
     def update
       if @board.update(board_params)
-        render json: @board
+        render json: serialize(@board, board_options)
       else
         render json: @board.errors, status: :unprocessable_entity
       end
@@ -37,6 +38,7 @@ module Api::V1
     # DELETE /boards/1
     def destroy
       @board.destroy
+      destroy_response(@board)
     end
 
     private
