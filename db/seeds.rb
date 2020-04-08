@@ -1,8 +1,5 @@
 User.destroy_all
 Club.destroy_all
-ClubUser.destroy_all
-Board.destroy_all
-Comment.destroy_all
 
 marty = User.create(name:'Marty McFly', username:'McFly', email:'marty@future.com', password:'password', bio:'Hey, my name is Marty McFly and I enjoy traveling, skateboarding, and adventuring.')
 margot = User.create(name:'Margo the Destroyer', username:'Bambi', email:'margo@magic.com', password:'password')
