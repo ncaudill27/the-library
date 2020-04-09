@@ -32,6 +32,14 @@
 .Club {
   text-align: left;
   height: 80px;
+  position: relative;
+  padding: 10px;
+}
+
+.Club .content {
+  position: absolute;
+  top: 4px;
+  left: 90px;
 }
 
 .Avatar {
