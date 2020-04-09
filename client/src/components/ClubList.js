@@ -8,7 +8,6 @@ class ClubList extends Component {
   };
 
   render() {
-    console.log(this.props)
     return (
       <div className='list-clubs'>
         <h2>Clubs</h2>
