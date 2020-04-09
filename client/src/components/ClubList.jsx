@@ -5,7 +5,7 @@ import ClubMain from './ClubMain';
 class ClubList extends Component {
 
   renderClubs = () => {
-    return this.props.clubs.map( club => <ClubSibebar club={club} /> );
+    return this.props.clubs.map( club => <ClubSibebar avatar={club.avatar} name={club.name}/> );
   };
 
   render() {
