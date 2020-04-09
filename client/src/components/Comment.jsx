@@ -1,9 +1,10 @@
 import React from 'react';
+import Avatar from './Avatar';
 
 const Comment = ({username, avatar, content, time}) => {
   return (
     <div className="card-comment">
-      <img src={avatar} alt={username + '\'s avatar'} />
+      <Avatar avatar={avatar} username={username} />
       <strong>{username}</strong> - <p>{time}</p>
       <p>{content}</p>
     </div>
