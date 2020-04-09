@@ -1,7 +1,7 @@
 import React from 'react';
 import Avatar from './Avatar';
 
-const Comment = ({username, avatar, content, time}) => {
+const Comment = ({id, username, avatar, content, time}) => {
   return (
     <div className="card-comment">
       <Avatar avatar={avatar} username={username} />
