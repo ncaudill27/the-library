@@ -12,3 +12,5 @@ class DiscussionContainer extends Component {
     )
   }
 }
+
+export default DiscussionContainer;
