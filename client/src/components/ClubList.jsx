@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import ClubSibebar from './ClubSidebar';
-import ClubMain from './ClubMain';
+import Club from './Club';
 
 class ClubList extends Component {
 
   renderClubs = () => {
-    return this.props.clubs.map( club => <ClubSibebar avatar={club.avatar} name={club.name}/> );
+    return this.props.clubs.map( club => <Club avatar={club.avatar} name={club.name}/> );
   };
 
   render() {

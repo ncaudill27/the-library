@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 class SidebarContainer extends Component {
   render() {
     return (
-      <div className='container-sidebar'>
+      <div className='sidebar'>
         <UserBox />
-        <ClubList clubs={} />
+        <ClubList clubs={} styling='sidebar' />
       </div>
     );
   }
