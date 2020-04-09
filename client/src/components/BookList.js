@@ -6,6 +6,7 @@ class BookList extends Component {
   renderBooks() {
     return this.props.books.map(book => 
         <Book
+          key={book.primary_isbn13}
           title={book.title}
           author={book.author}
           publisher={book.publisher}
