@@ -16,10 +16,10 @@ class MainContainer extends Component {
   fetchClubs() {
       fetch('http://localhost:3001/api/v1/clubs')
       .then(res => res.json())
-      .then(json => this.parsedClubs(json))
+      .then(json => this.parseClubs(json))
   }
 
-  parsedClubs = (json) => {
+  parseClubs = (json) => {
     const clubs = json.data.map(club => {
       return {
         id: club.id,
@@ -39,7 +39,6 @@ class MainContainer extends Component {
         MainContainer
         {/* <NYTimesContainer /> */}
         {/* <GoogleBooksContainer /> */}
-        {/* {this.renderClubs()} */}
         <ClubList clubs={this.state.clubs} />
       </main>
     )
