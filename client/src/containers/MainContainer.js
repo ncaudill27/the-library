@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import NYTimesContainer from './NYTimesContainer';
-import GoogleBooksContainer from './GoogleBooksContainer';
+// import NYTimesContainer from './NYTimesContainer';
+// import GoogleBooksContainer from './GoogleBooksContainer';
 import ClubList from '../components/ClubList';
 
 class MainContainer extends Component {

@@ -3,7 +3,7 @@ import Avatar from './Avatar';
 
 const UserBox = () => (
   <div className='User-box'>
-    {/* <Avatar showing={} avatar={} /> */}
+    <Avatar avatar='' showing=''/>
     <p>Username</p>
     <p>Settings</p>
   </div>

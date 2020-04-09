@@ -4,10 +4,10 @@ import Avatar from './Avatar';
 const Club = ({avatar, name, description}) => (
   <div className='club'>
     <Avatar
-      avatar={avatar || 'https://miro.medium.com/max/720/1*W35QUSvGpcLuxPo3SRTH4w.png'}
+      avatar={avatar}
       showing={name}
     xx/>
-    <h2>{name}</h2>
+    <h3>{name}</h3>
     <p>{description}</p>
   </div>
 );
