@@ -20,15 +20,21 @@
 }
 
 .User-box {
+  top: 0;
   background-color: #BF8176;
+  height: 80px;
 }
 
-.club {
+.User-box h3 {
+  margin: 0px;
+}
+
+.Club {
   text-align: left;
   height: 80px;
 }
 
-.avatar {
+.Avatar {
   height: 80px;
   width: 80px;
   float: left;
