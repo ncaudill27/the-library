@@ -13,8 +13,8 @@ end
 
 10.times do
   Club.create do |c|
-    c.name = Faker::Hipster.words(number: rand(4))
-    c.description = Faker::Hipster.sentences(number: 2)
+    c.name = Faker::Hipster.words(number: 1 + rand(3)).join(' ').capitalize
+    c.description = Faker::Hipster.sentences(number: 2).join('. ')
   end
 end
 
