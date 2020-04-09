@@ -6,7 +6,7 @@ class ClubList extends Component {
 
   renderClubs = () => {
     return this.props.clubs.map( club => <ClubSibebar club={club} /> );
-  }
+  };
 
   render() {
     return (
@@ -17,6 +17,8 @@ class ClubList extends Component {
           <h3>Find Club</h3>
         </div>
       </div>
-    )
+    );
   }
 }
+
+export default ClubList;

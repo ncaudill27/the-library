@@ -7,6 +7,8 @@ class SidebarContainer extends Component {
         <UserBox />
         <ClubList clubs={} />
       </div>
-    )
+    );
   }
 }
+
+export default SidebarContainer;

@@ -5,6 +5,6 @@ const InputField = ({handleSubmit}) => (
     <input type='text' onChange={} />
     <button onClick={handleSubmit} >Click me!</button>
   </div>
-)
+);
 
 export default InputField;

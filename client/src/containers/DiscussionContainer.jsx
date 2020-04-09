@@ -9,7 +9,7 @@ class DiscussionContainer extends Component {
          <CommentList comments={} />
          <InputField handleSubmit={} />
       </div>
-    )
+    );
   }
 }
 

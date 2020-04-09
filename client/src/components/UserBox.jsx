@@ -3,8 +3,10 @@ import Avatar from './Avatar';
 
 const UserBox = () => (
   <div className='user-box'>
-    <Avatar username={} avatar={} />
+    <Avatar showing={} avatar={} />
     <p>Username</p>
     <p>Settings</p>
   </div>
-)
+);
+
+export default UserBox;

@@ -1,5 +1,5 @@
 import React from 'react';
 
-const Avatar = ({username, avatar}) => <img src={avatar} alt={username + '\'s avatar'} />;
+const Avatar = ({showing, avatar}) => <img src={avatar} alt={showing + '\'s avatar'} />;
 
 export default Avatar;
