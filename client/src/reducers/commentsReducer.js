@@ -4,6 +4,8 @@ const initialState = {
 };
 
 const commentsReducer = (state = initialState, action) => {
+  let comment
+
   switch(action.type) {
 
     case "BEGIN_COMMENTS_REQUEST":
@@ -30,12 +32,19 @@ const commentsReducer = (state = initialState, action) => {
       };
 
     case "POST_COMMENT":
-      const {userId, threadId, content} = action.payload
+      comment = action.payload
       const postObj = {
-        userId,
-        threadId,
-        content
-      }
+        id: comment.id,
+        content: comment.content,
+        userId: comment.user_id,
+        threadId: comment.board_id,
+        posted: new Date(comment.created_at)
+      };
+      return {
+        ...state,
+        data: [...state.data, postObj],
+        pending: false
+      };
 
     default:
       return state;

@@ -20,7 +20,7 @@ module Api::V1
       @comment = Comment.new(comment_params)
 
       if @comment.save
-        render json: serialization, status: :created, location: @comment
+        render json: @comment, status: :created # location: @comment
       else
         render json: @comment.errors, status: :unprocessable_entity
       end
@@ -49,7 +49,7 @@ module Api::V1
 
       # Only allow a trusted parameter "white list" through.
       def comment_params
-        params.require(:comment).permit(:user, :club, :board, :content)
+        params.require(:comment).permit(:user_id, :board_id, :content)
       end
 
       def serialization

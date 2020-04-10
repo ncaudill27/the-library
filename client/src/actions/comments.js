@@ -7,9 +7,9 @@ const fetchComments = () => {
   };
 };
 
-const addComments = commentsJSON => ({
+const addComments = comments => ({
   type: "ADD_COMMENTS",
-  comments: commentsJSON
+  comments
 })
 
 const postComment = payload => (
@@ -21,16 +21,17 @@ const postComment = payload => (
         "Content-Type": "application/json",
         "Accept": "application/json"
       },
-      body: payload
+      body: JSON.stringify(payload)
     })
     .then(res => res.json())
-    .then(json => dispatch(acceptPost(json)));
+    .then(json => dispatch(acceptPost(json)))
+    .catch(errors => console.log(errors))
   }
 );
 
-const acceptPost = commentJSON => ({
+const acceptPost = payload => ({
   type: "POST_COMMENT",
-  payload: commentJSON
+  payload
 });
 
 export {
