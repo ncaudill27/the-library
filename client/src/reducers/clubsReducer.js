@@ -16,11 +16,12 @@ const clubsReducer = (state = initialState, action) => {
     case "ADD_CLUBS":
       const clubs = action.clubs.data.map(club => {
         return {
-          id: club.id,
+          id: parseInt(club.id, 10),
           name: club.attributes.name,
           description: club.attributes.description,
-          memberIds: club.relationships.users.data.map(user => user.id),
-          threadIds: club.relationships.boards.data.map(board => board.id),
+          avatar: club.attributes.avatar,
+          memberIds: club.relationships.users.data.map(user => parseInt(user.id, 10)),
+          threadIds: club.relationships.boards.data.map(board => parseInt(board.id)),
         };
       });
       return {

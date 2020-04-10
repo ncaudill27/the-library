@@ -7,7 +7,7 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.string :password_digest
       t.string :avatar
       t.text :bio
-      t.integer :favorite_book_isbn13
+      t.string :favorite_book_isbn13
 
       t.timestamps
     end

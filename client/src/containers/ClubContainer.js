@@ -41,7 +41,7 @@ class ClubContainer extends Component {
   }
   
   render() {
-    const club = this.props.clubs.data.find(club => club.id === this.props.id);
+    const club = this.props.clubs.data.find(club => club.id === parseInt(this.props.id, 10));
     return (
       <div className='Club-container'>
         {this.props.clubs.pending ? <p>loading....</p> : this.renderClub(club)}

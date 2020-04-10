@@ -19,7 +19,7 @@ class ThreadShow extends Component {
   handleSubmit = event => {
     event.preventDefault()
     const payload = {
-      user_id: '32', //Will eventually be currentUser
+      user_id: 32, //Will eventually be currentUser
       board_id: this.props.thread.id,
       content: this.state.content
     };

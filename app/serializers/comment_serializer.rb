@@ -4,4 +4,3 @@ class CommentSerializer < BaseSerializer
   belongs_to :board
   belongs_to :user
 end
-@comment

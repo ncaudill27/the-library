@@ -4,7 +4,7 @@ class CreateClubs < ActiveRecord::Migration[6.0]
       t.string :name
       t.text :description
       t.string :avatar
-      t.integer :active_book_isbn13
+      t.string :active_book_isbn13
 
       t.timestamps
     end

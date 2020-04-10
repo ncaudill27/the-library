@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 2020_04_08_062841) do
     t.string "name"
     t.text "description"
     t.string "avatar"
-    t.integer "active_book_isbn13"
+    t.string "active_book_isbn13"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 2020_04_08_062841) do
     t.string "password_digest"
     t.string "avatar"
     t.text "bio"
-    t.integer "favorite_book_isbn13"
+    t.string "favorite_book_isbn13"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

@@ -9,7 +9,7 @@ function ThreadList({threads, club, comments}) {
   const renderThreads = () => {
     return threads.map(thread => {
       const {id, title} = thread;
-      const threadComments = comments.data.filter(comment => parseInt(id, 10) === comment.threadId);
+      const threadComments = comments.data.filter(comment => id === comment.threadId);
       const lastComment = threadComments.slice(-1)[0]
       // const sluggedName = club.name.replace(/ /g, '-').toLowerCase()
 

@@ -7,7 +7,7 @@ module Api::V1
       @comments = Comment.all
 
       # options = { include: [:users, :comments] }
-      render json: @comments
+      render json: @comments.to_json
     end
 
     # GET /comments/1
