@@ -11,9 +11,8 @@ function ThreadList({threads, club, comments}) {
       const {id, title} = thread;
       const threadComments = comments.data.filter(comment => parseInt(id, 10) === comment.threadId);
       const lastComment = threadComments.slice(-1)[0]
-      const sluggedName = club.name.replace(/ /g, '-').toLowerCase()
-      console.log(threadComments);
-      
+      // const sluggedName = club.name.replace(/ /g, '-').toLowerCase()
+
       return (
         <>
         <Router>

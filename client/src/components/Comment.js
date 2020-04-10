@@ -5,7 +5,7 @@ const Comment = ({id, username, avatar, content, time}) => {
   return (
     <div className="card-comment">
       <Avatar avatar={avatar} showing={username} />
-      <strong>{username}</strong> - <p>{time}</p>
+      <p><strong>{username}</strong> - {time}</p>
       <p>{content}</p>
     </div>
   );

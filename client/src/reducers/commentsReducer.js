@@ -29,6 +29,14 @@ const commentsReducer = (state = initialState, action) => {
         pending: false
       };
 
+    case "POST_COMMENT":
+      const {userId, threadId, content} = action.payload
+      const postObj = {
+        userId,
+        threadId,
+        content
+      }
+
     default:
       return state;
   }

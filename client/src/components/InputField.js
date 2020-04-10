@@ -1,8 +1,8 @@
 import React from 'react';
 
-const InputField = ({handleSubmit}) => (
+const InputField = ({handleChange, handleSubmit}) => (
   <div className='input-field'>
-    <input type='text' onChange='' />
+    <input type='text' onChange={handleChange} />
     <button onClick={handleSubmit} >Click me!</button>
   </div>
 );
