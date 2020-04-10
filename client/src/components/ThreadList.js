@@ -8,7 +8,8 @@ function ThreadList({threads, comments}) {
     return threads.map(thread => {
       const {id, title} = thread;
       const threadComments = comments.data.filter(comment => parseInt(id, 10) === comment.threadId);
-      return <Thread key={id} title={title} comments={threadComments} />;
+      const lastComment = threadComments.slice(-1)[0]
+      return <Thread key={id} title={title} lastComment={lastComment} />;
     });
   };
   
