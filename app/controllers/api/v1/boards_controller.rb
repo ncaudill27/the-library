@@ -3,17 +3,17 @@ module Api::V1
     before_action :set_board, only: [:show, :update, :destroy]
 
     # GET /boards
-    # def index
-    #   @boards = Board.all
+    def index
+      @boards = Board.all
 
-    #   options = { include: [:users, :comments] }
-    #   render json: BoardSerializer.new(@boards, options)
-    # end
+      # options = { include: [:club, :comments] }
+      render json: BoardSerializer.new(@boards)
+    end
 
     # GET /boards/1
-    # def show
-    #   render json: serialization
-    # end
+    def show
+      render json: serialization
+    end
 
     # POST /boards
     def create

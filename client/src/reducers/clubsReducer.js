@@ -4,7 +4,6 @@ const initialState = {
 }
 
 const clubsReducer = (state = initialState, action) => {
-  console.log(action)
   switch(action.type) {
 
     case "BEGIN_CLUBS_REQUEST":
