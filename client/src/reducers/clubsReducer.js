@@ -1,14 +1,15 @@
-const clubsReducer = (state = [], action) => {
-  console.log(action)
+const clubsReducer = (state = { data: [], pending: false }, action) => {
   switch(action.type) {
+
     case "BEGIN_CLUBS_REQUEST":
       return {
         ...state,
+        data: [...state.data],
         pending: true
       };
 
     case "ADD_CLUBS":
-      const clubs = action.clubs.map(club => {
+      const clubs = action.clubs.data.map(club => {
         return {
           id: club.id,
           name: club.attributes.name,
@@ -18,11 +19,14 @@ const clubsReducer = (state = [], action) => {
         }
       });
       return {
-        ...state.concat(clubs),
+        ...state,
+        data: state.data.concat(clubs),
         pending: false
-      }
+      };
 
     default:
       return state;
   }
 }
+
+export default clubsReducer;
