@@ -3,12 +3,12 @@ module Api::V1
     before_action :set_comment, only: [:show, :update, :destroy]
 
     # GET /comments
-    # def index
-    #   @comments = Comment.all
+    def index
+      @comments = Comment.all
 
-    #   options = { include: [:users, :comments] }
-    #   render json: @comments
-    # end
+      # options = { include: [:users, :comments] }
+      render json: @comments
+    end
 
     # GET /comments/1
     # def show

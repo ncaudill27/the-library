@@ -1,5 +1,3 @@
-import clubsReducer from "./clubsReducer"
-
 const initialState = {
   data: [],
   pending: false

@@ -9,6 +9,7 @@ import Header from './components/Header';
 import { fetchClubs } from './actions/clubs';
 import { fetchUsers } from './actions/users';
 import { fetchThreads } from './actions/threads';
+import { fetchComments } from './actions/comments';
 
 class App extends Component {
 
@@ -16,6 +17,7 @@ class App extends Component {
     this.props.fetchClubs()
     this.props.fetchUsers()
     this.props.fetchThreads()
+    this.props.fetchComments()
   }
   render() {
     return (
@@ -28,4 +30,4 @@ class App extends Component {
   }
 }
 
-export default connect(null, { fetchClubs, fetchUsers, fetchThreads })(App);
+export default connect(null, { fetchClubs, fetchUsers, fetchThreads, fetchComments })(App);
