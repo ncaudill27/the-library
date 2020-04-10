@@ -6,7 +6,7 @@ def n
 end
 
 def isbn_13
-  "#{n}#{n}#{n}-#{n}-#{n}#{n}#{n}#{n}#{n}-#{n}#{n}#{n}-#{n}"
+  "978-0-7660-#{n}#{n}#{n}#{n}-#{n}"
 end
 
 10.times do
