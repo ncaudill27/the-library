@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import ThreadList from '../components/ThreadList';
 
 class ClubContainer extends Component {
 
@@ -8,11 +9,12 @@ class ClubContainer extends Component {
       const {name, description} = club
       const members = this.findMembers(club);
       const threads = this.findThreads(club);
-      console.log(threads)
+
       return (
         <>
           <h2>{name}</h2>
           <p>{description}</p>
+          <ThreadList threads={threads} clubName={name} />
         </>
       )
     }
@@ -48,6 +50,6 @@ class ClubContainer extends Component {
   }
 }
 
-const mapStateToProps = ({users, threads, comments}) => ({users, threads, comments})
+const mapStateToProps = ({users, threads}) => ({users, threads})
 
 export default connect(mapStateToProps)(ClubContainer);

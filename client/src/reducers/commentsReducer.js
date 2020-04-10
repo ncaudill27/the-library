@@ -18,9 +18,9 @@ const commentsReducer = (state = initialState, action) => {
         return {
           id: comment.id,
           content: comment.content,
-          user_id: comment.user_id,
-          board_id: comment.board_id,
-          posted: comment.created_at
+          userId: comment.user_id,
+          threadId: comment.board_id,
+          posted: new Date(comment.created_at)
         };
       });
       return {
