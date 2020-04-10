@@ -13,6 +13,17 @@
   text-align: right;
 }
 
+.Navlink {
+  width: 100px;
+  height: 15px;
+  padding: 5px;
+  margin: 5px 6px 6px;
+  text-decoration: none;
+  color: white;
+  background: #4F7178;
+  border-radius: 10px/10px;
+}
+
 .Sidebar {
   position: fixed;
   height: 100vh;

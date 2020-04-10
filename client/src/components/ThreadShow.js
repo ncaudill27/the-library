@@ -36,8 +36,8 @@ class ThreadShow extends Component {
         <InputField
           handleSubmit={this.handleSubmit}
           handleChange={this.handleChange}
-          input={this.state.content}
-          value="Comment"
+          inputValue={this.state.content}
+          submitValue="Comment"
         />
       </div>
     );
