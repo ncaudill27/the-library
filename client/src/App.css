@@ -2,22 +2,24 @@
   text-align: center;
 }
 
-.Main-header {
-  position: absolute;
+.Header {
+  position: sticky;
+  width: calc(100% - 300px);
+  padding: 10px 0px 10px 0px;
+  background-color:#F2DEBD;
+  z-index: 1;
   top: 0px;
-  right: 0px;
   float: right;
 }
 
 .Sidebar {
-  position: sticky;
+  position: fixed;
   margin: 0;
   height: 100vh;
   width: 300px;
   display: block;
   background-color:#E2C18B;
   overflow: auto;
-  top: 0;
   left: 0;
   float: left;
 }

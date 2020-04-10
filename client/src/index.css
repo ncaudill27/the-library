@@ -12,6 +12,7 @@ main {
   display: block;
   margin-left: 300px;
   padding: 50px 100px 0px 40px;
+  z-index: 0;
 }
 
 h3 {

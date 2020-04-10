@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { Switch, Route } from 'react-router-dom';
 import NYTimesContainer from './NYTimesContainer';
 // import GoogleBooksContainer from './GoogleBooksContainer';
 import ClubList from '../components/ClubList';
 import Header from '../components/Header';
+
 
 class MainContainer extends Component {
 
@@ -37,10 +39,13 @@ class MainContainer extends Component {
     console.log(this.state)
     return (
       <main>
-        <Header />
-        {/* <NYTimesContainer /> */}
-        {/* <GoogleBooksContainer /> */}
-        <ClubList clubs={this.state.clubs} />
+        {/* <Header /> */}
+        <Switch>
+          <Route exact path='/clubs' component={() => <ClubList clubs={this.state.clubs} />} />
+          <Route path='/bestsellers' component={NYTimesContainer} />
+          {/* <GoogleBooksContainer /> */}
+
+        </Switch>
       </main>
     )
   }
