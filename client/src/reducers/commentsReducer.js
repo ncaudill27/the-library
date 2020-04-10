@@ -4,7 +4,6 @@ const initialState = {
 };
 
 const commentsReducer = (state = initialState, action) => {
-  console.log(action)
   switch(action.type) {
 
     case "BEGIN_COMMENTS_REQUEST":

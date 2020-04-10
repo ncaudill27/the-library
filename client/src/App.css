@@ -35,14 +35,16 @@
 }
 
 .Club {
+  display: flexbox;
   text-align: left;
-  height: 80px;
+  height: 100px;
   position: relative;
   padding: 10px;
 }
 
 .Club .content {
   position: absolute;
+  height: 60px;
   top: 5px;
   left: 95px;
 }

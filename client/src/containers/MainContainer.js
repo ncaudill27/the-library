@@ -13,9 +13,9 @@ class MainContainer extends Component {
     return (
       <main>
         <Switch>
-          <Route exact path='/clubs' component={() => <ClubList clubs={clubs.data} pending={clubs.pending} />} />
+          <Route exact path='/clubs' component={() => <ClubList clubs={clubs} />} />
           <Route exact path='/clubs/:id' render={({match}) =>
-            <ClubContainer id={match.params.id} clubs={clubs.data} pending={clubs.pending}/>} />
+            <ClubContainer id={match.params.id} clubs={clubs}/>} />
           <Route path='/bestsellers' component={NYTimesContainer} />
         </Switch>
       </main>
