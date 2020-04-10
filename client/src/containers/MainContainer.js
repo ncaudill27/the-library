@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-// import NYTimesContainer from './NYTimesContainer';
+import NYTimesContainer from './NYTimesContainer';
 // import GoogleBooksContainer from './GoogleBooksContainer';
 import ClubList from '../components/ClubList';
+import Header from '../components/Header';
 
 class MainContainer extends Component {
 
@@ -36,7 +37,7 @@ class MainContainer extends Component {
     console.log(this.state)
     return (
       <main>
-        MainContainer
+        <Header />
         {/* <NYTimesContainer /> */}
         {/* <GoogleBooksContainer /> */}
         <ClubList clubs={this.state.clubs} />
