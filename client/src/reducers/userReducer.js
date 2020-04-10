@@ -25,7 +25,6 @@ const usersReducer = (state = initialState, action) => {
           bio: user.attributes.bio,
           clubIds: user.relationships.clubs.data.map(club => club.id),
           commentIds: user.relationships.comments.data.map(comment => comment.id),
-          uri: user.links.self
         };
       });
       return {

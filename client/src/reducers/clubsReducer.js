@@ -4,6 +4,7 @@ const initialState = {
 }
 
 const clubsReducer = (state = initialState, action) => {
+  console.log(action)
   switch(action.type) {
 
     case "BEGIN_CLUBS_REQUEST":
@@ -21,7 +22,6 @@ const clubsReducer = (state = initialState, action) => {
           description: club.attributes.description,
           memberIds: club.relationships.users.data.map(user => user.id),
           threadIds: club.relationships.boards.data.map(board => board.id),
-          uri: club.links.self
         };
       });
       return {

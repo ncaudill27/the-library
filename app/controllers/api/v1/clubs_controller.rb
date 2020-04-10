@@ -55,7 +55,7 @@ module Api::V1
       def serialization
         options = {
           include: [:users, :club_users, :boards],
-          links: {link: request.base_url + "/clubs/#{@club.id}"}
+          links: {uri: request.base_url + "/clubs/#{@club.id}"}
         }
         serialize(@club, options)
       end
