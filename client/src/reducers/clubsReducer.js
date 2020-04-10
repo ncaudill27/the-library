@@ -1,4 +1,9 @@
-const clubsReducer = (state = { data: [], pending: false }, action) => {
+const initialState = {
+  data: [],
+  pending: false 
+}
+
+const clubsReducer = (state = initialState, action) => {
   switch(action.type) {
 
     case "BEGIN_CLUBS_REQUEST":
@@ -15,7 +20,8 @@ const clubsReducer = (state = { data: [], pending: false }, action) => {
           name: club.attributes.name,
           description: club.attributes.description,
           memberIds: club.relationships.users.data.map(user => user.id),
-          threadIds: club.relationships.boards.data.map(board => board.id)
+          threadIds: club.relationships.boards.data.map(board => board.id),
+          uri: club.links.self
         };
       });
       return {
@@ -26,7 +32,7 @@ const clubsReducer = (state = { data: [], pending: false }, action) => {
 
     default:
       return state;
-  }
-}
+  };
+};
 
 export default clubsReducer;

@@ -5,11 +5,13 @@ import MainContainer from './containers/MainContainer';
 import Header from './components/Header';
 import { connect } from 'react-redux';
 import { fetchClubs } from './actions/clubs';
+import { fetchUsers } from './actions/users';
 
 class App extends Component {
 
   componentDidMount() {
     this.props.fetchClubs()
+    this.props.fetchUsers()
   }
   render() {
     return (
@@ -22,4 +24,4 @@ class App extends Component {
   }
 }
 
-export default connect(null, { fetchClubs })(App);
+export default connect(null, { fetchClubs, fetchUsers })(App);
