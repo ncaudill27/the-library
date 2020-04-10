@@ -3,6 +3,8 @@ class CreateClubs < ActiveRecord::Migration[6.0]
     create_table :clubs do |t|
       t.string :name
       t.text :description
+      t.string :avatar
+      t.integer :active_book_isbn13
 
       t.timestamps
     end

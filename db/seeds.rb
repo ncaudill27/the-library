@@ -1,6 +1,14 @@
 User.destroy_all
 Club.destroy_all
 
+def n
+  Faker::Number.number(digits: 1)
+end
+
+def isbn_13
+  "#{n}#{n}#{n}-#{n}-#{n}#{n}#{n}#{n}#{n}-#{n}#{n}#{n}-#{n}"
+end
+
 10.times do
   User.create do |u|
     u.name = Faker::Cannabis.strain
@@ -8,6 +16,8 @@ Club.destroy_all
     u.email = Faker::Internet.email
     u.password = "password"
     u.bio = Faker::Lorem.sentence(word_count: 10)
+    u.avatar = Faker::Avatar.image
+    u.favorite_book_isbn13 = isbn_13
   end
 end
 
@@ -15,6 +25,8 @@ end
   Club.create do |c|
     c.name = Faker::Hipster.words(number: 1 + rand(3)).join(' ').capitalize
     c.description = Faker::Hipster.sentences(number: 2).join('. ')
+    c.avatar = Faker::Avatar.image
+    c.active_book_isbn13 = isbn_13
   end
 end
 
@@ -31,6 +43,7 @@ Club.all.each do |c|
     end
   end
 end
+
 
 
 
