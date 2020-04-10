@@ -1,25 +1,27 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Thread from './Thread';
 import ThreadShow from './ThreadShow';
 
-function ThreadList({threads, clubName, comments}) {
+function ThreadList({threads, club, comments}) {
 
   const renderThreads = () => {
     return threads.map(thread => {
       const {id, title} = thread;
       const threadComments = comments.data.filter(comment => parseInt(id, 10) === comment.threadId);
       const lastComment = threadComments.slice(-1)[0]
-      const sluggedName = clubName.replace(/ /g, '-').toLowerCase()
+      const sluggedName = club.name.replace(/ /g, '-').toLowerCase()
       console.log(threadComments);
       
       return (
         <>
         <Router>
-          <Route exact path={`/${sluggedName}/:id`} render={({match}) =>
-            <ThreadShow key={match.params.id} thread={thread} comments={threadComments} clubSlug={sluggedName} />} />
-          <Thread key={id} id={id} title={title} lastComment={lastComment} clubSlug={sluggedName} />
+          <Switch>
+            <Route exact path={`/clubs/${club.id}/thread/:id`} render={({match}) =>
+              <ThreadShow key={match.params.id} thread={thread} comments={threadComments} club={club} />} />
+            <Thread key={id} id={id} title={title} lastComment={lastComment} club={club} />
+          </Switch>
         </Router>
         </>
       )

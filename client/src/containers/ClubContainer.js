@@ -14,7 +14,7 @@ class ClubContainer extends Component {
         <>
           <h2>{name}</h2>
           <p>{description}</p>
-          <ThreadList threads={threads} clubName={name} />
+          <ThreadList threads={threads} club={club} />
         </>
       )
     }

@@ -1,13 +1,13 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const Thread = ({id, title, lastComment, clubSlug}) => {
+const Thread = ({id, title, lastComment, club}) => {
   const lastUpdate = lastComment.posted.toLocaleString('en-US')
   return (
     <div className='Thread'>
       <h3>
         <NavLink
-          to={`/${clubSlug}/${id}`}
+          to={`/clubs/${club.id}/thread/${id}`}
           exact
         >{title}</NavLink>
       </h3>
