@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import NYTimesContainer from './NYTimesContainer';
 import ClubList from '../components/ClubList';
+import ClubContainer from './ClubContainer';
 
 class MainContainer extends Component {
 
@@ -37,6 +38,8 @@ class MainContainer extends Component {
       <main>
         <Switch>
           <Route exact path='/clubs' component={() => <ClubList clubs={this.state.clubs} />} />
+          <Route exact path='/clubs/:id' render={({match}) =>
+            <ClubContainer id={match.params.id} clubs={this.state.clubs} />} />
           <Route path='/bestsellers' component={NYTimesContainer} />
         </Switch>
       </main>

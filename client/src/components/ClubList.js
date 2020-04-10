@@ -4,15 +4,24 @@ import Club from './Club';
 class ClubList extends Component {
 
   renderClubs = () => {
-    return this.props.clubs.map( club => <Club avatar={club.avatar} name={club.name} description={club.description}/> );
+    return this.props.clubs.map(({id, name, avatar, description})=>
+      <Club
+        key={id}
+        id={id}
+        avatar={avatar}
+        name={name}
+        description={description}
+      />
+    );
   };
 
   render() {
     return (
-      <div className='list-clubs'>
+      <div className='Clubs-list'>
         <h2>Clubs</h2>
         {this.renderClubs()}
-        {/* <div className='find-club' onClick={}>
+        {/* Render Find Club Button if on sidebar */}
+        {/* <div className='find-club' onClick=''>
           <h3>Find Club</h3>
         </div> */}
       </div>
