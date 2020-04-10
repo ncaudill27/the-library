@@ -16,7 +16,7 @@ const clubsReducer = (state = { data: [], pending: false }, action) => {
           description: club.attributes.description,
           memberIds: club.relationships.users.data.map(user => user.id),
           threadIds: club.relationships.boards.data.map(board => board.id)
-        }
+        };
       });
       return {
         ...state,

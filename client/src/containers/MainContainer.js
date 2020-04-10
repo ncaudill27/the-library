@@ -1,45 +1,21 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 import NYTimesContainer from './NYTimesContainer';
 import ClubList from '../components/ClubList';
 import ClubContainer from './ClubContainer';
 
 class MainContainer extends Component {
 
-  state = {
-    clubs: []
-  }
-
-  componentDidMount() {
-    this.fetchClubs()
-  }
-
-  fetchClubs() {
-      fetch('http://localhost:3001/api/v1/clubs')
-      .then(res => res.json())
-      .then(json => this.parseClubs(json))
-  }
-
-  parseClubs = (json) => {
-    const clubs = json.data.map(club => {
-      return {
-        id: club.id,
-        name: club.attributes.name,
-        description: club.attributes.description
-      }
-    })
-    this.setState({
-      clubs
-    })
-  }
-    
   render() {
+    const {clubs} = this.props
+
     return (
       <main>
         <Switch>
-          <Route exact path='/clubs' component={() => <ClubList clubs={this.state.clubs} />} />
+          <Route exact path='/clubs' component={() => <ClubList clubs={clubs.data} pending={clubs.pending} />} />
           <Route exact path='/clubs/:id' render={({match}) =>
-            <ClubContainer id={match.params.id} clubs={this.state.clubs} />} />
+            <ClubContainer id={match.params.id} clubs={clubs.data} pending={clubs.pending}/>} />
           <Route path='/bestsellers' component={NYTimesContainer} />
         </Switch>
       </main>
@@ -47,4 +23,6 @@ class MainContainer extends Component {
   }
 }
 
-export default MainContainer;
+const mapStateToProps = ({clubs}) => ({clubs})
+
+export default connect(mapStateToProps)(MainContainer);
