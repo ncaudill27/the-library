@@ -10,11 +10,11 @@
   z-index: 1;
   top: 0px;
   float: right;
+  text-align: right;
 }
 
 .Sidebar {
   position: fixed;
-  margin: 0;
   height: 100vh;
   width: 300px;
   display: block;
