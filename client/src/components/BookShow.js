@@ -32,7 +32,7 @@ class BookShow extends Component {
       <div className='details'>
         <h3>{title}</h3>
         <h3>By: { authors ? [...authors].join(', ') : ''}</h3>
-        <p><StarRating count={averageRating} /></p>
+        { averageRating > 0 ? <StarRating count={averageRating} /> : null}
         <p>Categories: { categories ? [...categories].join(', ') : ''}</p>
         <p>Published: {publishedDate}</p>
         <p>Publisher: {publisher}</p>
