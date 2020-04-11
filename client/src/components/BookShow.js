@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Star from './Star';
 
 class BookShow extends Component {
 
@@ -7,7 +8,7 @@ class BookShow extends Component {
   }
   
   componentDidMount() {
-    this.fetchReview()
+    // this.fetchReview()
   }
   
   fetchReview = () => {
@@ -37,7 +38,12 @@ class BookShow extends Component {
       <p>{description}</p>
       </>
     );} else {
-      return <h2>Loading...</h2>
+      // let rating = document.createElement('div')
+      // rating.setAttribute('class', 'rating')
+      // let i 
+      // for (i = 0; i < 4; i++) {
+      //   return <Star />
+      // }
     }
   }
   
@@ -45,6 +51,7 @@ class BookShow extends Component {
     return (
       <div className='Book-show'>
         {this.renderBook(this.state.bookData)}
+        <Star />
       </div>
     )
   }
