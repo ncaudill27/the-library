@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Star from './Star';
+import StarRating from './StarRating';
 
 class BookShow extends Component {
 
@@ -51,7 +51,7 @@ class BookShow extends Component {
     return (
       <div className='Book-show'>
         {this.renderBook(this.state.bookData)}
-        <Star />
+        <StarRating count={4} />
       </div>
     )
   }
