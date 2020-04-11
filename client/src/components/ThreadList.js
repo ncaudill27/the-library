@@ -10,16 +10,14 @@ function ThreadList({threads, club, comments}) {
     return threads.map(thread => {
       const {id, title} = thread;
       const threadComments = comments.data.filter(comment => id === comment.threadId);
-      const lastComment = threadComments.slice(-1)[0]
       // const sluggedName = club.name.replace(/ /g, '-').toLowerCase()
-
       return (
         <>
         <Router>
           <Switch>
             <Route exact path={`/clubs/${club.id}/thread/:id`} render={({match}) =>
               <ThreadShow key={match.params.id} thread={thread} comments={threadComments} club={club} />} />
-            <Thread key={id} id={id} title={title} lastComment={lastComment} club={club} />
+            <Thread key={id} id={id} title={title} club={club} comments={threadComments} />
           </Switch>
         </Router>
         </>

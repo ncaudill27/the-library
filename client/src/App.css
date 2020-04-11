@@ -2,15 +2,10 @@
   text-align: center;
 }
 
-.Header {
-  position: sticky;
-  width: calc(100% - 300px);
-  padding: 10px 0px 10px 0px;
-  background-color:#F2DEBD;
-  z-index: 1;
-  top: 0px;
-  float: right;
-  text-align: right;
+.Avatar {
+  height: 80px;
+  width: 80px;
+  float: left;
 }
 
 .Navlink {
@@ -19,9 +14,12 @@
   padding: 5px;
   margin: 5px 6px 6px;
   text-decoration: none;
+  border-radius: 10px;
+}
+
+.Navlink:hover {
   color: white;
   background: #4F7178;
-  border-radius: 10px/10px;
 }
 
 .Sidebar {
@@ -46,22 +44,39 @@
 }
 
 .Club {
-  display: flexbox;
-  text-align: left;
   height: 100px;
   position: relative;
   padding: 10px;
 }
 
-.Club .content {
+.content {
   position: absolute;
   height: 60px;
   top: 5px;
   left: 95px;
 }
 
-.Avatar {
+.card-comment {
   height: 80px;
-  width: 80px;
-  float: left;
+  margin: 5px;
+  border-radius: 10px;
+}
+
+.card-comment:hover {
+  background: #E4AF8E;
+}
+
+.Thread-card {
+  background-color: #E2C18B;
+  border-radius: 10px;
+}
+
+.Thread-card h3 {
+  padding: 10px;
+  text-align: center;
+  width: auto;
+  height: auto;
+  color: white;
+  background: #4F7178;
+  border-radius: 10px;
 }

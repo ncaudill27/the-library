@@ -10,6 +10,7 @@ const Club = ({id, avatar, name, description, members}) => (
         <NavLink
           to={`/clubs/${id}`}
           exact
+          className='Navlink'
           >{name}</NavLink>
       </h3>
       <p>{description} <br/> {members.length} members </p>
