@@ -100,3 +100,21 @@
   width: 11em;
   margin-right: 1em;
 }
+
+.Rating {
+  height: 40px;
+  position: relative;
+}
+
+.Stars {
+  position: absolute;
+  padding: 5px;
+  background-color: #4F7178;
+  border-radius: 10px;
+  top: 3px;
+}
+
+.Star {
+  height: 30px;
+  width: 30px;
+}

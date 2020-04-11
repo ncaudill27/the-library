@@ -11,7 +11,13 @@ const StarRating = ({count}) => {
     return rating
   }
   
-  return convertToStars()
+  return (
+    <div className='Rating'>
+      <div className='Stars'>
+        {convertToStars()}
+      </div>
+    </div>
+  )
 }
 
 export default StarRating;

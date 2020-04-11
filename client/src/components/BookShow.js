@@ -8,7 +8,7 @@ class BookShow extends Component {
   }
   
   componentDidMount() {
-    // this.fetchReview()
+    this.fetchReview()
   }
   
   fetchReview = () => {
@@ -31,19 +31,14 @@ class BookShow extends Component {
       <img src={ imageLinks ? imageLinks.thumbnail : ''} alt={title + " Cover Art"} />
       <h2>{title}</h2>
       <h3>By: { authors ? [...authors].join(', ') : ''}</h3>
-      <p>Average Rating: {averageRating}</p>
+      <p><StarRating count={averageRating} /></p>
       <p>Categories: { categories ? [...categories].join(', ') : ''}</p>
       <p>Published: {publishedDate}</p>
       <p>Publisher: {publisher}</p>
       <p>{description}</p>
       </>
     );} else {
-      // let rating = document.createElement('div')
-      // rating.setAttribute('class', 'rating')
-      // let i 
-      // for (i = 0; i < 4; i++) {
-      //   return <Star />
-      // }
+      return <h3>Loading</h3>
     }
   }
   
@@ -51,7 +46,6 @@ class BookShow extends Component {
     return (
       <div className='Book-show'>
         {this.renderBook(this.state.bookData)}
-        <StarRating count={4} />
       </div>
     )
   }
