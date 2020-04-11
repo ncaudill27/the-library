@@ -16,8 +16,8 @@ const Thread = ({id, title, comments, club, users}) => {
           exact
           className='Navlink'
         >{title}</NavLink>
-      </h3>
-      <strong>Last comment:</strong>
+      </h3><br/>
+      <p>Last comment:</p>
       { user
         ? <Comment avatar={user.avatar} username={user.username} content={content} time={posted.toLocaleString()} />
         : <p>loading...</p>

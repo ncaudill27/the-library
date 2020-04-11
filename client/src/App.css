@@ -14,6 +14,7 @@
   padding: 5px;
   margin: 5px 6px 6px;
   text-decoration: none;
+  color: black;
   border-radius: 10px;
 }
 
@@ -59,11 +60,14 @@
 .card-comment {
   height: 80px;
   margin: 5px;
-  border-radius: 10px;
+
 }
 
-.card-comment:hover {
+.card-comment:hover,
+.Book:hover,
+.Club:hover {
   background: #E4AF8E;
+  border-radius: 10px;
 }
 
 .Thread-card {
@@ -79,4 +83,20 @@
   color: white;
   background: #4F7178;
   border-radius: 10px;
+}
+
+.Book {
+  height: 16em;
+  padding: 1em;
+}
+
+.details {
+  margin-top: 4em;
+}
+
+.Book img {
+  float: left;
+  height: 16em;
+  width: 10em;
+  margin-right: 1em;
 }

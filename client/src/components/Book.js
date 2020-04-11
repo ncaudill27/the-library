@@ -2,12 +2,14 @@ import React from 'react';
 
 function Book(props) {
   return (
-    <li>
-      <h3>{props.title}</h3>
+    <div className='Book'>
       <img src={props.src} alt={props.title + " Cover Picture"} />
-      <h4>{props.author}</h4>
-      <p>{props.description}</p>
-    </li>
+      <div className='details'>
+        <h3>{props.title}</h3>
+        <h3>By: {props.author}</h3>
+        <p>{props.description}</p>
+      </div>
+    </div>
   );
 }
 

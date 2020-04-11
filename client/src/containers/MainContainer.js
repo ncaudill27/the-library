@@ -16,7 +16,7 @@ class MainContainer extends Component {
           <Route exact path='/clubs' component={() => <ClubList clubs={clubs} />} />
           <Route exact path='/clubs/:id' render={({match}) =>
             <ClubContainer id={match.params.id} clubs={clubs}/>} />
-          <Route path='/bestsellers' component={NYTimesContainer} />
+          {/* <Route path='/bestsellers' component={NYTimesContainer} /> */}
         </Switch>
       </main>
     )

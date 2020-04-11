@@ -21,9 +21,9 @@ class BookList extends Component {
 
   render() {
     return (
-      <ul>
+      <div className='Book-list'>
         {this.renderBooks()}
-      </ul>
+      </div>
     );
   }
 }
