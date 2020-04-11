@@ -28,13 +28,15 @@ class BookShow extends Component {
 
     return (
       <>
-      <img src={ imageLinks ? imageLinks.thumbnail : ''} alt={title + " Cover Art"} />
-      <h2>{title}</h2>
-      <h3>By: { authors ? [...authors].join(', ') : ''}</h3>
-      <p><StarRating count={averageRating} /></p>
-      <p>Categories: { categories ? [...categories].join(', ') : ''}</p>
-      <p>Published: {publishedDate}</p>
-      <p>Publisher: {publisher}</p>
+      <img id='book' src={ imageLinks ? imageLinks.thumbnail : ''} alt={title + " Cover Art"} />
+      <div className='details'>
+        <h3>{title}</h3>
+        <h3>By: { authors ? [...authors].join(', ') : ''}</h3>
+        <p><StarRating count={averageRating} /></p>
+        <p>Categories: { categories ? [...categories].join(', ') : ''}</p>
+        <p>Published: {publishedDate}</p>
+        <p>Publisher: {publisher}</p>
+      </div>
       <p>{description}</p>
       </>
     );} else {

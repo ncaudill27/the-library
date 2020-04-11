@@ -90,7 +90,7 @@
   padding: 1em;
 }
 
-.details {
+.Book .details {
   margin-top: 4em;
 }
 
@@ -99,6 +99,17 @@
   height: 16em;
   width: 11em;
   margin-right: 1em;
+}
+
+img#book {
+  margin: 15px;
+  float: left;
+}
+
+.Book-show .details {
+  /* float: right; */
+  padding-top: 10px;
+  margin-left: 160px;
 }
 
 .Rating {
@@ -111,7 +122,7 @@
   padding: 5px;
   background-color: #4F7178;
   border-radius: 10px;
-  top: 3px;
+  top: 4px;
 }
 
 .Star {
