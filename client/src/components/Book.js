@@ -1,13 +1,20 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
-function Book(props) {
+function Book({title, author, description, src, isbn13}) {
   return (
     <div className='Book'>
-      <img src={props.src} alt={props.title + " Cover Picture"} />
+      <img src={src} alt={title + " Cover Picture"} />
       <div className='details'>
-        <h3>{props.title}</h3>
-        <h3>By: {props.author}</h3>
-        <p>{props.description}</p>
+        <h3>
+          <NavLink
+            to={`/bestsellers/${isbn13}`}
+            exact
+            className='Navlink'
+          >{title}</NavLink>
+        </h3>
+        <h3>By: {author}</h3>
+        <p>{description}</p>
       </div>
     </div>
   );

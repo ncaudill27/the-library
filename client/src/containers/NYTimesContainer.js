@@ -95,6 +95,7 @@ class NYTimesContainer extends Component {
   }
   
   render() {
+    console.log(this.state);
     return (
       <div>
         <h1>New York Times Best Sellers</h1>
