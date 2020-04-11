@@ -1,6 +1,6 @@
 import React from 'react';
 
-const InputField = ({handleChange, handleSubmit, inputValue, submitValue}) => (
+const FormField = ({handleChange, handleSubmit, inputValue, submitValue}) => (
   <div className='input-field'>
     <form onSubmit={handleSubmit}>
       <input type='text' onChange={handleChange} value={inputValue} />
@@ -9,4 +9,4 @@ const InputField = ({handleChange, handleSubmit, inputValue, submitValue}) => (
   </div>
 );
 
-export default InputField;
+export default FormField;

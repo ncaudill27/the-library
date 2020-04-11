@@ -7,7 +7,7 @@ class DiscussionContainer extends Component {
       <div className='container-discussion'>
         <h2>Discussion</h2>
          <CommentList comments={} />
-         <InputField handleSubmit={} />
+         <FormField handleSubmit={} />
       </div>
     );
   }

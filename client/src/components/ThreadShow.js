@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import InputField from './InputField';
+import FormField from './FormField';
 import CommentList from './CommentList';
 import { postComment } from '../actions/comments';
 
@@ -33,7 +33,7 @@ class ThreadShow extends Component {
       <div className='Thread-card'>
         <h3>{thread.title}</h3>
         <CommentList comments={comments} users={users.data} />
-        <InputField
+        <FormField
           handleSubmit={this.handleSubmit}
           handleChange={this.handleChange}
           inputValue={this.state.content}

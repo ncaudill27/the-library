@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import InputField from './InputField';
+import FormField from './FormField';
 
 class LoginForm extends Component {
 
@@ -8,7 +8,7 @@ class LoginForm extends Component {
     return (
       <div className='Login-form'>
 
-        <InputField
+        <FormField
            handleChange={this.handleChange}
            handleSubmit={this.handleSubmit}
            inputValue={this.state.input}
