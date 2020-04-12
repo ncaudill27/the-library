@@ -3,6 +3,10 @@ import FormField from './FormField';
 
 class LoginForm extends Component {
 
+  state = {
+    username: '',
+    password: ''
+  }
   
   render() {
     return (

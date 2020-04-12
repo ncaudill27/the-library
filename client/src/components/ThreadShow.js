@@ -12,8 +12,8 @@ class ThreadShow extends Component {
 
   handleChange = event => {
     this.setState({
-      comment: event.target.value
-    });
+      [event.target.name]: event.target.value
+    }, ()=> console.log(this.state));
   };
 
   handleSubmit = event => {
@@ -36,6 +36,7 @@ class ThreadShow extends Component {
         <FormField
           handleSubmit={this.handleSubmit}
           handleChange={this.handleChange}
+          inputNames={{1: 'comment'}}
           inputValues={{1: this.state.comment}}
           submitValue="Comment"
         />
