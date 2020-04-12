@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  post 'auth_user' => 'authentication#authenticate_user'
+  post 'login' => 'authentication#login'
   
   namespace :api do
     namespace :v1 do
