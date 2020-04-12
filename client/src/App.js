@@ -10,6 +10,7 @@ import { fetchClubs } from './actions/clubs';
 import { fetchUsers } from './actions/users';
 import { fetchThreads } from './actions/threads';
 import { fetchComments } from './actions/comments';
+import { Redirect } from 'react-router-dom';
 
 class App extends Component {
 
@@ -51,6 +52,7 @@ class App extends Component {
         commentIds: userData.relationships.comments.data.map(comment => comment.id),
       }
     })
+    // <Redirect />
   }
   
   componentDidMount() {
