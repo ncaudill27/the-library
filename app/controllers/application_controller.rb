@@ -17,7 +17,7 @@ class ApplicationController < ActionController::API
   def session_user
     decoded_hash = decoded_token
     if !decoded_hash.empty?
-      user_id = decoded_hash.first[:user_id]
+      user_id = decoded_hash[:ok][:user_id]
       @user = User.find_by(id: user_id)
     else
       nil
@@ -25,7 +25,7 @@ class ApplicationController < ActionController::API
   end
 
   def auth_header
-    request.headers[:Authorization]
+    request.headers['Authorization']
   end
 
   def decoded_token

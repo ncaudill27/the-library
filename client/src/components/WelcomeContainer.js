@@ -14,8 +14,11 @@ class WelcomeContainer extends React.Component {
     } 
     fetch('/auth/login', requestObj)
     .then(res => res.json())
-    .then(user => {
-      console.log(user.auth_token, user.success)
+    .then(response => {
+      if (response.failure) return console.log(response.failure); //TODO Handle this
+      localStorage.setItem('token', response.auth_token)
+      localStorage.setItem('currentUser', response.user.data.id)
+      // <FlashMessage message{response} />
     })
     .catch(errors => console.log(errors)); 
   }
