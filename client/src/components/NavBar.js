@@ -14,6 +14,12 @@ const NavBar = () =>
       exact
       className='Navlink'
     >Clubs</NavLink>
+
+    <NavLink
+    to='/'
+    exact
+    className='Navlink'
+    >Home</NavLink>
   </div>;
 
 export default NavBar;

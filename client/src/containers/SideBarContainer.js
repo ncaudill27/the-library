@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
 import UserBox from '../components/UserBox';
+import { connect } from 'react-redux';
 
 class SidebarContainer extends Component {
   render() {
+    const userId = localStorage.getItem('currentUser')
+    const user = this.props.users.data.find(user => user.id == userId)  
     return (
       <div className='Sidebar'>
-        <UserBox />
+        { user ? <UserBox user={user} /> : null}
         {/* <ClubList clubs={} styling='sidebar' /> */}
       </div>
     );
   }
 }
 
-export default SidebarContainer;
+const mapStateToProps = ({users}) => ({users});
+
+export default connect(mapStateToProps)(SidebarContainer);

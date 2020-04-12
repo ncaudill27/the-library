@@ -16,10 +16,10 @@ const threadsReducer = (state = initialState, action) => {
     case "ADD_THREADS":
       const threads = action.threads.data.map(thread => {
         return {
-          id: parseInt(thread.id, 10),
+          id: thread.id,
           title: thread.attributes.title,
-          clubId: parseInt(thread.relationships.club.data.id, 10),
-          commentIds: thread.relationships.comments.data.map(comment => parseInt(comment.id, 10))
+          clubId: thread.relationships.club.data.id,
+          commentIds: thread.relationships.comments.data.map(comment => comment.id)
         };
       });
       return {

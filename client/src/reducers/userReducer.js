@@ -16,15 +16,15 @@ const usersReducer = (state = initialState, action) => {
     case "ADD_USERS":
       const users = action.users.data.map(user=> {
         return {
-          id: parseInt(user.id, 10),
+          id: user.id,
           name: user.attributes.name,
           username: user.attributes.username,
           email: user.attributes.email,
           bio: user.attributes.bio,
           avatar: user.attributes.avatar,
           currentFavorite: user.attributes.favorite_book_isbn13,
-          clubIds: user.relationships.clubs.data.map(club => parseInt(club.id, 10)),
-          commentIds: user.relationships.comments.data.map(comment => parseInt(comment.id, 10)),
+          clubIds: user.relationships.clubs.data.map(club => club.id),
+          commentIds: user.relationships.comments.data.map(comment => comment.id),
         };
       });
       return {

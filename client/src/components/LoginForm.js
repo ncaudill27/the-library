@@ -18,6 +18,10 @@ class LoginForm extends Component {
     e.preventDefault()
     const payload = this.state
     this.props.loginRequest(payload);
+    this.setState({
+      username: '',
+      password: ''
+    })
   }
 
   render() {

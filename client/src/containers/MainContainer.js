@@ -14,15 +14,15 @@ class MainContainer extends Component {
 
     return (
       <main>
-        <WelcomeContainer />
-        {/* <Switch>
+        <Switch>
+          <Route exact path='/' component={WelcomeContainer} />
           <Route exact path='/clubs' component={() => <ClubList clubs={clubs} />} />
           <Route exact path='/clubs/:id' render={({match}) =>
             <ClubContainer id={match.params.id} clubs={clubs}/>} />
           <Route exact path='/bestsellers' component={NYTimesContainer} />
           <Route exact path={`/bestsellers/:isbn`} render={({match}) =>
             <BookShow isbn={match.params.isbn} />} />
-        </Switch> */}
+        </Switch>
       </main>
     )
   }
