@@ -23,7 +23,7 @@ const loginRequest = payload => {
   }  
   return dispatch => {
     dispatch({type: "BEGIN_USERS_REQUEST"});
-    fetch('/sessions', requestObj)
+    fetch('/auth/login', requestObj)
     .then(res => res.json())
     .then(user => dispatch(loginUser(user)))
     .catch(errors => console.log(errors));

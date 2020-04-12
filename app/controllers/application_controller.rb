@@ -11,7 +11,7 @@ class ApplicationController < ActionController::API
   end
 
   def encode_token(payload)
-    JWT.encode(payload, Rails.application.secrets.secret_key_base)
+    JsonWebToken.sign(payload, key: Rails.application.secrets.secret_key_base)
   end
 
   def session_user
@@ -25,14 +25,15 @@ class ApplicationController < ActionController::API
   end
 
   def auth_header
-    request.header[:Authorization]
+    request.headers[:Authorization]
   end
 
   def decoded_token
     if auth_header
       token = auth_header.split(' ').last
       begin
-        JWT.decode(token, Rails.application.secrets.secret_key_base, true, 'HS256')
+        opts = { alg: 'HS256', key: Rails.application.secrets.secret_key_base}
+        JsonWebToken.verify(token, opts)
       rescue JWT::DecodeError
         []
       end
