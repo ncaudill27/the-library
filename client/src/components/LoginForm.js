@@ -17,6 +17,8 @@ class LoginForm extends Component {
   handleSubmit = e => {
     e.preventDefault()
     const payload = this.state
+    console.log(payload);
+    
   }
   
   render() {
