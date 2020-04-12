@@ -16,13 +16,13 @@ const commentsReducer = (state = initialState, action) => {
       };
 
     case "ADD_COMMENTS":
-      const comments = action.comments.map(comment => {
+      const comments = action.comments.data.map(comment => {
         return {
           id: comment.id,
-          content: comment.content,
-          userId: comment.user_id,
-          threadId: comment.board_id,
-          posted: new Date(comment.created_at)
+          content: comment.attributes.content,
+          userId: comment.relationships.user.data.id,
+          threadId: comment.relationships.board.data.id,
+          posted: new Date(comment.attributes.created_at)
         };
       });
       return {
@@ -32,13 +32,14 @@ const commentsReducer = (state = initialState, action) => {
       };
 
     case "POST_COMMENT":
-      comment = action.payload
+      console.log(action.payload)
+      comment = action.payload.data
       const postObj = {
         id: comment.id,
-        content: comment.content,
-        userId: comment.user_id,
-        threadId: comment.board_id,
-        posted: new Date(comment.created_at)
+        content: comment.attributes.content,
+        userId: comment.relationships.user.data.id,
+        threadId: comment.relationships.board.data.id,
+        posted: new Date(comment.attributes.created_at)
       };
       return {
         ...state,

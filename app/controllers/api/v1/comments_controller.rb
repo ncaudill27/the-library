@@ -7,7 +7,7 @@ module Api::V1
       @comments = Comment.all
 
       # options = { include: [:users, :comments] }
-      render json: @comments.to_json
+      render json: CommentSerializer.new(@comments)
     end
 
     # GET /comments/1
@@ -20,7 +20,7 @@ module Api::V1
       @comment = Comment.new(comment_params)
 
       if @comment.save
-        render json: @comment, status: :created # location: @comment
+        render json: CommentSerializer.new(@comment), status: :created # location: @comment
       else
         render json: @comment.errors, status: :unprocessable_entity
       end
@@ -29,7 +29,7 @@ module Api::V1
     # PATCH/PUT /comments/1
     def update
       if @comment.update(comment_params)
-        render json: serialization
+        render json: CommentSerializer.new(@comment)
       else
         render json: @comment.errors, status: :unprocessable_entity
       end
@@ -50,14 +50,6 @@ module Api::V1
       # Only allow a trusted parameter "white list" through.
       def comment_params
         params.require(:comment).permit(:user_id, :board_id, :content)
-      end
-
-      def serialization
-        options = {
-          include: [:board, :user],
-          links: { uri: request.base_url + "/comments/#{@comment.id}"}
-        }
-        serialize(@comment, options)
       end
   end
 end

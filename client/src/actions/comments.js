@@ -30,6 +30,7 @@ const postComment = payload => (
 );
 
 const acceptPost = payload => ({
+  
   type: "POST_COMMENT",
   payload
 });

@@ -3,6 +3,10 @@ import LoginForm from './LoginForm';
 
 class WelcomeContainer extends React.Component {
 
+  state = {
+    currentUser: {}
+  }
+
   loginRequest = payload => {
     const requestObj = {
       'method': 'POST',
