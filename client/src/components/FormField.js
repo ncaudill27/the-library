@@ -10,7 +10,7 @@ const FormField = ({inputNames, inputValues, submitValue, handleChange, handleSu
     }
     return inputs
   }
-  
+
   return (
     <div className='input-field'>
         <form onSubmit={handleSubmit}>

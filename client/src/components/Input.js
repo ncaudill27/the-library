@@ -5,4 +5,4 @@ const Input = ({name, value, onChange}) =>
   ? <input name={name} type='password' onChange={onChange} value={value} />
   : <input name={name} type='text' onChange={onChange} value={value} />
 
-export default Input;
+export default Input
