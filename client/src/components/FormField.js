@@ -1,12 +1,24 @@
 import React from 'react';
+import Input from './Input';
 
-const FormField = ({handleChange, handleSubmit, inputValue, submitValue}) => (
-  <div className='input-field'>
-    <form onSubmit={handleSubmit}>
-      <input type='text' onChange={handleChange} value={inputValue} />
-      <button>{submitValue}</button>
-    </form>
-  </div>
-);
+const FormField = ({inputNames, inputValues, submitValue, handleChange, handleSubmit}) => {
+
+  const renderInputs = () => {
+    const inputs = []
+    for (const i in inputNames) {
+      inputs.push(<Input name={inputNames[i]} value={inputValues[i]} handleChange={handleChange} />)
+    }
+    return inputs
+  }
+  
+  return (
+    <div className='input-field'>
+        <form onSubmit={handleSubmit}>
+          {renderInputs()}
+          <input type='submit' value={submitValue} />
+        </form>
+    </div>
+  )
+};
 
 export default FormField;

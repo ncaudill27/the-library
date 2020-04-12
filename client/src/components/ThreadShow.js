@@ -7,12 +7,12 @@ import { postComment } from '../actions/comments';
 class ThreadShow extends Component {
 
   state = {
-    content: ''
+    comment: ''
   }
 
   handleChange = event => {
     this.setState({
-      content: event.target.value
+      comment: event.target.value
     });
   };
 
@@ -21,10 +21,10 @@ class ThreadShow extends Component {
     const payload = {
       user_id: 11, //Will eventually be currentUser
       board_id: this.props.thread.id,
-      content: this.state.content
+      content: this.state.comment
     };
     this.props.postComment(payload);
-    this.setState({content: ''});
+    this.setState({comment: ''});
   }
   
   render() {
@@ -36,7 +36,7 @@ class ThreadShow extends Component {
         <FormField
           handleSubmit={this.handleSubmit}
           handleChange={this.handleChange}
-          inputValue={this.state.content}
+          inputValues={{1: this.state.comment}}
           submitValue="Comment"
         />
       </div>
