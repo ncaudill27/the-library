@@ -1,7 +1,7 @@
 const fetchComments = () => {
   return dispatch => {
     dispatch({type: "BEGIN_COMMENTS_REQUEST"});
-    fetch('http://localhost:3001/api/v1/comments')
+    fetch('/api/v1/comments')
     .then(res => res.json())
     .then(json => dispatch(addComments(json)));
   };
@@ -15,7 +15,7 @@ const addComments = comments => ({
 const postComment = payload => (
   dispatch => {
     dispatch({type: "BEGIN_COMMENTS_REQUEST"});
-    fetch('http://localhost:3001/api/v1/comments', {
+    fetch('/api/v1/comments', {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -32,6 +32,10 @@ const usersReducer = (state = initialState, action) => {
         data: state.data.concat(users),
         pending: false
       };
+
+      case "LOGIN_USER":
+        return state;
+        
     
     default:
       return state;

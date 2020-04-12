@@ -1,7 +1,7 @@
 const fetchThreads = () => {
   return (dispatch) => {
     dispatch({type: "BEGIN_THREADS_REQUEST"});
-    fetch('http://localhost:3001/api/v1/boards')
+    fetch('/api/v1/boards')
     .then(res => res.json())
     .then(json => dispatch(addThreads(json)));
   };

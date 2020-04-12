@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import InputField from './InputField';
+import FormField from './FormField';
 import CommentList from './CommentList';
 import { postComment } from '../actions/comments';
 
 class ThreadShow extends Component {
 
   state = {
-    content: ''
+    comment: ''
   }
 
   handleChange = event => {
     this.setState({
-      content: event.target.value
+      [event.target.name]: event.target.value
     });
   };
 
@@ -21,10 +21,10 @@ class ThreadShow extends Component {
     const payload = {
       user_id: 11, //Will eventually be currentUser
       board_id: this.props.thread.id,
-      content: this.state.content
+      content: this.state.comment
     };
     this.props.postComment(payload);
-    this.setState({content: ''});
+    this.setState({comment: ''});
   }
   
   render() {
@@ -33,10 +33,11 @@ class ThreadShow extends Component {
       <div className='Thread-card'>
         <h3>{thread.title}</h3>
         <CommentList comments={comments} users={users.data} />
-        <InputField
+        <FormField
           handleSubmit={this.handleSubmit}
           handleChange={this.handleChange}
-          inputValue={this.state.content}
+          inputNames={{1: 'comment'}}
+          inputValues={{1: this.state.comment}}
           submitValue="Comment"
         />
       </div>

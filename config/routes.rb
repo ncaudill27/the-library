@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  resources :sessions, only: [:create]
+  post '/auth/auto' => 'authentication#auto_login'
+  post '/auth/login' => 'authentication#login'
   
   namespace :api do
     namespace :v1 do

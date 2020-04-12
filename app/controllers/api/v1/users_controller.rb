@@ -20,9 +20,18 @@
       @user = User.new(user_params)
 
       if @user.save
-        render json: serialization, status: :created, location: @user
+        payload = {user_id: user.id}
+        token = encode_token(payload)
+        response = {
+          user: user,
+          clubs: user.clubs,
+          threads: user.boards,
+          comments: user.comments,
+          auth_token: token
+        }
+        render json: response, status: :created, location: @user
       else
-        render json: @user.errors, status: :unprocessable_entity
+        render json: {errors: @user.errors.full_messages}, status: :unprocessable_entity
       end
     end
 
@@ -49,7 +58,7 @@
 
       # Only allow a trusted parameter "white list" through.
       def user_params
-        params.require(:user).permit(:name, :username, :email, :password_digest, :bio)
+        params.require(:user).permit(:name, :username, :email, :password, :password_confirmation, :bio)
       end
 
       def serialization

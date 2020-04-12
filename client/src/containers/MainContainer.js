@@ -5,6 +5,7 @@ import NYTimesContainer from './NYTimesContainer';
 import ClubList from '../components/ClubList';
 import ClubContainer from './ClubContainer';
 import BookShow from '../components/BookShow';
+import WelcomeContainer from '../components/WelcomeContainer';
 
 class MainContainer extends Component {
 
@@ -13,14 +14,15 @@ class MainContainer extends Component {
 
     return (
       <main>
-        <Switch>
+        <WelcomeContainer />
+        {/* <Switch>
           <Route exact path='/clubs' component={() => <ClubList clubs={clubs} />} />
           <Route exact path='/clubs/:id' render={({match}) =>
             <ClubContainer id={match.params.id} clubs={clubs}/>} />
           <Route exact path='/bestsellers' component={NYTimesContainer} />
           <Route exact path={`/bestsellers/:isbn`} render={({match}) =>
             <BookShow isbn={match.params.isbn} />} />
-        </Switch>
+        </Switch> */}
       </main>
     )
   }

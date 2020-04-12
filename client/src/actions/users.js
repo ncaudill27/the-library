@@ -1,7 +1,7 @@
 const fetchUsers = () => {
   return (dispatch) => {
     dispatch({type: "BEGIN_USERS_REQUEST"});
-    fetch('http://localhost:3001/api/v1/users')
+    fetch('/api/v1/users')
     .then(res => res.json())
     .then(json => dispatch(addUsers(json)));
   };
