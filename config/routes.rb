@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :sessions, only: [:create]
+  post 'auth_user' => 'authentication#authenticate_user'
   
   namespace :api do
     namespace :v1 do
