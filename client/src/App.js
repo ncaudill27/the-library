@@ -13,6 +13,46 @@ import { fetchComments } from './actions/comments';
 
 class App extends Component {
 
+  state = {
+    currentUser: {}
+  }
+
+  loginRequest = payload => {
+    const requestObj = {
+      'method': 'POST',
+      'headers': {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      'body': JSON.stringify(payload)
+    } 
+    fetch('/auth/login', requestObj)
+    .then(res => res.json())
+    .then(response => {
+      if (response.failure) return console.log(response.failure); //TODO Handle this
+      localStorage.setItem('token', response.auth_token);
+      this.handleLogin(response.user.data);
+      // <FlashMessage message{response} />
+    })
+    .catch(errors => console.log(errors)); 
+  }
+
+  handleLogin(userData) {
+    this.setState({
+      currentUser: {
+        id: userData.id,
+        name: userData.attributes.name,
+        username: userData.attributes.username,
+        email: userData.attributes.email,
+        bio: userData.attributes.bio,
+        avatar: userData.attributes.avatar,
+        currentFavorite: userData.attributes.favorite_book_isbn13,
+        clubIds: userData.relationships.clubs.data.map(club => club.id),
+        commentIds: userData.relationships.comments.data.map(comment => comment.id),
+      }
+    })
+  }
+  
   componentDidMount() {
     this.props.fetchClubs()
     this.props.fetchUsers()
@@ -22,9 +62,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header />
-        <SidebarContainer />
-        <MainContainer />
+        <Header currentUser={this.state.currentUser} />
+        <SidebarContainer currentUser={this.state.currentUser} />
+        <MainContainer loginRequest={this.loginRequest} currentUser={this.state.currentUser} />
       </div>
     );
   }
