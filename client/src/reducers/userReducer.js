@@ -32,6 +32,13 @@ const usersReducer = (state = initialState, action) => {
         data: state.data.concat(users),
         pending: false
       };
+
+      case "LOGIN_USER":
+        console.log(action.user);
+        console.log({...state, secret: "newkey"});
+        
+        return state;
+        
     
     default:
       return state;

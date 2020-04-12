@@ -36,5 +36,6 @@ const loginUser = user => ({
 })
 
 export {
-  fetchUsers
+  fetchUsers,
+  loginRequest
 };

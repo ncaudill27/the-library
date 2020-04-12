@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import FormField from './FormField';
+import { connect } from 'react-redux'
+import { loginRequest } from '../actions/users';
 
 class LoginForm extends Component {
 
@@ -17,7 +19,7 @@ class LoginForm extends Component {
   handleSubmit = e => {
     e.preventDefault()
     const payload = this.state
-    console.log(payload);
+    this.props.loginRequest(payload);
     
   }
   
@@ -38,4 +40,4 @@ class LoginForm extends Component {
   }
 }
 
-export default LoginForm;
+export default connect(null, { loginRequest })(LoginForm);
