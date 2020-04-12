@@ -34,9 +34,6 @@ const usersReducer = (state = initialState, action) => {
       };
 
       case "LOGIN_USER":
-        console.log(action.user);
-        console.log({...state, secret: "newkey"});
-        
         return state;
         
     

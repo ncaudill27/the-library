@@ -5,7 +5,7 @@ import NYTimesContainer from './NYTimesContainer';
 import ClubList from '../components/ClubList';
 import ClubContainer from './ClubContainer';
 import BookShow from '../components/BookShow';
-import Welcome from '../components/Welcome';
+import WelcomeContainer from '../components/WelcomeContainer';
 
 class MainContainer extends Component {
 
@@ -14,7 +14,7 @@ class MainContainer extends Component {
 
     return (
       <main>
-        <Welcome />
+        <WelcomeContainer />
         {/* <Switch>
           <Route exact path='/clubs' component={() => <ClubList clubs={clubs} />} />
           <Route exact path='/clubs/:id' render={({match}) =>

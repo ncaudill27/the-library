@@ -12,30 +12,6 @@ const addUsers = usersJSON => ({
   users: usersJSON
 });
 
-const loginRequest = payload => {
-  const requestObj = {
-    'method': 'POST',
-    'headers': {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
-    'body': JSON.stringify(payload)
-  }  
-  return dispatch => {
-    dispatch({type: "BEGIN_USERS_REQUEST"});
-    fetch('/auth/login', requestObj)
-    .then(res => res.json())
-    .then(user => dispatch(loginUser(user)))
-    .catch(errors => console.log(errors));
-  }
-}
-
-const loginUser = user => ({
-  type: "LOGIN_USER",
-  user
-})
-
 export {
-  fetchUsers,
-  loginRequest
+  fetchUsers
 };
