@@ -9,10 +9,6 @@
 }
 
 .Navlink {
-  width: 100px;
-  height: 15px;
-  padding: 5px;
-  margin: 5px 6px 6px;
   text-decoration: none;
   color: black;
   border-radius: 10px;
@@ -21,6 +17,18 @@
 .Header-link {
   display: inline;
   padding: 10px;
+}
+
+.Thread-link {
+  background-color: #4F7178;
+  margin: 10px 0px 10px 0px;
+  height: 40px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.Thread-link > a > h3 {
+  color: white;
 }
 
 .Header-link:hover,
@@ -80,10 +88,6 @@
 .Book:hover,
 .Club:hover {
   background: #E4AF8E;
-}
-
-.Thread {
-  height: 20px;
 }
 
 .Thread-list {
@@ -157,4 +161,12 @@ img#book {
   border: 2px black;
   top: 50%;
   left: 80px;
+}
+
+.Login-form {
+  height: 11em;
+  margin: 0px 200px 0px 200px;
+  text-align: center;
+  background-color: #E2C18B;
+  border-radius: 10px;
 }

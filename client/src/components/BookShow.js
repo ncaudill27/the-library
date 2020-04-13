@@ -6,11 +6,11 @@ class BookShow extends Component {
   state = {
     bookData: {}
   }
-  
+
   componentDidMount() {
     this.fetchReview()
   }
-  
+
   fetchReview = () => {
     const {isbn} = this.props
     const key = `${process.env.REACT_APP_GOOGLE_BOOKS_KEY}`
@@ -22,9 +22,8 @@ class BookShow extends Component {
 
   renderBook = bookData => {
     if (bookData && Object.keys(bookData).length !== 0) {
-    
     const {title, authors, publisher, publishedDate,
-           description, categories, averageRating, imageLinks} = bookData;
+          description, categories, averageRating, imageLinks} = bookData;
 
     return (
       <>

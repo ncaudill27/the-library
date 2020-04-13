@@ -6,9 +6,21 @@ const FormField = ({inputNames, inputValues, submitValue, handleChange, handleSu
   const renderInputs = () => {
     const inputs = []
     for (const i in inputNames) {
-      inputs.push(<Input key={inputNames[i]} name={inputNames[i]} value={inputValues[i]} onChange={handleChange} />)
+      const name = inputNames[i]
+      const value = inputValues[i]
+      inputs.push( <>
+        <label>
+        {name.charAt(0).toUpperCase() + name.slice(1)}
+        <br/>
+        <Input
+          key={name}
+          name={name}
+          value={value}
+          onChange={handleChange}
+        /></label><br/>
+      </> );
     }
-    return inputs
+    return inputs;
   }
 
   return (

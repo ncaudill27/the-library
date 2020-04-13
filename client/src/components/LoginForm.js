@@ -6,13 +6,13 @@ class LoginForm extends Component {
   state = {
     username: '',
     password: ''
-  }
+  };
 
   handleChange = e => {
     this.setState({
       [e.target.name]: e.target.value
-    })
-  }
+    });
+  };
 
   handleSubmit = e => {
     e.preventDefault()
@@ -21,8 +21,8 @@ class LoginForm extends Component {
     this.setState({
       username: '',
       password: ''
-    })
-  }
+    });
+  };
 
   render() {
     const {username, password} = this.state
@@ -30,15 +30,15 @@ class LoginForm extends Component {
       <div className='Login-form'>
         <h2>Login</h2>
         <FormField
-           handleChange={this.handleChange}
-           handleSubmit={this.handleSubmit}
-           inputNames={{ 1: "username", 2: "password" }}
-           inputValues={{ 1: username, 2: password }}
-           submitValue="Login"
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
+          inputNames={{ 1: "username", 2: "password" }}
+          inputValues={{ 1: username, 2: password }}
+          submitValue="Login"
         />
       </div>
     );
-  }
+  };
 }
 
 export default LoginForm;
