@@ -132,7 +132,8 @@ img#book {
 }
 
 .Form-field {
-  position: absolute;
+  /* position: absolute; */
+  border: 2px black;
   top: 50%;
   left: 80px;
 }
