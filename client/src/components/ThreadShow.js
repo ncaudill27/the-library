@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import FormField from './FormField';
 import CommentList from './CommentList';
 import { postComment } from '../actions/comments';
-import Avatar from './Avatar';
+import CommentField from './CommentField';
 
 class ThreadShow extends Component {
 
@@ -14,7 +13,7 @@ class ThreadShow extends Component {
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value
-    });
+    }, ()=> console.log(this.state));
   };
 
   handleSubmit = event => {
@@ -33,16 +32,7 @@ class ThreadShow extends Component {
       <div className='Thread-card'>
         <h3>{title}</h3>
         <CommentList comments={comments} users={users} currentUser={currentUser}/>
-        <div className='Comment-field'>
-          <Avatar avatar={avatar} showing={username} />
-          <FormField
-            handleSubmit={this.handleSubmit}
-            handleChange={this.handleChange}
-            inputNames={{1: 'comment'}}
-            inputValues={{1: this.state.comment}}
-            submitValue="Comment"
-          />
-        </div>
+        <CommentField avatar={avatar} username={username} comment={this.state.comment} handleSubmit={this.handleSubmit} handleChange={this.handleChange} />
       </div>
     );
   };
