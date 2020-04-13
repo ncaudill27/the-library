@@ -37,7 +37,6 @@ class App extends Component {
     })
     .catch(errors => console.log(errors)); 
   }
-
   handleLogin(userData) {
     this.setState({
       currentUser: {
@@ -54,17 +53,42 @@ class App extends Component {
     })
     // <Redirect />
   }
+  authorizeToken = () => {
+    const token = localStorage.getItem('token');
+    const requestObj = {
+      'method': 'POST',
+      'headers': {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        'Accepts': 'application/json'
+      }
+    }
+    fetch('/auth/auto', requestObj)
+    .then(res => res.json())
+    .then(response => {
+      console.log(response);
+      if (response.failure) return console.log(response.failure);
+      this.handleLogin(response.data);
+    })
+  }
+
+  logOutUser = () => {
+    localStorage.clear()
+    this.setState({ currentUser: {} })
+  }
   
   componentDidMount() {
     this.props.fetchClubs()
     this.props.fetchUsers()
     this.props.fetchThreads()
     this.props.fetchComments()
+    if (!!localStorage.getItem('token')) this.authorizeToken()
   }
   render() {
+    console.log(this.state, localStorage.getItem('token'));
     return (
       <div className="App">
-        <Header currentUser={this.state.currentUser} />
+        <Header currentUser={this.state.currentUser} logOutUser={this.logOutUser} />
         <SidebarContainer currentUser={this.state.currentUser} />
         <MainContainer loginRequest={this.loginRequest} currentUser={this.state.currentUser} />
       </div>
