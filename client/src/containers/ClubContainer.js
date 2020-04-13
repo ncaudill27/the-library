@@ -7,7 +7,6 @@ class ClubContainer extends Component {
   renderClub = club => {
     if (club) {
       const {name, description} = club
-      const members = this.findMembers(club);
       const threads = this.findThreads(club);
 
       return (
@@ -18,16 +17,6 @@ class ClubContainer extends Component {
         </>
       )
     }
-  }
-
-  findMembers(club) {
-    const clubMembers = [];
-    const users = this.props.users.data;
-
-    for (let id in club.memberIds) {
-      clubMembers.push(users.find(user => user.id === club.memberIds[id]))
-    };
-    return clubMembers;
   }
 
   findThreads(club) {
@@ -41,7 +30,8 @@ class ClubContainer extends Component {
   }
   
   render() {
-    const club = this.props.clubs.data.find(club => club.id === this.props.id);
+    const club = this.props.clubs.find(club => club.id === this.props.id);
+    
     return (
       <div className='Club-container'>
         {this.props.clubs.pending ? <p>loading....</p> : this.renderClub(club)}

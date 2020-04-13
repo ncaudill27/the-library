@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 const NavBar = ({currentUser, logOutUser}) =>{
 
   function logOutButton() {
-    return !!currentUser
+    return currentUser !== 0
     ? <NavLink to='/' exact className='Navlink' onClick={logOutUser}>Log Out</NavLink>
     : null;
   }

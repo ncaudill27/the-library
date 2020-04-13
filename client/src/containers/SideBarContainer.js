@@ -1,19 +1,26 @@
 import React, { Component } from 'react';
-import UserBox from '../components/UserBox';
 import { connect } from 'react-redux';
+import UserBox from '../components/UserBox';
+import ClubList from '../components/ClubList';
 
 class SidebarContainer extends Component {
   render() {
-    const user = this.props.currentUser
+    const {currentUser, clubs} = this.props
+    let userClubs
+    if (currentUser) userClubs = currentUser.clubIds.map(clubId => clubs.data.filter(club => club.id === clubId)).flat();
     return (
       <div className='Sidebar'>
-        { user ? <UserBox user={user} /> : null}
-        {/* <ClubList clubs={} styling='sidebar' /> */}
+        { !!currentUser && !!userClubs
+        ? <>
+          <UserBox user={currentUser} />
+          <ClubList clubs={userClubs} styling='sidebar' />
+          </>
+        : null}
       </div>
     );
   }
 }
 
-const mapStateToProps = ({users}) => ({users});
+const mapStateToProps = ({clubs}) => ({clubs});
 
 export default connect(mapStateToProps)(SidebarContainer);

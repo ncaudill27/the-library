@@ -10,22 +10,23 @@ import WelcomeContainer from '../components/WelcomeContainer';
 class MainContainer extends Component {
 
   render() {
-    const {clubs, loginRequest, currentUser} = this.props
-
+    const {clubs: { data, response }, loginRequest, currentUser} = this.props
+    console.log(response);
+    
     return (
       <main>
         <Switch>
           <Route exact path='/' render={() => <WelcomeContainer loginRequest={loginRequest} />} />
-          <Route exact path='/clubs' component={() => <ClubList clubs={clubs} />} />
+          <Route exact path='/clubs' component={() => <ClubList clubs={data} />} />
           <Route exact path='/clubs/:id' render={({match}) =>
-            <ClubContainer id={match.params.id} clubs={clubs} currentUser={currentUser} />} />
+            <ClubContainer id={match.params.id} clubs={data} currentUser={currentUser} />} />
           <Route exact path='/bestsellers' component={NYTimesContainer} />
           <Route exact path={`/bestsellers/:isbn`} render={({match}) =>
             <BookShow isbn={match.params.isbn} />} />
         </Switch>
       </main>
-    )
-  }
+    );
+  };
 }
 
 const mapStateToProps = ({clubs}) => ({clubs})

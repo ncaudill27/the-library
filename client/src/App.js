@@ -15,7 +15,7 @@ import { Redirect } from 'react-router-dom';
 class App extends Component {
 
   state = {
-    currentUser: {}
+    currentUser: false
   }
 
   loginRequest = payload => {
@@ -66,7 +66,6 @@ class App extends Component {
     fetch('/auth/auto', requestObj)
     .then(res => res.json())
     .then(response => {
-      console.log(response);
       if (response.failure) return console.log(response.failure);
       this.handleLogin(response.data);
     })
@@ -85,7 +84,6 @@ class App extends Component {
     if (!!localStorage.getItem('token')) this.authorizeToken()
   }
   render() {
-    console.log(this.state, localStorage.getItem('token'));
     return (
       <div className="App">
         <Header currentUser={this.state.currentUser} logOutUser={this.logOutUser} />
