@@ -1,22 +1,26 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Thread from './Thread';
 import ThreadShow from './ThreadShow';
+import ThreadLink from './ThreadLink';
 
-function ThreadList({threads, club, comments: {data: comments}, currentUser}) {
+function ThreadList({threads, club: {id: clubId}, comments: {data: comments}, currentUser}) {
 
   const renderThreads = () => {
     return threads.map(thread => {
-      const {id, title} = thread;
-      const threadComments = comments.filter(comment => id === comment.threadId);
+      const {id: threadId, title} = thread;
+      const threadComments = comments.filter(comment => threadId === comment.threadId);
       return (
         <>
-        <Router key={id}>
-          <Switch key={id}>
-            <Route key={id} exact path={`/clubs/${club.id}/thread/:id`} render={({match}) =>
-              <ThreadShow key={match.params.id} thread={thread} comments={threadComments} currentUser={currentUser} />} />
-            <Thread key={id} id={id} title={title} club={club} comments={threadComments} currentUser={currentUser} />
+        <Router key={threadId}>
+          <Switch key={threadId}>
+
+            <Route key={threadId} exact path={`/clubs/${clubId}/thread/:id`} render={({match: {params}}) =>
+              <ThreadShow key={params.id} thread={thread} comments={threadComments} currentUser={currentUser} />} />
+
+            <ThreadLink to={`/clubs/${clubId}/thread/${threadId}`} exact className='Navlink'
+              ><h3>{title}</h3></ThreadLink>
+
           </Switch>
         </Router>
         </>

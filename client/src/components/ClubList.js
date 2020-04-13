@@ -18,7 +18,7 @@ class ClubList extends Component {
 
   render() {
     return (
-      <div className='Clubs-list'>
+      <div className='Club-list'>
         <h2>Clubs</h2>
         {this.renderClubs()}
         {/* Render Find Club Button if on sidebar */}

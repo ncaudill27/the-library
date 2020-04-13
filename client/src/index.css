@@ -19,10 +19,6 @@ main {
   text-align: left;
 }
 
-main > div > h2 {
-  text-align: center;
-}
-
 h3 {
   margin: 0px;
 }

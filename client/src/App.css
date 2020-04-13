@@ -18,6 +18,13 @@
   border-radius: 10px;
 }
 
+.Header-link {
+  display: inline;
+  padding: 10px;
+}
+
+.Header-link:hover,
+.Header-link:hover > .Navlink ,
 .Navlink:hover {
   color: white;
   background: #4F7178;
@@ -52,6 +59,10 @@
   padding: 10px;
 }
 
+.Club-details {
+  padding: 20px;
+}
+
 .content {
   position: absolute;
   height: 60px;
@@ -62,7 +73,6 @@
 .Comment-card,
 .Comment-field {
   height: 80px;
-  margin: 5px;
   position: relative;
 }
 
@@ -70,11 +80,20 @@
 .Book:hover,
 .Club:hover {
   background: #E4AF8E;
+}
+
+.Thread {
+  height: 20px;
+}
+
+.Thread-list {
+  padding: 10px 20px 0px 20px;
   border-radius: 10px;
 }
 
 .Thread-card {
   background-color: #E2C18B;
+  margin: 20px;
   border-radius: 10px;
 }
 

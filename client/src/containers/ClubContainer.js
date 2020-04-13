@@ -10,8 +10,10 @@ class ClubContainer extends Component {
       const clubThreads = club.threadIds.map(threadId => threads.filter(thread=> thread.id === threadId)).flat()
       return (
         <>
-          <h2>{name}</h2>
-          <p>{description}</p>
+          <div className='Club-details'>
+            <h1>{name}</h1>
+            <p>{description}</p>
+          </div>
           <ThreadList threads={clubThreads} club={club} currentUser={currentUser} />
         </>
       )

@@ -1,33 +1,34 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import HeaderLink from './HeaderLink';
 
 const NavBar = ({currentUser, logOutUser}) =>{
 
   function logOutButton() {
-    return currentUser !== 0
-    ? <NavLink to='/' exact className='Navlink' onClick={logOutUser}>Log Out</NavLink>
+    return currentUser
+    ? <HeaderLink to='/' exact className='Navlink' onClick={logOutUser}>Log Out</HeaderLink>
     : null;
   }
 
   return (
     <div className='Navbar'>
-      <NavLink
+      <HeaderLink
         to='/bestsellers'
         exact
         className='Navlink'
-      >New York Times Bestsellers</NavLink>
+      >New York Times Bestsellers</HeaderLink>
 
-      <NavLink
+      <HeaderLink
         to='/clubs'
         exact
         className='Navlink'
-      >Clubs</NavLink>
+      >Clubs</HeaderLink>
 
-      <NavLink
+      <HeaderLink
         to='/'
         exact
         className='Navlink'
-      >Home</NavLink>
+      >Home</HeaderLink>
 
       {logOutButton()}
     </div>
