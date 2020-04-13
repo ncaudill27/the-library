@@ -6,14 +6,16 @@ import ClubList from '../components/ClubList';
 import ClubContainer from './ClubContainer';
 import BookShow from '../components/BookShow';
 import WelcomeContainer from '../components/WelcomeContainer';
+import Header from '../components/Header';
 
 class MainContainer extends Component {
 
   render() {
-    const {clubs: {data: clubs}, loginRequest, currentUser} = this.props
+    const {clubs: {data: clubs}, loginRequest, currentUser, logOutUser} = this.props
 
     return (
       <main>
+        <Header currentUser={currentUser} logOutUser={logOutUser} />
         <Switch>
           <Route exact path='/' render={() => <WelcomeContainer loginRequest={loginRequest} />} />
           <Route exact path='/clubs' component={() => <ClubList clubs={clubs} />} />
