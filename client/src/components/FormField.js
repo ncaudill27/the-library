@@ -12,7 +12,7 @@ const FormField = ({inputNames, inputValues, submitValue, handleChange, handleSu
   }
 
   return (
-    <div className='input-field'>
+    <div className='Form-field'>
         <form onSubmit={handleSubmit}>
           {renderInputs()}
           <input type='submit' value={submitValue} />

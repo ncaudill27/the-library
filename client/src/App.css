@@ -57,13 +57,14 @@
   left: 95px;
 }
 
-.card-comment {
+.Comment-card,
+.Comment-field {
   height: 80px;
   margin: 5px;
-
+  position: relative;
 }
 
-.card-comment:hover,
+.Comment-card:hover,
 .Book:hover,
 .Club:hover {
   background: #E4AF8E;
@@ -128,4 +129,10 @@ img#book {
 .Star {
   height: 30px;
   width: 30px;
+}
+
+.Form-field {
+  position: absolute;
+  top: 50%;
+  left: 80px;
 }
