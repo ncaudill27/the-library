@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import FormField from './FormField';
 import CommentList from './CommentList';
 import { postComment } from '../actions/comments';
+import Avatar from './Avatar';
 
 class ThreadShow extends Component {
 
@@ -18,28 +19,30 @@ class ThreadShow extends Component {
 
   handleSubmit = event => {
     event.preventDefault()
-    const payload = {
-      user_id: localStorage.getItem('currentUser'), //Will eventually be currentUser
-      board_id: this.props.thread.id,
-      content: this.state.comment
-    };
-    this.props.postComment(payload);
+    const {currentUser: {id: user_id}, thread: {id: board_id}, postComment} = this.props;
+    const {comment: content} = this.state;
+    const payload = {user_id, board_id, content};
+
+    postComment(payload);
     this.setState({comment: ''});
   }
   
   render() {
-    const {comments, users, thread} = this.props
+    const {comments, users: {data: users}, thread: {title}, currentUser, currentUser: {avatar, username}} = this.props;
     return (
       <div className='Thread-card'>
-        <h3>{thread.title}</h3>
-        <CommentList comments={comments} users={users.data} />
-        <FormField
-          handleSubmit={this.handleSubmit}
-          handleChange={this.handleChange}
-          inputNames={{1: 'comment'}}
-          inputValues={{1: this.state.comment}}
-          submitValue="Comment"
-        />
+        <h3>{title}</h3>
+        <CommentList comments={comments} users={users} currentUser={currentUser}/>
+        <div className='Comment-field'>
+          <Avatar avatar={avatar} showing={username} />
+          <FormField
+            handleSubmit={this.handleSubmit}
+            handleChange={this.handleChange}
+            inputNames={{1: 'comment'}}
+            inputValues={{1: this.state.comment}}
+            submitValue="Comment"
+          />
+        </div>
       </div>
     );
   };
