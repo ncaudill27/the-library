@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import Thread from './Thread';
 import ThreadShow from './ThreadShow';
 
-function ThreadList({threads, club, comments: {data: comments, pending}, currentUser}) {
+function ThreadList({threads, club, comments: {data: comments}, currentUser}) {
 
   const renderThreads = () => {
     return threads.map(thread => {
-      const {id, title, clubId, commentIds} = thread;
+      const {id, title} = thread;
       const threadComments = comments.filter(comment => id === comment.threadId);
       return (
         <>

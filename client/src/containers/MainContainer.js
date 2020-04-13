@@ -10,7 +10,7 @@ import WelcomeContainer from '../components/WelcomeContainer';
 class MainContainer extends Component {
 
   render() {
-    const {clubs: { data: clubs, pending }, loginRequest, currentUser} = this.props
+    const {clubs: {data: clubs}, loginRequest, currentUser} = this.props
 
     return (
       <main>
