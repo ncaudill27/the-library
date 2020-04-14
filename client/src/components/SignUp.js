@@ -6,7 +6,10 @@ class SignUp extends Component {
   state = {
     name: '',
     username: '',
-    email: ''
+    email: '',
+    password: '',
+    confirmPassword: '',
+    bio: ''
   };
 
   handleChange = e => {
@@ -34,11 +37,29 @@ class SignUp extends Component {
       // <FlashMessage response.success />
     })
   }
+
+  handleSubmit = e => {
+    e.preventDefault()
+    const {username, email, password, confirmPassword} = this.state
+    const payload = {
+        username,
+        email,
+        password,
+        password_confirmation: confirmPassword
+    }
+    this.userPostRequest(payload);
+    this.setState({
+      username: '',
+      email: '',
+      password: '',
+      confirmPassword: ''
+    })
+  }
   
   render() {
-    const {handleSubmit} = this.props;
-    const inputNames = Object.keys(this.state);
-    const inputValues = Object.values(this.state);
+    const {handleChange, handleSubmit, state} = this;
+    const inputNames = Object.keys(state);
+    const inputValues = Object.values(state);
 
     return (
       <div className='Sign-up'>
@@ -46,7 +67,7 @@ class SignUp extends Component {
         <FormField
           inputNames={inputNames}
           inputValues={inputValues}
-          handleChange={this.handleChange}
+          handleChange={handleChange}
           handleSubmit={handleSubmit}
           submitValue="Sign Up"
         />

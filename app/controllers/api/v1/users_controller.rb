@@ -18,7 +18,6 @@
     # POST /users
     def create
       @user = User.new(user_params)
-
       if @user.save
         payload = {user_id: user.id}
         token = encode_token(payload)

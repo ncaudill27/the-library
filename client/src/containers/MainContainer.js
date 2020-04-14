@@ -12,12 +12,12 @@ import SignUp from '../components/SignUp';
 class MainContainer extends Component {
 
   render() {
-    const {clubs: {data: clubs}, loginRequest, currentUser, logOutUser} = this.props
+    const {clubs: {data: clubs}, loginRequest, currentUser, logOutUser, handleSignUp} = this.props
 
     return (
       <main>
         <Header currentUser={currentUser} logOutUser={logOutUser} />
-        <SignUp />
+        <SignUp handleSignUp={handleSignUp} />
         {/* <Switch>
           <Route exact path='/' render={() => <WelcomeContainer loginRequest={loginRequest} />} />
           <Route exact path='/clubs' component={() => <ClubList clubs={clubs} />} />

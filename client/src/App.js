@@ -93,14 +93,15 @@ class App extends Component {
     if (!!localStorage.getItem('token')) this.authorizeToken()
   }
   render() {
+    const {state: {currentUser}, loginRequest, logOutUser, handleSignUp} = this
     return (
       <div className="App">
-        <SidebarContainer currentUser={this.state.currentUser} />
+        <SidebarContainer currentUser={currentUser} />
         <MainContainer
-          loginRequest={this.loginRequest}
-          currentUser={this.state.currentUser}
-          logOutUser={this.logOutUser}
-          handleSignUp={this.handleSignUp}
+          loginRequest={loginRequest}
+          currentUser={currentUser}
+          logOutUser={logOutUser}
+          handleSignUp={handleSignUp}
         />
       </div>
     );
