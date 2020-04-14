@@ -48,7 +48,7 @@ class App extends Component {
         clubIds: userData.relationships.clubs.data.map(club => club.id),
         commentIds: userData.relationships.comments.data.map(comment => comment.id),
       }
-    })
+    });
     // <Redirect />
   }
   authorizeToken = () => {
@@ -66,12 +66,23 @@ class App extends Component {
     .then(response => {
       if (response.failure) return console.log(response.failure);
       this.handleLogin(response.data);
-    })
+    });
+  };
+
+  handleSignUp(userData) {
+    this.setState({
+      currentUser: {
+        id: userData.id,
+        name: userData.attributes.name,
+        username: userData.attributes.username,
+        email: userData.attributes.email
+      }
+    });
   }
 
   logOutUser = () => {
     localStorage.clear()
-    this.setState({ currentUser: {} })
+    this.setState({ currentUser: false })
   }
   
   componentDidMount() {
@@ -85,7 +96,12 @@ class App extends Component {
     return (
       <div className="App">
         <SidebarContainer currentUser={this.state.currentUser} />
-        <MainContainer loginRequest={this.loginRequest} currentUser={this.state.currentUser} logOutUser={this.logOutUser} />
+        <MainContainer
+          loginRequest={this.loginRequest}
+          currentUser={this.state.currentUser}
+          logOutUser={this.logOutUser}
+          handleSignUp={this.handleSignUp}
+        />
       </div>
     );
   }

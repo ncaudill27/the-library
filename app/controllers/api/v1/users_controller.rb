@@ -22,14 +22,8 @@
       if @user.save
         payload = {user_id: user.id}
         token = encode_token(payload)
-        response = {
-          user: user,
-          clubs: user.clubs,
-          threads: user.boards,
-          comments: user.comments,
-          auth_token: token
-        }
-        render json: response, status: :created, location: @user
+
+        render json: {user: UserSerializer.new(@user), auth_token: token, success: "Welcome #{user.name}!"}, status: :created, location: @user
       else
         render json: {errors: @user.errors.full_messages}, status: :unprocessable_entity
       end
