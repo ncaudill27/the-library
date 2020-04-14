@@ -24,7 +24,8 @@ class App extends Component {
         'Accept': 'application/json'
       },
       'body': JSON.stringify(payload)
-    } 
+    };
+
     fetch('/auth/login', requestObj)
     .then(res => res.json())
     .then(response => {

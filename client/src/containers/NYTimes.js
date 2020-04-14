@@ -63,7 +63,7 @@ const options = [
   "Young Adult Paperback Monthly",
 ];
 
-class NYTimesContainer extends Component {
+class NYTimes extends Component {
 
   state = {
     select: 'hardcover-fiction',
@@ -75,8 +75,8 @@ class NYTimesContainer extends Component {
   }
 
   fetchBestSellers = () => {
-    const key = `?api-key=${process.env.REACT_APP_NY_TIMES_KEY}`
-    fetch(`https://api.nytimes.com/svc/books/v3/lists/current/${this.state.select}.json${key}`)
+    const key = process.env.REACT_APP_NY_TIMES_KEY
+    fetch(`https://api.nytimes.com/svc/books/v3/lists/current/${this.state.select}.json?api-key=${key}`)
     .then(res => res.json())
     .then(list => this.setState({
       books: list.results.books
@@ -109,4 +109,4 @@ class NYTimesContainer extends Component {
   }
 }
 
-export default NYTimesContainer;
+export default NYTimes;
