@@ -7,25 +7,38 @@ import ClubContainer from './ClubContainer';
 import BookShow from '../components/BookShow';
 import WelcomeContainer from '../components/WelcomeContainer';
 import Header from '../components/Header';
-import SignUp from '../components/SignUp';
 
 class MainContainer extends Component {
 
   render() {
-    const {clubs: {data: clubs}, loginRequest, currentUser, logOutUser, handleSignUp} = this.props
+    const {
+      clubs: {
+        data: clubs
+      },
+      loginRequest,
+      currentUser,
+      logOutUser,
+      handleSignUp
+    } = this.props;
 
     return (
       <main>
         <Header currentUser={currentUser} logOutUser={logOutUser} />
-        {/* <SignUp handleSignUp={handleSignUp} /> */}
         <Switch>
-          <Route exact path='/' render={() => <WelcomeContainer loginRequest={loginRequest} />} />
+
+          <Route exact path='/' render={() =>
+            <WelcomeContainer loginRequest={loginRequest} handleSignUp={handleSignUp} currentUser={currentUser} />} />
+
           <Route exact path='/clubs' component={() => <ClubList clubs={clubs} />} />
+
           <Route exact path='/clubs/:id' render={({match}) =>
             <ClubContainer id={match.params.id} clubs={clubs} currentUser={currentUser} />} />
+
           <Route exact path='/bestsellers' component={NYTimesContainer} />
+
           <Route exact path={`/bestsellers/:isbn`} render={({match}) =>
             <BookShow isbn={match.params.isbn} />} />
+
         </Switch>
       </main>
     );

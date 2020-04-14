@@ -13,26 +13,60 @@ class ThreadShow extends Component {
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value
-    }, ()=> console.log(this.state));
+    });
   };
 
   handleSubmit = event => {
-    event.preventDefault()
-    const {currentUser: {id: user_id}, thread: {id: board_id}, postComment} = this.props;
-    const {comment: content} = this.state;
+    event.preventDefault();
+    // Destructure attributes with Rails namespacing
+    const {
+      props: {    
+        postComment,
+        currentUser: {
+          id: user_id
+        },
+        thread: {
+          id: board_id
+        },
+      },
+      state: {
+        comment: content
+      }
+    } = this; 
+
     const payload = {user_id, board_id, content};
 
-    postComment(payload);
-    this.setState({comment: ''});
+    postComment(payload); // POST /comments request
+    this.setState({comment: ''}); // Reset form
   }
   
   render() {
-    const {comments, users: {data: users}, thread: {title}, currentUser, currentUser: {avatar, username}} = this.props;
+    const {
+      state: {
+        comment
+      },
+      props: {
+        handleSubmit,
+        handleChange,
+        comments,
+        users: {
+          data: users
+        },
+        thread: {
+          title
+        },
+        currentUser,
+        currentUser: {
+          avatar, username
+        }
+      }
+    } = this;
+
     return (
       <div className='Thread-card'>
         <h3>{title}</h3>
         <CommentList comments={comments} users={users} currentUser={currentUser}/>
-        <CommentField avatar={avatar} username={username} comment={this.state.comment} handleSubmit={this.handleSubmit} handleChange={this.handleChange} />
+        <CommentField avatar={avatar} username={username} comment={comment} handleSubmit={handleSubmit} handleChange={handleChange} />
       </div>
     );
   };

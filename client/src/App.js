@@ -30,23 +30,46 @@ class App extends Component {
     .then(response => {
       if (response.failure) return console.log(response.failure); //TODO Handle this
       localStorage.setItem('token', response.auth_token);
-      this.handleLogin(response.user.data);
+      this.updateCurrentUser(response.user.data);
       // <FlashMessage message{response} />
     })
     .catch(errors => console.log(errors)); 
   }
-  handleLogin(userData) {
+
+  updateCurrentUser(userData) {
+    const {
+      id,
+      attributes: {
+        name, username, email, bio, avatar, favorite_book_isbn13
+      } = {
+        // Fallback default values
+        name: 'Anon',
+        username: 'Anon',
+        email: 'no@email.com',
+        avatar: 'https://miro.medium.com/max/720/1*W35QUSvGpcLuxPo3SRTH4w.png',
+        favorite_book_isbn13: '978-1455841653'
+      },
+      relationships: {
+        clubs: {
+          data: clubs
+        },
+        comments: {
+          data: comments
+        }
+      }
+    } = userData; 
+
     this.setState({
       currentUser: {
-        id: userData.id,
-        name: userData.attributes.name,
-        username: userData.attributes.username,
-        email: userData.attributes.email,
-        bio: userData.attributes.bio,
-        avatar: userData.attributes.avatar,
-        currentFavorite: userData.attributes.favorite_book_isbn13,
-        clubIds: userData.relationships.clubs.data.map(club => club.id),
-        commentIds: userData.relationships.comments.data.map(comment => comment.id),
+        id: id,
+        name: name,
+        username: username,
+        email: email,
+        bio: bio,
+        avatar: avatar,
+        currentFavorite: favorite_book_isbn13,
+        clubIds: clubs.map(club => club.id),
+        commentIds: comments.map(comment => comment.id),
       }
     });
     // <Redirect />
@@ -64,13 +87,14 @@ class App extends Component {
     fetch('/auth/auto', requestObj)
     .then(res => res.json())
     .then(response => {
+      console.log(response);
+
       if (response.failure) return console.log(response.failure);
-      this.handleLogin(response.data);
+      this.updateCurrentUser(response.data);
     });
   };
 
   handleSignUp(userData) {
-    debugger
     this.setState({
       currentUser: {
         id: userData.id,
@@ -79,6 +103,7 @@ class App extends Component {
         email: userData.attributes.email
       }
     });
+
   }
 
   logOutUser = () => {
@@ -94,7 +119,16 @@ class App extends Component {
     if (!!localStorage.getItem('token')) this.authorizeToken()
   }
   render() {
-    const {state: {currentUser}, loginRequest, logOutUser, handleSignUp} = this
+    const {
+      loginRequest,
+      logOutUser,
+      handleSignUp,
+      updateCurrentUser,
+      state: {
+        currentUser
+      }
+    } = this;
+
     return (
       <div className="App">
         <SidebarContainer currentUser={currentUser} />
@@ -103,10 +137,11 @@ class App extends Component {
           currentUser={currentUser}
           logOutUser={logOutUser}
           handleSignUp={handleSignUp}
+          updateCurrentUser={updateCurrentUser}
         />
       </div>
     );
-  }
+  };
 }
 
 export default connect(null, { fetchClubs, fetchUsers, fetchThreads, fetchComments })(App);

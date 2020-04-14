@@ -38,7 +38,7 @@ class SignUp extends Component {
 
   handleSubmit = e => {
     e.preventDefault()
-    const {username, email, password, confirmPassword} = this.state
+    const {email, password, confirmPassword} = this.state
     const payload = {
         user: {
           email,
