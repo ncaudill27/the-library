@@ -70,6 +70,7 @@ class App extends Component {
   };
 
   handleSignUp(userData) {
+    debugger
     this.setState({
       currentUser: {
         id: userData.id,

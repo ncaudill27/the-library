@@ -17,8 +17,8 @@ class MainContainer extends Component {
     return (
       <main>
         <Header currentUser={currentUser} logOutUser={logOutUser} />
-        <SignUp handleSignUp={handleSignUp} />
-        {/* <Switch>
+        {/* <SignUp handleSignUp={handleSignUp} /> */}
+        <Switch>
           <Route exact path='/' render={() => <WelcomeContainer loginRequest={loginRequest} />} />
           <Route exact path='/clubs' component={() => <ClubList clubs={clubs} />} />
           <Route exact path='/clubs/:id' render={({match}) =>
@@ -26,7 +26,7 @@ class MainContainer extends Component {
           <Route exact path='/bestsellers' component={NYTimesContainer} />
           <Route exact path={`/bestsellers/:isbn`} render={({match}) =>
             <BookShow isbn={match.params.isbn} />} />
-        </Switch> */}
+        </Switch>
       </main>
     );
   };

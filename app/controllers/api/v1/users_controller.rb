@@ -17,12 +17,13 @@
 
     # POST /users
     def create
-      @user = User.new(user_params)
+      # byebug
+      @user = User.new(user_params(:email, :password, :password_confirmation))
       if @user.save
-        payload = {user_id: user.id}
+        payload = {user_id: @user.id}
         token = encode_token(payload)
 
-        render json: {user: UserSerializer.new(@user), auth_token: token, success: "Welcome #{user.name}!"}, status: :created, location: @user
+        render json: {user: UserSerializer.new(@user), auth_token: token, success: "Welcome #{@user.name}!"}, status: :created
       else
         render json: {errors: @user.errors.full_messages}, status: :unprocessable_entity
       end
@@ -50,8 +51,9 @@
       end
 
       # Only allow a trusted parameter "white list" through.
-      def user_params
-        params.require(:user).permit(:name, :username, :email, :password, :password_confirmation, :bio)
+      def user_params(*args)
+        params.require(:user).permit(args)
+        # :name :username :email :password :password_confirmation :bio
       end
 
       def serialization

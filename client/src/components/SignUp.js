@@ -4,12 +4,9 @@ import FormField from './FormField';
 class SignUp extends Component {
 
   state = {
-    name: '',
-    username: '',
     email: '',
     password: '',
-    confirmPassword: '',
-    bio: ''
+    confirmPassword: ''
   };
 
   handleChange = e => {
@@ -32,7 +29,8 @@ class SignUp extends Component {
     .then(response => {
       console.log(response);
 
-      if (response.failure) return console.log(response.failure);
+      if (response.errors) return console.log(response.errors);
+      debugger // Password is going in blank
       this.props.handleSignUp(response.data);
       // <FlashMessage response.success />
     })
@@ -42,14 +40,14 @@ class SignUp extends Component {
     e.preventDefault()
     const {username, email, password, confirmPassword} = this.state
     const payload = {
-        username,
-        email,
-        password,
-        password_confirmation: confirmPassword
+        user: {
+          email,
+          password,
+          password_confirmation: confirmPassword
+        }
     }
     this.userPostRequest(payload);
     this.setState({
-      username: '',
       email: '',
       password: '',
       confirmPassword: ''
