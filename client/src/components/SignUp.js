@@ -28,10 +28,9 @@ class SignUp extends Component {
     .then(res => res.json())
     .then(response => {
       console.log(response);
-
       if (response.errors) return console.log(response.errors);
-      debugger // Password is going in blank
-      this.props.handleSignUp(response.data);
+      localStorage.setItem('token', response.auth_token);
+      this.props.updateCurrentUser(response.user.data);
       // <FlashMessage response.success />
     })
   }

@@ -166,6 +166,7 @@ img#book {
 }
 
 .Sign-up,
+.New-user,
 .Login-form {
   height: 11em;
   margin: 0px 250px 0px 250px;
@@ -174,6 +175,7 @@ img#book {
   border-radius: 10px;
 }
 
+.New-user,
 .Sign-up {
   height: 14em;
 }

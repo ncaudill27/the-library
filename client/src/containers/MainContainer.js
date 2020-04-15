@@ -19,7 +19,8 @@ class MainContainer extends Component {
       loginRequest,
       currentUser,
       logOutUser,
-      handleSignUp
+      handleSignUp,
+      updateCurrentUser
     } = this.props;
 
     return (
@@ -27,10 +28,16 @@ class MainContainer extends Component {
         <Header currentUser={currentUser} logOutUser={logOutUser} />
         <Switch>
 
-          <Route exact path='/' render={() =>
-            <WelcomeContainer loginRequest={loginRequest} handleSignUp={handleSignUp} currentUser={currentUser} />} />
-          <Route exact path='/welcome' render={() =>
-            <NewUser currentUser={currentUser} updateCurrentUser={updateCurrentUser} />} />
+          <Route exact path='/' render={ () =>
+            <WelcomeContainer
+              loginRequest={loginRequest}
+              handleSignUp={handleSignUp}
+              currentUser={currentUser}
+              updateCurrentUser={updateCurrentUser}
+            />}
+          />
+          {/* <Route exact path='/welcome' render={() =>
+            <NewUser currentUser={currentUser} updateCurrentUser={updateCurrentUser} />} /> */}
 
           <Route exact path='/clubs' component={() => <ClubList clubs={clubs} />} />
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import HeaderLink from './HeaderLink';
 
 const NavBar = ({currentUser, logOutUser}) =>{

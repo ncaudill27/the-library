@@ -31,8 +31,9 @@
 
     # PATCH/PUT /users/1
     def update
-      if @user.update(user_params)
-        render json: serialization
+      if @user.update(user_params(:name, :username, :bio))
+        #TODO Add token authorization with sessionuser
+        render json: {user: UserSerializer.new(@user), success: "Useful message"}, status: :accepted
       else
         render json: @user.errors, status: :unprocessable_entity
       end

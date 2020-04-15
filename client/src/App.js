@@ -37,7 +37,7 @@ class App extends Component {
     .catch(errors => console.log(errors)); 
   }
 
-  updateCurrentUser(userData) {
+  updateCurrentUser = userData => {
     const {
       id,
       attributes: {
@@ -96,6 +96,8 @@ class App extends Component {
   };
 
   handleSignUp(userData) {
+    console.log(userData);
+    
     this.setState({
       currentUser: {
         id: userData.id,
