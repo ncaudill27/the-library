@@ -16,10 +16,10 @@ function ThreadList({threads, club: {id: clubId}, comments: {data: comments}, cu
           <Switch key={threadId}>
 
             <Route key={threadId} exact path={`/clubs/${clubId}/thread/:id`} render={({match: {params}}) =>
-              <ThreadShow key={params.id} thread={thread} comments={threadComments} currentUser={currentUser} />} />
+              <ThreadShow key={params.id} title ={title} threadId={threadId} comments={threadComments} currentUser={currentUser} />} />
 
-            <StyledLink to={`/clubs/${clubId}/thread/${threadId}`} exact className='Navlink'
-            styling='Thread-link'  ><h3>{title}</h3></StyledLink>
+            <StyledLink key={threadId} to={`/clubs/${clubId}/thread/${threadId}`} exact className='Navlink'
+            styling='Thread-link'><h3 key={threadId}>{title}</h3></StyledLink>
 
           </Switch>
         </Router>

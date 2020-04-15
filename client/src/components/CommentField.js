@@ -1,18 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import Avatar from './Avatar';
 import FormField from './FormField';
+import { postComment } from '../actions/comments';
 
-const CommentField = ({avatar, username, handleSubmit, handleChange, comment}) => (
-  <div className='Comment-field'>
-    <Avatar avatar={avatar} showing={username} />
-    <FormField
-      handleSubmit={handleSubmit}
-      handleChange={handleChange}
-      inputNames={{1: 'comment'}}
-      inputValues={{1: comment}}
-      submitValue="Comment"
-    />
+
+const CommentField = ({currentUser: {id: userId, avatar, username}, threadId, postComment}) => {
+
+  console.log(userId, threadId);
+  
+  const [comment, setComment] = useState('');
+
+  const handleChange = event => {
+    setComment(event.target.value);
+    console.log(event.target.value);
+  }
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    const payload = {
+      user_id: userId,
+      board_id: threadId,
+      content: comment
+    };    
+    console.log(payload, postComment);
+    postComment(payload);
+    setComment('');
+  };
+
+  return (
+    <div className='Comment-field'>
+      <Avatar avatar={avatar} showing={username} />
+      <FormField
+        handleSubmit={handleSubmit}
+        handleChange={handleChange}
+        inputNames={{1: 'comment'}}
+        inputValues={{1: comment}}
+        submitValue="Comment"
+      />
   </div>
-);
+  );
+};
 
-export default CommentField;
+export default connect(null, { postComment })(CommentField);

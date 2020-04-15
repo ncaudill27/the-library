@@ -18,7 +18,7 @@ const FormField = ({inputNames, inputValues, submitValue, handleChange, handleSu
           key={name}
           name={name}
           value={value}
-          onChange={handleChange}
+          handleChange={handleChange}
         /></label><br/>
       </> );
     }
@@ -32,8 +32,8 @@ const FormField = ({inputNames, inputValues, submitValue, handleChange, handleSu
       return name.charAt(0).toUpperCase() + name.slice(1).replace(upper[0], ' ' + upper[0])
     } else {
       return name.charAt(0).toUpperCase() + name.slice(1)
-    }
-  }
+    };
+  };
 
   return (
     <div className='Form-field'>
@@ -42,7 +42,7 @@ const FormField = ({inputNames, inputValues, submitValue, handleChange, handleSu
           <input type='submit' value={submitValue} />
         </form>
     </div>
-  )
+  );
 };
 
 export default FormField;

@@ -1,18 +1,18 @@
 import React from 'react';
 
-const Input = ({name, value, onChange}) => {
+const Input = ({name, value, handleChange}) => {
   switch(name) {
 
     case "password":
     case "confirmPassword":
-      return <input name={name} type='password' onChange={onChange} value={value} autoComplete='off' />;
+      return <input name={name} type='password' onChange={handleChange} value={value} autoComplete='off' />;
 
     case "description":
     case "bio":
-      return <textarea name={name} onChange={onChange}>{value}</textarea>;
+      return <textarea name={name} onChange={handleChange}>{value}</textarea>;
 
     default:
-      return <input name={name} type='text' onChange={onChange} value={value} autoComplete='off' />;
+      return <input name={name} type='text' onChange={handleChange} value={value} autoComplete='off' />;
   };
 };
 
