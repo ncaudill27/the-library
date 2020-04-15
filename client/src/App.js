@@ -13,24 +13,6 @@ import { authorizeToken } from './actions/users';
 
 class App extends Component {
 
-  // state = {
-  //   currentUser: false
-  // }
-
-  //! Remove!
-  // handleSignUp(userData) {
-  //   console.log(userData);
-    
-  //   this.setState({
-  //     currentUser: {
-  //       id: userData.id,
-  //       name: userData.attributes.name,
-  //       username: userData.attributes.username,
-  //       email: userData.attributes.email
-  //     }
-  //   });
-  // }
-  
   componentDidMount() {
     const {props: {fetchClubs, fetchUsers, fetchThreads, fetchComments, authorizeToken}} = this
     if (!!localStorage.getItem('token')) authorizeToken() //TODO Add await and loading animation
@@ -41,37 +23,13 @@ class App extends Component {
   }
 
   render() {
-    const {
-      loginRequest,
-      logOutUser,
-      // handleSignUp, //! Remove!
-      updateCurrentUser,
-      state: {
-        currentUser
-      }
-    } = this;
-
     return (
       <div className="App">
-        <SidebarContainer currentUser={currentUser} />
-        <MainContainer
-          loginRequest={loginRequest}
-          currentUser={currentUser}
-          logOutUser={logOutUser}
-          // handleSignUp={handleSignUp} //! Remove!
-          updateCurrentUser={updateCurrentUser}
-        />
+        <SidebarContainer />
+        <MainContainer />
       </div>
     );
   };
 }
 
-export default connect(
-  null, {
-    fetchClubs,
-    fetchUsers,
-    fetchThreads,
-    fetchComments,
-    authorizeToken
-  }
-)(App);
+export default connect(null, {fetchClubs, fetchUsers, fetchThreads, fetchComments, authorizeToken })(App);
