@@ -14,26 +14,6 @@ class SignUp extends Component {
       [e.target.name]: e.target.value
     });
   };
-  
-  userPostRequest = payload => {
-    const requestObj = {
-      'method': 'POST',
-      'headers': {
-        'Content-Type': 'application/json',
-        'Accepts': 'application/json'
-      },
-      'body': JSON.stringify(payload)
-    }
-    fetch('/api/v1/users', requestObj)
-    .then(res => res.json())
-    .then(response => {
-      console.log(response);
-      if (response.errors) return console.log(response.errors);
-      localStorage.setItem('token', response.auth_token);
-      this.props.updateCurrentUser(response.user.data);
-      // <FlashMessage response.success />
-    })
-  }
 
   handleSubmit = e => {
     e.preventDefault()

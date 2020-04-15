@@ -64,6 +64,29 @@ const authorizeToken = () => {
   };
 };
 
+const userPostRequest = payload => {
+  const requestObj = {
+    'method': 'POST',
+    'headers': {
+      'Content-Type': 'application/json',
+      'Accepts': 'application/json'
+    },
+    'body': JSON.stringify(payload)
+  }
+  
+  return dispatch => {
+    begin(dispatch);
+    fetch('/api/v1/users', requestObj)
+    .then(res => res.json())
+    .then(response => {
+      console.log(response);
+      if (response.errors) return console.log(response.errors);
+      localStorage.setItem('token', response.auth_token);
+      dispatch(loginUser(response.user.data));
+    });
+  };
+};
+
 const loginUser = userData => ({
   type: "LOGIN_USER",
   userData
@@ -78,5 +101,6 @@ export {
   addClub,
   authorizeToken,
   loginRequest,
-  logOutUser
+  logOutUser,
+  userPostRequest
 };

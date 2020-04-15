@@ -15,8 +15,8 @@ class LoginForm extends Component {
   };
 
   handleSubmit = e => {
-    e.preventDefault()
-    const payload = this.state
+    e.preventDefault();
+    const payload = this.state;
     this.props.loginRequest(payload);
     this.setState({
       username: '',

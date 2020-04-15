@@ -9,19 +9,17 @@ import NYTimes from './NYTimes';
 import ClubList from '../components/ClubList';
 import ClubContainer from './ClubContainer';
 import ClubForm from '../components/ClubForm';
+import { logOutUser } from '../actions/users';
 
 class MainContainer extends Component {
 
   render() {
     const {
+      currentUser,
+      logOutUser,
       clubs: {
         data: clubs
       },
-      loginRequest,
-      currentUser,
-      logOutUser,
-      // handleSignUp, //! Remove!
-      updateCurrentUser
     } = this.props;
 
     return (
@@ -31,10 +29,7 @@ class MainContainer extends Component {
 
           <Route exact path='/' render={ () =>
             <WelcomeContainer
-              loginRequest={loginRequest}
-              // handleSignUp={handleSignUp} //! Remove!
               currentUser={currentUser}
-              updateCurrentUser={updateCurrentUser}
             />}
           />
 
@@ -56,6 +51,6 @@ class MainContainer extends Component {
   };
 }
 
-const mapStateToProps = ({clubs}) => ({clubs})
+const mapStateToProps = ({clubs, users}) => ({clubs, users: {currentUser}})
 
-export default connect(mapStateToProps)(MainContainer);
+export default connect(mapStateToProps, { logOutUser })(MainContainer);
