@@ -1,33 +1,36 @@
 import React from 'react';
-import HeaderLink from './HeaderLink';
+import StyledLink from './StyledLink';
 
 const NavBar = ({currentUser, logOutUser}) =>{
 
   function logOutButton() {
     return currentUser
-    ? <HeaderLink to='/' exact className='Navlink' onClick={logOutUser}>Log Out</HeaderLink>
+    ? <StyledLink to='/' exact className='Navlink' styling='Header-link' onClick={logOutUser}>Log Out</StyledLink>
     : null;
   }
 
   return (
     <div className='Navbar'>
-      <HeaderLink
+      <StyledLink
         to='/bestsellers'
         exact
         className='Navlink'
-      >New York Times Bestsellers</HeaderLink>
+        styling='Header-link'
+      >New York Times Bestsellers</StyledLink>
 
-      <HeaderLink
+      <StyledLink
         to='/clubs'
         exact
         className='Navlink'
-      >Clubs</HeaderLink>
+        styling='Header-link'
+      >Clubs</StyledLink>
 
-      <HeaderLink
+      <StyledLink
         to='/'
         exact
         className='Navlink'
-      >Home</HeaderLink>
+        styling='Header-link'
+      >Home</StyledLink>
 
       {logOutButton()}
     </div>

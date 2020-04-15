@@ -1,9 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const HeaderLink = props =>
-  <div className='Header-link'>
+const StyledLink = props =>
+  <div className={props.styling}>
     <NavLink {...props} />
   </div>
 
-export default HeaderLink;
+export default StyledLink;

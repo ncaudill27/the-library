@@ -44,6 +44,4 @@ const createClub = clubJSON => ({
   clubJSON
 })
 
-export {
-  fetchClubs
-};
+export { fetchClubs, postClub };

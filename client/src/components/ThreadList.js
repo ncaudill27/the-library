@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ThreadShow from './ThreadShow';
-import ThreadLink from './ThreadLink';
+import StyledLink from './StyledLink';
 
 function ThreadList({threads, club: {id: clubId}, comments: {data: comments}, currentUser}) {
 
@@ -18,8 +18,8 @@ function ThreadList({threads, club: {id: clubId}, comments: {data: comments}, cu
             <Route key={threadId} exact path={`/clubs/${clubId}/thread/:id`} render={({match: {params}}) =>
               <ThreadShow key={params.id} thread={thread} comments={threadComments} currentUser={currentUser} />} />
 
-            <ThreadLink to={`/clubs/${clubId}/thread/${threadId}`} exact className='Navlink'
-              ><h3>{title}</h3></ThreadLink>
+            <StyledLink to={`/clubs/${clubId}/thread/${threadId}`} exact className='Navlink'
+            styling='Thread-link'  ><h3>{title}</h3></StyledLink>
 
           </Switch>
         </Router>
