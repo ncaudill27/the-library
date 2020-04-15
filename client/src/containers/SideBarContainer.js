@@ -23,6 +23,11 @@ class SidebarContainer extends Component {
   }
 }
 
-const mapStateToProps = ({clubs, users}) => ({clubs, users});
+const mapStateToProps = ({clubs, users}) => {
+  return {
+    clubs,
+    currentUser: users.currentUser
+  }
+};
 
 export default connect(mapStateToProps, { addClub })(SidebarContainer);
