@@ -17,7 +17,7 @@ class ClubForm extends Component {
     }, ()=> console.log(this.state));
   };
 
-  handleSubmit = async e => {
+  handleSubmit = e => {
     e.preventDefault()
     const {
       state: {
@@ -33,7 +33,7 @@ class ClubForm extends Component {
     }
 
     localStorage.setItem('currentUserId', currentUser.id)
-    await postClub(payload);
+    postClub(payload);
 
     // addClub(currentUser)
     this.setState({

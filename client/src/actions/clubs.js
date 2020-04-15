@@ -34,10 +34,9 @@ const postClub = payload => {
     fetch('/api/v1/clubs', requestObj)
     .then(res => res.json())
     .then( async response => {
-      console.log(response);
       if (response.errors) return console.log(response.errors);
-      let club = await dispatch(createClub(response.club));      
-      dispatch(addClub(club.club.data.id, currentUserId))
+      let post = await dispatch(createClub(response.club));      
+      dispatch(addClub(post.club.data.id, currentUserId));
     })
   }
   

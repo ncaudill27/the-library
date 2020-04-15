@@ -43,9 +43,9 @@ const usersReducer = (state = initialState, action) => {
       users = state.data.map(u => u.id !== user.id ? u : user);
       return {...state, data: users}
 
-      case "LOGIN_USER":
-        return state;
-        
+    case "LOGIN_USER":
+      return state;
+
     
     default:
       return state;

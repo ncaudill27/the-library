@@ -6,16 +6,14 @@ import ClubList from '../components/ClubList';
 
 class SidebarContainer extends Component {
 
-  // componentDidUpdate(prevProps) {
-  //   const {clubs, currentUser, addClub} = this.props
-  //   if (clubs.data !== prevProps.clubs.data && clubs.pending === false) {
-  //     const newClub = this.props.clubs.data.slice(-1)[0];
-  //     console.log(currentUser);
-      
-  //     addClub(newClub.id, currentUser.id)
-  //   }
-  // }
-  
+  componentDidUpdate(prevProps) {
+    const {users: {data: users}} = this.props
+    const currentUser = users.find( u => u.id === prevProps.currentUser.id)
+    if (prevProps.currentUser.clubIds !== currentUser.clubIds) {
+      console.log('this');
+    }
+  }
+
   render() {
     const {currentUser, clubs} = this.props
     let userClubs
@@ -33,6 +31,6 @@ class SidebarContainer extends Component {
   }
 }
 
-const mapStateToProps = ({clubs}) => ({clubs});
+const mapStateToProps = ({clubs, users}) => ({clubs, users});
 
 export default connect(mapStateToProps, { addClub })(SidebarContainer);
