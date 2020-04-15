@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Club from './Club';
 import ClubSideBar from './ClubSideBar';
+import { NavLink } from 'react-router-dom';
 
 class ClubList extends Component {
 
@@ -23,10 +24,14 @@ class ClubList extends Component {
   renderClubsSidebar = () => {
     const {props: {clubs}} = this;
 
-    let list = clubs.map(({id, name, avatar}) => <ClubSideBar id={id} name={name} avatar={avatar} />);
+    let list = clubs.map(({id, name, avatar}) => <ClubSideBar key={id} id={id} name={name} avatar={avatar} />);
     return <>
       {list}
-      <div className='Club-sidebar Create-club'><h3>Create Club</h3></div>
+      <NavLink
+        to='/create-club'
+        exact
+        className='Create-club Navlink'
+      ><div className='Club-sidebar Create-club'><h3>Create Club</h3></div></NavLink>
     </>
   }
 

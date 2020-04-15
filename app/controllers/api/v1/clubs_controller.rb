@@ -17,12 +17,12 @@ module Api::V1
 
     # POST /clubs
     def create
-      @club = Club.new(club_params)
+      @club = Club.new(club_params(:name, :description))
 
       if @club.save
-        render json: serialization, status: :created, location: @club
+        render json: {club: serialization, success: "Created #{@club.name}"}, status: :created
       else
-        render json: @club.errors, status: :unprocessable_entity
+        render json: {errors: @club.errors}, status: :unprocessable_entity
       end
     end
 
@@ -48,8 +48,8 @@ module Api::V1
       end
 
       # Only allow a trusted parameter "white list" through.
-      def club_params
-        params.require(:club).permit(:name, :description)
+      def club_params(*args)
+        params.require(:club).permit(args)
       end
 
       def serialization

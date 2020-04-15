@@ -91,6 +91,7 @@
 
 div.Club-list > div:nth-child(2) > h3 > a:hover {
   background-color: #BF8176;
+  color: black;
 }
 
 .Club-sidebar h3 {

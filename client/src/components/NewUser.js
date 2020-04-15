@@ -59,8 +59,9 @@ class NewUser extends Component {
     
     return (
       <div class='New-user'>
+        <h2>Welcome!</h2> 
         <p>
-        <strong>Welcome!</strong> Please fill out this information.
+        Please fill out this information.
         Don't worry your name or email won't be made public.
         </p>
         <FormField

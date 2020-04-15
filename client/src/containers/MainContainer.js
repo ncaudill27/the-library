@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
+
+import Header from '../components/Header';
+import WelcomeContainer from '../components/WelcomeContainer';
+import BookShow from '../components/BookShow';
 import NYTimes from './NYTimes';
 import ClubList from '../components/ClubList';
 import ClubContainer from './ClubContainer';
-import BookShow from '../components/BookShow';
-import WelcomeContainer from '../components/WelcomeContainer';
-import Header from '../components/Header';
+import ClubForm from '../components/ClubForm';
 
 class MainContainer extends Component {
 
@@ -41,7 +43,9 @@ class MainContainer extends Component {
           <Route exact path='/clubs/:id' render={({match}) =>
             <ClubContainer id={match.params.id} clubs={clubs} currentUser={currentUser} />} />
 
-          <Route exact path='/bestsellers' component={NYTimes} />
+          <Route path='/create-club' render={() => <ClubForm currentUser={currentUser} updateCurrentUser={updateCurrentUser} />} />
+
+          <Route path='/bestsellers' component={NYTimes} />
 
           <Route exact path={`/bestsellers/:isbn`} render={({match}) =>
             <BookShow isbn={match.params.isbn} />} />
