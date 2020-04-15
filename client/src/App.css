@@ -78,6 +78,30 @@
   left: 95px;
 }
 
+
+
+.Club-sidebar {
+    height:  80px;
+}
+
+.Club-sidebar:hover {
+  background-color: #BF8176;
+  cursor: pointer;
+}
+
+div.Club-list > div:nth-child(2) > h3 > a:hover {
+  background-color: #BF8176;
+}
+
+.Club-sidebar h3 {
+  padding-top: 30px;
+}
+
+.Create-club:hover {
+  color: white;
+  background: #4F7178;
+}
+
 .Comment-card,
 .Comment-field {
   height: 80px;

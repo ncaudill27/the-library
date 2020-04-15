@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import Club from './Club';
+import ClubSideBar from './ClubSideBar';
 
 class ClubList extends Component {
 
   renderClubs = () => {
-    const {props: {clubs}} = this
+    let {props: {clubs, currentUser}} = this;
+    clubs = clubs.filter(club => !currentUser.clubIds.includes(club.id));
 
     return clubs.map(({id, name, avatar, description, memberIds})=>
       <Club
@@ -19,18 +21,20 @@ class ClubList extends Component {
   };
 
   renderClubsSidebar = () => {
-    
+    const {props: {clubs}} = this;
+    let list = clubs.map(({id, name, avatar}) => <ClubSideBar id={id} name={name} avatar={avatar} />);
+    return <>
+      {list}
+      <div className='Club-sidebar Create-club'><h3>Create Club</h3></div>
+    </>
   }
 
   render() {
+    const {renderClubs, renderClubsSidebar, props: {styling}} = this;
     return (
       <div className='Club-list'>
         <h2>Clubs</h2>
-        {this.renderClubs()}
-        {/* Render Find Club Button if on sidebar */}
-        {/* <div className='find-club' onClick=''>
-          <h3>Find Club</h3>
-        </div> */}
+        {styling === 'sidebar' ? renderClubsSidebar() : renderClubs()}
       </div>
     );
   };

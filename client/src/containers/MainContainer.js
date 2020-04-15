@@ -7,7 +7,6 @@ import ClubContainer from './ClubContainer';
 import BookShow from '../components/BookShow';
 import WelcomeContainer from '../components/WelcomeContainer';
 import Header from '../components/Header';
-import NewUser from '../components/NewUser';
 
 class MainContainer extends Component {
 
@@ -37,7 +36,7 @@ class MainContainer extends Component {
             />}
           />
 
-          <Route exact path='/clubs' component={() => <ClubList clubs={clubs} />} />
+          <Route exact path='/clubs' component={() => <ClubList clubs={clubs} currentUser={currentUser} />} />
 
           <Route exact path='/clubs/:id' render={({match}) =>
             <ClubContainer id={match.params.id} clubs={clubs} currentUser={currentUser} />} />
