@@ -9,12 +9,13 @@ import { fetchClubs } from './actions/clubs';
 import { fetchUsers } from './actions/users';
 import { fetchThreads } from './actions/threads';
 import { fetchComments } from './actions/comments';
+import { authorizeToken } from './actions/users';
 
 class App extends Component {
 
-  state = {
-    currentUser: false
-  }
+  // state = {
+  //   currentUser: false
+  // }
 
   loginRequest = payload => {
     const requestObj = {
@@ -37,55 +38,6 @@ class App extends Component {
     .catch(errors => console.log(errors)); 
   }
 
-  updateCurrentUser = userData => {
-    const {
-      id,
-      attributes: {
-        name, username, email, bio, avatar, favorite_book_isbn13
-      },
-      relationships: {
-        clubs: {
-          data: clubs
-        },
-        comments: {
-          data: comments
-        }
-      }
-    } = userData; 
-
-    this.setState({
-      currentUser: {
-        id: id,
-        name: name,
-        username: username,
-        email: email,
-        bio: bio,
-        avatar: avatar,
-        currentFavorite: favorite_book_isbn13,
-        clubIds: clubs.map(club => club.id),
-        commentIds: comments.map(comment => comment.id),
-      }
-    });
-    // <Redirect />
-  }
-  authorizeToken = () => {
-    const token = localStorage.getItem('token');
-    const requestObj = {
-      'method': 'POST',
-      'headers': {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-        'Accepts': 'application/json'
-      }
-    }
-    fetch('/auth/auto', requestObj)
-    .then(res => res.json())
-    .then(response => {
-      if (response.failure) return console.log(response.failure);
-      this.updateCurrentUser(response.data);
-    });
-  };
-
   //! Remove!
   // handleSignUp(userData) {
   //   console.log(userData);
@@ -106,7 +58,7 @@ class App extends Component {
   }
   
   componentDidMount() {
-    const {authorizeToken, props: {fetchClubs, fetchUsers, fetchThreads, fetchComments}} = this
+    const {props: {fetchClubs, fetchUsers, fetchThreads, fetchComments, authorizeToken}} = this
     if (!!localStorage.getItem('token')) authorizeToken() //TODO Add await and loading animation
     fetchClubs()
     fetchUsers()
@@ -140,4 +92,12 @@ class App extends Component {
   };
 }
 
-export default connect(null, { fetchClubs, fetchUsers, fetchThreads, fetchComments })(App);
+export default connect(
+  null, {
+    fetchClubs,
+    fetchUsers,
+    fetchThreads,
+    fetchComments,
+    authorizeToken
+  }
+)(App);

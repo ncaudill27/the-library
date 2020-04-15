@@ -1,5 +1,6 @@
 const initialState = {
   data: [],
+  currentUser: false,
   pending: false
 }
 
@@ -44,9 +45,34 @@ const usersReducer = (state = initialState, action) => {
       return {...state, data: users}
 
     case "LOGIN_USER":
-      return state;
+      const {
+        id,
+        attributes: {
+          name, username, email, bio, avatar, favorite_book_isbn13
+        },
+        relationships: {
+          clubs: {
+            data: clubs
+          },
+          comments: {
+            data: comments
+          }
+        }
+      } = action.userData; 
 
-    
+      const currentUser =  {
+        id: id,
+        name: name,
+        username: username,
+        email: email,
+        bio: bio,
+        avatar: avatar,
+        currentFavorite: favorite_book_isbn13,
+        clubIds: clubs.map(club => club.id),
+        commentIds: comments.map(comment => comment.id),
+      }
+      return {...state, currentUser: currentUser}
+
     default:
       return state;
   };

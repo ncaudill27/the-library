@@ -6,14 +6,6 @@ import ClubList from '../components/ClubList';
 
 class SidebarContainer extends Component {
 
-  componentDidUpdate(prevProps) {
-    const {users: {data: users}} = this.props
-    const currentUser = users.find( u => u.id === prevProps.currentUser.id)
-    if (prevProps.currentUser.clubIds !== currentUser.clubIds) {
-      console.log('this');
-    }
-  }
-
   render() {
     const {currentUser, clubs} = this.props
     let userClubs
