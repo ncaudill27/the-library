@@ -44,7 +44,7 @@ const usersReducer = (state = initialState, action) => {
       users = state.data.map(u => u.id !== user.id ? u : user);
       return {...state, data: users}
 
-    case "LOGIN_USER":
+    case "LOGIN_USER": //Formerly known as updateCurrentUser
       const {
         id,
         attributes: {
@@ -72,6 +72,10 @@ const usersReducer = (state = initialState, action) => {
         commentIds: comments.map(comment => comment.id),
       }
       return {...state, currentUser: currentUser}
+
+    case "LOGOUT_USER":
+      localStorage.clear()
+      return {...state, currentUser: false }
 
     default:
       return state;

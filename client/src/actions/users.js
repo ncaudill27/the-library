@@ -1,6 +1,8 @@
+const begin = func => func({type: "BEGIN_USERS_REQUEST"});
+
 const fetchUsers = () => {
   return (dispatch) => {
-    dispatch({type: "BEGIN_USERS_REQUEST"});
+    begin(dispatch);
     fetch('/api/v1/users')
     .then(res => res.json())
     .then(json => dispatch(addUsers(json)));
@@ -18,6 +20,29 @@ const addClub = (clubId, userId) => ({
   userId
 })
 
+const loginRequest = payload => {
+  const requestObj = {
+    'method': 'POST',
+    'headers': {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    'body': JSON.stringify(payload)
+  };
+
+  return dispatch => {
+    begin(dispatch);
+    fetch('/auth/login', requestObj)
+    .then(res => res.json())
+    .then(response => {
+      if (response.failure) return console.log(response.failure); //TODO Handle this
+      localStorage.setItem('token', response.auth_token);
+      dispatch(loginUser(response.user.data));
+    })
+    .catch(errors => console.log(errors)); 
+  }
+}
+
 const authorizeToken = () => {
   const token = localStorage.getItem('token');
   const requestObj = {
@@ -29,6 +54,7 @@ const authorizeToken = () => {
     }
   }
   return dispatch => {
+    begin(dispatch);
     fetch('/auth/auto', requestObj)
     .then(res => res.json())
     .then(response => {
@@ -43,8 +69,14 @@ const loginUser = userData => ({
   userData
 });
 
+const logOutUser = () => ({
+  type: "LOGOUT_USER"
+})
+
 export {
   fetchUsers,
   addClub,
-  authorizeToken
+  authorizeToken,
+  loginRequest,
+  logOutUser
 };

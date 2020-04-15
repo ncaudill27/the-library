@@ -17,27 +17,6 @@ class App extends Component {
   //   currentUser: false
   // }
 
-  loginRequest = payload => {
-    const requestObj = {
-      'method': 'POST',
-      'headers': {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      'body': JSON.stringify(payload)
-    };
-
-    fetch('/auth/login', requestObj)
-    .then(res => res.json())
-    .then(response => {
-      if (response.failure) return console.log(response.failure); //TODO Handle this
-      localStorage.setItem('token', response.auth_token);
-      this.updateCurrentUser(response.user.data);
-      // <FlashMessage message{response} />
-    })
-    .catch(errors => console.log(errors)); 
-  }
-
   //! Remove!
   // handleSignUp(userData) {
   //   console.log(userData);
@@ -51,11 +30,6 @@ class App extends Component {
   //     }
   //   });
   // }
-
-  logOutUser = () => {
-    localStorage.clear()
-    this.setState({ currentUser: false })
-  }
   
   componentDidMount() {
     const {props: {fetchClubs, fetchUsers, fetchThreads, fetchComments, authorizeToken}} = this
