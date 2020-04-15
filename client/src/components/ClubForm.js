@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import FormField from './FormField';
+import { postClub } from '../actions/clubs';
+import { connect } from 'react-redux';
 
 class ClubForm extends Component {
 
@@ -16,49 +18,19 @@ class ClubForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault()
-    this.postClubRequest();
+    const {state: {name, description}} = this
+    const payload = {
+      club: {
+        name,
+        description
+      }
+    }
+    this.props.postClub(payload);
     this.setState({
       name: '',
-      username: '',
-      bio: ''
+      description: ''
     });
   };
-
-  postClubRequest = () => {
-    let {
-      props: {
-        currentUser,
-        updateCurrentUser
-      },
-      state
-    } = this;
-
-    const token = localStorage.getItem('token');
-    const requestObj = {
-      'method': 'POST',
-      'headers': {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      'body': JSON.stringify(state)
-    };
-
-    fetch('/api/v1/clubs', requestObj)
-    .then(res => res.json())
-    .then(response => {
-      console.log(response);
-      if (response.errors) return console.log(response.errors);
-      currentUser = {
-        ...currentUser,
-        clubIds: [...currentUser.clubIds, response.club.data.id]
-      };
-      console.log(currentUser);
-      updateCurrentUser(currentUser);
-      
-    })
-  }
-
 
   render() {
     const {handleChange, handleSubmit, state} = this;
@@ -79,4 +51,4 @@ class ClubForm extends Component {
   }
 }
 
-export default ClubForm;
+export default connect(null, { postClub })(ClubForm);

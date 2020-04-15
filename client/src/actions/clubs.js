@@ -32,7 +32,7 @@ const postClub = payload => {
     .then(response => {
       console.log(response);
       if (response.errors) return console.log(response.errors);
-      createClub(response.club)
+      dispatch(createClub(response.club));
       
     })
   }
@@ -41,7 +41,7 @@ const postClub = payload => {
 
 const createClub = clubJSON => ({
   type: "CREATE_CLUB",
-  clubJSON
+  club: clubJSON
 })
 
 export { fetchClubs, postClub };

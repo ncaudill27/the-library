@@ -42,13 +42,6 @@ class App extends Component {
       id,
       attributes: {
         name, username, email, bio, avatar, favorite_book_isbn13
-      } = {
-        // Fallback default values
-        name: 'Anon',
-        username: 'Anon',
-        email: 'no@email.com',
-        avatar: 'https://miro.medium.com/max/720/1*W35QUSvGpcLuxPo3SRTH4w.png',
-        favorite_book_isbn13: '978-1455841653'
       },
       relationships: {
         clubs: {
@@ -120,6 +113,8 @@ class App extends Component {
     fetchThreads()
     fetchComments()
   }
+
+  componentDidUpdate(prevProps)
   render() {
     const {
       loginRequest,

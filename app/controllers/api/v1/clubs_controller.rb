@@ -17,7 +17,8 @@ module Api::V1
 
     # POST /clubs
     def create
-      @club = Club.new(club_params(:name, :description))
+      @club = Club.new(club_params(:name, :description, :user_id))
+      @club.users << session_user
 
       if @club.save
         render json: {club: serialization, success: "Created #{@club.name}"}, status: :created

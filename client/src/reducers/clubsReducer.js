@@ -25,25 +25,25 @@ const clubsReducer = (state = initialState, action) => {
       return {...state, data: state.data.concat(clubs), pending: false};
 
     case "CREATE_CLUB":
-      const {
-        club: {
-          data: {
-            id,
-            name
-          },
-          attributes: {
-            description,
-            avatar
-          },
-          relationships: {
-            users: {data: memberIds},
-            boards: {data: threadIds}
-          }
+      console.log(action);
+      let {
+        id,
+        attributes: {
+          name, description
+        },
+        relationships: {
+          users: { data: users}
         }
-      } = action;
+      } = action.club.data
       
-      club = {id, name, description, avatar, memberIds, threadIds};
-      return {...state, data: [...state.data, club], pending: false};
+      club = {
+        id,
+        name,
+        description,
+        memberIds: users.map(user => user.id)
+      }
+      console.log({...state, data: [...state.data, club], pending: false});
+      return {...state, data: state.data.concat(club), pending: false};
 
     default:
       return state;
