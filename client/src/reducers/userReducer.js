@@ -38,11 +38,13 @@ const usersReducer = (state = initialState, action) => {
     case "ADD_CLUB":
       console.log(action);
       
+      console.log(user);
+
       user = state.data.find(u => u.id === action.userId);
       user.clubIds = user.clubIds.concat(action.clubId)
       console.log(user);
       users = state.data.map(u => u.id !== user.id ? u : user);
-      return {...state, data: users}
+      return {...state, data: users, currentUser: user, pending: false}
 
     case "LOGIN_USER": //Formerly known as updateCurrentUser
       const {
@@ -71,11 +73,11 @@ const usersReducer = (state = initialState, action) => {
         clubIds: clubs.map(club => club.id),
         commentIds: comments.map(comment => comment.id),
       }
-      return {...state, currentUser: currentUser}
+      return {...state, currentUser: currentUser, pending: false}
 
     case "LOGOUT_USER":
       localStorage.clear()
-      return {...state, currentUser: false }
+      return {...state, currentUser: false, pending: false}
 
     default:
       return state;

@@ -87,6 +87,29 @@ const userPostRequest = payload => {
   };
 };
 
+const updateUserRequest = (payload, userId) => {
+  const token = localStorage.getItem('token');
+  const requestObj = {
+    'method': 'PATCH',
+    'headers': {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    'body': JSON.stringify(payload)
+  };
+
+  return dispatch => {
+    begin(dispatch);
+    fetch(`/api/v1/users/${userId}`, requestObj)
+    .then(res => res.json())
+    .then(response => {
+      console.log(response);
+      dispatch(loginUser(response.user.data));
+    });
+  }
+};
+
 const loginUser = userData => ({
   type: "LOGIN_USER",
   userData
@@ -102,5 +125,7 @@ export {
   authorizeToken,
   loginRequest,
   logOutUser,
-  userPostRequest
+  loginUser,
+  userPostRequest,
+  updateUserRequest
 };

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import FormField from './FormField';
+import { userPostRequest } from '../actions/users';
+import { connect } from 'react-redux';
 
 class SignUp extends Component {
 
@@ -25,7 +27,7 @@ class SignUp extends Component {
           password_confirmation: confirmPassword
         }
     }
-    this.userPostRequest(payload);
+    this.props.userPostRequest(payload);
     this.setState({
       email: '',
       password: '',
@@ -53,4 +55,4 @@ class SignUp extends Component {
   };
 }
 
-export default SignUp;
+export default connect(null, { userPostRequest })(SignUp);

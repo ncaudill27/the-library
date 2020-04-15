@@ -17,7 +17,7 @@ class WelcomeContainer extends React.Component {
             : <NewUser currentUser={currentUser} loginUser={loginUser} />
           : <>
             <LoginForm loginRequest={loginRequest} />
-            <SignUp loginUser={loginUser} />
+            <SignUp />
           </>
         }
       </div>

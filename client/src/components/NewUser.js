@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import FormField from './FormField';
+import { connect } from 'react-redux';
+import { updateUserRequest } from '../actions/users';
 
 class NewUser extends Component {
 
@@ -15,36 +17,10 @@ class NewUser extends Component {
     });
   };
 
-  updateUserRequest = () => {
-    const {
-      props: {
-        currentUser, updateCurrentUser
-      },
-      state
-    } = this
-
-    const token = localStorage.getItem('token')
-    const requestObj = {
-      'method': 'PATCH',
-      'headers': {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      'body': JSON.stringify(state)
-    };
-
-    fetch(`/api/v1/users/${currentUser.id}`, requestObj)
-    .then(res => res.json())
-    .then(response => {
-      console.log(response);
-      updateCurrentUser(response.user.data)
-    });
-  };
-
   handleSubmit = e => {
     e.preventDefault()
-    this.updateUserRequest();
+    const { updateUserRequest, currentUser } = this.props
+    updateUserRequest(this.state, currentUser.id);
     this.setState({
       name: '',
       username: '',
@@ -72,7 +48,7 @@ class NewUser extends Component {
         />
       </div>
     );
-  }
+  };
 }
 
-export default NewUser;
+export default connect(null, {updateUserRequest})(NewUser);

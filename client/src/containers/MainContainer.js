@@ -38,7 +38,7 @@ class MainContainer extends Component {
           <Route exact path='/clubs/:id' render={({match}) =>
             <ClubContainer id={match.params.id} clubs={clubs} currentUser={currentUser} />} />
 
-          <Route path='/create-club' render={() => <ClubForm currentUser={currentUser} updateCurrentUser={updateCurrentUser} />} />
+          <Route path='/create-club' render={() => <ClubForm currentUser={currentUser}  />} />
 
           <Route path='/bestsellers' component={NYTimes} />
 
@@ -51,6 +51,11 @@ class MainContainer extends Component {
   };
 }
 
-const mapStateToProps = ({clubs, users}) => ({clubs, users: {currentUser}})
+const mapStateToProps = ({clubs, users}) => {
+  return {
+    clubs,
+    currentUser: users.currentUser
+  }
+}
 
 export default connect(mapStateToProps, { logOutUser })(MainContainer);
