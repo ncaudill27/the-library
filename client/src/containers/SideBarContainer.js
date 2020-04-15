@@ -4,6 +4,7 @@ import UserBox from '../components/UserBox';
 import ClubList from '../components/ClubList';
 
 class SidebarContainer extends Component {
+
   render() {
     const {currentUser, clubs} = this.props
     let userClubs

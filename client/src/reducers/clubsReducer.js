@@ -4,17 +4,14 @@ const initialState = {
 }
 
 const clubsReducer = (state = initialState, action) => {
+  let club, clubs
   switch(action.type) {
 
     case "BEGIN_CLUBS_REQUEST":
-      return {
-        ...state,
-        data: [...state.data],
-        pending: true
-      };
+      return {...state, data: [...state.data], pending: true};
 
     case "ADD_CLUBS":
-      const clubs = action.clubs.data.map(club => {
+      clubs = action.clubs.data.map(club => {
         return {
           id: club.id,
           name: club.attributes.name,
@@ -24,11 +21,29 @@ const clubsReducer = (state = initialState, action) => {
           threadIds: club.relationships.boards.data.map(board => board.id),
         };
       });
-      return {
-        ...state,
-        data: state.data.concat(clubs),
-        pending: false
-      };
+
+      return {...state, data: state.data.concat(clubs), pending: false};
+
+    case "CREATE_CLUB":
+      const {
+        club: {
+          data: {
+            id,
+            name
+          },
+          attributes: {
+            description,
+            avatar
+          },
+          relationships: {
+            users: {data: memberIds},
+            boards: {data: threadIds}
+          }
+        }
+      } = action;
+      
+      club = {id, name, description, avatar, memberIds, threadIds};
+      return {...state, data: [...state.data, club], pending: false};
 
     default:
       return state;

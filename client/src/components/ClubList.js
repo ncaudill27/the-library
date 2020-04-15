@@ -22,6 +22,7 @@ class ClubList extends Component {
 
   renderClubsSidebar = () => {
     const {props: {clubs}} = this;
+    // ! INSERT HERE
     let list = clubs.map(({id, name, avatar}) => <ClubSideBar id={id} name={name} avatar={avatar} />);
     return <>
       {list}
