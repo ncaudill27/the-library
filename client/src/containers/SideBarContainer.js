@@ -6,12 +6,15 @@ import ClubList from '../components/ClubList';
 
 class SidebarContainer extends Component {
 
-  componentDidUpdate(prevProps) {
-    if (this.props.clubs !== prevProps.clubs) {
-      const newClub = this.props.clubs.data.slice(-1);
-      return newClub[0] ? this.props.addClub(newClub.id, this.props.currentUser.id) : null
-    }
-  }
+  // componentDidUpdate(prevProps) {
+  //   const {clubs, currentUser, addClub} = this.props
+  //   if (clubs.data !== prevProps.clubs.data && clubs.pending === false) {
+  //     const newClub = this.props.clubs.data.slice(-1)[0];
+  //     console.log(currentUser);
+      
+  //     addClub(newClub.id, currentUser.id)
+  //   }
+  // }
   
   render() {
     const {currentUser, clubs} = this.props

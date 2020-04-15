@@ -1,3 +1,5 @@
+import { addClub } from './users';
+
 const begin = func => func({type: "BEGIN_CLUBS_REQUEST"});
 
 const fetchClubs = () => {
@@ -16,6 +18,7 @@ const addClubs = clubsJSON => ({
 
 const postClub = payload => {
   const token = localStorage.getItem('token');
+  const currentUserId = localStorage.getItem('currentUserId');
   const requestObj = {
     'method': 'POST',
     'headers': {
@@ -25,15 +28,16 @@ const postClub = payload => {
     },
     'body': JSON.stringify(payload)
   }
+
   return dispatch => {
     begin(dispatch);
     fetch('/api/v1/clubs', requestObj)
     .then(res => res.json())
-    .then(response => {
+    .then( async response => {
       console.log(response);
       if (response.errors) return console.log(response.errors);
-      dispatch(createClub(response.club));
-      
+      let club = await dispatch(createClub(response.club));      
+      dispatch(addClub(club.club.data.id, currentUserId))
     })
   }
   

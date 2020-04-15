@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import FormField from './FormField';
 import { postClub } from '../actions/clubs';
+import { addClub } from '../actions/users';
 import { connect } from 'react-redux';
 
 class ClubForm extends Component {
@@ -16,16 +17,25 @@ class ClubForm extends Component {
     }, ()=> console.log(this.state));
   };
 
-  handleSubmit = e => {
+  handleSubmit = async e => {
     e.preventDefault()
-    const {state: {name, description}} = this
+    const {
+      state: {
+        name, description},
+        props: {
+          postClub, addClub, currentUser
+        }} = this;
     const payload = {
       club: {
         name,
         description
       }
     }
-    this.props.postClub(payload);
+
+    localStorage.setItem('currentUserId', currentUser.id)
+    await postClub(payload);
+
+    // addClub(currentUser)
     this.setState({
       name: '',
       description: ''
@@ -51,4 +61,4 @@ class ClubForm extends Component {
   }
 }
 
-export default connect(null, { postClub })(ClubForm);
+export default connect(null, { postClub, addClub })(ClubForm);
