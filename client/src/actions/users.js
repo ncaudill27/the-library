@@ -12,6 +12,13 @@ const addUsers = usersJSON => ({
   users: usersJSON
 });
 
+const addClub = (clubId, userId) => ({
+  type: "ADD_CLUB",
+  clubId,
+  userId
+})
+
 export {
-  fetchUsers
+  fetchUsers,
+  addClub
 };

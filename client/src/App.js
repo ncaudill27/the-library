@@ -114,7 +114,6 @@ class App extends Component {
     fetchComments()
   }
 
-  componentDidUpdate(prevProps)
   render() {
     const {
       loginRequest,

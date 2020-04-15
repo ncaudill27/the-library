@@ -4,6 +4,7 @@ const initialState = {
 }
 
 const usersReducer = (state = initialState, action) => {
+  let user, users
   switch(action.type) {
 
     case "BEGIN_USERS_REQUEST":
@@ -14,7 +15,7 @@ const usersReducer = (state = initialState, action) => {
       }
 
     case "ADD_USERS":
-      const users = action.users.data.map(user=> {
+      users = action.users.data.map(user=> {
         return {
           id: user.id,
           name: user.attributes.name,
@@ -32,6 +33,14 @@ const usersReducer = (state = initialState, action) => {
         data: state.data.concat(users),
         pending: false
       };
+
+    case "ADD_CLUB":
+      console.log(action);
+      
+      // user = state.data.find(u => u.id === action.userId);
+      // user.clubIds.concat(action.clubId)
+      // users = state.data.map(u => u.id !== user.id ? u : user);
+      // return {...state, data: users}
 
       case "LOGIN_USER":
         return state;
