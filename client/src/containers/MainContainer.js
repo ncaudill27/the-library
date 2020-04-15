@@ -19,7 +19,7 @@ class MainContainer extends Component {
       loginRequest,
       currentUser,
       logOutUser,
-      handleSignUp,
+      // handleSignUp, //! Remove!
       updateCurrentUser
     } = this.props;
 
@@ -31,7 +31,7 @@ class MainContainer extends Component {
           <Route exact path='/' render={ () =>
             <WelcomeContainer
               loginRequest={loginRequest}
-              handleSignUp={handleSignUp}
+              // handleSignUp={handleSignUp} //! Remove!
               currentUser={currentUser}
               updateCurrentUser={updateCurrentUser}
             />}

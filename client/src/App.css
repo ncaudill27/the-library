@@ -32,7 +32,7 @@
 }
 
 .Header-link:hover,
-.Header-link:hover > .Navlink ,
+.Header-link:hover > .Navlink,
 .Navlink:hover {
   color: white;
   background: #4F7178;

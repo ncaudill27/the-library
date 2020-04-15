@@ -95,19 +95,19 @@ class App extends Component {
     });
   };
 
-  handleSignUp(userData) {
-    console.log(userData);
+  //! Remove!
+  // handleSignUp(userData) {
+  //   console.log(userData);
     
-    this.setState({
-      currentUser: {
-        id: userData.id,
-        name: userData.attributes.name,
-        username: userData.attributes.username,
-        email: userData.attributes.email
-      }
-    });
-
-  }
+  //   this.setState({
+  //     currentUser: {
+  //       id: userData.id,
+  //       name: userData.attributes.name,
+  //       username: userData.attributes.username,
+  //       email: userData.attributes.email
+  //     }
+  //   });
+  // }
 
   logOutUser = () => {
     localStorage.clear()
@@ -115,17 +115,18 @@ class App extends Component {
   }
   
   componentDidMount() {
-    this.props.fetchClubs()
-    this.props.fetchUsers()
-    this.props.fetchThreads()
-    this.props.fetchComments()
-    if (!!localStorage.getItem('token')) this.authorizeToken()
+    const {authorizeToken, props: {fetchClubs, fetchUsers, fetchThreads, fetchComments}} = this
+    if (!!localStorage.getItem('token')) authorizeToken() //TODO Add await and loading animation
+    fetchClubs()
+    fetchUsers()
+    fetchThreads()
+    fetchComments()
   }
   render() {
     const {
       loginRequest,
       logOutUser,
-      handleSignUp,
+      // handleSignUp, //! Remove!
       updateCurrentUser,
       state: {
         currentUser
@@ -139,7 +140,7 @@ class App extends Component {
           loginRequest={loginRequest}
           currentUser={currentUser}
           logOutUser={logOutUser}
-          handleSignUp={handleSignUp}
+          // handleSignUp={handleSignUp} //! Remove!
           updateCurrentUser={updateCurrentUser}
         />
       </div>

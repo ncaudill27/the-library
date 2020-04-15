@@ -6,7 +6,7 @@ import NewUser from './NewUser';
 class WelcomeContainer extends React.Component {
   
   render() {
-    const {handleSignUp, loginRequest, currentUser, updateCurrentUser} = this.props
+    const {loginRequest, currentUser, updateCurrentUser} = this.props
     return (
       <div className='WelcomeContainer'>
         {!!currentUser

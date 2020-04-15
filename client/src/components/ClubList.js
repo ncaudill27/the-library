@@ -4,7 +4,9 @@ import Club from './Club';
 class ClubList extends Component {
 
   renderClubs = () => {
-    return this.props.clubs.map(({id, name, avatar, description, memberIds})=>
+    const {props: {clubs}} = this
+
+    return clubs.map(({id, name, avatar, description, memberIds})=>
       <Club
         key={id}
         id={id}
@@ -15,6 +17,10 @@ class ClubList extends Component {
       />
     );
   };
+
+  renderClubsSidebar = () => {
+    
+  }
 
   render() {
     return (
