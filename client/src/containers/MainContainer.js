@@ -36,8 +36,6 @@ class MainContainer extends Component {
               updateCurrentUser={updateCurrentUser}
             />}
           />
-          {/* <Route exact path='/welcome' render={() =>
-            <NewUser currentUser={currentUser} updateCurrentUser={updateCurrentUser} />} /> */}
 
           <Route exact path='/clubs' component={() => <ClubList clubs={clubs} />} />
 
