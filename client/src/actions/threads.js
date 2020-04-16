@@ -25,16 +25,14 @@ const postThread = (payload) => {
     },
     'body': JSON.stringify(payload)
   };
-  debugger
   return dispatch => {
-    dispatch({type: "BEGIN_TREADS_REQUEST"});
+    begin(dispatch);
     debugger
     fetch('/api/v1/boards', requestObj)
     .then(res => res.json())
     .then(response => {
-      debugger
       if (response.errors) return console.log(response.errors);
-      dispatch(addThread(response));
+      dispatch(addThread(response.thread.data));
     });
   };
 };

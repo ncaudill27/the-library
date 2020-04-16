@@ -17,10 +17,9 @@ module Api::V1
 
     # POST /boards
     def create
-      byebug
       @board = Board.new(board_params)
-      if @board.save
-        render json: serialization, status: :created, location: @board
+      if @board.save && session_user
+        render json: {thread: BoardSerializer.new(@board), userId: session_user.id, success: "Added #{@board.title}"}, status: :created
       else
         render json: @board.errors, status: :unprocessable_entity
       end

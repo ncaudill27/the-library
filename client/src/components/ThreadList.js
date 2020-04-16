@@ -35,10 +35,10 @@ function ThreadList({threads, club: {id: clubId}, comments: {data: comments}, cu
       <h2>Threads</h2>
       <Router>
         <Switch>
-        <Route exact path={`/clubs/${clubId}/new-thread`} render={({match: {params}}) =>
+        <Route exact path={`/clubs/${clubId}/threads/new`} render={({match: {params}}) =>
                 <ThreadForm  clubId={clubId} currentUserId={currentUser.id} /> } />
         <StyledLink
-          to={`/clubs/${clubId}/new-thread`}
+          to={`/clubs/${clubId}/threads/new`}
           exact
           className='Navlink'
           styling='Thread-form-link'

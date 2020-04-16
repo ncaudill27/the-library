@@ -22,13 +22,19 @@ const threadsReducer = (state = initialState, action) => {
       return {...state, data: state.data.concat(threads), pending: false};
 
     case "ADD_THREAD":
-      console.log(action.payload);
       debugger
-      
-      const thread = {
-        
-      }
-      return state;
+      const {
+        id,
+        attributes: {title},
+        relationships: {
+          club: {data: {id: clubId}}
+        }
+      } = action.payload;
+
+      const thread = {id, title, clubId};
+      console.log({...state, data: state.data.concat(thread), pending: false});
+      debugger
+      return {...state, data: state.data.concat(thread), pending: false};
 
     default:
       return state;

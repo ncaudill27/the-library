@@ -16,7 +16,6 @@ function ThreadForm({clubId, currentUserId, postThread}) {
       club_id: clubId,
       title
     }
-    debugger
     postThread(payload);
     setTitle('');
   };
