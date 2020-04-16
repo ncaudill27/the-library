@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ThreadShow from './ThreadShow';
+import ThreadForm from './ThreadForm';
 import StyledLink from './StyledLink';
 
 function ThreadList({threads, club: {id: clubId}, comments: {data: comments}, currentUser}) {
@@ -32,6 +33,18 @@ function ThreadList({threads, club: {id: clubId}, comments: {data: comments}, cu
   return (
     <div className='Thread-list'>
       <h2>Threads</h2>
+      <Router>
+      <Switch>
+      <Route exact path={`/clubs/${clubId}/new-thread`} render={({match: {params}}) =>
+              <ThreadForm  clubId={params.id} currentUserId={currentUser.id} /> } />
+      <StyledLink
+        to={`/clubs/${clubId}/new-thread`}
+        exact
+        className='Navlink'
+        styling='Thread-form-link'
+      >Start a new thread</StyledLink>
+      </Switch>
+      </Router>
       {renderThreads()}
     </div>
   );

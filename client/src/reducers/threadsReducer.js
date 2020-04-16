@@ -27,7 +27,14 @@ const threadsReducer = (state = initialState, action) => {
         data: state.data.concat(threads),
         pending: false
       };
-    
+
+    case "ADD_THREAD":
+      console.log(action.payload);
+      
+      const thread = {
+        
+      }
+
     default:
       return state;
   };
