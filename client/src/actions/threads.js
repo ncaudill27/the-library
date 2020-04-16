@@ -27,7 +27,6 @@ const postThread = (payload) => {
   };
   return dispatch => {
     begin(dispatch);
-    debugger
     fetch('/api/v1/boards', requestObj)
     .then(res => res.json())
     .then(response => {

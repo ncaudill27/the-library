@@ -19,6 +19,8 @@
   padding: 10px;
 }
 
+.Thread-form,
+.Thread-form-link,
 .Thread-link {
   background-color: #4F7178;
   margin: 10px 0px 10px 0px;
@@ -27,6 +29,16 @@
   border-radius: 10px;
 }
 
+.Thread-form-link {
+  width: 165px;
+}
+
+.Thread-form {
+  width: 270px;
+  overflow: hidden;
+}
+
+.Thread-form-link > a,
 .Thread-link > a > h3 {
   color: white;
 }

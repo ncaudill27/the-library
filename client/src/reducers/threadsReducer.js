@@ -22,7 +22,6 @@ const threadsReducer = (state = initialState, action) => {
       return {...state, data: state.data.concat(threads), pending: false};
 
     case "ADD_THREAD":
-      debugger
       const {
         id,
         attributes: {title},
@@ -32,8 +31,6 @@ const threadsReducer = (state = initialState, action) => {
       } = action.payload;
 
       const thread = {id, title, clubId};
-      console.log({...state, data: state.data.concat(thread), pending: false});
-      debugger
       return {...state, data: state.data.concat(thread), pending: false};
 
     default:

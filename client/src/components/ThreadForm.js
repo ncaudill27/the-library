@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { postThread } from '../actions/threads';
 import FormField from './FormField';
 
-function ThreadForm({clubId, currentUserId, postThread}) {
+function ThreadForm({clubId, postThread}) {
   const [title, setTitle] = useState('');
 
   const handleChange = event => {
@@ -22,7 +22,6 @@ function ThreadForm({clubId, currentUserId, postThread}) {
 
   return (
     <div className='Thread-form'>
-      <h2>New Thread</h2>
       <FormField
         handleSubmit={handleSubmit}
         handleChange={handleChange}

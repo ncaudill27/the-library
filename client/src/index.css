@@ -51,12 +51,26 @@ input[type=text]:focus,
 input[type=password]:focus,
 input[type=text]:hover,
 input[type=password]:hover {
-  height: 24px;
+  height: 20px;
   background-color: #BF8176;
 }
 
 input[type=text]:hover::after {
   height: 5px;
+  border: 2px solid black;
   transition: ease;
   transition: background ease;
+}
+
+input[type=submit] {
+  background-color: #F2DEBD;
+  border: 2px solid  #BF8176;
+  height: 24px;
+  border: none;
+}
+
+.Thread-form input[type=text] {
+  border: 2px solid #F2DEBD;
+  background-color: #4F7178;
+  color: white;
 }

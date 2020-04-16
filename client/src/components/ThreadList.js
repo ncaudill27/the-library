@@ -42,7 +42,7 @@ function ThreadList({threads, club: {id: clubId}, comments: {data: comments}, cu
           exact
           className='Navlink'
           styling='Thread-form-link'
-        >Start a new thread</StyledLink>
+        ><h3>Start a new thread</h3></StyledLink>
         </Switch>
       </Router>
       {renderThreads()}

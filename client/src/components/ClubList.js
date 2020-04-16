@@ -29,7 +29,7 @@ class ClubList extends Component {
     return <>
       {list}
       <NavLink
-        to='/create-club'
+        to='/clubs/new'
         exact
         className='Create-club Navlink'
       ><div className='Club-sidebar Create-club'><h3>Create Club</h3></div></NavLink>
