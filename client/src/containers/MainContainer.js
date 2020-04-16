@@ -33,10 +33,10 @@ class MainContainer extends Component {
             />}
           />
 
-          <Route exact path='/clubs' render={() => <ClubList clubs={clubs} currentUser={currentUser} />} />
+          <Route exact path='/clubs' render={() => <ClubList currentUser={currentUser} />} />
 
           <Route exact path='/clubs/:id' render={({match}) =>
-            <ClubContainer id={match.params.id} clubs={clubs} currentUser={currentUser} />} />
+            <ClubContainer clubId={match.params.id} currentUser={currentUser} />} />
 
           <Route path='/create-club' render={() => <ClubForm currentUser={currentUser}  />} />
 

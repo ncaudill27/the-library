@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Club from './Club';
 import ClubSideBar from './ClubSideBar';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 class ClubList extends Component {
 
@@ -46,4 +47,9 @@ class ClubList extends Component {
   };
 }
 
-export default ClubList;
+const mapStateToProps = ({clubs}) => ({
+  clubs: clubs.data,
+  clubsPending: clubs.clubsPending
+});
+
+export default connect(mapStateToProps)(ClubList);

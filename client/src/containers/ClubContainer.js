@@ -21,17 +21,25 @@ class ClubContainer extends Component {
   }
 
   render() {
-    const {threads: {data: threads, pending}, clubs, id, currentUser} = this.props
-    const club = clubs.find(club => club.id === id);
+    const {clubId, clubs, threads, threadsPending, currentUser} = this.props
+    const club = clubs.find(club => club.id === clubId);
 
     return (
       <div className='Club-container'>
-        {pending === true ? <p>loading....</p> : this.renderClub(club, threads, currentUser)}
+        {threadsPending === true ? <p>loading....</p> : this.renderClub(club, threads, currentUser)}
       </div>
     )
   }
 }
 
-const mapStateToProps = ({threads}) => ({threads});
+const mapStateToProps = ({clubs, threads, users}) => {
+  return {
+    clubs: clubs.data,
+    clubsPending: clubs.pending,
+    threads: threads.data,
+    threadsPending: threads.pending,
+    currentUser: users.currentUser
+  }
+};
 
 export default connect(mapStateToProps)(ClubContainer);

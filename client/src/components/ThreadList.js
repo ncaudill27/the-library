@@ -24,11 +24,11 @@ function ThreadList({threads, club: {id: clubId}, comments: {data: comments}, cu
           </Switch>
         </Router>
         </>
-      )
+      );
     });
   };
-  
-  
+
+
   return (
     <div className='Thread-list'>
       <h2>Threads</h2>
