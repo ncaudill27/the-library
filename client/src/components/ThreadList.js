@@ -5,9 +5,10 @@ import ThreadShow from './ThreadShow';
 import ThreadForm from './ThreadForm';
 import StyledLink from './StyledLink';
 
-function ThreadList({threads, club: {id: clubId}, comments: {data: comments}, currentUser}) {
+function ThreadList({threads, club: {id: clubId}, comments, currentUser}) {
 
   const renderThreads = () => {
+    threads = threads.filter(t => t.clubId === clubId);
     return threads.map(thread => {
       const {id: threadId, title} = thread;
       const threadComments = comments.filter(comment => threadId === comment.threadId);
@@ -50,6 +51,11 @@ function ThreadList({threads, club: {id: clubId}, comments: {data: comments}, cu
   );
 }
 
-const mapStateToProps = ({comments}) => ({comments});
+const mapStateToProps = ({comments, threads}) => ({
+  comments: comments.data,
+  commentsPending: comments.pending,
+  threads: threads.data,
+  threadsPending: threads.pending
+});
 
 export default connect(mapStateToProps)(ThreadList);

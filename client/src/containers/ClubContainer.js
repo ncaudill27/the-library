@@ -21,12 +21,12 @@ class ClubContainer extends Component {
   }
 
   render() {
-    const {clubId, clubs, threads, threadsPending, currentUser} = this.props
+    const {clubId, clubs, clubsPending, threads, currentUser} = this.props
     const club = clubs.find(club => club.id === clubId);
 
     return (
       <div className='Club-container'>
-        {threadsPending === true ? <p>loading....</p> : this.renderClub(club, threads, currentUser)}
+        {clubsPending === true ? <p>loading....</p> : this.renderClub(club, threads, currentUser)}
       </div>
     )
   }

@@ -191,7 +191,7 @@ img#book {
 }
 
 .Form-field {
-  border: 2px black;
+  border-top: 2px solid black;
   top: 50%;
   left: 80px;
 }
@@ -202,7 +202,8 @@ img#book {
 
 .Sign-up,
 .New-user,
-.Login-form {
+.Login-form,
+.Club-form {
   height: 11em;
   margin: 0px 250px 0px 250px;
   text-align: center;
@@ -210,6 +211,7 @@ img#book {
   border-radius: 10px;
 }
 
+.Club-form,
 .New-user,
 .Sign-up {
   height: 14em;
