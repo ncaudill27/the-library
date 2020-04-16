@@ -38,9 +38,9 @@ const usersReducer = (state = initialState, action) => {
     case "ADD_CLUB":
       console.log(action);
       
-      console.log(user);
-
+      
       user = state.data.find(u => u.id === action.userId);
+      console.log(user);
       user.clubIds = user.clubIds.concat(action.clubId)
       console.log(user);
       users = state.data.map(u => u.id !== user.id ? u : user);
