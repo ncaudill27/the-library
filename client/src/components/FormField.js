@@ -12,14 +12,14 @@ const FormField = ({inputNames, inputValues, submitValue, handleChange, handleSu
 
       inputs.push( <>
         <label>
-        {parseName(name)}
+        {name === "comment" ? null : parseName(name)}
         <br/>
         <Input
           key={name}
           name={name}
           value={value}
           handleChange={handleChange}
-        /></label><br/>
+        /></label>{name === "comment" ? null : <br/>}
       </> );
     }
 

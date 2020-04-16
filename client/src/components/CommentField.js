@@ -6,9 +6,6 @@ import { postComment } from '../actions/comments';
 
 
 const CommentField = ({currentUser: {id: userId, avatar, username}, threadId, postComment}) => {
-
-  console.log(userId, threadId);
-  
   const [comment, setComment] = useState('');
 
   const handleChange = event => {
@@ -22,8 +19,7 @@ const CommentField = ({currentUser: {id: userId, avatar, username}, threadId, po
       user_id: userId,
       board_id: threadId,
       content: comment
-    };    
-    console.log(payload, postComment);
+    };
     postComment(payload);
     setComment('');
   };
