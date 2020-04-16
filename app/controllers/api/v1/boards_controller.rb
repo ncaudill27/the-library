@@ -17,8 +17,8 @@ module Api::V1
 
     # POST /boards
     def create
+      byebug
       @board = Board.new(board_params)
-
       if @board.save
         render json: serialization, status: :created, location: @board
       else
@@ -49,7 +49,7 @@ module Api::V1
 
       # Only allow a trusted parameter "white list" through.
       def board_params
-        params.require(:board).permit(:club, :title)
+        params.require(:board).permit(:club_id, :title)
       end
 
       def serialization

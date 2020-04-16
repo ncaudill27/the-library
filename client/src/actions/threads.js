@@ -15,22 +15,24 @@ const addThreads = threadsJSON => ({
 });
 
 const postThread = (payload) => {
-    const token = localStorage.getItem('token');
-    const requestObj = {
-      'method': 'POST',
-      'headers': {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      'body': JSON.stringify(payload)
-    };
-
+  const token = localStorage.getItem('token');
+  const requestObj = {
+    'method': 'POST',
+    'headers': {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    'body': JSON.stringify(payload)
+  };
+  debugger
   return dispatch => {
-    begin(dispatch);    
+    dispatch({type: "BEGIN_TREADS_REQUEST"});
+    debugger
     fetch('/api/v1/boards', requestObj)
     .then(res => res.json())
     .then(response => {
+      debugger
       if (response.errors) return console.log(response.errors);
       dispatch(addThread(response));
     });

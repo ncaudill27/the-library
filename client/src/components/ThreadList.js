@@ -34,16 +34,16 @@ function ThreadList({threads, club: {id: clubId}, comments: {data: comments}, cu
     <div className='Thread-list'>
       <h2>Threads</h2>
       <Router>
-      <Switch>
-      <Route exact path={`/clubs/${clubId}/new-thread`} render={({match: {params}}) =>
-              <ThreadForm  clubId={params.id} currentUserId={currentUser.id} /> } />
-      <StyledLink
-        to={`/clubs/${clubId}/new-thread`}
-        exact
-        className='Navlink'
-        styling='Thread-form-link'
-      >Start a new thread</StyledLink>
-      </Switch>
+        <Switch>
+        <Route exact path={`/clubs/${clubId}/new-thread`} render={({match: {params}}) =>
+                <ThreadForm  clubId={clubId} currentUserId={currentUser.id} /> } />
+        <StyledLink
+          to={`/clubs/${clubId}/new-thread`}
+          exact
+          className='Navlink'
+          styling='Thread-form-link'
+        >Start a new thread</StyledLink>
+        </Switch>
       </Router>
       {renderThreads()}
     </div>

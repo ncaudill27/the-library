@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { postThread } from '../actions/threads';
 import FormField from './FormField';
 
-function ThreadForm({clubId, currentUserId}) {
+function ThreadForm({clubId, currentUserId, postThread}) {
   const [title, setTitle] = useState('');
 
   const handleChange = event => {
@@ -12,8 +13,10 @@ function ThreadForm({clubId, currentUserId}) {
   const handleSubmit = event => {
     event.preventDefault();
     const payload = {
-      club_id: clubId
+      club_id: clubId,
+      title
     }
+    debugger
     postThread(payload);
     setTitle('');
   };
@@ -32,4 +35,4 @@ function ThreadForm({clubId, currentUserId}) {
   );
 }
 
-export default ThreadForm;
+export default connect(null, {postThread})(ThreadForm);
