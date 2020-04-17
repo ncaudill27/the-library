@@ -34,8 +34,6 @@ class ClubForm extends Component {
 
     localStorage.setItem('currentUserId', currentUser.id)
     postClub(payload);
-
-    // addClub(currentUser)
     this.setState({
       name: '',
       description: ''

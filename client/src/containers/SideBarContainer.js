@@ -7,15 +7,13 @@ import ClubList from '../components/ClubList';
 class SidebarContainer extends Component {
 
   render() {
-    const {currentUser, clubs} = this.props
-    let userClubs
-    if (currentUser) userClubs = currentUser.clubIds.map(clubId => clubs.data.filter(club => club.id === clubId)).flat();
+    const {currentUser} = this.props
     return (
       <div className='Sidebar'>
-        { !!currentUser && !!userClubs
+        { !!currentUser
         ? <>
           <UserBox user={currentUser} />
-          <ClubList clubs={userClubs} styling='sidebar' />
+          <ClubList styling='sidebar' />
           </>
         : null}
       </div>
@@ -23,9 +21,8 @@ class SidebarContainer extends Component {
   }
 }
 
-const mapStateToProps = ({clubs, users}) => {
+const mapStateToProps = ({users}) => {
   return {
-    clubs,
     currentUser: users.currentUser
   }
 };

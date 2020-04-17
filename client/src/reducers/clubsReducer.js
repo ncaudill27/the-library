@@ -42,7 +42,7 @@ const clubsReducer = (state = initialState, action) => {
         description,
         memberIds: users.map(user => user.id)
       }
-      console.log({...state, data: [...state.data, club], pending: false});
+
       return {...state, data: state.data.concat(club), pending: false};
 
     default:

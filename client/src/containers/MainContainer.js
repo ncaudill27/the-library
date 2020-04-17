@@ -40,7 +40,6 @@ class MainContainer extends Component {
           <Route exact path='/clubs/:id' render={({match}) =>
             <ClubContainer clubId={match.params.id} currentUser={currentUser} />} />
 
-
           <Route path='/bestsellers' component={NYTimes} />
 
           <Route exact path={`/bestsellers/:isbn`} render={({match}) =>

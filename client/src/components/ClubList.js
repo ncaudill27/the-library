@@ -8,7 +8,7 @@ class ClubList extends Component {
 
   renderClubs = () => {
     let {props: {clubs, currentUser}} = this;
-    clubs = clubs.filter(club => !currentUser.clubIds.includes(club.id));
+    clubs = currentUser ? clubs.filter(club => !currentUser.clubIds.includes(club.id)) : clubs;
 
     return clubs.map(({id, name, avatar, description, memberIds})=>
       <Club
@@ -23,8 +23,10 @@ class ClubList extends Component {
   };
 
   renderClubsSidebar = () => {
-    const {props: {clubs}} = this;
-
+    let {props: {clubs, currentUser}} = this;
+    if (currentUser) clubs = clubs.filter(c => !!currentUser.clubIds.includes(c.id));
+    console.log(clubs, currentUser);
+    
     let list = clubs.map(({id, name, avatar}) => <ClubSideBar key={id} id={id} name={name} avatar={avatar} />);
     return <>
       {list}
@@ -37,19 +39,24 @@ class ClubList extends Component {
   }
 
   render() {
-    const {renderClubs, renderClubsSidebar, props: {styling}} = this;
+    const {renderClubs, renderClubsSidebar, props: {styling, clubsPending}} = this;
     return (
       <div className='Club-list'>
         <h2>Clubs</h2>
-        {styling === 'sidebar' ? renderClubsSidebar() : renderClubs()}
+        {clubsPending === false
+          ? styling === 'sidebar'
+            ? renderClubsSidebar()
+            : renderClubs()
+        : <p>Loading...</p>}
       </div>
     );
   };
 }
 
-const mapStateToProps = ({clubs}) => ({
+const mapStateToProps = ({clubs, users}) => ({
   clubs: clubs.data,
-  clubsPending: clubs.clubsPending
+  clubsPending: clubs.pending,
+  currentUser: users.currentUser
 });
 
 export default connect(mapStateToProps)(ClubList);
