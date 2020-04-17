@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { addClub } from '../actions/users';
 import UserBox from '../components/UserBox';
 import ClubList from '../components/ClubList';
+import SideNav from '../components/SideNav';
 
 class SidebarContainer extends Component {
 
@@ -15,7 +16,7 @@ class SidebarContainer extends Component {
           <UserBox user={currentUser} />
           <ClubList styling='sidebar' />
           </>
-        : null}
+        : <SideNav postion='sidebar' />}
       </div>
     );
   }

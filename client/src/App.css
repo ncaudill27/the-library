@@ -33,6 +33,19 @@
   width: 165px;
 }
 
+.Sidebar-link {
+  padding: 15px;
+  display: block;
+  width: inherit;
+}
+#root > div > div > div > h3:hover {
+  color: white;  
+}
+.Sidebar-link:hover {
+  background: #4F7178;
+  color: white;
+}
+
 .Thread-form {
   width: 270px;
   overflow: hidden;

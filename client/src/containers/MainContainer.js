@@ -24,7 +24,7 @@ class MainContainer extends Component {
 
     return (
       <main>
-        <Header currentUser={currentUser} logOutUser={logOutUser} />
+        {currentUser ? <Header currentUser={currentUser} logOutUser={logOutUser} /> : null}
         <Switch>
 
           <Route exact path='/' render={ () =>
