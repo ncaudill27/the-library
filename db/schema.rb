@@ -23,16 +23,6 @@ ActiveRecord::Schema.define(version: 2020_04_08_062841) do
     t.index ["club_id"], name: "index_boards_on_club_id"
   end
 
-  create_table "club_users", force: :cascade do |t|
-    t.bigint "club_id", null: false
-    t.bigint "user_id", null: false
-    t.boolean "mod", default: true, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["club_id"], name: "index_club_users_on_club_id"
-    t.index ["user_id"], name: "index_club_users_on_user_id"
-  end
-
   create_table "clubs", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -52,6 +42,16 @@ ActiveRecord::Schema.define(version: 2020_04_08_062841) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
+  create_table "memberships", force: :cascade do |t|
+    t.bigint "club_id", null: false
+    t.bigint "user_id", null: false
+    t.boolean "mod", default: true, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["club_id"], name: "index_memberships_on_club_id"
+    t.index ["user_id"], name: "index_memberships_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "username"
@@ -65,8 +65,8 @@ ActiveRecord::Schema.define(version: 2020_04_08_062841) do
   end
 
   add_foreign_key "boards", "clubs"
-  add_foreign_key "club_users", "clubs"
-  add_foreign_key "club_users", "users"
   add_foreign_key "comments", "boards"
   add_foreign_key "comments", "users"
+  add_foreign_key "memberships", "clubs"
+  add_foreign_key "memberships", "users"
 end
