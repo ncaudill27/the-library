@@ -1,4 +1,4 @@
-import { addClub } from './users';
+import { addClub, joinClub } from './users';
 
 const begin = func => func({type: "BEGIN_CLUBS_REQUEST"});
 const token = localStorage.getItem('token');
@@ -60,17 +60,19 @@ const memberJoinRequest = payload => {
     begin(dispatch);
     fetch(`/api/v1/memberships`, requestObj)
     .then(res => res.json())
-    .then( response => {
-      debugger
+    .then( async response => {
       if (response.errors) return console.log(response.errors);
-      dispatch(addClubMember(response.data))
+      dispatch(addClubMember(response.clubId, response.userId));
+      // console.log(post);
+      // dispatch(joinClub(post.clubId, post.userId));
     });
   };
 };
 
-const addClubMember = club => ({
+const addClubMember = (clubId, userId) => ({
   type: "ADD_CLUB_MEMBER",
-  club
+  clubId,
+  userId
 });
 
 export { fetchClubs, postClub, memberJoinRequest };

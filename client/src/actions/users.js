@@ -20,6 +20,12 @@ const addClub = (clubId, userId) => ({
   userId
 })
 
+const joinClub = (clubId, userId) => ({
+  type: "JOIN_CLUB", 
+  clubId,
+  userId
+});
+
 const loginRequest = payload => {
   const requestObj = {
     'method': 'POST',
@@ -127,5 +133,6 @@ export {
   logOutUser,
   loginUser,
   userPostRequest,
-  updateUserRequest
+  updateUserRequest,
+  joinClub
 };

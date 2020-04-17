@@ -7,8 +7,8 @@ module Api::V1
       @membership.mod = false
       if @membership.save
         render json: {
-          userId: @membership.user_id,
-          clubId: @membership.club_id,
+          userId: @membership.user_id.to_s,
+          clubId: @membership.club_id.to_s,
           success: "#{@membership.user.name} joined #{@membership.club.name}."
         }, status: :created
       else
