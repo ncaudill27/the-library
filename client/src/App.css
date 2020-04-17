@@ -38,6 +38,10 @@
   overflow: hidden;
 }
 
+div.Thread-list > div > div {
+  border-top: none;
+}
+
 .Thread-form-link > a,
 .Thread-link > a > h3 {
   color: white;

@@ -16,9 +16,8 @@ const addClubs = clubsJSON => ({
   clubs: clubsJSON
 });
 
-const postClub = payload => {
+const postClub = (payload, currentUserId) => {
   const token = localStorage.getItem('token');
-  const currentUserId = localStorage.getItem('currentUserId');
   const requestObj = {
     'method': 'POST',
     'headers': {

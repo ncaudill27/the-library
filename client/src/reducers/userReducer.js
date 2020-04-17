@@ -9,11 +9,7 @@ const usersReducer = (state = initialState, action) => {
   switch(action.type) {
 
     case "BEGIN_USERS_REQUEST":
-      return {
-        ...state,
-        data: [...state.data],
-        pending: true
-      }
+      return {...state, data: [...state.data], pending: true};
 
     case "ADD_USERS":
       users = action.users.data.map(user=> {
@@ -29,21 +25,14 @@ const usersReducer = (state = initialState, action) => {
           commentIds: user.relationships.comments.data.map(comment => comment.id),
         };
       });
-      return {
-        ...state,
-        data: state.data.concat(users),
-        pending: false
-      };
 
-    case "ADD_CLUB":
-      console.log(action);
-      
-      
+      return {...state, data: state.data.concat(users), pending: false};
+
+    case "ADD_CLUB":    
       user = state.data.find(u => u.id === action.userId);
-      console.log(user);
       user.clubIds = user.clubIds.concat(action.clubId)
-      console.log(user);
       users = state.data.map(u => u.id !== user.id ? u : user);
+
       return {...state, data: users, currentUser: user, pending: false}
 
     case "LOGIN_USER": //Formerly known as updateCurrentUser

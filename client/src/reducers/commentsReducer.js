@@ -4,16 +4,12 @@ const initialState = {
 };
 
 const commentsReducer = (state = initialState, action) => {
-  let comment
+  let comment;
 
   switch(action.type) {
 
     case "BEGIN_COMMENTS_REQUEST":
-      return {
-        ...state,
-        data: [...state.data],
-        pending: true
-      };
+      return {...state, data: [...state.data], pending: true};
 
     case "ADD_COMMENTS":
       const comments = action.comments.data.map(comment => {
@@ -25,14 +21,10 @@ const commentsReducer = (state = initialState, action) => {
           posted: new Date(comment.attributes.created_at)
         };
       });
-      return {
-        ...state,
-        data: state.data.concat(comments),
-        pending: false
-      };
+
+      return {...state, data: state.data.concat(comments), pending: false};
 
     case "POST_COMMENT":
-      console.log(action.payload)
       comment = action.payload.data
       const postObj = {
         id: comment.id,
@@ -41,15 +33,12 @@ const commentsReducer = (state = initialState, action) => {
         threadId: comment.relationships.board.data.id,
         posted: new Date(comment.attributes.created_at)
       };
-      return {
-        ...state,
-        data: [...state.data, postObj],
-        pending: false
-      };
+
+      return {...state, data: [...state.data, postObj], pending: false};
 
     default:
       return state;
-  }
+  };
 }
 
 export default commentsReducer;

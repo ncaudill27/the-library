@@ -23,7 +23,7 @@ class ClubForm extends Component {
       state: {
         name, description},
         props: {
-          postClub, addClub, currentUser
+          postClub, currentUser
         }} = this;
     const payload = {
       club: {
@@ -32,8 +32,7 @@ class ClubForm extends Component {
       }
     }
 
-    localStorage.setItem('currentUserId', currentUser.id)
-    postClub(payload);
+    postClub(payload, currentUser.id);
     this.setState({
       name: '',
       description: ''

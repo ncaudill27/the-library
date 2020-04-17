@@ -9,8 +9,7 @@ const FormField = ({inputNames, inputValues, submitValue, handleChange, handleSu
     for (const i in inputNames) {
       const name = inputNames[i]
       const value = inputValues[i]
-      console.log(name);
-      
+
       inputs.push( <>
         <label>
         {name === "comment" || name === "title" ? null : parseName(name)}
