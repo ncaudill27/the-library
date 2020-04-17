@@ -42,7 +42,7 @@ class ClubList extends Component {
     const {renderClubs, renderClubsSidebar, props: {styling, clubsPending}} = this;
     return (
       <div className='Club-list'>
-        <h2>Clubs</h2>
+        {styling === 'sidebar' ? null : <h2>Clubs</h2>}
         {clubsPending === false
           ? styling === 'sidebar'
             ? renderClubsSidebar()

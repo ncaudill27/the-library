@@ -1,12 +1,25 @@
 import React from 'react';
 import StyledLink from './StyledLink';
+import { NavLink } from 'react-router-dom';
 
 function SideNav() {
   return (
     <div className='SideNav'>
-      <StyledLink to='/' exact className='Navlink' styling='Sidebar-link'><h3>Home</h3></StyledLink>
-      <StyledLink to='/bestsellers' exact className='Navlink' styling='Sidebar-link'><h3>New York Times Bestsellers</h3></StyledLink>
-      <StyledLink to='/clubs' exact className='Navlink' styling='Sidebar-link'><h3>Clubs</h3></StyledLink>
+      <NavLink
+        to='/'
+        exact
+        className='Create-club Navlink'
+      ><div className='Club-sidebar Create-club'><h3>Home</h3></div></NavLink>
+      <NavLink
+        to='/bestsellers'
+        exact
+        className='Create-club Navlink'
+      ><div className='Club-sidebar Create-club'><h3>Bestsellers</h3></div></NavLink>
+      <NavLink
+        to='/clubs'
+        exact
+        className='Create-club Navlink'
+      ><div className='Club-sidebar Create-club'><h3>Clubs</h3></div></NavLink>
     </div>
   );
 }
