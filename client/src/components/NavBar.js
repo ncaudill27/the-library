@@ -11,7 +11,7 @@ const NavBar = ({currentUser, logOutUser}) =>{
 
   return (
     <div className='Navbar'>
-      <StyledLink
+      {/* <StyledLink
         to='/bestsellers'
         exact
         className='Navlink'
@@ -23,14 +23,14 @@ const NavBar = ({currentUser, logOutUser}) =>{
         exact
         className='Navlink'
         styling='Header-link'
-      >Clubs</StyledLink>
+      >Clubs</StyledLink> */}
 
-      <StyledLink
+      {/* <StyledLink
         to='/'
         exact
         className='Navlink'
         styling='Header-link'
-      >Home</StyledLink>
+      >Home</StyledLink> */}
 
       {logOutButton()}
     </div>

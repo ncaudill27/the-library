@@ -177,6 +177,9 @@ div.Club-list > div:nth-child(2) > h3 > a:hover {
   border-radius: 10px;
 }
 
+#root > div > main > div > div.NYTimes {
+  padding: 150px 0px 0px 20px;
+}
 .Book {
   height: 16em;
   padding: 1em;
@@ -251,6 +254,7 @@ img#book {
 .New-user {
   height: 20em;
 }
+
 
 #root > div > main > div > h1 {
   position: absolute;

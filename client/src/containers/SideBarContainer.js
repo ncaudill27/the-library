@@ -8,32 +8,21 @@ import SideNav from '../components/SideNav';
 
 class SidebarContainer extends Component {
 
-  userRender = () => {
-    const { currentUser } = this.props
-    return (
-    <>
-      <UserBox user={currentUser} />
-      <NavLink
-        to='/bestsellers'
-        exact
-        className='Create-club Navlink'
-      ><div className='Club-sidebar Create-club'><h3>Bestsellers</h3></div></NavLink>
-      <NavLink
-        to='/clubs'
-        exact
-        className='Create-club Navlink'
-      ><div className='Club-sidebar Create-club'><h3>Clubs</h3></div></NavLink>
-      <ClubList styling='sidebar' />
-    </>
-    )
-  }
-
   render() {
-    const {props: currentUser, userRender} = this
+    const {currentUser} = this.props
     return (
       <div className='Sidebar'>
         { !!currentUser
-        ? userRender()
+        ? <>
+          <UserBox user={currentUser} />
+          <NavLink to='/bestsellers' exact className='Create-club Navlink'
+            ><div className='Club-sidebar Create-club'
+              ><h3>Bestsellers</h3></div></NavLink>
+          <NavLink to='/clubs' exact className='Create-club Navlink'
+            ><div className='Club-sidebar Create-club'
+              ><h3>Clubs</h3></div></NavLink>
+          <ClubList styling='sidebar' />
+          </>
         : <SideNav postion='sidebar' />}
       </div>
     );

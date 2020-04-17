@@ -46,11 +46,13 @@ class NYTimes extends Component {
     return (
       <div>
         <h1>New York Times Best Sellers</h1>
-        <label>Categories </label>
-        <select onChange={this.handleSelectChange} value={this.state.select}>
-          {this.selectOptions()}
-        </select>
-        <BookList books={this.state.books} />
+        <div className='NYTimes'>
+          <label>Categories </label>
+          <select onChange={this.handleSelectChange} value={this.state.select}>
+            {this.selectOptions()}
+          </select>
+          <BookList books={this.state.books} />
+        </div>
       </div>
     )
   }

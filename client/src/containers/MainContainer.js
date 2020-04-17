@@ -18,8 +18,7 @@ class MainContainer extends Component {
 
   render() {
     const {
-      currentUser,
-      logOutUser
+      currentUser
     } = this.props;
 
     return (
