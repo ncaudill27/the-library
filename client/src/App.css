@@ -107,6 +107,7 @@ div.Thread-list > div > div {
   left: 95px;
 }
 
+#leave,
 #join {
   position: absolute;
   top: 2.5em;
@@ -117,6 +118,11 @@ div.Thread-list > div > div {
   border-radius: 10px;
 }
 
+#leave {
+  background-color: darkred;
+}
+
+#leave:hover,
 #join:hover {
   cursor: pointer;
 }

@@ -8,7 +8,7 @@ Rails.application.routes.draw do
       resources :clubs
       resources :comments
       resources :boards
-      resources :memberships, only: [:create]
+      resources :memberships, only: [:create, :destroy]
     end
   end
 end

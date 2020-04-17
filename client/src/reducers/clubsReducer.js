@@ -4,7 +4,8 @@ const initialState = {
 }
 
 const clubsReducer = (state = initialState, action) => {
-  let club, clubs
+  let club, clubs, updatedMembers, updatedClub, updatedClubs
+
   switch(action.type) {
 
     case "BEGIN_CLUBS_REQUEST":
@@ -47,12 +48,19 @@ const clubsReducer = (state = initialState, action) => {
 
     case "ADD_CLUB_MEMBER":
       club = state.data.find(c => c.id === action.clubId);
-      let updatedMembers = club.memberIds.concat(action.userId);
-      let updatedClub = {...club, memberIds: updatedMembers};
-      let updatedClubs = state.data.map(c => c.id !== club.id ? c : updatedClub)
+      updatedMembers = club.memberIds.concat(action.userId);
+      updatedClub = {...club, memberIds: updatedMembers};
+      updatedClubs = state.data.map(c => c.id !== club.id ? c : updatedClub);
       
       return {...state, data: updatedClubs, pending: false};
       
+    case "REMOVE_CLUB_MEMBER":
+      club = state.data.find(c => c.id === action.clubId);
+      updatedMembers = club.memberIds.filter(id => id !== action.userId);
+      updatedClub = {...club, memberIds: updatedMembers};
+      updatedClubs = state.data.map(c => c.id !== club.id ? c : updatedClub);
+      return {...state, data: updatedClubs, pending: false};
+
     default:
       return state;
   };

@@ -1,4 +1,4 @@
-import { addClub, joinClub } from './users';
+import { addClub } from './users';
 
 const begin = func => func({type: "BEGIN_CLUBS_REQUEST"});
 const token = localStorage.getItem('token');
@@ -63,8 +63,6 @@ const memberJoinRequest = payload => {
     .then( async response => {
       if (response.errors) return console.log(response.errors);
       dispatch(addClubMember(response.clubId, response.userId));
-      // console.log(post);
-      // dispatch(joinClub(post.clubId, post.userId));
     });
   };
 };
@@ -75,4 +73,31 @@ const addClubMember = (clubId, userId) => ({
   userId
 });
 
-export { fetchClubs, postClub, memberJoinRequest };
+const memberLeaveRequest = clubId => {
+  const requestObj = {
+    'method': 'DELETE',
+    'headers': {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    }
+  };
+
+  return dispatch => {
+    begin(dispatch);
+    fetch(`/api/v1/memberships/${clubId}`, requestObj)
+    .then(res => res.json())
+    .then(response => {
+      if (response.errors) return console.log(response.errors);
+      dispatch(removeClubMember(response));
+    })
+  }
+}
+
+const removeClubMember = ({clubId, userId}) => ({
+  type: "REMOVE_CLUB_MEMBER",
+  clubId,
+  userId
+});
+
+export { fetchClubs, postClub, memberJoinRequest, memberLeaveRequest };

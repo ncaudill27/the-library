@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { memberJoinRequest } from '../actions/clubs';
+import { memberJoinRequest, memberLeaveRequest } from '../actions/clubs';
 import ThreadList from '../components/ThreadList';
 
 class ClubContainer extends Component {
@@ -21,6 +21,11 @@ class ClubContainer extends Component {
     memberJoinRequest(payload);
   }
 
+  handleLeave = () => {
+    const {clubId, memberLeaveRequest} = this.props;
+    memberLeaveRequest(clubId);
+  }
+
   renderClub = (club, threads, currentUser) => {
     if (club && threads) {
       const {name, description} = club
@@ -30,7 +35,7 @@ class ClubContainer extends Component {
         <>
           <div className='Club-details'>
             <h1>{name}</h1>
-            {this.currentUserIsMember() ? null : <h3 id='join' onClick={this.handleJoin}>Join Club</h3>}
+            {this.currentUserIsMember() ? <h3 id='leave' onClick={this.handleLeave}>Leave Club</h3> : <h3 id='join' onClick={this.handleJoin}>Join Club</h3>}
             <p>{description}</p>
           </div>
           <ThreadList threads={clubThreads} club={club} currentUser={currentUser} />
@@ -61,4 +66,4 @@ const mapStateToProps = ({clubs, threads, users}) => {
   }
 };
 
-export default connect(mapStateToProps, { memberJoinRequest })(ClubContainer);
+export default connect(mapStateToProps, { memberJoinRequest, memberLeaveRequest })(ClubContainer);

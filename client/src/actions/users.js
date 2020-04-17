@@ -18,12 +18,6 @@ const addClub = (clubId, userId) => ({
   type: "ADD_CLUB",
   clubId,
   userId
-})
-
-const joinClub = (clubId, userId) => ({
-  type: "JOIN_CLUB", 
-  clubId,
-  userId
 });
 
 const loginRequest = payload => {
@@ -123,7 +117,9 @@ const loginUser = userData => ({
 
 const logOutUser = () => ({
   type: "LOGOUT_USER"
-})
+});
+
+
 
 export {
   fetchUsers,
@@ -133,6 +129,5 @@ export {
   logOutUser,
   loginUser,
   userPostRequest,
-  updateUserRequest,
-  joinClub
+  updateUserRequest
 };
