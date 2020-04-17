@@ -45,6 +45,14 @@ const clubsReducer = (state = initialState, action) => {
 
       return {...state, data: state.data.concat(club), pending: false};
 
+    case "ADD_CLUB_MEMBER":
+      club = state.data.find(c => c.id === action.club.id);
+      let updatedMembers = club.memberIds.concat(action.club.relationships.users.data[0].id);
+      let updatedClub = {...club, memberIds: updatedMembers};
+      let updatedClubs = state.data.map(c => c.id !== club.id ? c : updatedClub)
+      
+      return {...state, data: updatedClubs, pending: false};
+      
     default:
       return state;
   };

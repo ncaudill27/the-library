@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { memberJoinRequest } from '../actions/clubs';
 import ThreadList from '../components/ThreadList';
 
 class ClubContainer extends Component {
 
   currentUserIsMember() {
-    const {currentUser, clubId, clubs} = this.props
+    const {currentUser, clubId, clubs} = this.props;
     const club = clubs.find(club => club.id === clubId);
     return !!club.memberIds.includes(currentUser.id);
   }
 
-  handleJoin = e => {
-    
+  handleJoin = () => {
+    const {clubId, memberJoinRequest} = this.props;
+    const payload = {
+      club: {
+        id: clubId
+      }
+    }
+    memberJoinRequest(payload);
   }
 
   renderClub = (club, threads, currentUser) => {
@@ -23,7 +30,7 @@ class ClubContainer extends Component {
         <>
           <div className='Club-details'>
             <h1>{name}</h1>
-            {this.currentUserIsMember() ? null : <h3 id='join'>Join Club</h3>}
+            {this.currentUserIsMember() ? null : <h3 id='join' onClick={this.handleJoin}>Join Club</h3>}
             <p>{description}</p>
           </div>
           <ThreadList threads={clubThreads} club={club} currentUser={currentUser} />
@@ -54,4 +61,4 @@ const mapStateToProps = ({clubs, threads, users}) => {
   }
 };
 
-export default connect(mapStateToProps)(ClubContainer);
+export default connect(mapStateToProps, { memberJoinRequest })(ClubContainer);

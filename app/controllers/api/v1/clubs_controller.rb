@@ -29,6 +29,7 @@ module Api::V1
 
     # PATCH/PUT /clubs/1
     def update
+      @club.users << session_user unless @club.users.include?(session_user)
       if @club.update(club_params)
         render json: serialization
       else

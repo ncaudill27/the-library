@@ -25,8 +25,8 @@ class ClubList extends Component {
 
   renderClubsSidebar = () => {
     let {props: {clubs, currentUser}} = this;
-    if (currentUser) clubs = clubs.filter(c => currentUser.clubIds.includes(c.id));
-    
+    if (currentUser) clubs = clubs.filter(c => c.memberIds.includes(currentUser.id));
+
     let list = clubs.map(({id, name, avatar}) => <ClubSideBar key={id} id={id} name={name} avatar={avatar} />);
     return <>
       {list}

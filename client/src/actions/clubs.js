@@ -46,6 +46,7 @@ const createClub = clubJSON => ({
 });
 
 const memberJoinRequest = payload => {
+  const {club: {id}} = payload
   const requestObj = {
     'method': 'PATCH',
     'headers': {
@@ -58,13 +59,18 @@ const memberJoinRequest = payload => {
 
   return dispatch => {
     begin(dispatch);
-    fetch('/api/v1/clubs', requestObj)
+    fetch(`/api/v1/clubs/${id}`, requestObj)
     .then(res => res.json())
     .then( response => {
       if (response.errors) return console.log(response.errors);
-      dispatch(addClubMember(response))
+      dispatch(addClubMember(response.data))
     });
   };
 };
 
-export { fetchClubs, postClub };
+const addClubMember = club => ({
+  type: "ADD_CLUB_MEMBER",
+  club
+});
+
+export { fetchClubs, postClub, memberJoinRequest };
