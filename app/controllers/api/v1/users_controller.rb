@@ -6,7 +6,7 @@
     def index
       @users = User.all
       
-      options = { include: [:club_users, :clubs] }
+      options = { include: [:memberships, :clubs] }
       render json: UserSerializer.new(@users, options)
     end
 
@@ -59,7 +59,7 @@
 
       def serialization
         options = {
-          include: [:clubs, :club_users, :comments],
+          include: [:clubs, :memberships, :comments],
           links: {uri: request.base_url + "/users/#{@user.id}"}
         }
         serialize(@user, options)

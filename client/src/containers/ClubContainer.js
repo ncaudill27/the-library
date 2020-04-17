@@ -14,8 +14,8 @@ class ClubContainer extends Component {
   handleJoin = () => {
     const {clubId, memberJoinRequest} = this.props;
     const payload = {
-      club: {
-        id: clubId
+      membership: {
+        club_id: clubId
       }
     }
     memberJoinRequest(payload);

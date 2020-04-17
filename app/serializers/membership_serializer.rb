@@ -1,4 +1,4 @@
-class ClubUserSerializer < BaseSerializer
+class MembershipSerializer < BaseSerializer
   attributes :mod
   
   belongs_to :club

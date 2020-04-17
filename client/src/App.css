@@ -244,9 +244,20 @@ img#book {
 }
 
 .Club-form,
-.New-user,
 .Sign-up {
   height: 14em;
+}
+
+.New-user {
+  height: 20em;
+}
+
+#root > div > main > div > h1 {
+  position: absolute;
+  background-color: #E2C18B;
+  padding: 20px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 #library {

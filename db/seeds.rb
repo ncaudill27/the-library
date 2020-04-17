@@ -6,7 +6,7 @@ def n
 end
 
 def isbn_13
-  "978-0-7660-#{n}#{n}#{n}#{n}-#{n}"
+  "978-1455841653"
 end
 
 10.times do
@@ -24,7 +24,7 @@ end
 10.times do
   Club.create do |c|
     c.name = Faker::Hipster.words(number: 1 + rand(3)).join(' ').capitalize
-    c.description = Faker::Hipster.sentences(number: 2).join('. ')
+    c.description = Faker::Hipster.sentences(number: 2).join(' ')
     c.avatar = Faker::Avatar.image
     c.active_book_isbn13 = isbn_13
   end
@@ -32,7 +32,7 @@ end
 
 Club.all.each do |c|
   3.times do
-    b = Board.create(title: Faker::Movies::Lebowski.quote)
+    b = Board.create(title: Faker::Book.title)
     c.users << User.all.sample
     c.boards << b
   end

@@ -6,7 +6,7 @@ module Api::V1
     def index
       @clubs = Club.all
 
-      options = { include: [:users, :club_users] }
+      options = { include: [:users, :memberships] }
       render json: ClubSerializer.new(@clubs, options)
     end
 
@@ -55,7 +55,7 @@ module Api::V1
 
       def serialization
         options = {
-          include: [:users, :club_users, :boards],
+          include: [:users, :memberships, :boards],
           links: {uri: request.base_url + "/clubs/#{@club.id}"}
         }
         serialize(@club, options)

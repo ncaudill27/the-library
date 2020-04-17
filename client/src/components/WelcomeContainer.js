@@ -15,7 +15,7 @@ class WelcomeContainer extends React.Component {
         <img id="library" src={LibraryImg} alt="Library" />
         {!!currentUser
           ? !!currentUser.name
-            ? <h1>Welcome {currentUser.name}</h1>
+            ? <h1>Welcome {currentUser.name}!</h1>
             : <NewUser currentUser={currentUser} loginUser={loginUser} />
           : <>
             <LoginForm loginRequest={loginRequest} />
