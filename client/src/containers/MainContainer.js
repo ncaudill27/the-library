@@ -13,13 +13,13 @@ import { logOutUser } from '../actions/users';
 
 class MainContainer extends Component {
 
+  clubMembers
+
+
   render() {
     const {
       currentUser,
-      logOutUser,
-      clubs: {
-        data: clubs
-      },
+      logOutUser
     } = this.props;
 
     return (
@@ -53,7 +53,7 @@ class MainContainer extends Component {
 
 const mapStateToProps = ({clubs, users}) => {
   return {
-    clubs,
+    clubs: clubs.data,
     currentUser: users.currentUser
   }
 }

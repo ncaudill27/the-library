@@ -18,6 +18,7 @@ class ClubList extends Component {
         name={name}
         description={description}
         members={memberIds}
+        currentUser={currentUser}
       />
     );
   };

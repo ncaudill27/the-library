@@ -2,7 +2,7 @@ import React from 'react';
 import Avatar from './Avatar';
 import { NavLink } from 'react-router-dom';
 
-const Club = ({id, avatar, name, description, members}) => 
+const Club = ({id, avatar, name, description, members, currentUser}) => 
   <div className='Club'>
     <Avatar avatar={avatar} showing={name} />
     <div className='content'>

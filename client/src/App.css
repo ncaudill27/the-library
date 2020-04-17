@@ -107,6 +107,20 @@ div.Thread-list > div > div {
   left: 95px;
 }
 
+#join {
+  position: absolute;
+  top: 2.5em;
+  left: 17em;
+  padding: 5px;
+  background-color: #4F7178;
+  color: white;
+  border-radius: 10px;
+}
+
+#join:hover {
+  cursor: pointer;
+}
+
 .Club-sidebar {
     height:  80px;
 }

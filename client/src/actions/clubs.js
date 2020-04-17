@@ -1,6 +1,7 @@
 import { addClub } from './users';
 
 const begin = func => func({type: "BEGIN_CLUBS_REQUEST"});
+const token = localStorage.getItem('token');
 
 const fetchClubs = () => {
   return (dispatch) => {
@@ -17,7 +18,6 @@ const addClubs = clubsJSON => ({
 });
 
 const postClub = (payload, currentUserId) => {
-  const token = localStorage.getItem('token');
   const requestObj = {
     'method': 'POST',
     'headers': {
@@ -36,14 +36,35 @@ const postClub = (payload, currentUserId) => {
       if (response.errors) return console.log(response.errors);
       let post = await dispatch(createClub(response.club));      
       dispatch(addClub(post.club.data.id, currentUserId));
-    })
-  }
-  
-}
+    });
+  };
+};
 
 const createClub = clubJSON => ({
   type: "CREATE_CLUB",
   club: clubJSON
-})
+});
+
+const memberJoinRequest = payload => {
+  const requestObj = {
+    'method': 'PATCH',
+    'headers': {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    'body': JSON.stringify(payload)
+  };
+
+  return dispatch => {
+    begin(dispatch);
+    fetch('/api/v1/clubs', requestObj)
+    .then(res => res.json())
+    .then( response => {
+      if (response.errors) return console.log(response.errors);
+      dispatch(addClubMember(response))
+    });
+  };
+};
 
 export { fetchClubs, postClub };

@@ -4,14 +4,26 @@ import ThreadList from '../components/ThreadList';
 
 class ClubContainer extends Component {
 
+  currentUserIsMember() {
+    const {currentUser, clubId, clubs} = this.props
+    const club = clubs.find(club => club.id === clubId);
+    return !!club.memberIds.includes(currentUser.id);
+  }
+
+  handleJoin = e => {
+    
+  }
+
   renderClub = (club, threads, currentUser) => {
     if (club && threads) {
       const {name, description} = club
       const clubThreads = club.threadIds.map(threadId => threads.filter(thread=> thread.id === threadId)).flat()
+
       return (
         <>
           <div className='Club-details'>
             <h1>{name}</h1>
+            {this.currentUserIsMember() ? null : <h3 id='join'>Join Club</h3>}
             <p>{description}</p>
           </div>
           <ThreadList threads={clubThreads} club={club} currentUser={currentUser} />
