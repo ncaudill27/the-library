@@ -35,8 +35,8 @@ class ClubList extends Component {
         exact
         className='Create-club Navlink'
       ><div className='Club-sidebar Create-club'><h3>Create Club</h3></div></NavLink>
-    </>
-  }
+    </>;
+  };
 
   render() {
     const {renderClubs, renderClubsSidebar, props: {styling, clubsPending}} = this;
