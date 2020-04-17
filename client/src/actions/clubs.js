@@ -1,4 +1,4 @@
-import { addClub } from './users';
+import { addClub, leaveClub } from './users';
 
 const begin = func => func({type: "BEGIN_CLUBS_REQUEST"});
 const token = localStorage.getItem('token');
@@ -90,6 +90,7 @@ const memberLeaveRequest = clubId => {
     .then(response => {
       if (response.errors) return console.log(response.errors);
       dispatch(removeClubMember(response));
+      dispatch(leaveClub(response));
     })
   }
 }

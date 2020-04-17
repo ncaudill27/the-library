@@ -110,6 +110,11 @@ const updateUserRequest = (payload, userId) => {
   }
 };
 
+const leaveClub = ({clubId}) => ({
+  type: "LEAVE_CLUB",
+  clubId
+})
+
 const loginUser = userData => ({
   type: "LOGIN_USER",
   userData
@@ -129,5 +134,6 @@ export {
   logOutUser,
   loginUser,
   userPostRequest,
-  updateUserRequest
+  updateUserRequest,
+  leaveClub
 };

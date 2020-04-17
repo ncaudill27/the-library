@@ -64,9 +64,16 @@ const usersReducer = (state = initialState, action) => {
       }
       return {...state, currentUser: currentUser, pending: false}
 
+    case "LEAVE_CLUB":
+      user = state.currentUser
+      let updatedClubs = user.clubIds.filter(id => id !== action.clubId);
+      let updatedUser = {...user, clubIds: updatedClubs};
+      
+      return {...state, currentUser: updatedUser, pending: false};
+      
     case "LOGOUT_USER":
-      localStorage.clear()
-      return {...state, currentUser: false, pending: false}
+      localStorage.clear();
+      return {...state, currentUser: false, pending: false};
 
     default:
       return state;
