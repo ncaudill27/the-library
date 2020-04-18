@@ -1,7 +1,14 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-function Book({title, author, description, src, isbn13}) {
+function Book({title, author, description, src, isbn13, currentUser}) {
+
+  const renderCurrentlyReadingButton = () => {
+    return <NavLink to={`/${currentUser.username}`} exact className='Navlink'
+    ><h3>Make favorite</h3></NavLink>
+  };
+  
   return (
     <div className='Book'>
       <img src={src} alt={title + " Cover Picture"} />
@@ -16,6 +23,9 @@ function Book({title, author, description, src, isbn13}) {
         <h3>By: {author}</h3>
         <p>{description}</p>
       </div>
+      <div className='buttons'>
+        {currentUser ? renderCurrentlyReadingButton() : null}
+      </div>
     </div>
   );
 }
@@ -27,4 +37,9 @@ Book.defaultProps = {
   description: "No description posted"
 }
 
-export default Book;
+const mapStateToProps = ({users}) => ({
+  currentUser: users.currentUser
+});
+
+
+export default connect(mapStateToProps)(Book);

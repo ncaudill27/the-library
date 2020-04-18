@@ -20,7 +20,7 @@ const usersReducer = (state = initialState, action) => {
           email: user.attributes.email,
           bio: user.attributes.bio,
           avatar: user.attributes.avatar,
-          currentFavorite: user.attributes.favorite_book_isbn13,
+          currentlyReading: user.attributes.favoriteBookIsbn13,
           clubIds: user.relationships.clubs.data.map(club => club.id),
           commentIds: user.relationships.comments.data.map(comment => comment.id),
         };

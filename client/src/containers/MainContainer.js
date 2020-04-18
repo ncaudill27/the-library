@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { logOutUser } from '../actions/users';
 
 import Header from '../components/Header';
 import WelcomeContainer from '../components/WelcomeContainer';
 import BookShow from '../components/BookShow';
 import NYTimes from './NYTimes';
+import ProfilePage from '../components/ProfilePage';
 import ClubList from '../components/ClubList';
 import ClubContainer from './ClubContainer';
 import ClubForm from '../components/ClubForm';
-import { logOutUser } from '../actions/users';
 
 class MainContainer extends Component {
 
@@ -44,6 +45,8 @@ class MainContainer extends Component {
           <Route exact path={`/bestsellers/:isbn`} render={({match}) =>
             <BookShow isbn={match.params.isbn} />} />
 
+
+          <Route exact path='/:username' render={ () => <ProfilePage />} />
         </Switch>
       </main>
     );

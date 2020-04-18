@@ -9,7 +9,7 @@ const UserBox = ({user, logOutUser}) => {
     <div className='User-box'>
       <Avatar avatar={user.avatar} showing={user.username} />
       <br/>
-      <NavLink to='/' exact className='Navlink'><h3>{user.username}</h3></NavLink>
+      <NavLink to={`/${user.username}`} exact className='Navlink'><h3>{user.username}</h3></NavLink>
   </div>
   );
 };
