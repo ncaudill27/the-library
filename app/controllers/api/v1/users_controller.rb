@@ -31,7 +31,7 @@
 
     # PATCH/PUT /users/1
     def update
-      if @user.update(user_params(:name, :username, :bio))
+      if @user.update(user_params(:name, :username, :bio, :favorite_book_isbn13))
         #TODO Add token authorization with sessionuser
         render json: {user: UserSerializer.new(@user), success: "Useful message"}, status: :accepted
       else

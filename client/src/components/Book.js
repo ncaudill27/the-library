@@ -1,12 +1,14 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { updateUserRequest } from '../actions/users';
 
-function Book({title, author, description, src, isbn13, currentUser}) {
+function Book({title, author, description, src, isbn13, currentUser, updateUserRequest}) {
 
   const renderCurrentlyReadingButton = () => {
     return <NavLink to={`/${currentUser.username}`} exact className='Navlink'
-    ><h3>Make favorite</h3></NavLink>
+    onClick={() => updateUserRequest({favorite_book_isbn13: isbn13}, currentUser.id)}
+      ><h3>Make favorite</h3></NavLink>
   };
   
   return (
@@ -42,4 +44,4 @@ const mapStateToProps = ({users}) => ({
 });
 
 
-export default connect(mapStateToProps)(Book);
+export default connect(mapStateToProps, { updateUserRequest })(Book);

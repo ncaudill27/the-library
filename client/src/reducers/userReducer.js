@@ -39,7 +39,7 @@ const usersReducer = (state = initialState, action) => {
       const {
         id,
         attributes: {
-          name, username, email, bio, avatar, favorite_book_isbn13
+          name, username, email, bio, avatar, favoriteBookIsbn13
         },
         relationships: {
           clubs: {
@@ -58,7 +58,7 @@ const usersReducer = (state = initialState, action) => {
         email: email,
         bio: bio,
         avatar: avatar,
-        currentFavorite: favorite_book_isbn13,
+        currentlyReading: favoriteBookIsbn13,
         clubIds: clubs.map(club => club.id),
         commentIds: comments.map(comment => comment.id),
       }
