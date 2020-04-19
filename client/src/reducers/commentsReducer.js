@@ -33,8 +33,6 @@ const commentsReducer = (state = initialState, action) => {
         threadId: comment.relationships.board.data.id,
         posted: new Date(comment.attributes.createdAt)
       };
-      console.log(comment);
-      
 
       return {...state, data: [...state.data, postObj], pending: false};
 

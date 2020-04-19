@@ -11,7 +11,6 @@ const CommentList = ({comments, users, pending}) => {
   function renderComments() {
     comments = sortCommentsByCreation(comments);
     return comments.map(({id, userId, content, posted})=> {
-      console.log(posted);
       let poster = users.find(user => user.id === userId)
       
       return <Comment key={id} id={id} username={poster.username} avatar={poster.avatar} content={content} time={posted.toLocaleString('en-US')} />
