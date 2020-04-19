@@ -18,7 +18,7 @@ const commentsReducer = (state = initialState, action) => {
           content: comment.attributes.content,
           userId: comment.relationships.user.data.id,
           threadId: comment.relationships.board.data.id,
-          posted: new Date(comment.attributes.created_at)
+          posted: new Date(comment.attributes.createdAt)
         };
       });
 
@@ -31,7 +31,7 @@ const commentsReducer = (state = initialState, action) => {
         content: comment.attributes.content,
         userId: comment.relationships.user.data.id,
         threadId: comment.relationships.board.data.id,
-        posted: new Date(comment.attributes.created_at)
+        posted: new Date(comment.attributes.createdAt)
       };
       console.log(comment);
       
