@@ -105,6 +105,29 @@ div.Thread-list > div > div {
   padding: 20px;
 }
 
+.Club-book {
+  margin: 0px 10% 0px 10%;
+  width: 40em;
+  height: 16em;
+  padding: 20px;
+  background-color: #E4AF8E;
+  border-radius: 10px;
+}
+
+.Club-book-details {
+  margin: 60px;
+  float: left;
+}
+
+.Club-book img {
+  float: right;
+}
+
+#clubbook {
+  margin: 25px;
+  /* border: 1px solid black; */
+  box-shadow: 1px 1px black;
+}
 
 .Club .content h3 {
   position: absolute;

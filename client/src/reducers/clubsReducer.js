@@ -18,6 +18,7 @@ const clubsReducer = (state = initialState, action) => {
           name: club.attributes.name,
           description: club.attributes.description,
           avatar: club.attributes.avatar,
+          activeBook: "9780545010221",
           memberIds: club.relationships.users.data.map(user => user.id),
           threadIds: club.relationships.boards.data.map(board => board.id),
         };

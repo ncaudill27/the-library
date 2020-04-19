@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { memberJoinRequest, memberLeaveRequest } from '../actions/clubs';
 import ThreadList from '../components/ThreadList';
+import ClubBook from '../components/ClubBook';
 
 class ClubContainer extends Component {
 
@@ -28,7 +29,7 @@ class ClubContainer extends Component {
 
   renderClub = (club, threads, currentUser) => {
     if (club && threads) {
-      const {name, description} = club
+      const {name, description, activeBook} = club
       const clubThreads = club.threadIds.map(threadId => threads.filter(thread=> thread.id === threadId)).flat()
 
       return (
@@ -38,6 +39,7 @@ class ClubContainer extends Component {
             {this.currentUserIsMember() ? <h3 id='leave' onClick={this.handleLeave}>Leave Club</h3> : <h3 id='join' onClick={this.handleJoin}>Join Club</h3>}
             <p>{description}</p>
           </div>
+          <ClubBook isbn={activeBook} />
           <ThreadList threads={clubThreads} club={club} currentUser={currentUser} />
         </>
       )
