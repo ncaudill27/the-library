@@ -1,5 +1,4 @@
 import React from 'react';
-import StyledLink from './StyledLink';
 import { NavLink } from 'react-router-dom';
 
 function SideNav() {

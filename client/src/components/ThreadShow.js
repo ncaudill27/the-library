@@ -13,10 +13,7 @@ class ThreadShow extends Component {
         handleChange,
         comments,
         threadId,
-        title,
-        users: {
-          data: users
-        }
+        title
       }
     } = this;
 

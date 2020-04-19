@@ -2,19 +2,15 @@ import React from 'react';
 import Avatar from './Avatar';
 import { NavLink } from 'react-router-dom';
 
-const Club = ({id, avatar, name, description, members, currentUser}) => 
-  <div className='Club'>
-    <Avatar avatar={avatar} showing={name} />
-    <div className='content'>
-      <h3>
-        <NavLink
-          to={`/clubs/${id}`}
-          exact
-          className='Navlink'
-          >{name}</NavLink>
-      </h3>
-      <p>{description} <br/><small>{members.length} members</small></p>
+const Club = ({id, avatar, name, description, members}) => 
+  <NavLink to={`/clubs/${id}`} exact className='Navlink'>
+    <div className='Club'>
+      <Avatar avatar={avatar} showing={name} />
+      <div className='content'>
+        <h3>{name}</h3>
+        <p>{description} <br/><small>{members.length} members</small></p>
+      </div>
     </div>
-  </div>;
+  </NavLink>;
 
 export default Club;

@@ -96,14 +96,34 @@ div.Thread-list > div > div {
   padding: 10px;
 }
 
+.Club:hover {
+  color: black;
+  cursor: auto;
+}
+
 .Club-details {
   padding: 20px;
+}
+
+
+.Club .content h3 {
+  position: absolute;
+  top: -35px;
+  padding: 4px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.Club .content h3:hover {
+  background-color: #4F7178;
+  color: white;
+  cursor:  ;
 }
 
 .content {
   position: absolute;
   height: 60px;
-  top: 5px;
+  top: 35px;
   left: 95px;
 }
 
@@ -134,11 +154,6 @@ div.Thread-list > div > div {
 .Club-sidebar:hover {
   background-color: #BF8176;
   cursor: pointer;
-}
-
-div.Club-list > div:nth-child(2) > h3 > a:hover {
-  background-color: #BF8176;
-  color: black;
 }
 
 .Club-sidebar h3 {

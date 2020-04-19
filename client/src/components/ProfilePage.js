@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import ProfileClubs from './ProfileClubs';
 import CommentList from './CommentList';
-import Book from './Book';
+// import Book from './Book';
 
 function ProfilePage({clubs, comments, currentUser: {
   id, name, username, email, bio,
