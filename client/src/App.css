@@ -140,7 +140,7 @@ div.Thread-list > div > div {
 .Club .content h3:hover {
   background-color: #4F7178;
   color: white;
-  cursor:  ;
+  cursor:  pointer;
 }
 
 .content {

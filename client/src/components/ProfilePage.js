@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import ProfileClubs from './ProfileClubs';
 import CommentList from './CommentList';
+import ClubBook from './ClubBook';
 // import Book from './Book';
 
 function ProfilePage({clubs, comments, currentUser: {
@@ -21,6 +22,7 @@ function ProfilePage({clubs, comments, currentUser: {
       <div className='clubs'>
         <ProfileClubs clubs={clubs} />
       </div>
+      <ClubBook isbn={currentlyReading} />
       <div className='comments'>
         <CommentList comments={comments} />
       </div>

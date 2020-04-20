@@ -35,7 +35,7 @@ const usersReducer = (state = initialState, action) => {
 
       return {...state, data: users, currentUser: user, pending: false}
 
-    case "LOGIN_USER": //Formerly known as updateCurrentUser
+    case "LOGIN_USER":
       const {
         id,
         attributes: {
@@ -61,7 +61,8 @@ const usersReducer = (state = initialState, action) => {
         currentlyReading: favoriteBookIsbn13,
         clubIds: clubs.map(club => club.id),
         commentIds: comments.map(comment => comment.id),
-      }
+      };
+      debugger
       return {...state, currentUser: currentUser, pending: false}
 
     case "LEAVE_CLUB":
