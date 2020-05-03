@@ -5,10 +5,22 @@ import CommentList from './CommentList';
 import ClubBook from './ClubBook';
 // import Book from './Book';
 
-function ProfilePage({clubs, comments, currentUser: {
-  id, name, username, email, bio,
-  avatar, currentlyReading
-}}) {
+function ProfilePage({
+  clubs,
+  clubsPending,
+  comments,
+  commentsPending,
+  currentUser: {
+    id,
+    name,
+    username,
+    email,
+    bio,
+    avatar,
+    currentlyReading
+  }
+}) {
+console.log(clubs, comments);
 
   return (
     <div className='Profile'>
@@ -19,12 +31,12 @@ function ProfilePage({clubs, comments, currentUser: {
     <div className='reading'>
       {/* <Book /> */}
     </div>
-      <div className='clubs'>
+      {/* <div className='clubs'>
         <ProfileClubs clubs={clubs} />
-      </div>
+      </div> */}
       <ClubBook isbn={currentlyReading} />
       <div className='comments'>
-        <CommentList comments={comments} />
+        {commentsPending === true ? <p>loading...</p> : <CommentList comments={comments} /> }
       </div>
     </div>
   )
@@ -32,8 +44,11 @@ function ProfilePage({clubs, comments, currentUser: {
 
 const mapStateToProps = ({users, clubs, comments}) => ({
   clubs: clubs.data.filter(club => club.id === users.currentUser.id),
-  comments: comments.data.filter(comment => comment.id === users.currentUser.id),
-  currentUser: users.currentUser
+  comments: comments.data.filter(comment => comment.userId === users.currentUser.id).slice(0,5),
+  currentUser: users.currentUser,
+  commentsPending: comments.pending,
+  clubsPending: clubs.pending,
+  userPending: users.pending
 });
 
 

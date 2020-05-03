@@ -41,7 +41,8 @@ const clubsReducer = (state = initialState, action) => {
         id,
         name,
         description,
-        memberIds: users.map(user => user.id)
+        memberIds: users.map(user => user.id),
+        threadIds: []
       }
 
       return {...state, data: state.data.concat(club), pending: false};
