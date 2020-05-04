@@ -119,13 +119,17 @@ div.Thread-list > div > div {
   float: left;
 }
 
+.Profile .info {
+  padding-left: 20px;
+}
+
 .Club-book img {
   float: right;
 }
 
 #clubbook {
   margin: 25px;
-  /* border: 1px solid black; */
+  /* border: 1px/ solid black; */
   box-shadow: 1px 1px black;
 }
 

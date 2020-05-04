@@ -1,23 +1,25 @@
 import React from 'react';
 import Star from './Star';
 
-const StarRating = ({count}) => {
+function StarRating({count}) {
 
   function convertToStars() {
-    let rating = []
+    let rating = [];
     for (let i = 0; i < count; i++) {
       rating.push(<Star />)
-    }
-    return rating
+    };
+    return rating;
   }
-  
+
   return (
-    <div className='Rating'>
-      <div className='Stars'>
-        {convertToStars()}
+    count
+    ? <div className='Rating'>
+        <div className='Stars'>
+          {convertToStars()}
+        </div>
       </div>
-    </div>
-  )
+    : null
+  );
 }
 
 export default StarRating;

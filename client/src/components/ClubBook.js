@@ -5,10 +5,10 @@ class ClubBook extends Component {
 
   state = {
     book: false
-  }
+  };
 
   componentDidMount() {
-    this.fetchBookInfo()
+    this.fetchBookInfo();
   }
   
   fetchBookInfo() {
@@ -17,7 +17,6 @@ class ClubBook extends Component {
       fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&key=${key}`)
       .then(res => res.json())
       .then(data => {
-        console.log(data, isbn)
         this.setState({ book: data.items[0].volumeInfo }
         )
       })
@@ -26,7 +25,7 @@ class ClubBook extends Component {
   
   render() {
     if (this.state.book) {
-      let {title, authors, averageRating, imageLinks} = this.state.book
+      let {title, authors, averageRating, imageLinks} = this.state.book;
       return (
         <div className='Club-book'>
           <img id="clubbook" src={ imageLinks ? imageLinks.thumbnail : ''} alt={title + " Cover Art"} />
@@ -35,10 +34,10 @@ class ClubBook extends Component {
             <p>{authors}</p>
             <StarRating count={averageRating} />
           </div>
-          </div>
+        </div>
       );
     } else {
-      return <p>loading...</p>
+      return <p>loading...</p>;
     };
   };
 }
