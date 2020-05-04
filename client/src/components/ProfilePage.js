@@ -10,6 +10,7 @@ function ProfilePage({
   clubsPending,
   comments,
   commentsPending,
+  userPending,
   currentUser: {
     id,
     name,
@@ -30,11 +31,11 @@ console.log(clubs, comments);
       </div>
     <div className='reading'>
       {/* <Book /> */}
+      {userPending ? <p>loading..</p> : <ClubBook isbn={currentlyReading} />}
     </div>
       {/* <div className='clubs'>
         <ProfileClubs clubs={clubs} />
       </div> */}
-      <ClubBook isbn={currentlyReading} />
       <div className='comments'>
         {commentsPending === true ? <p>loading...</p> : <CommentList comments={comments} /> }
       </div>
