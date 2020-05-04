@@ -1,0 +1,14 @@
+{
+  "name": "the-library",
+  "version": "0.1.0",
+  "description": "A nice place to discuss your latest book with friends",
+  "license": "MIT",
+  "engine": {
+    "node": "10.20.1"
+  },
+  "scripts": {
+    "build": "cd client && npm install && npm run build && cd ..",
+    "deploy": "cp -a client/build/. public/",
+    "postinstall": "npm run build && npm run deploy && echo 'Client build!'"
+  }
+}
