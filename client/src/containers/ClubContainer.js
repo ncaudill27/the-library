@@ -36,7 +36,13 @@ class ClubContainer extends Component {
         <>
           <div className='Club-details'>
             <h1>{name}</h1>
-            {this.currentUserIsMember() ? <h3 id='leave' onClick={this.handleLeave}>Leave Club</h3> : <h3 id='join' onClick={this.handleJoin}>Join Club</h3>}
+            {
+              this.currentUser
+              ? this.currentUserIsMember()
+                ? <h3 id='leave' onClick={this.handleLeave}>Leave Club</h3>
+                : <h3 id='join' onClick={this.handleJoin}>Join Club</h3>
+              : null
+            }
             <p>{description}</p>
           </div>
           <ClubBook isbn={activeBook} />
@@ -52,7 +58,11 @@ class ClubContainer extends Component {
 
     return (
       <div className='Club-container'>
-        {clubsPending === true ? <p>loading....</p> : this.renderClub(club, threads, currentUser)}
+        {
+          clubsPending === true
+          ? <p>loading....</p>
+          : this.renderClub(club, threads, currentUser)
+        }
       </div>
     )
   }

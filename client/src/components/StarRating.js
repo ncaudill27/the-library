@@ -6,7 +6,7 @@ function StarRating({count}) {
   function convertToStars() {
     let rating = [];
     for (let i = 0; i < count; i++) {
-      rating.push(<Star />)
+      rating.push(<Star key={i} />)
     };
     return rating;
   }
