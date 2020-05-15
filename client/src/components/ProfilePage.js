@@ -31,11 +31,8 @@ console.log(clubs, comments);
       </div>
     <div className='reading'>
       {/* <Book /> */}
-      {userPending ? <p>loading..</p> : <ClubBook isbn={currentlyReading} />}
+      <ClubBook isbn={currentlyReading} />
     </div>
-      {/* <div className='clubs'>
-        <ProfileClubs clubs={clubs} />
-      </div> */}
       <div className='comments'>
         {commentsPending === true ? <p>loading...</p> : <CommentList comments={comments} /> }
       </div>
