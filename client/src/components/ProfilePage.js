@@ -7,10 +7,8 @@ import ClubBook from './ClubBook';
 
 function ProfilePage({
   clubs,
-  clubsPending,
   comments,
   commentsPending,
-  userPending,
   currentUser: {
     id,
     name,

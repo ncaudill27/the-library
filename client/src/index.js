@@ -10,6 +10,8 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import rootReducer from './reducers/rootReducer';
 
+import ErrorBoundary from './components/ErrorBoundary';
+
 const store = createStore(
     rootReducer,
     compose(
@@ -22,7 +24,9 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <Router>
-        <App />
+        <ErrorBoundary>
+          <App />
+        </ErrorBoundary>
       </Router>
     </Provider>
   </React.StrictMode>,
