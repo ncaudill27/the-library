@@ -102,6 +102,7 @@ div.Thread-list > div > div {
 }
 
 .Club-details {
+  width: 50%;
   padding: 20px;
 }
 
@@ -303,13 +304,30 @@ img#book {
   height: 20em;
 }
 
-
+main > .Club-list > h2,
+div.Club-details > h1,
 #root > div > main > div > h1 {
   position: absolute;
   background-color: #E2C18B;
   padding: 20px;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
+}
+
+main > .Club-list > h2 {
+  top: 20px;
+}
+
+div.Club-details > h1 {
+  top: 70px;
+  left: 300px;
+}
+
+.Club-container {
+  padding-top: 130px;
+}
+main > div.Club-list {
+  padding-top: 75px;
 }
 
 #library {
