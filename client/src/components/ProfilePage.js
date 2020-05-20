@@ -9,6 +9,7 @@ function ProfilePage({
   clubs,
   comments,
   commentsPending,
+  usersPending,
   currentUser: {
     id,
     name,
@@ -32,7 +33,7 @@ console.log(clubs, comments);
       <ClubBook isbn={currentlyReading} />
     </div>
       <div className='comments'>
-        {commentsPending === true ? <p>loading...</p> : <CommentList comments={comments} /> }
+        {!commentsPending && !usersPending ?  <CommentList comments={comments} /> : <>loading...</>}
       </div>
     </div>
   )
@@ -44,7 +45,7 @@ const mapStateToProps = ({users, clubs, comments}) => ({
   currentUser: users.currentUser,
   commentsPending: comments.pending,
   clubsPending: clubs.pending,
-  userPending: users.pending
+  usersPending: users.pending
 });
 
 
