@@ -104,7 +104,6 @@ const updateUserRequest = (payload, userId) => {
     fetch(`/api/v1/users/${userId}`, requestObj)
     .then(res => res.json())
     .then(response => {
-      debugger
       dispatch(loginUser(response.user.data));
     });
   }

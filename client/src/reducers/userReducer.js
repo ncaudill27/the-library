@@ -20,7 +20,7 @@ const usersReducer = (state = initialState, action) => {
           email: user.attributes.email,
           bio: user.attributes.bio,
           avatar: user.attributes.avatar,
-          currentlyReading: user.attributes.favoriteBookIsbn13 ? user.attributes.favoriteBookIsbn13.replace(/-/g, '') : null,
+          currentlyReading: !!user.attributes.favoriteBookIsbn13 ? user.attributes.favoriteBookIsbn13.replace(/-/g, '') : null,
           clubIds: user.relationships.clubs.data.map(club => club.id),
           commentIds: user.relationships.comments.data.map(comment => comment.id),
         };
@@ -58,7 +58,7 @@ const usersReducer = (state = initialState, action) => {
         email: email,
         bio: bio,
         avatar: avatar,
-        currentlyReading: favoriteBookIsbn13.replace(/-/g, ''),
+        currentlyReading: !!favoriteBookIsbn13 ? user.attributes.favoriteBookIsbn13.replace(/-/g, '') : null,
         clubIds: clubs.map(club => club.id),
         commentIds: comments.map(comment => comment.id),
       };
