@@ -106,22 +106,27 @@ div.Thread-list > div > div {
   padding: 20px;
 }
 
+.info  p,
+.Club-details > p {
+  width: 50%;
+}
+
 .Club-book {
-  margin: 0px 10% 0px 10%;
-  width: 40em;
+  margin-left: 30px;
+  width: 36em;
   height: 16em;
-  padding: 20px;
+  padding: 10px;
   background-color: #E4AF8E;
   border-radius: 10px;
 }
 
 .Club-book-details {
-  margin: 60px;
+  margin: 30px;
   float: left;
 }
 
-.Profile .info {
-  padding-left: 20px;
+.Profile {
+  padding-top: 80px;
 }
 
 .Club-book img {
@@ -130,7 +135,6 @@ div.Thread-list > div > div {
 
 #clubbook {
   margin: 25px;
-  /* border: 1px/ solid black; */
   box-shadow: 1px 1px black;
 }
 
@@ -306,7 +310,8 @@ img#book {
 
 main > .Club-list > h2,
 div.Club-details > h1,
-#root > div > main > div > h1 {
+div.info > h2,
+main > div > h1 {
   position: absolute;
   background-color: #E2C18B;
   padding: 20px;
@@ -320,6 +325,11 @@ main > .Club-list > h2 {
 
 div.Club-details > h1 {
   top: 70px;
+  left: 300px;
+}
+
+div.info > h2 {
+  top: 20px;
   left: 300px;
 }
 
