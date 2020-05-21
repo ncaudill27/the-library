@@ -1,22 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ProfileClubs from './ProfileClubs';
 import CommentList from './CommentList';
 import ClubBook from './ClubBook';
-// import Book from './Book';
 
 function ProfilePage({
-  clubs,
   comments,
   commentsPending,
   usersPending,
   currentUser: {
-    id,
     name,
-    username,
-    email,
     bio,
-    avatar,
     currentlyReading
   }
 }) {
@@ -29,7 +22,6 @@ console.log(currentlyReading);
         <p>{bio}</p>
       </div>
     <div className='reading'>
-      {/* <Book /> */}
       { !currentlyReading ? <>loading...</> : <ClubBook isbn={currentlyReading} /> }
     </div>
       <div className='comments'>
