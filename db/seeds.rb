@@ -6,7 +6,7 @@ def n
 end
 
 def isbn_13
-  "978-1455841653"
+  "9780545010221"
 end
 
 10.times do

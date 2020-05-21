@@ -30,7 +30,7 @@ console.log(currentlyReading);
       </div>
     <div className='reading'>
       {/* <Book /> */}
-      <ClubBook isbn={currentlyReading} />
+      { !currentlyReading ? <>loading...</> : <ClubBook isbn={currentlyReading} /> }
     </div>
       <div className='comments'>
         {!commentsPending && !usersPending ?  <CommentList comments={comments} /> : <>loading...</>}
