@@ -58,7 +58,7 @@ const usersReducer = (state = initialState, action) => {
         email: email,
         bio: bio,
         avatar: avatar,
-        currentlyReading: !!favoriteBookIsbn13 ? user.attributes.favoriteBookIsbn13.replace(/-/g, '') : null,
+        currentlyReading: !!favoriteBookIsbn13 ? favoriteBookIsbn13.replace(/-/g, '') : null,
         clubIds: clubs.map(club => club.id),
         commentIds: comments.map(comment => comment.id),
       };

@@ -34,7 +34,7 @@ const loginRequest = payload => {
     begin(dispatch);
     fetch('/auth/login', requestObj)
     .then(res => res.json())
-    .then(response => {
+    .then(response => {      
       if (response.failure) return console.log(response.failure); //TODO Handle this
       localStorage.setItem('token', response.auth_token);
       dispatch(loginUser(response.user.data));

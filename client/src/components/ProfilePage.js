@@ -20,7 +20,7 @@ function ProfilePage({
     currentlyReading
   }
 }) {
-console.log(clubs, comments);
+console.log(currentlyReading);
 
   return (
     <div className='Profile'>
