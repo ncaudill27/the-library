@@ -108,7 +108,7 @@ div.Thread-list > div > div {
 
 .info  p,
 .Club-details > p {
-  width: 50%;
+  max-width: 60%;
   padding-left: 20px;
 }
 
@@ -273,6 +273,8 @@ main > div > div.NYTimes {
 
 .Book .details {
   margin-top: 4em;
+  max-width: 66%;
+  min-width: 50%;
 }
 
 .Book img {
