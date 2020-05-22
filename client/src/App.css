@@ -235,9 +235,37 @@ div.Thread-list > div > div {
   border-radius: 10px;
 }
 
-#root > div > main > div > div.NYTimes {
-  padding: 150px 0px 0px 20px;
+main > div > div.NYTimes {
+  padding: 130px 0px 0px 20px;
 }
+
+.select-container {
+  margin-left: 1em;
+  margin-bottom: 1em;
+  background-color: #4F7178;
+  border-radius: 10px;
+  text-align: center;
+  color: #fff;
+  padding: 0.5em;
+  width: fit-content;
+}
+
+.select {
+  border-radius: 5px;
+  width: fit-content;
+  border: 1px solid #aaa;
+  background-color: #F2DEBD;
+  height: 2em;
+}
+
+.select:hover {
+  border-color: #BF8176;
+}
+
+.select:focus {
+  border-color: #BF8176;
+}
+
 .Book {
   height: 16em;
   padding: 1em;

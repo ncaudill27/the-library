@@ -47,10 +47,12 @@ class NYTimes extends Component {
       <div>
         <h1>New York Times Best Sellers</h1>
         <div className='NYTimes'>
-          <label>Categories </label>
-          <select onChange={this.handleSelectChange} value={this.state.select}>
-            {this.selectOptions()}
-          </select>
+          <div className='select-container'>
+            <label>Categories </label>
+            <select onChange={this.handleSelectChange} value={this.state.select} className='select'>
+              {this.selectOptions()}
+            </select>
+          </div>
           <BookList books={this.state.books} />
         </div>
       </div>
