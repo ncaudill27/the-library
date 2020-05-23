@@ -52,7 +52,7 @@ const authorizeToken = () => {
       'Content-Type': 'application/json',
       'Accepts': 'application/json'
     }
-  }
+  };
   return dispatch => {
     begin(dispatch);
     fetch('/auth/auto', requestObj)
