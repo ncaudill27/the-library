@@ -1,0 +1,24 @@
+{
+  "name": "library-book-club",
+  "version": "1.0.0",
+  "description": "Flatiron alumni produced book club.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "build": "cd client && npm install && npm run build && cd ..",
+    "deploy": "cp -a client/build/. public/",
+    "postinstall": "npm run build && npm run deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ncaudill27/the-library.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ncaudill27/the-library/issues"
+  },
+  "homepage": "https://github.com/ncaudill27/the-library#readme"
+}
