@@ -1,1 +1,1 @@
-web: 'rake start:production'
+web: rake start:production
