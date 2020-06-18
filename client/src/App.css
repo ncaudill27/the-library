@@ -203,13 +203,24 @@ div.Thread-list > div > div {
   background: #4F7178;
 }
 
-.Comment-card,
+.Comment,
 .Comment-field {
   height: 80px;
   position: relative;
 }
 
-.Comment-card:hover,
+.Comment button {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  border: 1px solid darkred;
+  border-radius: 10px;
+  background-color: darkred;
+  color: white;
+  font-size: xx-small;
+}
+
+.Comment:hover,
 .Book:hover,
 .Club:hover {
   background: #E4AF8E;

@@ -25,8 +25,8 @@ const CommentList = ({comments, usersPending, commentsPending}) => {
     };
   }
 
-  function deleteComment(id) {
-    console.log(id);
+  function deleteComment(e) {
+    console.log(e.target.parentNode.dataset.commentId);
     
   }
   
