@@ -29,13 +29,39 @@ const postComment = payload => (
   }
 );
 
+const deleteCommentRequest = commentId => {
+  const token = localStorage.getItem('token');
+  const requestObj = {
+    'method': 'DELETE',
+    'headers': {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type:': 'application/json',
+      'Accept': 'application/json'
+    }
+  };
+  console.log(commentId);
+  // return dispatch => {
+  //   dispatch({type: "BEGIN_COMMENTS_REQUEST"});
+  //   fetch(`api/v1/comments/${commentId}`, requestObj)
+  //   .then(res => res.json())
+  //   .then(response => {
+  //     console.log(response);
+  //   });
+  // }
+}
+
 const acceptPost = payload => ({
-  
   type: "POST_COMMENT",
+  payload
+});
+
+const deleteComment = payload => ({
+  type: "DELETE_COMMENT",
   payload
 });
 
 export {
   fetchComments,
-  postComment
- };
+  postComment,
+  deleteCommentRequest
+};

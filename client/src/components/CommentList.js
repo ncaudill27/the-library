@@ -1,7 +1,9 @@
 import React from 'react';
 import Comment from './Comment';
+import { deleteCommentRequest } from '../actions/comments';
+import { connect } from 'react-redux';
 
-const CommentList = ({comments, usersPending, commentsPending}) => {
+const CommentList = ({comments, usersPending, commentsPending, deleteComment}) => {
 
   function sortCommentsByCreation(comments) {
     return comments.sort((c1, c2) => new Date(c2.posted) - new Date(c1.posted));
@@ -26,7 +28,9 @@ const CommentList = ({comments, usersPending, commentsPending}) => {
   }
 
   function deleteComment(e) {
-    console.log(e.target.parentNode.dataset.commentId);
+
+    const commentId = e.target.parentNode.dataset.commentId;
+    deleteCommentRequest(commentId);
     
   }
   
@@ -37,4 +41,4 @@ const CommentList = ({comments, usersPending, commentsPending}) => {
   );
 }
 
-export default CommentList;
+export default connect(null, { deleteCommentRequest })(CommentList);

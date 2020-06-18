@@ -36,6 +36,10 @@ const commentsReducer = (state = initialState, action) => {
 
       return {...state, data: [...state.data, postObj], pending: false};
 
+    case "DELETE_COMMENT":
+      console.log(action.payload);
+      return {...state, pending: false};
+
     default:
       return state;
   };
