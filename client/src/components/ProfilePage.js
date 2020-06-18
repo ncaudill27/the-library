@@ -13,7 +13,6 @@ function ProfilePage({
     currentlyReading
   }
 }) {
-console.log(currentlyReading);
 
   return (
     <div className='Profile'>
@@ -28,7 +27,7 @@ console.log(currentlyReading);
         {!commentsPending && !usersPending ?  <CommentList comments={comments} /> : <>loading...</>}
       </div>
     </div>
-  )
+  );
 }
 
 const mapStateToProps = ({users, clubs, comments}) => ({

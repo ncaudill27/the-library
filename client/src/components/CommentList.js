@@ -11,11 +11,23 @@ const CommentList = ({comments, usersPending, commentsPending}) => {
     comments = sortCommentsByCreation(comments);
     if (!usersPending && !commentsPending) {
       return comments.map(({id, userId, content, posted})=> {
-        return <Comment key={id} id={id} userId={userId} content={content} time={posted.toLocaleString('en-US')} />;
+        return <Comment
+        key={id}
+        id={id}
+        userId={userId}
+        content={content}
+        time={posted.toLocaleString('en-US')}
+        deleteComment={deleteComment}
+        />;
       });
     } else {
       return <>loading...</>
     };
+  }
+
+  function deleteComment(id) {
+    console.log(id);
+    
   }
   
   return (
