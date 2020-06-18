@@ -22,7 +22,7 @@ console.log(currentlyReading);
         <p>{bio}</p>
       </div>
     <div className='reading'>
-      { !currentlyReading ? <>loading...</> : <ClubBook isbn={currentlyReading} /> }
+      { currentlyReading ? <ClubBook isbn={currentlyReading} /> : <>loading...</> }
     </div>
       <div className='comments'>
         {!commentsPending && !usersPending ?  <CommentList comments={comments} /> : <>loading...</>}

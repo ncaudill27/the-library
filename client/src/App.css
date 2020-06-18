@@ -127,6 +127,7 @@ div.Thread-list > div > div {
 
 .Club-book-details {
   margin: 30px;
+  width: 55%;
   float: left;
 }
 
@@ -301,7 +302,9 @@ img#book {
 
 .Stars {
   position: absolute;
+  display: inline;
   padding: 5px;
+  width: fit-content;
   background-color: #4F7178;
   border-radius: 10px;
   top: 4px;
