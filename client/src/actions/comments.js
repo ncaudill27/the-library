@@ -35,19 +35,21 @@ const deleteCommentRequest = commentId => {
     'method': 'DELETE',
     'headers': {
       'Authorization': `Bearer ${token}`,
-      'Content-Type:': 'application/json',
+      'Content-Type': 'application/json',
       'Accept': 'application/json'
-    }
+    },
+    'body': JSON.stringify(commentId)
   };
   console.log(commentId);
-  // return dispatch => {
-  //   dispatch({type: "BEGIN_COMMENTS_REQUEST"});
-  //   fetch(`api/v1/comments/${commentId}`, requestObj)
-  //   .then(res => res.json())
-  //   .then(response => {
-  //     console.log(response);
-  //   });
-  // }
+
+  return dispatch => {
+    dispatch({type: "BEGIN_COMMENTS_REQUEST"});
+    fetch(`/api/v1/comments/${commentId}`, requestObj)
+    .then(res => res.json())
+    .then(response => {
+      dispatch(deleteComment(response))
+    });
+  };
 }
 
 const acceptPost = payload => ({
