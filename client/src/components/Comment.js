@@ -1,17 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from './Avatar';
 import { connect } from 'react-redux';
 
 const Comment = ({id, userId, content, time, users, currentUser, deleteComment}) => {
+
   const user = users.find(user => user.id === userId);
-  const {username, avatar} = user
-  
+  const {username, avatar} = user;
+
+  const [shown, shownSet] = useState(false);
+  const show = () => shownSet(true);
+  const hide = () => shownSet(false);
+
   return (
-    <div className="Comment" data-comment-id={id}>
+    <div className="Comment" data-comment-id={id} onMouseEnter={show} onMouseLeave={hide}>
       <Avatar avatar={avatar} showing={username} />
       <p><strong>{username}</strong> - {time}</p>
       <p>{content}</p>
-      { currentUser.id === userId ? <button onClick={deleteComment}>DELETE</button> : null }
+      { currentUser.id === userId && shown ? <button onClick={deleteComment}>DELETE</button> : null }
     </div>
   );
 };
