@@ -50,6 +50,6 @@ class ApplicationController < ActionController::API
 
   def destroy_response(object)
     key = object.class.name.downcase + '_id'
-    render json: { key => object.id }
+    render json: { key => object.id.to_s }
   end
 end

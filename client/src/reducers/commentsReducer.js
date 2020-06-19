@@ -40,6 +40,7 @@ const commentsReducer = (state = initialState, action) => {
       const toDelete = action.payload.comment_id;
       console.log(toDelete);
       
+      console.log(state.data.find(({id}) => id === toDelete));      
       comments = state.data.filter( ({id}) => id !== toDelete );
       console.log(comments.find(({id}) => id === toDelete));
       
