@@ -10,48 +10,44 @@ class CommentList extends Component {
   }
   
   renderComments() {
-    const {
+    let {
       deleteComment,
       sortCommentsByCreation,
       props: {
-        comments, usersPending, commentsPending
+        comments, threadId
       }
     } = this;
+    
+    comments = comments.filter(c => c.threadId === threadId);
+    comments = sortCommentsByCreation(comments);
 
-    const sortedComments = sortCommentsByCreation(comments);
-
-    if (!usersPending && !commentsPending) {
-      return sortedComments.map(({id, userId, content, posted})=> {
-        return <Comment
+    return comments.map(({id, userId, content, posted})=> {
+      return <Comment
         key={id}
         id={id}
         userId={userId}
         content={content}
         time={posted.toLocaleString('en-US')}
         deleteComment={deleteComment}
-        />;
-      });
-    } else {
-      return <>loading...</>
-    };
+      />;
+    });
   }
 
   deleteComment = (e) => {
-    console.log(e.target.parentNode.dataset.commentId);
     const commentId = e.target.parentNode.dataset.commentId;
-    this.props.deleteCommentRequest(commentId)
-    
+    this.props.deleteCommentRequest(commentId);
   }
   
   render() {
-  const {usersPending, commentsPending} = this.props
-
-  return (
-    <div className='list-comments'>
-      {!usersPending && !commentsPending ? this.renderComments() : <>loading..</>}
-    </div>
-  );
+    return (
+      <div className='list-comments'>
+        {this.renderComments()}
+      </div>
+    );
   }
 }
 
-export default connect(null, { deleteCommentRequest })(CommentList);
+const mapStateToProps = ({comments}) => ({comments: comments.data});
+
+
+export default connect(mapStateToProps, { deleteCommentRequest })(CommentList);

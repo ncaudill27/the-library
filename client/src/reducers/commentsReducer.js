@@ -4,7 +4,7 @@ const initialState = {
 };
 
 const commentsReducer = (state = initialState, action) => {
-  let comment;
+  let comment, comments;
 
   switch(action.type) {
 
@@ -12,7 +12,7 @@ const commentsReducer = (state = initialState, action) => {
       return {...state, data: [...state.data], pending: true};
 
     case "ADD_COMMENTS":
-      const comments = action.comments.data.map(comment => {
+      comments = action.comments.data.map(comment => {
         return {
           id: comment.id,
           content: comment.attributes.content,
@@ -37,8 +37,13 @@ const commentsReducer = (state = initialState, action) => {
       return {...state, data: [...state.data, postObj], pending: false};
 
     case "DELETE_COMMENT":
-      console.log(action.payload);
-      return {...state, pending: false};
+      const toDelete = action.payload.comment_id;
+      console.log(toDelete);
+      
+      comments = state.data.filter( ({id}) => id !== toDelete );
+      console.log(comments.find(({id}) => id === toDelete));
+      
+      return {...state, data: comments, pending: false};
 
     default:
       return state;

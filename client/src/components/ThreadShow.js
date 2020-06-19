@@ -20,7 +20,7 @@ class ThreadShow extends Component {
     return (
       <div className='Thread-card'>
         <h3>{title}</h3>
-        <CommentList comments={comments} />
+        <CommentList threadId={threadId}/>
         <CommentField
           currentUser={currentUser}
           threadId={threadId}
