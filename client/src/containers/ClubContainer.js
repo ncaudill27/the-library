@@ -18,7 +18,7 @@ class ClubContainer extends Component {
       membership: {
         club_id: clubId
       }
-    }
+    };
     memberJoinRequest(payload);
   }
 
@@ -27,7 +27,9 @@ class ClubContainer extends Component {
     memberLeaveRequest(clubId);
   }
 
-  renderClub = (club, threads, currentUser) => {
+  renderClub = () => {
+    const {clubId, clubs, threads, currentUser} = this.props;
+    const club = clubs.find(club => club.id === clubId);
     if (club && threads) {
       const {name, description, activeBook} = club
       const clubThreads = club.threadIds.map(threadId => threads.filter(thread=> thread.id === threadId)).flat()
@@ -53,16 +55,9 @@ class ClubContainer extends Component {
   }
 
   render() {
-    const {clubId, clubs, clubsPending, threads, currentUser} = this.props
-    const club = clubs.find(club => club.id === clubId);
-
     return (
       <div className='Club-container'>
-        {
-          clubsPending === true
-          ? <p>loading....</p>
-          : this.renderClub(club, threads, currentUser)
-        }
+          {this.renderClub()}
       </div>
     )
   }
