@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ThreadShow from './ThreadShow';
 import ThreadForm from './ThreadForm';
-import StyledLink from './StyledLink';
 
 function ThreadList({threads, club: {id: clubId}, comments, currentUser}) {
 
@@ -14,17 +13,7 @@ function ThreadList({threads, club: {id: clubId}, comments, currentUser}) {
       const threadComments = comments.filter(comment => threadId === comment.threadId);
       return (
         <>
-        <Router key={threadId}>
-          <Switch key={threadId}>
-
-            <Route key={threadId} exact path={`/clubs/${clubId}/thread/:id`} render={ () =>
-              <ThreadShow key={threadId} title ={title} threadId={threadId} comments={threadComments} currentUser={currentUser} />} />
-
-            <StyledLink key={threadId} to={`/clubs/${clubId}/thread/${threadId}`} exact className='Navlink'
-            styling='Thread-link'><h3 key={threadId}>{title}</h3></StyledLink>
-
-          </Switch>
-        </Router>
+          <ThreadShow key={threadId} title ={title} threadId={threadId} comments={threadComments} currentUser={currentUser} />
         </>
       );
     });
@@ -34,18 +23,7 @@ function ThreadList({threads, club: {id: clubId}, comments, currentUser}) {
   return (
     <div className='Thread-list'>
       <h2>Threads</h2>
-      <Router>
-        <Switch>
-        <Route exact path={`/clubs/${clubId}/threads/new`} render={ () =>
-                <ThreadForm  clubId={clubId} currentUserId={currentUser.id} /> } />
-        <StyledLink
-          to={`/clubs/${clubId}/threads/new`}
-          exact
-          className='Navlink'
-          styling='Thread-form-link'
-        ><h3>Start a new thread</h3></StyledLink>
-        </Switch>
-      </Router>
+      <ThreadForm  clubId={clubId} currentUserId={currentUser.id} />
       {renderThreads()}
     </div>
   );

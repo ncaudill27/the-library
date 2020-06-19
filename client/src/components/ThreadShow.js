@@ -4,29 +4,44 @@ import CommentList from './CommentList';
 import CommentField from './CommentField';
 
 class ThreadShow extends Component {
+
+  state = {
+    shown: false
+  };
+
+  toggle = () => {
+    this.state.shown ? this.setState({shown: false}) : this.setState({shown: true});
+  }
   
   render() {
     const {
+                toggle,
+      state: {
+                shown
+      },
       props: {
-        currentUser,
-        handleSubmit,
-        handleChange,
-        comments,
-        threadId,
-        title
+                currentUser, handleSubmit, handleChange, threadId, title
       }
     } = this;
 
+    const currentState = shown ? 'Thread-card' : 'Thread-link';
+
     return (
-      <div className='Thread-card'>
-        <h3>{title}</h3>
-        <CommentList threadId={threadId}/>
-        <CommentField
-          currentUser={currentUser}
-          threadId={threadId}
-          handleChange={handleChange}
-          handleSubmit={handleSubmit}
-        />
+      <div className={currentState}>
+        <h3 onClick={toggle}>{title}</h3>
+        {
+          shown
+          ? <>
+            <CommentList threadId={threadId}/>
+            <CommentField
+              currentUser={currentUser}
+              threadId={threadId}
+              handleChange={handleChange}
+              handleSubmit={handleSubmit}
+            />
+            </>
+          : null
+        }
       </div>
     );
   };

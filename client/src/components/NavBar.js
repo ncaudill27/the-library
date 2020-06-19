@@ -20,7 +20,7 @@ const NavBar = ({currentUser, logOutUser}) =>{
         styling='Header-link'
       >New York Times Bestsellers</StyledLink>
 
-      <StyledLink
+      <StyledLinks
         to='/clubs'
         exact
         className='Navlink'
