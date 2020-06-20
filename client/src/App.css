@@ -89,6 +89,7 @@ div.Thread-list > div > div {
   color: white;
 }
 
+.Flash button,
 .logout:hover {
   cursor: pointer;
 }
@@ -423,4 +424,31 @@ main > div.Club-list {
   overflow: hidden;
   top: 0px;
   z-index: -1;
+}
+
+.Flash {
+  position: fixed;
+  margin: 0% 33%;
+  align-self: center;
+  align-items: center;
+  text-align: center;
+  z-index: 2;
+  border-radius: 10px;
+  width: fit-content;
+  padding: 40px;
+  background-color: #4F7178;
+  color: white;
+}
+
+.Flash h1 {
+  position: relative;
+  text-align: center;
+  padding: 0px;
+  background-color: #4F7178;
+}
+
+.Flash button {
+  border-radius: 10px;
+  background-color: white;
+  border: 1px solid white;
 }

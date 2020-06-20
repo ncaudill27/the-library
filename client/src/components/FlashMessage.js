@@ -9,9 +9,10 @@ function FlashMessage({message, removeFlash}) {
   const close = () => dispatch(removeFlash);
   
   return (
-    <div className={'Flash'}>
+    <div className='Flash'>
       <h1>OOPSY!</h1>
       <h3>{message}</h3>
+      <br/>
       <button onClick={close}>OK</button>
     </div>
   )
