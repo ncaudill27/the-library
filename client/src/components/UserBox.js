@@ -9,10 +9,18 @@ const UserBox = ({user, logOutUser}) => {
   const [showing, showingSet] = useState(false);
   const show = () => showingSet(true);
   const hide = () => showingSet(false);
+
+  const logOutButton = () => (
+    <NavLink to='/'>
+      <button className='logout' onClick={logOutUser}>
+        logout
+      </button>
+    </NavLink>
+  )
   
   return (
     <div onMouseEnter={show} onMouseLeave={hide} className='User-box'>
-      { showing ? <button className='logout'>logout</button> : <Avatar avatar={user.avatar} showing={user.username} /> }
+      { showing ? logOutButton() : <Avatar avatar={user.avatar} showing={user.username} /> }
       <br/>
       <NavLink to={`/${user.username}`} exact className='Navlink'><h3>{user.username}</h3></NavLink>
   </div>
