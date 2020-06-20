@@ -5,10 +5,10 @@ class BookShow extends Component {
 
   state = {
     bookData: {}
-  }
+  };
 
   componentDidMount() {
-    this.fetchReview()
+    this.fetchReview();
   }
 
   fetchReview = () => {
@@ -22,14 +22,16 @@ class BookShow extends Component {
 
   renderBook = bookData => {
     if (this.state.bookData && Object.keys(this.state.bookData).length !== 0) {
-      const {title, authors, publisher, publishedDate,
-            description, categories, averageRating, imageLinks} = this.state.bookData;
+      const { title, authors, publisher, publishedDate,
+              description, categories, averageRating, imageLinks} = this.state.bookData;
+
+      const {hide} = this.props;
 
       return (
         <>
         <img id='book' src={ imageLinks ? imageLinks.thumbnail : ''} alt={title + " Cover Art"} />
         <div className='details'>
-          <h3>{title}</h3>
+          <h3 onClick={hide}>{title}</h3>
           <h3>By: { authors ? [...authors].join(', ') : ''}</h3>
           { averageRating > 0 ? <StarRating count={averageRating} /> : null}
           <p>Categories: { categories ? [...categories].join(', ') : ''}</p>

@@ -1,21 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { updateUserRequest } from '../actions/users';
+import BookShow from './BookShow';
 
 function Book({title, author, description, src, isbn13, currentUser, updateUserRequest}) {
 
+  const [showing, showingSet] = useState(false);
+  const show = () => showingSet(true);
+  const hide = () => showingSet(false);
+  
   const renderCurrentlyReadingButton = () => {
     return <NavLink to={`/${currentUser.username}`} exact className='Navlink'
     onClick={() => updateUserRequest({favorite_book_isbn13: isbn13}, currentUser.id)}
       ><h3>Make favorite</h3></NavLink>
   };
   
-  return (
+  const listBook = () => (
     <div className='Book'>
       <img src={src} alt={title + " Cover Picture"} />
       <div className='details'>
-        <h3 className='Navlink'>{title}</h3>
+        <h3 onClick={show} className='Navlink'>{title}</h3>
         <h3>By: {author}</h3>
         <p>{description}</p>
       </div>
@@ -23,6 +28,10 @@ function Book({title, author, description, src, isbn13, currentUser, updateUserR
         {currentUser ? renderCurrentlyReadingButton() : null}
       </div>
     </div>
+  )
+  
+  return (
+    showing ? <BookShow isbn={isbn13} hide={hide} /> : listBook()
   );
 }
 
