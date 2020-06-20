@@ -13,7 +13,7 @@ const FormField = ({inputNames, inputValues, submitValue, handleChange, handleSu
       const name = inputNames[i]
       const value = inputValues[i]
 
-      inputs.push( <>
+      inputs.push(
         <label key={name}>
           {name === "comment" || name === "title" ? null : parseName(name)} {/* Conditional render of some labels */}
           {name === "title" ? null : <br/>}                                 {/* Conditional render of line break */}
@@ -23,9 +23,9 @@ const FormField = ({inputNames, inputValues, submitValue, handleChange, handleSu
             value={value}
             handleChange={handleChange}
           />
-        </label>
         {name === "comment" || name === "title" ? null : <br/>}             {/* Conditional render of line break */}
-      </> );
+        </label>
+      );
     }
 
     return inputs;

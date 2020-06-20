@@ -17,6 +17,7 @@
 .Navlink:hover {
   color: white;
   background: #4F7178;
+  cursor: pointer;
 }
 
 .Thread-form,
@@ -308,7 +309,6 @@ img#book {
   position: absolute;
   display: inline;
   padding: 5px;
-  width: fit-content;
   background-color: #4F7178;
   border-radius: 10px;
   top: 4px;

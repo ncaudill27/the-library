@@ -15,13 +15,7 @@ function Book({title, author, description, src, isbn13, currentUser, updateUserR
     <div className='Book'>
       <img src={src} alt={title + " Cover Picture"} />
       <div className='details'>
-        <h3>
-          <NavLink
-            to={`/bestsellers/${isbn13}`}
-            exact
-            className='Navlink'
-          >{title}</NavLink>
-        </h3>
+        <h3 className='Navlink'>{title}</h3>
         <h3>By: {author}</h3>
         <p>{description}</p>
       </div>

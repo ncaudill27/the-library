@@ -37,6 +37,7 @@ class NYTimes extends Component {
   }
 
   handleSelectChange = e => {
+    localStorage.setItem('NYSelector', e.target.value);
     this.setState({ 
       select: e.target.value
     }, this.fetchBestSellers)
