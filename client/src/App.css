@@ -79,6 +79,20 @@ div.Thread-list > div > div {
   height: 80px;
 }
 
+.User-box .logout {
+  font-size: xx-small;
+  float: left;
+  margin: 5px;
+  border: 1px solid darkred;
+  border-radius: 10px;
+  background-color: darkred;
+  color: white;
+}
+
+.logout:hover {
+  cursor: pointer;
+}
+
 .User-box h3 {
   margin: 0px;
 }
@@ -288,7 +302,7 @@ main > div > div.NYTimes {
   height: 16em;
   width: 11em;
   margin-right: 1em;
-}
+}k
 
 img#book {
   margin: 15px;
