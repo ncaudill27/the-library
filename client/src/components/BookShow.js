@@ -4,11 +4,13 @@ import StarRating from './StarRating';
 class BookShow extends Component {
 
   state = {
-    bookData: {}
+    bookData: {},
+    message: <h3 className='error'>loading...</h3>
   };
 
   componentDidMount() {
     this.fetchReview();
+    this.renderErrorMessage();
   }
 
   fetchReview = () => {
@@ -20,12 +22,20 @@ class BookShow extends Component {
     .catch(errors => console.log(errors));
   }
 
+  renderErrorMessage = () => 
+    setTimeout(() => {
+      this.setState({
+        message: <h3 className='error'>Sorry we couldn't seem to find that book. <strong onClick={this.props.hide}>Go back</strong></h3>
+      })
+    }, 1500);
+
   renderBook = bookData => {
+    const {hide} = this.props;
+
     if (this.state.bookData && Object.keys(this.state.bookData).length !== 0) {
+
       const { title, authors, publisher, publishedDate,
               description, categories, averageRating, imageLinks} = this.state.bookData;
-
-      const {hide} = this.props;
 
       return (
         <>
@@ -42,10 +52,10 @@ class BookShow extends Component {
         </>
       );
     } else {
-      return <h3>Sorry we couldn't seem to find that book.</h3>
+      return this.state.message;
     };
   };
-  
+
   render() {
     return (
       <div className='Book-show'>

@@ -297,7 +297,24 @@ img#book {
 
 .Book-show .details {
   padding-top: 10px;
-  margin-left: 160px;
+}
+
+.Book-show p {
+  width: 75%;
+  margin-left: 50px;
+}
+
+.Book-show .error {
+  height: 50px;
+  margin-left: 100px;
+}
+
+.Book-show .error strong {
+  color: red;
+}
+
+.Book-show .error strong:hover {
+  cursor: pointer;
 }
 
 .Rating {
