@@ -14,9 +14,9 @@
   border-radius: 10px;
 }
 
-.Header-link {
-  display: inline;
-  padding: 10px;
+.Navlink:hover {
+  color: white;
+  background: #4F7178;
 }
 
 .Thread-form,
@@ -56,15 +56,8 @@ div.Thread-list > div > div {
 }
 
 .Thread-form-link > a,
-.Thread-link > a > h3 {
+.Thread-link {
   color: white;
-}
-
-.Header-link:hover,
-.Header-link:hover > .Navlink,
-.Navlink:hover {
-  color: white;
-  background: #4F7178;
 }
 
 .Sidebar {
@@ -168,7 +161,7 @@ div.Thread-list > div > div {
 #leave,
 #join {
   position: absolute;
-  top: 2.5em;
+  top: 1em;
   left: 17em;
   padding: 5px;
   background-color: #4F7178;
@@ -369,17 +362,20 @@ main > div > h1 {
 }
 
 main > .Club-list > h2 {
-  top: 20px;
+  top: -16px;
+  background-color: #BF8176;
 }
 
 div.Club-details > h1 {
-  top: 70px;
+  top: 40px;
   left: 300px;
+  background-image: linear-gradient(to bottom,#BF8176 0% 23%, #E2C18B 23% 100%);
 }
 
 div.info > h2 {
-  top: 20px;
+  top: 0px;
   left: 300px;
+  background-image: linear-gradient(to bottom, #BF8176 0% 84%, #E2C18B 84% 100%);
 }
 
 .Club-container {

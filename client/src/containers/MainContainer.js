@@ -3,7 +3,6 @@ import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logOutUser } from '../actions/users';
 
-import Header from '../components/Header';
 import WelcomeContainer from '../components/WelcomeContainer';
 import BookShow from '../components/BookShow';
 import NYTimes from './NYTimes';
@@ -24,14 +23,13 @@ class MainContainer extends Component {
 
     return (
       <main>
-        <Header currentUser={currentUser} logOutUser={logOutUser} />
         <Switch>
 
           <Route exact path='/' render={ () =>
             <WelcomeContainer
               currentUser={currentUser}
-            />}
-          />
+            />
+          } />
 
           <Route exact path='/clubs' render={() => <ClubList currentUser={currentUser} />} />
 
