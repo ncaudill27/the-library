@@ -1,15 +1,22 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { removeFlash } from '../actions/messages';
 
-function FlashMessage({msg}) {
+function FlashMessage({message, removeFlash}) {
 
-  const [visible, visibleSet] = useState('');
+  const dispatch = useDispatch();
 
-  const close = () => visibleSet('hidden');
+  const close = () => dispatch(removeFlash);
   
   return (
-    <div className={'Flash' + visible}>
-      <h3>msg</h3>
+    <div className={'Flash'}>
+      <h3>{message}</h3>
       <button onClick={close}>OK</button>
     </div>
   )
 }
+
+const mapStateToProps = ({flash}) => ({message: flash.message});
+
+
+export default connect(mapStateToProps, { removeFlash })(FlashMessage);
