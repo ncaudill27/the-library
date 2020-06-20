@@ -1,3 +1,5 @@
+import { flashMessage } from './messages';
+
 const begin = func => func({type: "BEGIN_USERS_REQUEST"});
 
 const fetchUsers = () => {
@@ -35,7 +37,7 @@ const loginRequest = payload => {
     fetch('/auth/login', requestObj)
     .then(res => res.json())
     .then(response => {      
-      if (response.failure) return console.log(response.failure); //TODO Handle this
+      if (response.failure) return dispatch(flashMessage(response.failure)); //TODO Handle this
       localStorage.setItem('token', response.auth_token);
       dispatch(loginUser(response.user.data));
     })

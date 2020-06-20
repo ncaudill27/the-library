@@ -10,6 +10,7 @@ import ProfilePage from '../components/ProfilePage';
 import ClubList from '../components/ClubList';
 import ClubContainer from './ClubContainer';
 import ClubForm from '../components/ClubForm';
+import FlashMessage from '../components/FlashMessage';
 
 class MainContainer extends Component {
 
@@ -18,11 +19,13 @@ class MainContainer extends Component {
 
   render() {
     const {
-      currentUser
+      currentUser,
+      message
     } = this.props;
 
     return (
       <main>
+        { message ? <FlashMessage /> : null}
         <Switch>
 
           <Route exact path='/' render={ () =>
@@ -51,10 +54,11 @@ class MainContainer extends Component {
   };
 }
 
-const mapStateToProps = ({clubs, users}) => {
+const mapStateToProps = ({clubs, users, messages}) => {
   return {
     clubs: clubs.data,
-    currentUser: users.currentUser
+    currentUser: users.currentUser,
+    message: messages.message
   }
 }
 

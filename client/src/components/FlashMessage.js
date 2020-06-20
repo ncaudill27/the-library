@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { removeFlash } from '../actions/messages';
 
 function FlashMessage({message, removeFlash}) {
@@ -10,13 +10,14 @@ function FlashMessage({message, removeFlash}) {
   
   return (
     <div className={'Flash'}>
+      <h1>OOPSY!</h1>
       <h3>{message}</h3>
       <button onClick={close}>OK</button>
     </div>
   )
 }
 
-const mapStateToProps = ({flash}) => ({message: flash.message});
+const mapStateToProps = ({messages}) => ({message: messages.message});
 
 
 export default connect(mapStateToProps, { removeFlash })(FlashMessage);
