@@ -19,14 +19,20 @@ const Comment = ({id, userId, content, time, users, currentUser, deleteComment, 
   const editComment = e => {
     e.preventDefault();
     patchCommentRequest({content: comment, id})
-    
+    editableSet(false);
+  }
+
+  const openEdit = async () => {
+    await editableSet(true);
+    const input = document.querySelector('#comment-edit');
+    input.focus();
   }
   
   const buttons = () =>
     <div className='buttons' data-comment-id={id}>
       <button className='delete' onClick={deleteComment}>DELETE</button>
       <br/>
-      <button className='edit' onClick={() => editableSet(true)}>EDIT</button>
+      <button className='edit' onClick={openEdit}>EDIT</button>
     </div>;
 
   return (
@@ -36,7 +42,7 @@ const Comment = ({id, userId, content, time, users, currentUser, deleteComment, 
       {
         editable
         ? <form onSubmit={editComment}>
-            <input type='text' value={comment} onChange={e => commentSet(e.target.value)} />
+            <input id='comment-edit' type='text' value={comment} onChange={e => commentSet(e.target.value)} />
             <input type='submit' value='Edit' />
             <button onClick={() => editableSet(false)}>Cancel</button>
           </form>

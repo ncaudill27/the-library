@@ -49,7 +49,7 @@ module Api::V1
 
       # Only allow a trusted parameter "white list" through.
       def comment_params
-        params.require(:comment).permit(:id, :user_id, :board_id, :content)
+        params.require(:comment).permit(:id, :content)
       end
   end
 end
