@@ -40,7 +40,6 @@ const deleteCommentRequest = commentId => {
     },
     'body': JSON.stringify(commentId)
   };
-  console.log(commentId);
 
   return dispatch => {
     dispatch({type: "BEGIN_COMMENTS_REQUEST"});
