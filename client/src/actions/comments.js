@@ -51,6 +51,29 @@ const deleteCommentRequest = commentId => {
   };
 }
 
+const patchCommentRequest = payload => {
+  const token = localStorage.getItem('token');
+  const requestObj = {
+    'method': 'PATCH',
+    'headers': {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    'body': JSON.stringify(payload)
+  };
+
+  return dispatch => {
+    dispatch({type: "BEGIN_COMMENTS_REQUEST"});
+    fetch(`/api/v1/comments/${payload.id}`, requestObj)
+    .then(res => res.json())
+    .then(response => {
+      console.log(response);
+      dispatch(patchComment(response))
+    });
+  };
+}
+
 const acceptPost = payload => ({
   type: "POST_COMMENT",
   payload
@@ -61,8 +84,14 @@ const deleteComment = payload => ({
   payload
 });
 
+const patchComment = payload => ({
+  type: "PATCH_COMMENT",
+  payload
+})
+
 export {
   fetchComments,
   postComment,
-  deleteCommentRequest
+  deleteCommentRequest,
+  patchCommentRequest
 };

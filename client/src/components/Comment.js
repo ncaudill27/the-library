@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import Avatar from './Avatar';
 import { connect } from 'react-redux';
-import FormField from './FormField';
+import { patchCommentRequest } from '../actions/comments';
 
-const Comment = ({id, userId, content, time, users, currentUser, deleteComment}) => {
+const Comment = ({id, userId, content, time, users, currentUser, deleteComment, patchCommentRequest}) => {
 
   const user = users.find(user => user.id === userId);
   const {username, avatar} = user;
@@ -18,7 +18,7 @@ const Comment = ({id, userId, content, time, users, currentUser, deleteComment})
 
   const editComment = e => {
     e.preventDefault();
-    console.log({content: comment, id})
+    patchCommentRequest({content: comment, id})
     
   }
   
@@ -49,4 +49,4 @@ const Comment = ({id, userId, content, time, users, currentUser, deleteComment})
 const mapStateToProps = ({users}) => ({users: users.data, currentUser: users.currentUser});
 
 
-export default connect(mapStateToProps)(Comment);
+export default connect(mapStateToProps, { patchCommentRequest })(Comment);

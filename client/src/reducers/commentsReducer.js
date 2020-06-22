@@ -42,6 +42,19 @@ const commentsReducer = (state = initialState, action) => {
 
       return {...state, data: comments, pending: false};
 
+    case "PATCH_COMMENT":
+      comment = action.payload.data
+      const patchObj = {
+        id: comment.id,
+        content: comment.attributes.content,
+        userId: comment.relationships.user.data.id,
+        threadId: comment.relationships.board.data.id,
+        posted: new Date(comment.attributes.createdAt)
+      };
+      comments = state.data.map( c =>  c.id !== patchObj.id ? c : patchObj);
+
+      return {...state, data: comments, pending: false};
+
     default:
       return state;
   };
