@@ -11,12 +11,19 @@ const Comment = ({id, userId, content, time, users, currentUser, deleteComment})
   const show = () => shownSet(true);
   const hide = () => shownSet(false);
 
+  const buttons = () =>
+    <div className='buttons' data-comment-id={id}>
+      <button className='delete' onClick={deleteComment}>DELETE</button>
+      <br/>
+      <button className='edit' >EDIT</button>
+    </div>
+
   return (
-    <div className="Comment" data-comment-id={id} onMouseEnter={show} onMouseLeave={hide}>
+    <div className="Comment" onMouseEnter={show} onMouseLeave={hide}>
       <Avatar avatar={avatar} showing={username} />
       <p><strong>{username}</strong> - {time}</p>
       <p>{content}</p>
-      { currentUser.id === userId && shown ? <button onClick={deleteComment}>DELETE</button> : null }
+      { currentUser.id === userId && shown ? buttons() : null }
     </div>
   );
 };

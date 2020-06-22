@@ -218,15 +218,22 @@ div.Thread-list > div > div {
   position: relative;
 }
 
-.Comment button {
+.Comment .buttons {
   position: absolute;
   right: 10px;
   top: 10px;
-  border: 1px solid darkred;
+}
+
+.buttons button {
+  float: right;
   border-radius: 10px;
-  background-color: darkred;
   color: white;
   font-size: xx-small;
+}
+
+.buttons .delete {
+  border: 1px solid darkred;
+  background-color: darkred;
 }
 
 .Comment:hover,

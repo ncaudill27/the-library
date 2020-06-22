@@ -20,11 +20,8 @@ function ProfilePage({
         <h2>{name}</h2>
         <p>{bio}</p>
       </div>
-    <div className='reading'>
-      { currentlyReading ? <ClubBook isbn={currentlyReading} /> : <>loading...</> }
-    </div>
-      <div className='comments'>
-        {!commentsPending && !usersPending ?  <CommentList comments={comments} /> : <>loading...</>}
+      <div className='reading'>
+        { currentlyReading ? <ClubBook isbn={currentlyReading} /> : <>loading...</> }
       </div>
     </div>
   );
