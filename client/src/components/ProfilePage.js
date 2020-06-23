@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ClubBook from './ClubBook';
+import EditUser from './EditUser';
 
 function ProfilePage({
   comments,
   commentsPending,
   usersPending,
+  currentUser,
   currentUser: {
     name,
     bio,
@@ -15,6 +17,7 @@ function ProfilePage({
 
   return (
     <div className='Profile'>
+      <EditUser currentUser={currentUser} />
       <div className='info'>
         <h2>{name}</h2>
         <p>{bio}</p>
