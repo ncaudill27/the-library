@@ -39,15 +39,11 @@ class ClubList extends Component {
   };
 
   render() {
-    const {renderClubs, renderClubsSidebar, props: {styling, clubsPending}} = this;
+    const {renderClubs, renderClubsSidebar, props: {styling}} = this;
     return (
       <div className='Club-list'>
         {styling === 'sidebar' ? null : <h2>Clubs</h2>}
-        {clubsPending === false
-          ? styling === 'sidebar'
-            ? renderClubsSidebar()
-            : renderClubs()
-        : <p>Loading...</p>}
+        {styling === 'sidebar' ? renderClubsSidebar() : renderClubs()}
       </div>
     );
   };
