@@ -64,7 +64,7 @@ const patchCommentRequest = payload => {
   };
 
   return dispatch => {
-    dispatch({type: "BEGIN_COMMENTS_REQUEST"});
+    dispatch({type: "BEGIN_PATCH_COMMENTS_REQUEST", id: payload.id});
     fetch(`/api/v1/comments/${payload.id}`, requestObj)
     .then(res => res.json())
     .then(response => {

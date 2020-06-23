@@ -1,6 +1,7 @@
 const initialState = {
   data: [],
-  pending: false
+  pending: false,
+  editing: 0
 };
 
 const commentsReducer = (state = initialState, action) => {
@@ -10,6 +11,9 @@ const commentsReducer = (state = initialState, action) => {
 
     case "BEGIN_COMMENTS_REQUEST":
       return {...state, data: [...state.data], pending: true};
+
+    case "BEGIN_PATCH_COMMENTS_REQUEST":
+      return {...state, data: [...state.data], pending: true, id: action.id}
 
     case "ADD_COMMENTS":
       comments = action.comments.data.map(comment => {
@@ -53,7 +57,7 @@ const commentsReducer = (state = initialState, action) => {
       };
       comments = state.data.map( c =>  c.id !== patchObj.id ? c : patchObj);
 
-      return {...state, data: comments, pending: false};
+      return {...state, data: comments, pending: false, id: 0};
 
     default:
       return state;

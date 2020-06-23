@@ -3,7 +3,7 @@ import Avatar from './Avatar';
 import { connect } from 'react-redux';
 import { patchCommentRequest } from '../actions/comments';
 
-const Comment = ({id, userId, content, time, users, currentUser, deleteComment, patchCommentRequest}) => {
+const Comment = ({id, userId, content, time, users, currentUser, deleteComment, patchCommentRequest, commentsPending, commentsEditing}) => {
 
   const user = users.find(user => user.id === userId);
   const {username, avatar} = user;
@@ -27,6 +27,13 @@ const Comment = ({id, userId, content, time, users, currentUser, deleteComment, 
     const input = document.querySelector('#comment-edit');
     input.focus();
   }
+
+  const editForm = () =>
+    <form onSubmit={editComment}>
+      <input id='comment-edit' type='text' value={comment} onChange={e => commentSet(e.target.value)} />
+      <input type='submit' value='Edit' />
+      <button onClick={() => editableSet(false)}>Cancel</button>
+    </form>
   
   const buttons = () =>
     <div className='buttons' data-comment-id={id}>
@@ -35,24 +42,24 @@ const Comment = ({id, userId, content, time, users, currentUser, deleteComment, 
       <button className='edit' onClick={openEdit}>EDIT</button>
     </div>;
 
+  const loadContent = () => commentsPending && commentsEditing === id.toString(10) ? null : <p>{content}</p>
+
   return (
     <div className="Comment" onMouseEnter={show} onMouseLeave={hide}>
       <Avatar avatar={avatar} showing={username} />
       <p><strong>{username}</strong> - {time}</p>
-      {
-        editable
-        ? <form onSubmit={editComment}>
-            <input id='comment-edit' type='text' value={comment} onChange={e => commentSet(e.target.value)} />
-            <input type='submit' value='Edit' />
-            <button onClick={() => editableSet(false)}>Cancel</button>
-          </form>
-        : <p>{content}</p> }
+      { editable ? editForm() : loadContent() }
       { currentUser.id === userId && shown && !editable ? buttons() : null }
     </div>
   );
 };
 
-const mapStateToProps = ({users}) => ({users: users.data, currentUser: users.currentUser});
+const mapStateToProps = ({users, comments}) => ({
+  users: users.data,
+  currentUser: users.currentUser,
+  commentsPending: comments.pending,
+  commentsEditing: comments.editing
+});
 
 
 export default connect(mapStateToProps, { patchCommentRequest })(Comment);
