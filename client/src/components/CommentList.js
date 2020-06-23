@@ -15,8 +15,7 @@ class CommentList extends Component {
       sortCommentsByCreation,
       props: {
         comments,
-        threadId,
-        commentsPending
+        threadId
       }
     } = this;
     
@@ -49,10 +48,7 @@ class CommentList extends Component {
   }
 }
 
-const mapStateToProps = ({comments}) => ({
-  comments: comments.data,
-  commentsPending: comments.pending
-});
+const mapStateToProps = ({comments}) => ({comments: comments.data});
 
 
 export default connect(mapStateToProps, { deleteCommentRequest })(CommentList);

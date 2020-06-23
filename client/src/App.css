@@ -34,6 +34,12 @@
   width: 165px;
 }
 
+.Thread-form input[type=text] {
+  border: 2px solid #F2DEBD;
+  background-color: #4F7178;
+  color: white;
+}
+
 .Sidebar-link {
   padding: 15px;
   display: block;

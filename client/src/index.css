@@ -53,6 +53,7 @@ input[type=text]:hover::after {
   transition: background ease;
 }
 
+button,
 input[type=submit] {
   background-color: #F2DEBD;
   border: 2px solid  #BF8176;
@@ -60,10 +61,8 @@ input[type=submit] {
   border: none;
 }
 
-.Thread-form input[type=text] {
-  border: 2px solid #F2DEBD;
-  background-color: #4F7178;
-  color: white;
+button {
+  margin: 1px;
 }
 
 textarea {

@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import CommentList from './CommentList';
 import ClubBook from './ClubBook';
 
 function ProfilePage({

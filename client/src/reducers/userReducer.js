@@ -62,6 +62,7 @@ const usersReducer = (state = initialState, action) => {
         clubIds: clubs.map(club => club.id),
         commentIds: comments.map(comment => comment.id),
       };
+
       return {...state, currentUser: currentUser, pending: false}
 
     case "LEAVE_CLUB":
