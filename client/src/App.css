@@ -10,17 +10,28 @@
 
 .Avatar-selection {
   width: 100%;
+  text-align: center;
 }
+
+.photo-selection {
+  display: grid;
+  margin-left: 40px;
+  grid-template-columns: repeat(5, 160px);
+  grid-row-gap: 10px;
+  justify-content: center;
+}
+
 .navigation {
   display: flex;
   width: 200px;
   margin: 0 auto;
+  position: relative;
 }
 
 .navigation img {
   margin: 20px;
-  width: 35px;
-  height: 35px;
+  width: 30px;
+  height: 30px;
 }
 
 .Navlink {

@@ -14,33 +14,32 @@ class AvatarSelection extends Component {
   unsplash = new Unsplash({ accessKey: process.env.REACT_APP_UNSPLASH_ACCESS_KEY });
 
   componentDidMount() {
-    //if (this.state.photos === []) this.fetchSelections();
+    this.fetchSelections();
   }
 
   renderSelections = () => {
-    const div = document.querySelector('.Avatar-selection');
-    return this.state.photos.map( photo =>  <Avatar avatar={photo} /> );
+    return this.state.photos.map( ({id, photo}) =>  <Avatar key={id} avatar={photo} /> );
   }
   
   fetchSelections = async () => {
-    const photos = await this.unsplash.search.collections('nature', this.state.page, 20)
+    const photos = await this.unsplash.search.collections('nature', this.state.page, 5)
     .then(toJson)
     .then( json => json.results
       .map( obj => obj.preview_photos
-        .map( photo => photo.urls.raw)
+        .map( photo => ({id: photo.id, photo: photo.urls.raw}))
       )
     );
-    this.setState({ photos });
+    this.setState({ photos: photos.flat() });
   }
   
   nextPage = () => this.setState( prevState => {
     return { page: prevState.page + 1 }
-  }, console.log(this.state));
+  }, this.fetchSelections);
 
   lastPage = () => {
     if (this.state.page > 1) this.setState( prevState => {
       return { page: prevState.page - 1 }
-    })
+    }, this.fetchSelections)
   }
 
   navigation = () => 
@@ -51,16 +50,13 @@ class AvatarSelection extends Component {
     </div>;
   
   render() {
-    
-    // this.unsplash.photos.getPhoto("pMK84mYVwTA")
-    // .then(toJson)
-    // .then(json => console.log(json))
-    console.log(this.state.page);
-    
 
     return (
-      <div className="Avatar-selection">
-        {/* { this.renderSelections() } */}
+      <div className='Avatar-selection'>
+        <h2>Choose an avatar!</h2>
+        <div className='photo-selection'>
+          { this.renderSelections() }
+        </div>
         { this.navigation() }
       </div>
     )

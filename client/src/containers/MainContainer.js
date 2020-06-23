@@ -22,9 +22,8 @@ class MainContainer extends Component {
 
     return (
       <main>
-        <AvatarSelection />
 
-        {/* { message ? <FlashMessage /> : null}
+        { message ? <FlashMessage /> : null}
 
         <Switch>
 
@@ -46,7 +45,7 @@ class MainContainer extends Component {
 
           <Route exact path='/:username' component={ProfilePage} />
 
-        </Switch> */}
+        </Switch>
       </main>
     );
   };
