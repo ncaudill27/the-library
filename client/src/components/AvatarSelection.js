@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Avatar from './Avatar';
 import Unsplash, { toJson } from 'unsplash-js';
+import LeftArrow from '../return.png';
+import RightArrow from '../arrow.png';
 
 class AvatarSelection extends Component {
 
@@ -8,11 +10,11 @@ class AvatarSelection extends Component {
     photos: [],
     page: this.props.page
   }
-  
+
   unsplash = new Unsplash({ accessKey: process.env.REACT_APP_UNSPLASH_ACCESS_KEY });
 
   componentDidMount() {
-    this.fetchSelections();
+    //if (this.state.photos === []) this.fetchSelections();
   }
 
   renderSelections = () => {
@@ -30,12 +32,22 @@ class AvatarSelection extends Component {
     );
     this.setState({ photos });
   }
+  
+  nextPage = () => this.setState( prevState => {
+    return { page: prevState.page + 1 }
+  }, console.log(this.state));
+
+  lastPage = () => {
+    if (this.state.page > 1) this.setState( prevState => {
+      return { page: prevState.page - 1 }
+    })
+  }
 
   navigation = () => 
     <div className='navigation'>
-      <img src='client/src/return.png' alt='previous page arrow' />
+      <img onClick={this.lastPage} src={LeftArrow} alt='previous page arrow' />
       <h3>{this.state.page}</h3>
-      <img src='client/src/arrow.png' alt='next page arrow' />
+      <img onClick={this.nextPage} src={RightArrow} alt='next page arrow' />
     </div>;
   
   render() {
@@ -43,12 +55,12 @@ class AvatarSelection extends Component {
     // this.unsplash.photos.getPhoto("pMK84mYVwTA")
     // .then(toJson)
     // .then(json => console.log(json))
-    console.log(this.state.photos);
+    console.log(this.state.page);
     
 
     return (
       <div className="Avatar-selection">
-        { this.renderSelections() }
+        {/* { this.renderSelections() } */}
         { this.navigation() }
       </div>
     )

@@ -22,7 +22,7 @@ class MainContainer extends Component {
 
     return (
       <main>
-        {/* <AvatarSelection /> */}
+        <AvatarSelection />
 
         {/* { message ? <FlashMessage /> : null}
 
