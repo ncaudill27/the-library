@@ -5,7 +5,8 @@ import Unsplash, { toJson } from 'unsplash-js';
 class AvatarSelection extends Component {
 
   state = {
-    photos: []
+    photos: [],
+    page: this.props.page
   }
   
   unsplash = new Unsplash({ accessKey: process.env.REACT_APP_UNSPLASH_ACCESS_KEY });
@@ -20,16 +21,22 @@ class AvatarSelection extends Component {
   }
   
   fetchSelections = async () => {
-    await this.setState({photos: []})
-    const photos = await this.unsplash.search.collections('nature', 7, 20)
+    const photos = await this.unsplash.search.collections('nature', this.state.page, 20)
     .then(toJson)
     .then( json => json.results
       .map( obj => obj.preview_photos
         .map( photo => photo.urls.raw)
       )
     );
-    this.setState({ photos })
+    this.setState({ photos });
   }
+
+  navigation = () => 
+    <div className='navigation'>
+      <img src='client/src/return.png' alt='previous page arrow' />
+      <h3>{this.state.page}</h3>
+      <img src='client/src/arrow.png' alt='next page arrow' />
+    </div>;
   
   render() {
     
@@ -41,10 +48,16 @@ class AvatarSelection extends Component {
 
     return (
       <div className="Avatar-selection">
-        {this.renderSelections()}
+        { this.renderSelections() }
+        { this.navigation() }
       </div>
     )
   }
 }
 
+AvatarSelection.defaultProps = {
+  page: 1
+}
+
 export default AvatarSelection;
+

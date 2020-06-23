@@ -20,5 +20,6 @@
   "bugs": {
     "url": "https://github.com/ncaudill27/the-library/issues"
   },
-  "homepage": "https://github.com/ncaudill27/the-library#readme"
+  "homepage": "https://github.com/ncaudill27/the-library#readme",
+  "dependencies": {}
 }
