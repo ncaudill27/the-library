@@ -4,18 +4,15 @@ import { connect } from 'react-redux';
 import { logOutUser } from '../actions/users';
 
 import WelcomeContainer from '../components/WelcomeContainer';
-import BookShow from '../components/BookShow';
 import NYTimes from './NYTimes';
 import ProfilePage from '../components/ProfilePage';
 import ClubList from '../components/ClubList';
 import ClubContainer from './ClubContainer';
 import ClubForm from '../components/ClubForm';
 import FlashMessage from '../components/FlashMessage';
+import AvatarSelection from '../components/AvatarSelection';
 
 class MainContainer extends Component {
-
-  clubMembers
-
 
   render() {
     const {
@@ -25,7 +22,10 @@ class MainContainer extends Component {
 
     return (
       <main>
-        { message ? <FlashMessage /> : null}
+        <AvatarSelection />
+
+        {/* { message ? <FlashMessage /> : null}
+
         <Switch>
 
           <Route exact path='/' render={ () =>
@@ -34,21 +34,19 @@ class MainContainer extends Component {
             />
           } />
 
-          <Route exact path='/clubs' render={() => <ClubList currentUser={currentUser} />} />
+          <Route exact path='/clubs' render={ () => <ClubList currentUser={currentUser} /> } />
 
-          <Route exact path='/clubs/new' render={() => <ClubForm currentUser={currentUser}  />} />
+          <Route exact path='/clubs/new' render={ () => <ClubForm currentUser={currentUser}  /> } />
 
-          <Route exact path='/clubs/:id' render={({match}) =>
-            <ClubContainer clubId={match.params.id} currentUser={currentUser} />} />
+          <Route exact path='/clubs/:id' render={ ({match}) =>
+            <ClubContainer clubId={match.params.id} currentUser={currentUser} />}
+          />
 
           <Route exact path='/bestsellers' component={NYTimes} />
 
-          <Route exact path={`/bestsellers/:isbn`} render={({match}) =>
-            <BookShow isbn={match.params.isbn} />} />
+          <Route exact path='/:username' component={ProfilePage} />
 
-
-          <Route exact path='/:username' render={ () => <ProfilePage />} />
-        </Switch>
+        </Switch> */}
       </main>
     );
   };

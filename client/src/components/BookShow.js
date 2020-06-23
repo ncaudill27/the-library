@@ -5,7 +5,7 @@ class BookShow extends Component {
 
   state = {
     bookData: {},
-    message: <h3 className='error'>loading...</h3>
+    errorMessage: <h3 className='error'>loading...</h3>
   };
 
   componentDidMount() {
@@ -25,7 +25,7 @@ class BookShow extends Component {
   renderErrorMessage = () => 
     setTimeout(() => {
       this.setState({
-        message: <h3 className='error'>Sorry we couldn't seem to find that book. <strong onClick={this.props.hide}>Go back</strong></h3>
+        errorMessage: <h3 className='error'>Sorry we couldn't seem to find that book. <strong onClick={this.props.hide}>Go back</strong></h3>
       })
     }, 1500);
 
@@ -52,7 +52,7 @@ class BookShow extends Component {
         </>
       );
     } else {
-      return this.state.message;
+      return this.state.errorMessage;
     };
   };
 
