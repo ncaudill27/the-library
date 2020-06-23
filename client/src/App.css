@@ -8,6 +8,21 @@
   float: left;
 }
 
+.Avatar-selection {
+  width: 100%;
+}
+.navigation {
+  display: flex;
+  width: 200px;
+  margin: 0 auto;
+}
+
+.navigation img {
+  margin: 20px;
+  width: 35px;
+  height: 35px;
+}
+
 .Navlink {
   text-decoration: none;
   color: black;

@@ -46,7 +46,7 @@ class AvatarSelection extends Component {
   navigation = () => 
     <div className='navigation'>
       <img onClick={this.lastPage} src={LeftArrow} alt='previous page arrow' />
-      <h3>{this.state.page}</h3>
+      <h2>{this.state.page}</h2>
       <img onClick={this.nextPage} src={RightArrow} alt='next page arrow' />
     </div>;
   
