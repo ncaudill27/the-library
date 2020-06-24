@@ -1,23 +1,32 @@
 import React, { Component } from 'react';
 import AvatarSelection from '../components/AvatarSelection';
 import FormField from './FormField';
+import { connect } from 'react-redux';
 
 class EditUser extends Component {
-
-  state = {
-    id: false,
-    name: false,
-    username: false,
-    email: false,
-    bio: false
+  constructor(props) {
+    super(props)
+    this.state = {
+      name: false,
+      username: false,
+      email: false,
+      bio: false
+    }
   }
 
-  renderEditForm = ({id, name, username, email, bio}) => {
-    const inputValues = {id, name, username, email, bio};
-    const inputNames = Object.keys(inputValues);
-    this.setState(inputValues);
+  handleChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    }, console.log(this.state))
+  }
+
+  renderEditForm = () => {
+    const {name, username, email, bio} = this.state;
+    const inputValues = {0: name, 1: username, 2: email, 3: bio};
+    const inputNames = {0: "name", 1: "username", 2: "email", 3: "bio"};
 
     return <FormField
+      handleChange={this.handleChange}
       inputNames={inputNames}
       inputValues={inputValues}
     />
@@ -27,13 +36,24 @@ class EditUser extends Component {
     console.log(this.state);
     
     const { currentUser } = this.props;
+    console.log(currentUser);
+    if (!!currentUser) {
+      this.setState({
+        name: currentUser.name,
+        username: currentUser.username,
+        email: currentUser.email,
+        bio: currentUser.bio
+      })
+    }
 
     return (
       <div className='Edit'>
-        { currentUser ? this.renderEditForm(currentUser) : null }
+        { !!currentUser ? this.renderEditForm(currentUser) : null }
       </div>
     )
   }
 }
 
-export default EditUser;
+const mapStateToProps = ({users}) => ({currentUser: users.currentUser});
+
+export default connect(mapStateToProps)(EditUser);

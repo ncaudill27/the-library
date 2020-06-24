@@ -7,8 +7,7 @@ import Avatar from './Avatar';
 const UserBox = ({user, logOutUser}) => {
 
   const [showing, showingSet] = useState(false);
-  const show = () => showingSet(true);
-  const hide = () => showingSet(false);
+  const toggle = () => showingSet(!showing);
 
   const userOptions = () => <>
       <NavLink to='/'>
@@ -16,7 +15,7 @@ const UserBox = ({user, logOutUser}) => {
           logout
         </button>
       </NavLink>
-      <NavLink to={`/${user.username}/settings`}>
+      <NavLink to={`/${user.username}/settings`} exact>
         <button className='settings'>
           settings
         </button>
@@ -24,7 +23,7 @@ const UserBox = ({user, logOutUser}) => {
     </>
   
   return (
-    <div onMouseEnter={show} onMouseLeave={hide} className='User-box'>
+    <div onMouseEnter={toggle} onMouseLeave={toggle} className='User-box'>
       { showing ? userOptions() : <Avatar avatar={user.avatar} showing={user.username} /> }
       <br/>
       <NavLink to={`/${user.username}`} exact className='Navlink'><h3>{user.username}</h3></NavLink>

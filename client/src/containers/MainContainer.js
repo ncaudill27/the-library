@@ -44,10 +44,8 @@ class MainContainer extends Component {
 
           <Route exact path='/bestsellers' component={NYTimes} />
 
+          <Route exact path='/:username/settings' component={EditUser} />
           <Route exact path='/:username' component={ProfilePage} />
-          <Route exact path='/:username/settings' render={ () =>
-            <EditUser currentUser={currentUser} />
-          } />
 
         </Switch>
       </main>
