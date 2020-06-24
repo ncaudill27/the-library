@@ -11,6 +11,7 @@ import ClubContainer from './ClubContainer';
 import ClubForm from '../components/ClubForm';
 import FlashMessage from '../components/FlashMessage';
 import AvatarSelection from '../components/AvatarSelection';
+import EditUser from '../components/EditUser';
 
 class MainContainer extends Component {
 
@@ -38,12 +39,15 @@ class MainContainer extends Component {
           <Route exact path='/clubs/new' render={ () => <ClubForm currentUser={currentUser}  /> } />
 
           <Route exact path='/clubs/:id' render={ ({match}) =>
-            <ClubContainer clubId={match.params.id} currentUser={currentUser} />}
-          />
+            <ClubContainer clubId={match.params.id} currentUser={currentUser} />
+          } />
 
           <Route exact path='/bestsellers' component={NYTimes} />
 
           <Route exact path='/:username' component={ProfilePage} />
+          <Route exact path='/:username/settings' render={ () =>
+            <EditUser currentUser={currentUser} />
+          } />
 
         </Switch>
       </main>
