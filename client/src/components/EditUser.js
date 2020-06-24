@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import AvatarSelection from '../components/AvatarSelection';
 import FormField from './FormField';
 import { connect } from 'react-redux';
+import { updateUserRequest } from '../actions/users';
 
 class EditUser extends Component {
   constructor(props) {
@@ -20,35 +21,42 @@ class EditUser extends Component {
     }, console.log(this.state))
   }
 
+  editUser = () => {
+    
+  }
+
   renderEditForm = () => {
-    const {name, username, email, bio} = this.state;
+    const {state: {name, username, email, bio}, props: {currentUser: {id}}} = this;
     const inputValues = {0: name, 1: username, 2: email, 3: bio};
     const inputNames = {0: "name", 1: "username", 2: "email", 3: "bio"};
 
     return <FormField
       handleChange={this.handleChange}
+      handleSubmit={() => this.props.updateUserRequest(this.state, id)}
       inputNames={inputNames}
       inputValues={inputValues}
+      submitValue='Update'
     />
   }
   
   render() {
-    console.log(this.state);
-    
+
     const { currentUser } = this.props;
     console.log(currentUser);
-    if (!!currentUser && !this.state.bio) {
+    
+
+    if (currentUser && this.state.bio !== false) {
       this.setState({
         name: currentUser.name,
         username: currentUser.username,
         email: currentUser.email,
         bio: currentUser.bio
-      })
+      });
     }
 
     return (
       <div className='Edit'>
-        { !!currentUser && this.state.bio ? this.renderEditForm() : null }
+        { !!currentUser && this.state.bio !== false ? this.renderEditForm() : null }
       </div>
     )
   }
@@ -56,4 +64,4 @@ class EditUser extends Component {
 
 const mapStateToProps = ({users}) => ({currentUser: users.currentUser});
 
-export default connect(mapStateToProps)(EditUser);
+export default connect(mapStateToProps, { updateUserRequest })(EditUser);
