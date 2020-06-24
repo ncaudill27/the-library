@@ -37,7 +37,7 @@ class EditUser extends Component {
     
     const { currentUser } = this.props;
     console.log(currentUser);
-    if (!!currentUser) {
+    if (!!currentUser && !this.state.bio) {
       this.setState({
         name: currentUser.name,
         username: currentUser.username,
@@ -48,7 +48,7 @@ class EditUser extends Component {
 
     return (
       <div className='Edit'>
-        { !!currentUser ? this.renderEditForm(currentUser) : null }
+        { !!currentUser && this.state.bio ? this.renderEditForm() : null }
       </div>
     )
   }
