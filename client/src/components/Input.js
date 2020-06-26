@@ -9,7 +9,7 @@ const Input = ({name, value, handleChange}) => {
 
     case "description":
     case "bio":
-      return <textarea name={name} onChange={handleChange}>{value}</textarea>;
+      return <textarea name={name} onChange={handleChange} value={value}></textarea>;
 
     default:
       return <input name={name} type='text' onChange={handleChange} value={value} autoComplete='off' />;

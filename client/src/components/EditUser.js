@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import AvatarSelection from '../components/AvatarSelection';
 import FormField from './FormField';
 import { connect } from 'react-redux';
@@ -11,7 +12,8 @@ class EditUser extends Component {
       name: false,
       username: false,
       email: false,
-      bio: false
+      bio: false,
+      redirect: null
     }
   }
 
@@ -21,8 +23,11 @@ class EditUser extends Component {
     }, console.log(this.state))
   }
 
-  editUser = () => {
-    
+  editUser = e => {
+    const {props: {currentUser: {id, username}, state}} = this;
+    e.preventDefault();
+    this.props.updateUserRequest({user: state, id});
+    this.setState({redirect: true});
   }
 
   renderEditForm = () => {
@@ -30,22 +35,25 @@ class EditUser extends Component {
     const inputValues = {0: name, 1: username, 2: email, 3: bio};
     const inputNames = {0: "name", 1: "username", 2: "email", 3: "bio"};
 
-    return <FormField
-      handleChange={this.handleChange}
-      handleSubmit={() => this.props.updateUserRequest(this.state, id)}
-      inputNames={inputNames}
-      inputValues={inputValues}
-      submitValue='Update'
-    />
+    return <>
+      <FormField
+        handleChange={this.handleChange}
+        handleSubmit={this.editUser}
+        inputNames={inputNames}
+        inputValues={inputValues}
+        submitValue='Update'
+      />
+      <button onClick={() => this.setState({redirect: true})}>Cancel</button>
+    </>
   }
   
   render() {
 
-    const { currentUser } = this.props;
-    console.log(currentUser);
+    const { currentUser, currentUser: {username} } = this.props;
+    // console.log(currentUser);
     
 
-    if (currentUser && this.state.bio !== false) {
+    if (currentUser && !this.state.bio) {
       this.setState({
         name: currentUser.name,
         username: currentUser.username,
@@ -53,7 +61,7 @@ class EditUser extends Component {
         bio: currentUser.bio
       });
     }
-
+    if (this.state.redirect) return <Redirect to={`/${username}`} />
     return (
       <div className='Edit'>
         { !!currentUser && this.state.bio !== false ? this.renderEditForm() : null }
