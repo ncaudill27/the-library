@@ -10,7 +10,6 @@ import ClubList from '../components/ClubList';
 import ClubContainer from './ClubContainer';
 import ClubForm from '../components/ClubForm';
 import FlashMessage from '../components/FlashMessage';
-import AvatarSelection from '../components/AvatarSelection';
 import EditUser from '../components/EditUser';
 
 class MainContainer extends Component {
@@ -28,11 +27,7 @@ class MainContainer extends Component {
 
         <Switch>
 
-          <Route exact path='/' render={ () =>
-            <WelcomeContainer
-              currentUser={currentUser}
-            />
-          } />
+          <Route exact path='/' render={ () => <WelcomeContainer currentUser={currentUser} /> } />
 
           <Route exact path='/clubs' render={ () => <ClubList currentUser={currentUser} /> } />
 
@@ -44,7 +39,7 @@ class MainContainer extends Component {
 
           <Route exact path='/bestsellers' component={NYTimes} />
 
-          <Route exact path='/:username/settings' component={EditUser} />
+          <Route exact path='/:username/settings' render={ ({match}) => <EditUser currentUser={currentUser} username={match} />} />
           <Route exact path='/:username' component={ProfilePage} />
 
         </Switch>

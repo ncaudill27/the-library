@@ -24,14 +24,15 @@ class EditUser extends Component {
   }
 
   editUser = e => {
-    const {props: {currentUser: {id, username}, state}} = this;
+    const {props: {currentUser: {id}, state}} = this;
     e.preventDefault();
+    console.log({user: state, id});
     this.props.updateUserRequest({user: state, id});
     this.setState({redirect: true});
   }
 
   renderEditForm = () => {
-    const {state: {name, username, email, bio}, props: {currentUser: {id}}} = this;
+    const {name, username, email, bio} = this.state;
     const inputValues = {0: name, 1: username, 2: email, 3: bio};
     const inputNames = {0: "name", 1: "username", 2: "email", 3: "bio"};
 
@@ -51,7 +52,6 @@ class EditUser extends Component {
 
     const { currentUser, currentUser: {username} } = this.props;
     // console.log(currentUser);
-    
 
     if (currentUser && !this.state.bio) {
       this.setState({
