@@ -23,6 +23,7 @@ const usersReducer = (state = initialState, action) => {
           currentlyReading: !!user.attributes.favoriteBookIsbn13 ? user.attributes.favoriteBookIsbn13.replace(/-/g, '') : null,
           clubIds: user.relationships.clubs.data.map(club => club.id),
           commentIds: user.relationships.comments.data.map(comment => comment.id),
+          modClubIds: user.attributes.modFor.map( id => id )
         };
       });
 
@@ -39,7 +40,7 @@ const usersReducer = (state = initialState, action) => {
       const {
         id,
         attributes: {
-          name, username, email, bio, avatar, favoriteBookIsbn13
+          name, username, email, bio, avatar, favoriteBookIsbn13, modFor
         },
         relationships: {
           clubs: {
@@ -61,6 +62,7 @@ const usersReducer = (state = initialState, action) => {
         currentlyReading: !!favoriteBookIsbn13 ? favoriteBookIsbn13.replace(/-/g, '') : null,
         clubIds: clubs.map(club => club.id),
         commentIds: comments.map(comment => comment.id),
+        modClubIds: modFor.map( id => id )
       };
 
       return {...state, currentUser: currentUser, pending: false}

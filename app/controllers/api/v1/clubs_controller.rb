@@ -18,11 +18,16 @@ module Api::V1
     # POST /clubs
     def create
       @club = Club.new(club_params(:name, :description, :user_id))
-      @club.users << session_user
-
+      
       if @club.save
-        render json: {club: serialization, success: "Created #{@club.name}"}, status: :created
+        if Membership.create(club_id: @club.id, user_id: session_user.id, mod: true)
+          render json: {club: serialization, success: "Created #{@club.name}"}, status: :created
+        else
+          render status: :unauthorized
+        end
       else
+        puts @club.errors.full_messages
+        puts @membership.errors.full_messages
         render json: {errors: @club.errors}, status: :unprocessable_entity
       end
     end

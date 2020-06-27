@@ -1,4 +1,5 @@
 import { addClub, leaveClub } from './users';
+import { flashMessage } from './messages';
 
 const begin = func => func({type: "BEGIN_CLUBS_REQUEST"});
 const token = localStorage.getItem('token');
@@ -33,7 +34,7 @@ const postClub = (payload, currentUserId) => {
     fetch('/api/v1/clubs', requestObj)
     .then(res => res.json())
     .then( async response => {
-      if (response.errors) return console.log(response.errors);
+      if (response.errors) return dispatch(flashMessage(response.errors));
       let post = await dispatch(createClub(response.club));      
       dispatch(addClub(post.club.data.id, currentUserId));
     });
