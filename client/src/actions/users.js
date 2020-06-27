@@ -37,7 +37,7 @@ const loginRequest = payload => {
     fetch('/auth/login', requestObj)
     .then(res => res.json())
     .then(response => {      
-      if (response.failure) return dispatch(flashMessage(response.failure)); //TODO Handle this
+      if (response.failure) return dispatch(flashMessage(response.failure));
       localStorage.setItem('token', response.auth_token);
       dispatch(loginUser(response.user.data));
     })
@@ -60,7 +60,7 @@ const authorizeToken = () => {
     fetch('/auth/auto', requestObj)
     .then(res => res.json())
     .then(response => {
-      if (response.failure) return console.log(response.failure);
+      if (response.failure) return dispatch(flashMessage(response.failure));
       dispatch(loginUser(response.data));
     });
   };
@@ -82,7 +82,7 @@ const userPostRequest = payload => {
     .then(res => res.json())
     .then(response => {
       console.log(response);
-      if (response.errors) return console.log(response.errors);
+      if (response.errors) return dispatch(flashMessage(response.errors));
       localStorage.setItem('token', response.auth_token);
       dispatch(loginUser(response.user.data));
     });

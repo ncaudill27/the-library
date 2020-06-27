@@ -33,7 +33,9 @@ class NYTimes extends Component {
   }
 
   selectOptions() {
-    return this.state.options.map((cat, idx) => <option key={idx} value={cat.replace(/\s/g, '-').toLowerCase()}>{cat}</option>)
+    return this.state.options.map((cat, idx) =>
+      <option key={idx} value={cat.replace(/\s/g, '-').toLowerCase()}>{cat}</option>
+    )
   }
 
   handleSelectChange = e => {

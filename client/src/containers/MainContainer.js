@@ -23,7 +23,7 @@ class MainContainer extends Component {
     return (
       <main>
 
-        { message ? <FlashMessage /> : null}
+        { message ? <FlashMessage /> : null }
 
         <Switch>
 
