@@ -1,4 +1,4 @@
-                import React, { Component } from 'react';
+import React, { Component } from 'react';
 import Club from './Club';
 import ClubSideBar from './ClubSideBar';
 import { NavLink } from 'react-router-dom';
@@ -10,7 +10,7 @@ class ClubList extends Component {
     let {props: {clubs, currentUser}} = this;
     clubs = currentUser ? clubs.filter(club => !currentUser.clubIds.includes(club.id)) : clubs;
 
-    return clubs.map(({id, name, avatar, description, memberIds})=>
+    return clubs.map( ({id, name, avatar, description, memberIds}) =>
       <Club
         key={id}
         id={id}
