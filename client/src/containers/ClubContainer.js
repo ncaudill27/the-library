@@ -6,6 +6,16 @@ import ClubBook from '../components/ClubBook';
 
 class ClubContainer extends Component {
 
+  state = {
+    modding: false
+  }
+  
+  toggleModding = () => {
+    this.setState(prevState => ({
+      modding: !prevState.modding
+    }));
+  }
+  
   currentUserIsMember() {
     const {currentUser, clubId, clubs} = this.props;
     const club = clubs.find(club => club.id === clubId);
@@ -36,12 +46,23 @@ class ClubContainer extends Component {
 
   renderModOptions = (currentUser, clubId) =>
     currentUser.modClubIds.includes(clubId)
-    ? console.log('hello')
+    ? <div className='mod'>
+        <button onClick={this.toggleModding}>MOD STUFF</button>
+      </div>
     : null 
   
 
   renderClub = () => {
-    const {clubId, clubs, threads, currentUser} = this.props;
+    const {
+      props: {
+        clubId, clubs, threads, currentUser
+      },
+      state: {
+        modding
+      },
+      renderModOptions,
+      renderMembershipButton
+    } = this;
     const club = clubs.find(club => club.id === clubId);
     if (club && threads) {
       const {name, description, activeBook} = club
@@ -49,13 +70,13 @@ class ClubContainer extends Component {
 
       return (
         <>
+        { renderModOptions(currentUser, clubId) }
           <div className='Club-details'>
             <h1>{name}</h1>
-            { this.renderModOptions(currentUser, clubId) }
-            { this.renderMembershipButton(currentUser) }
+            { renderMembershipButton(currentUser) }
             <p>{description}</p>
           </div>
-          <ClubBook isbn={activeBook} />
+          { modding ? null :<ClubBook isbn={activeBook} />}
           <ThreadList threads={clubThreads} club={club} currentUser={currentUser} />
         </>
       )

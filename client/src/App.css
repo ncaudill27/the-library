@@ -146,6 +146,13 @@ div.Thread-list > div > div {
   padding: 10px;
 }
 
+.mod {
+  position: fixed;
+  border: 1px solid black;
+  top: 30px;
+  right: 30px;
+}
+
 .Club:hover {
   color: black;
   cursor: auto;
