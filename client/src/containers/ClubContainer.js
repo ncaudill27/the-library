@@ -7,13 +7,25 @@ import ClubBook from '../components/ClubBook';
 class ClubContainer extends Component {
 
   state = {
-    modding: false
+    modding: false,
+    members: false
   }
   
   toggleModding = () => {
     this.setState(prevState => ({
       modding: !prevState.modding
     }));
+  }
+
+  toggleMembers = () => {
+    this.setState(prevState => ({
+      members: !prevState.members
+    }));
+  }
+
+  closeMembers = () => {
+    this.toggleModding();
+    this.toggleMembers();
   }
   
   currentUserIsMember() {
@@ -46,10 +58,25 @@ class ClubContainer extends Component {
 
   renderModOptions = (currentUser, clubId) =>
     currentUser.modClubIds.includes(clubId)
-    ? <div className='mod'>
-        <button onClick={this.toggleModding}>MOD STUFF</button>
+    ? <div onClick={this.toggleModding} className='mod'>
+        <button onClick={this.toggleMembers}>Current Members</button>
       </div>
-    : null 
+    : null
+
+  renderCurrentMembers = clubId => {
+    let { users } = this.props;
+    users = users.filter( user => user.clubIds.includes(clubId));
+    console.log(users);
+    
+    const members = users.map( member => {
+      return <p>{member.username}</p>
+    });
+    
+    return <div className='members'>
+      <button onClick={this.closeMembers}>X</button>
+      {members}
+    </div>
+  }
   
 
   renderClub = () => {
@@ -58,7 +85,8 @@ class ClubContainer extends Component {
         clubId, clubs, threads, currentUser
       },
       state: {
-        modding
+        modding,
+        members
       },
       renderModOptions,
       renderMembershipButton
@@ -76,7 +104,13 @@ class ClubContainer extends Component {
             { renderMembershipButton(currentUser) }
             <p>{description}</p>
           </div>
-          { modding ? null :<ClubBook isbn={activeBook} />}
+          {
+            modding
+            ? members
+              ? this.renderCurrentMembers(clubId)
+              : null
+            :<ClubBook isbn={activeBook} />
+          }
           <ThreadList threads={clubThreads} club={club} currentUser={currentUser} />
         </>
       )
@@ -98,7 +132,8 @@ const mapStateToProps = ({clubs, threads, users}) => {
     clubsPending: clubs.pending,
     threads: threads.data,
     threadsPending: threads.pending,
-    currentUser: users.currentUser
+    currentUser: users.currentUser,
+    users: users.data
   }
 };
 
