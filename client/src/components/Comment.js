@@ -9,9 +9,10 @@ const Comment = ({id, userId, content, time, users, currentUser, deleteComment, 
   const {username, avatar} = user;
 
   const [editable, editableSet] = useState(false);
+  const toggleEditable = () => editableSet(!editable);
+  
   const [shown, shownSet] = useState(false);
-  const show = () => shownSet(true);
-  const hide = () => shownSet(false);
+  const toggleShown = () => shownSet(!shown);
 
   const [comment, commentSet] = useState(content);
 
@@ -19,11 +20,11 @@ const Comment = ({id, userId, content, time, users, currentUser, deleteComment, 
   const editComment = e => {
     e.preventDefault();
     patchCommentRequest({content: comment, id})
-    editableSet(false);
+    toggleEditable();
   }
 
   const openEdit = async () => {
-    await editableSet(true);
+    await toggleEditable();
     const input = document.querySelector('#comment-edit');
     input.focus();
   }
@@ -32,24 +33,27 @@ const Comment = ({id, userId, content, time, users, currentUser, deleteComment, 
     <form onSubmit={editComment}>
       <input id='comment-edit' type='text' value={comment} onChange={e => commentSet(e.target.value)} />
       <input type='submit' value='Edit' />
-      <button onClick={() => editableSet(false)}>Cancel</button>
-    </form>
-  
-  const buttons = () =>
-    <div className='buttons' data-comment-id={id}>
-      <button className='delete' onClick={deleteComment}>DELETE</button>
-      <br/>
-      <button className='edit' onClick={openEdit}>EDIT</button>
-    </div>;
+      <button onClick={toggleEditable}>Cancel</button>
+    </form>;
+
+  const renderOptions = () => {
+    if (currentUser.id === userId && shown && !editable) {
+      return  <div className='buttons' data-comment-id={id}>
+                <button className='delete' onClick={deleteComment}>DELETE</button>
+                <br/>
+                <button className='edit' onClick={openEdit}>EDIT</button>
+              </div>;
+    };
+  }
 
   const loadContent = () => commentsPending && commentsEditing === id.toString(10) ? null : <p>{content}</p>
 
   return (
-    <div className="Comment" onMouseEnter={show} onMouseLeave={hide}>
+    <div className="Comment" onMouseEnter={toggleShown} onMouseLeave={toggleShown}>
       <Avatar avatar={avatar} showing={username} />
       <p><strong>{username}</strong> - {time}</p>
       { editable ? editForm() : loadContent() }
-      { currentUser.id === userId && shown && !editable ? buttons() : null }
+      { renderOptions() }
     </div>
   );
 };

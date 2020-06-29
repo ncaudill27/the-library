@@ -38,7 +38,7 @@ class ClubContainer extends Component {
         <>
           <div className='Club-details'>
             <h1>{name}</h1>
-            { currentUser.modClubIds.includes(clubId) ? console.log('hello') : null }
+            {/* { currentUser.modClubIds.includes(clubId) ? console.log('hello') : null } */}
             {
               !currentUser
               ? this.currentUserIsMember()
