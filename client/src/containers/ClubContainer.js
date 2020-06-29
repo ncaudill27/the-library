@@ -27,6 +27,19 @@ class ClubContainer extends Component {
     memberLeaveRequest(clubId);
   }
 
+  renderMembershipButton = currentUser => 
+    currentUser
+    ? this.currentUserIsMember()
+      ? <h3 id='leave' onClick={this.handleLeave}>Leave Club</h3>
+      : <h3 id='join' onClick={this.handleJoin}>Join Club</h3>
+    : null;
+
+  renderModOptions = (currentUser, clubId) =>
+    currentUser.modClubIds.includes(clubId)
+    ? console.log('hello')
+    : null 
+  
+
   renderClub = () => {
     const {clubId, clubs, threads, currentUser} = this.props;
     const club = clubs.find(club => club.id === clubId);
@@ -38,14 +51,8 @@ class ClubContainer extends Component {
         <>
           <div className='Club-details'>
             <h1>{name}</h1>
-            {/* { currentUser.modClubIds.includes(clubId) ? console.log('hello') : null } */}
-            {
-              !currentUser
-              ? this.currentUserIsMember()
-                ? <h3 id='leave' onClick={this.handleLeave}>Leave Club</h3>
-                : <h3 id='join' onClick={this.handleJoin}>Join Club</h3>
-              : null
-            }
+            { this.renderModOptions(currentUser, clubId) }
+            { this.renderMembershipButton(currentUser) }
             <p>{description}</p>
           </div>
           <ClubBook isbn={activeBook} />
