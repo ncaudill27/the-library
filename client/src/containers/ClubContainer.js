@@ -27,8 +27,13 @@ class ClubContainer extends Component {
     this.toggleModding();
     this.toggleMembers();
   }
+
+  isMod = () => {
+    const { currentUser, clubId } = this.props;
+    return currentUser && currentUser.modClubIds.includes(clubId)
+  }
   
-  currentUserIsMember() {
+  currentUserIsMember = () => {
     const {currentUser, clubId, clubs} = this.props;
     const club = clubs.find(club => club.id === clubId);
     return !!club.memberIds.includes(currentUser.id);
@@ -57,12 +62,11 @@ class ClubContainer extends Component {
     : null;
 
   renderModOptions = () => {
-    const { currentUser, clubId } = this.props;
-    if (currentUser && currentUser.modClubIds.includes(clubId)){
+    if ( this.isMod() ) {
     return  <div onClick={this.toggleModding} className='mod'>
               <button onClick={this.toggleMembers}>Current Members</button>
-            </div>
-    }
+            </div>;
+    };
   }
 
   renderCurrentMembers = () => {
@@ -86,11 +90,6 @@ class ClubContainer extends Component {
       props: {
         clubId, clubs, threads, currentUser
       },
-      state: {
-        modding,
-        members
-      },
-      renderModOptions,
       renderMembershipButton
     } = this;
     const club = clubs.find(club => club.id === clubId);
