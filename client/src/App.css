@@ -153,6 +153,18 @@ div.Thread-list > div > div {
   right: 30px;
 }
 
+.members {
+  border: 1px solid pink;
+}
+
+.member {
+  border: 1px solid green;
+  display: flex;
+  height: fit-content;
+  width: fit-content;
+  margin: auto;
+}
+
 .Club:hover {
   color: black;
   cursor: auto;
