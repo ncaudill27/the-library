@@ -1,6 +1,3 @@
 class MembershipSerializer < BaseSerializer
-  attributes :mod
-  
-  belongs_to :club
-  belongs_to :user
+  attributes :mod, :club_id, :user_id
 end

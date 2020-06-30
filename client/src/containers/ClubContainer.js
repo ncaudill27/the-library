@@ -78,10 +78,10 @@ class ClubContainer extends Component {
       return <div className='member'><p key={member.id}>{member.username}</p><button>remove</button></div>
     });
     
-    return <div className='members'>
-      <button onClick={this.closeMembers}>X</button>
-      {members}
-    </div>
+    return  <div className='members'>
+              <button onClick={this.closeMembers}>X</button>
+              {members}
+            </div>
   }
   
 

@@ -6,7 +6,7 @@ module Api::V1
     def index
       @clubs = Club.all
 
-      options = { include: [:users, :memberships] }
+      options = { meta: { total: @clubs.length } }
       render json: ClubSerializer.new(@clubs, options)
     end
 

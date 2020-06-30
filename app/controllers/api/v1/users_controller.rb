@@ -6,8 +6,8 @@
     def index
       @users = User.all
       
-      options = { include: [:memberships, :clubs] }
-      render json: UserSerializer.new(@users, options)
+      options = { include: [:memberships] }
+      render json: UserSerializer.new(@users, options).serializable_hash
     end
 
     # GET /users/1
