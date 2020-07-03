@@ -47,18 +47,23 @@ class ClubContainer extends Component {
         club_id: clubId
       }
     };
+
     memberJoinRequest(payload);
   }
 
-  handleLeave = () => {
-    const {clubId, memberLeaveRequest} = this.props;
-    memberLeaveRequest(clubId);
+  handleLeave = member => {
+    const { clubId, memberLeaveRequest } = this.props;
+    const membership = member.modClubIds.find( membership => membership.clubId === clubId);
+    console.log(membership.membershipId);
+
+    memberLeaveRequest(membership.membershipId);
+    this.closeMembers();
   }
 
   renderMembershipButton = currentUser => 
     currentUser
     ? this.currentUserIsMember()
-      ? <h3 id='leave' onClick={this.handleLeave}>Leave Club</h3>
+      ? <h3 id='leave' onClick={() => this.handleLeave(currentUser)}>Leave Club</h3>
       : <h3 id='join' onClick={this.handleJoin}>Join Club</h3>
     : null;
 
@@ -76,7 +81,10 @@ class ClubContainer extends Component {
     console.log(users);
     
     const members = users.map( member => {
-      return <div className='member'><p key={member.id}>{member.username}</p><button>remove</button></div>
+      return <div key={member.id} className='member'>
+        <p key={member.name}>{member.username}</p>
+        <button key={member.username} onClick={() => this.handleLeave(member)}>remove</button>
+      </div>
     });
     
     return  <div className='members'>
@@ -123,15 +131,13 @@ class ClubContainer extends Component {
   }
 }
 
-const mapStateToProps = ({clubs, threads, users}) => {
-  return {
-    clubs: clubs.data,
-    clubsPending: clubs.pending,
-    threads: threads.data,
-    threadsPending: threads.pending,
-    currentUser: users.currentUser,
-    users: users.data
-  }
-};
+const mapStateToProps = ({clubs, threads, users}) => ({
+  clubs: clubs.data,
+  clubsPending: clubs.pending,
+  threads: threads.data,
+  threadsPending: threads.pending,
+  currentUser: users.currentUser,
+  users: users.data
+});
 
 export default connect(mapStateToProps, { memberJoinRequest, memberLeaveRequest })(ClubContainer);

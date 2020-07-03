@@ -1,4 +1,4 @@
-import { addClub, leaveClub } from './users';
+import { addClub } from './users';
 import { flashMessage } from './messages';
 
 const begin = func => func({type: "BEGIN_CLUBS_REQUEST"});

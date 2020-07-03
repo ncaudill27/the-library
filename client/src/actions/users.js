@@ -111,7 +111,7 @@ const updateUserRequest = (payload, userId) => {
   }
 };
 
-const memberLeaveRequest = clubId => {
+const memberLeaveRequest = membershipId => {
   const requestObj = {
     'method': 'DELETE',
     'headers': {
@@ -123,7 +123,7 @@ const memberLeaveRequest = clubId => {
 
   return dispatch => {
     begin(dispatch);
-    fetch(`/api/v1/memberships/${clubId}`, requestObj)
+    fetch(`/api/v1/memberships/${membershipId}`, requestObj)
     .then(res => res.json())
     .then(response => {
       if (response.errors) return console.log(response.errors);

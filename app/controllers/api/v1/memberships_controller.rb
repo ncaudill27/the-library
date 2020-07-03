@@ -17,7 +17,7 @@ module Api::V1
     end
 
     def destroy
-      @membership = Membership.find_by(user_id: session_user.id, club_id: params[:id])
+      @membership = Membership.find(params[:id])
       if @membership.destroy
         render json: {
           userId: @membership.user_id.to_s,
