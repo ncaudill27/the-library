@@ -7,6 +7,11 @@ class User < ApplicationRecord
   has_secure_password
 
   def mod_for
-    Membership.modding(self.id).map{ |m| m.club_id.to_s }.uniq
+    Membership.modding(self.id).map do |m|
+      {
+        'clubId': m.club_id.to_s,
+        'membershipId': m.id.to_s
+      }
+    end
   end
 end
