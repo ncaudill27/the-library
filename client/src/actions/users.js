@@ -18,10 +18,11 @@ const addUsers = usersJSON => ({
   users: usersJSON
 });
 
-const addClub = (clubId, userId) => ({
+const addClub = ({clubId, userId, membership}) => ({
   type: "ADD_CLUB",
   clubId,
-  userId
+  userId,
+  membership
 });
 
 const loginRequest = payload => {
