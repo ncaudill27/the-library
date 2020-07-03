@@ -29,7 +29,7 @@ class ClubContainer extends Component {
     this.toggleMembers();
   }
 
-  isMod = () => {
+  currentUserIsMod = () => {
     const { currentUser, clubId } = this.props;
     return currentUser && currentUser.memberships.find( m => m.clubId === clubId)
   }
@@ -52,23 +52,24 @@ class ClubContainer extends Component {
   }
 
   handleLeave = member => {
-    const { clubId, memberLeaveRequest } = this.props;
-    const membership = member.memberships.find( membership => membership.clubId === clubId);
+    const { clubId, memberLeaveRequest, closeMembers } = this.props;
+    const membership = member.memberships.find( membership => membership.clubId === clubId );
+    console.dir(member);
+    console.log(clubId, member.memberships);
+    console.log(membership);
     console.log(membership.membershipId);
 
     memberLeaveRequest(membership.membershipId);
-    this.closeMembers();
+    closeMembers();
   }
 
   renderMembershipButton = currentUser => 
-    currentUser
-    ? this.currentUserIsMember()
-      ? <h3 id='leave' onClick={() => this.handleLeave(currentUser)}>Leave Club</h3>
-      : <h3 id='join' onClick={this.handleJoin}>Join Club</h3>
-    : null;
+    this.currentUserIsMember()
+    ? <h3 id='leave' onClick={ () => this.handleLeave(currentUser) }>Leave Club</h3>
+    : <h3 id='join' onClick={this.handleJoin}>Join Club</h3>;
 
   renderModOptions = () => {
-    if ( this.isMod() ) {
+    if ( this.currentUserIsMod() ) {
     return  <div onClick={this.toggleModding} className='mod'>
               <button onClick={this.toggleMembers}>Current Members</button>
             </div>;
@@ -110,7 +111,7 @@ class ClubContainer extends Component {
         <>
           <div className='Club-details'>
             <h1>{name}</h1>
-            { renderMembershipButton(currentUser) }
+            { currentUser ? renderMembershipButton(currentUser) : null }
             <p>{description}</p>
           </div>
           <ClubBook isbn={activeBook} />
