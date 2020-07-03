@@ -9,10 +9,10 @@ class EditUser extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      name: false,
-      username: false,
-      email: false,
-      bio: false,
+      name: this.props.currentUser.name,
+      username: this.props.currentUser.username,
+      email: this.props.currentUser.email,
+      bio: this.props.currentUser.bio,
       redirect: null
     }
   }
@@ -20,7 +20,7 @@ class EditUser extends Component {
   handleChange = e => {
     this.setState({
       [e.target.name]: e.target.value
-    }, console.log(this.state))
+    }, () => console.log(this.state))
   }
 
   editUser = e => {
@@ -53,14 +53,6 @@ class EditUser extends Component {
     const { currentUser, currentUser: {username} } = this.props;
     // console.log(currentUser);
 
-    if (currentUser && !this.state.bio) {
-      this.setState({
-        name: currentUser.name,
-        username: currentUser.username,
-        email: currentUser.email,
-        bio: currentUser.bio
-      });
-    }
     if (this.state.redirect) return <Redirect to={`/${username}`} />
     return (
       <div className='Edit'>

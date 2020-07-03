@@ -39,7 +39,11 @@ class MainContainer extends Component {
 
           <Route exact path='/bestsellers' component={NYTimes} />
 
-          <Route exact path='/:username/settings' render={ ({match}) => <EditUser currentUser={currentUser} username={match} />} />
+          {
+            currentUser
+            ? <Route exact path='/:username/settings' render={ ({match}) => <EditUser currentUser={currentUser} username={match} />} />
+            : null
+          }
           <Route exact path='/:username' component={ProfilePage} />
 
         </Switch>
