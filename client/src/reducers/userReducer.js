@@ -23,16 +23,19 @@ const usersReducer = (state = initialState, action) => {
           currentlyReading: !!user.attributes.favoriteBookIsbn13 ? user.attributes.favoriteBookIsbn13.replace(/-/g, '') : null,
           clubIds: user.relationships.clubs.data.map(club => club.id),
           commentIds: user.relationships.comments.data.map(comment => comment.id),
-          modClubIds: user.attributes.modFor.map( obj => obj )
+          memberships: user.attributes.modFor.map( obj => obj )
         };
       });
 
       return {...state, data: state.data.concat(users), pending: false};
 
     case "ADD_CLUB":    
+    console.log(action);
+    
       user = state.data.find(u => u.id === action.userId);
       user.clubIds = user.clubIds.concat(action.clubId);
-      user.modClubIds = user.modClubIds.concat(action.clubId);
+      console.log(action.membership);
+      user.memberships = user.memberships.concat(action.membership);
       users = state.data.map(u => u.id !== user.id ? u : user);
 
       return {...state, data: users, currentUser: user, pending: false}
@@ -63,7 +66,7 @@ const usersReducer = (state = initialState, action) => {
         currentlyReading: !!favoriteBookIsbn13 ? favoriteBookIsbn13.replace(/-/g, '') : null,
         clubIds: clubs.map(club => club.id),
         commentIds: comments.map(comment => comment.id),
-        modClubIds: modFor.map( id => id )
+        memberships: modFor.map( id => id )
       };
 
       return {...state, currentUser: currentUser, pending: false}

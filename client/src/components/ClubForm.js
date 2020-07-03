@@ -31,7 +31,8 @@ class ClubForm extends Component {
         description
       }
     }
-
+    console.log(currentUser.id);
+    
     postClub(payload, currentUser.id);
     this.setState({
       name: '',

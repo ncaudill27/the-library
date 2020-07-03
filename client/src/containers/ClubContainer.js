@@ -31,7 +31,7 @@ class ClubContainer extends Component {
 
   isMod = () => {
     const { currentUser, clubId } = this.props;
-    return currentUser && currentUser.modClubIds.find( m => m.clubId === clubId)
+    return currentUser && currentUser.memberships.find( m => m.clubId === clubId)
   }
   
   currentUserIsMember = () => {
@@ -53,7 +53,7 @@ class ClubContainer extends Component {
 
   handleLeave = member => {
     const { clubId, memberLeaveRequest } = this.props;
-    const membership = member.modClubIds.find( membership => membership.clubId === clubId);
+    const membership = member.memberships.find( membership => membership.clubId === clubId);
     console.log(membership.membershipId);
 
     memberLeaveRequest(membership.membershipId);

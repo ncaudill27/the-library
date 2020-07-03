@@ -22,7 +22,8 @@ module Api::V1
       if @club.save
         @membership = Membership.new(club_id: @club.id, user_id: session_user.id, mod: true)
         if @membership.save
-          render json: {club: serialization, mod: @membership.mod, success: "Created #{@club.name}"}, status: :created
+          membership = {membershipId: @membership.id, clubId: @membership.club_id}
+          render json: {club: serialization, membership: membership, success: "Created #{@club.name}"}, status: :created
         else
           render status: :unauthorized
         end

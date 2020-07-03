@@ -35,8 +35,10 @@ const postClub = (payload, currentUserId) => {
     .then(res => res.json())
     .then( async response => {
       if (response.errors) return dispatch(flashMessage(response.errors));
-      let post = await dispatch(createClub(response.club));
-      dispatch(addClub(post.club.data.id, currentUserId));
+      await dispatch(createClub(response.club));
+      console.log(response);
+
+      dispatch(addClub({clubId: response.club.data.id, userId: currentUserId, membership: response.membership}));
     });
   };
 };
