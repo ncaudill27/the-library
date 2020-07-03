@@ -74,32 +74,10 @@ const addClubMember = (clubId, userId) => ({
   userId
 });
 
-const memberLeaveRequest = clubId => {
-  const requestObj = {
-    'method': 'DELETE',
-    'headers': {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    }
-  };
-
-  return dispatch => {
-    begin(dispatch);
-    fetch(`/api/v1/memberships/${clubId}`, requestObj)
-    .then(res => res.json())
-    .then(response => {
-      if (response.errors) return console.log(response.errors);
-      dispatch(removeClubMember(response));
-      dispatch(leaveClub(response));
-    })
-  }
-}
-
 const removeClubMember = ({clubId, userId}) => ({
   type: "REMOVE_CLUB_MEMBER",
   clubId,
   userId
 });
 
-export { fetchClubs, postClub, memberJoinRequest, memberLeaveRequest };
+export { fetchClubs, postClub, memberJoinRequest, removeClubMember };

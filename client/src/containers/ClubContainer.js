@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { memberJoinRequest, memberLeaveRequest } from '../actions/clubs';
+import { memberJoinRequest } from '../actions/clubs';
+import { memberLeaveRequest } from '../actions/users';
 import ThreadList from '../components/ThreadList';
 import ClubBook from '../components/ClubBook';
 
@@ -30,7 +31,7 @@ class ClubContainer extends Component {
 
   isMod = () => {
     const { currentUser, clubId } = this.props;
-    return currentUser && currentUser.modClubIds.includes(clubId)
+    return currentUser && currentUser.modClubIds.find( m => m.clubId === clubId)
   }
   
   currentUserIsMember = () => {
@@ -112,6 +113,7 @@ class ClubContainer extends Component {
   }
 
   render() {
+
     return (
       <div className='Club-container'>
           { this.renderModOptions() }

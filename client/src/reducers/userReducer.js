@@ -23,7 +23,7 @@ const usersReducer = (state = initialState, action) => {
           currentlyReading: !!user.attributes.favoriteBookIsbn13 ? user.attributes.favoriteBookIsbn13.replace(/-/g, '') : null,
           clubIds: user.relationships.clubs.data.map(club => club.id),
           commentIds: user.relationships.comments.data.map(comment => comment.id),
-          modClubIds: user.attributes.modFor.map( id => id )
+          modClubIds: user.attributes.modFor.map( obj => obj )
         };
       });
 

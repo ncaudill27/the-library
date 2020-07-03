@@ -1,6 +1,8 @@
 import { flashMessage } from './messages';
+import { removeClubMember } from './clubs';
 
 const begin = func => func({type: "BEGIN_USERS_REQUEST"});
+const token = localStorage.getItem('token');
 
 const fetchUsers = () => {
   return (dispatch) => {
@@ -46,7 +48,6 @@ const loginRequest = payload => {
 }
 
 const authorizeToken = () => {
-  const token = localStorage.getItem('token');
   const requestObj = {
     'method': 'POST',
     'headers': {
@@ -90,7 +91,6 @@ const userPostRequest = payload => {
 };
 
 const updateUserRequest = (payload, userId) => {
-  const token = localStorage.getItem('token');
   const requestObj = {
     'method': 'PATCH',
     'headers': {
@@ -110,6 +110,28 @@ const updateUserRequest = (payload, userId) => {
     });
   }
 };
+
+const memberLeaveRequest = clubId => {
+  const requestObj = {
+    'method': 'DELETE',
+    'headers': {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    }
+  };
+
+  return dispatch => {
+    begin(dispatch);
+    fetch(`/api/v1/memberships/${clubId}`, requestObj)
+    .then(res => res.json())
+    .then(response => {
+      if (response.errors) return console.log(response.errors);
+      dispatch(removeClubMember(response));
+      dispatch(leaveClub(response));
+    })
+  };
+}
 
 const leaveClub = ({clubId}) => ({
   type: "LEAVE_CLUB",
@@ -136,5 +158,6 @@ export {
   loginUser,
   userPostRequest,
   updateUserRequest,
+  memberLeaveRequest,
   leaveClub
 };
