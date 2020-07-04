@@ -7,7 +7,7 @@
       @users = User.all
       
       options = { include: [:memberships] }
-      render json: UserSerializer.new(@users, options).serializable_hash
+      render json: UserSerializer.new(@users, options).serialized_json
     end
 
     # GET /users/1

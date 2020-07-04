@@ -21,9 +21,15 @@ module Api::V1
       
       if @club.save
         @membership = Membership.new(club_id: @club.id, user_id: session_user.id, mod: true)
+
         if @membership.save
-          membership = {membershipId: @membership.id, clubId: @membership.club_id}
-          render json: {club: serialization, membership: membership, success: "Created #{@club.name}"}, status: :created
+          membership = {
+            membershipId: @membership.id.to_s,
+            clubId: @membership.club_id.to_s,
+            userId: @membership.user_id.to_s
+          }
+          render json: {club: serialize(@club), membership: membership, success: "Created #{@club.name}"}, status: :created
+
         else
           render status: :unauthorized
         end
@@ -37,7 +43,7 @@ module Api::V1
     # PATCH/PUT /clubs/1
     def update
       if @club.update(club_params)
-        render json: serialization
+        render json: serialize(@club)
       else
         render json: @club.errors, status: :unprocessable_entity
       end
@@ -50,23 +56,14 @@ module Api::V1
     end
 
     private
-      # Use callbacks to share common setup or constraints between actions.
-      def set_club
-        @club = Club.find(params[:id])
-      end
+    # Use callbacks to share common setup or constraints between actions.
+    def set_club
+      @club = Club.find(params[:id])
+    end
 
-      # Only allow a trusted parameter "white list" through.
-      def club_params(*args)
-        params.require(:club).permit(args)
-      end
-
-      def serialization
-        options = {
-          include: [:users, :memberships, :boards],
-          links: {uri: request.base_url + "/clubs/#{@club.id}"}
-        }
-        serialize(@club, options)
-      end
-      
+    # Only allow a trusted parameter "white list" through.
+    def club_params(*args)
+      params.require(:club).permit(args)
+    end
   end
 end

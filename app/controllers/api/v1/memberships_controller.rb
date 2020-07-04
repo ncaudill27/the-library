@@ -34,7 +34,7 @@ module Api::V1
     private
 
     def membership_params
-      params.require(:membership).permit(:club_id)
+      params.require(:membership).permit(:club_id, :user_id)
     end
   end
 end

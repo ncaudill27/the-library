@@ -15,9 +15,18 @@ const usersReducer = (state = initialState, action) => {
       return {...state, data: [...state.data], pending: true};
 
     case "ADD_USERS":
-      console.log(action);
 
-      users = action.users.map(user=> {
+      memberships = action.memberships.map( membership => {
+        return {
+          id: membership.id,
+          clubId: membership.attributes.clubId.toString(),
+          userId: membership.attributes.userId.toString(),
+          isMod: membership.attributes.mod
+        };
+      });
+      console.log(memberships);
+
+      users = action.users.map( user => {
         return {
           id: user.id,
           name: user.attributes.name,
@@ -26,33 +35,23 @@ const usersReducer = (state = initialState, action) => {
           bio: user.attributes.bio,
           avatar: user.attributes.avatar,
           currentlyReading: !!user.attributes.favoriteBookIsbn13 ? user.attributes.favoriteBookIsbn13.replace(/-/g, '') : null,
-          clubIds: user.relationships.clubs.data.map(club => club.id),
-          commentIds: user.relationships.comments.data.map(comment => comment.id),
-          modInfo: user.attributes.modFor.map( obj => obj )
+          commentIds: user.relationships.comments.data.map( comment => comment.id ),
+          memberships: memberships.filter( membership => membership.userId === user.id )
         };
       });
-
-      memberships = action.memberships.map( membership => {
-        return {
-          id: membership.id,
-          clubId: membership.attributes.clubId,
-          userId: membership.attributes.userId,
-          isMod: membership.attributes.mod
-        };
-      });
-      console.log(memberships);
+      console.log(users);
       
 
       return {...state, data: state.data.concat(users), memberships: state.memberships.concat(memberships), pending: false};
 
     case "ADD_CLUB":    
-    console.log(action);
+      console.log(action);
     
       user = state.data.find(u => u.id === action.userId);
       user.clubIds = user.clubIds.concat(action.clubId);
       console.log(action.membership);
       user.modInfo = user.modInfo.concat(action.membership);
-      users = state.data.map(u => u.id !== user.id ? u : user);
+      users = state.data.map( u => u.id !== user.id ? u : user );
 
       return {...state, data: users, currentUser: user, pending: false}
 

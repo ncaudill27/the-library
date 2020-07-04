@@ -27,6 +27,8 @@ const clubsReducer = (state = initialState, action) => {
       return {...state, data: state.data.concat(clubs), pending: false};
 
     case "CREATE_CLUB":
+      console.log(action);
+
       let {
         id,
         attributes: {

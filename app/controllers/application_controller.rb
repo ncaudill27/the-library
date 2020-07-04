@@ -40,12 +40,12 @@ class ApplicationController < ActionController::API
     end
   end
 
-  def serialize(object, options)
+  def serialize(object)
     class_name = object.class.name
     serializer_name = class_name + "Serializer"
     serializer = Object.const_get(serializer_name)
 
-    serializer.new(object, options)
+    serializer.new(object)
   end
 
   def destroy_response(object)
