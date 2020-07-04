@@ -7,37 +7,50 @@ import { connect } from 'react-redux';
 class ClubList extends Component {
 
   renderClubs = () => {
-    let {props: {clubs, currentUser}} = this;
-    clubs = currentUser ? clubs.filter(club => !currentUser.clubIds.includes(club.id)) : clubs;
+    let {
+      clubs,
+      currentUser,
+      memberships
+    } = this.props;
 
-    return clubs.map( ({id, name, avatar, description, memberIds}) =>
-      <Club
-        key={id}
-        id={id}
-        avatar={avatar}
-        name={name}
-        description={description}
-        members={memberIds}
-        currentUser={currentUser}
-      />
-    );
+    const usersMemberships = memberships.filter( m => m.userId === currentUser.id );
+    clubs  = usersMemberships.map( m => {
+      return clubs.find( c => c.id === m.clubId );
+    });
+
+    console.log(clubs);
+    
+
+    // clubs = currentUser ? clubs.filter(club => !currentUser.clubIds.includes(club.id)) : clubs;
+
+    // return clubs.map( ({id, name, avatar, description, memberIds}) =>
+    //   <Club
+    //     key={id}
+    //     id={id}
+    //     avatar={avatar}
+    //     name={name}
+    //     description={description}
+    //     members={memberIds}
+    //     currentUser={currentUser}
+    //   />
+    // );
   };
 
   renderClubsSidebar = () => {
     let {
-      props: {
-        clubs,
-        currentUser,
-        memberships
-      }
-    } = this;
+      clubs,
+      currentUser,
+      memberships
+    } = this.props;
 
-    const usersClubIds = memberships.filter( m => m.userId === currentUser.id );
-    if (currentUser) clubs = clubs.filter( club => usersClubIds.includes(club.id) ); //! NOT CLEARED
-    let list = clubs.map(({id, name, avatar}) => <ClubSideBar key={id} id={id} name={name} avatar={avatar} />);
+    const usersMemberships = memberships.filter( m => m.userId === currentUser.id );
+    clubs  = usersMemberships.map( m => {
+      return clubs.find( c => c.id === m.clubId );
+    });
+    clubs = clubs.map(({id, name, avatar}) => <ClubSideBar key={id} id={id} name={name} avatar={avatar} />);
 
     return <>
-      {list}
+      {clubs}
       <NavLink
         to='/clubs/new'
         exact
@@ -47,11 +60,15 @@ class ClubList extends Component {
   };
 
   render() {
-    const {renderClubs, renderClubsSidebar, props: {styling}} = this;
+    const {renderClubs, renderClubsSidebar, props: {styling, memberships, clubs}} = this;
     return (
       <div className='Club-list'>
         {styling === 'sidebar' ? null : <h2>Clubs</h2>}
-        {styling === 'sidebar' ? renderClubsSidebar() : renderClubs()}
+        {
+          memberships.length && clubs.length
+          ? styling === 'sidebar' ? renderClubsSidebar() : renderClubs()
+          : null
+        }
       </div>
     );
   };
