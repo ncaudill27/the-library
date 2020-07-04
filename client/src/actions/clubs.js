@@ -18,7 +18,7 @@ const addClubs = clubsJSON => ({
   clubs: clubsJSON
 });
 
-const postClub = (payload, currentUserId) => {
+const postClub = (payload) => {
   const requestObj = {
     'method': 'POST',
     'headers': {
@@ -38,7 +38,7 @@ const postClub = (payload, currentUserId) => {
       if (response.errors) return dispatch(flashMessage(response.errors));
       await dispatch(createClub(response.club));
 
-      dispatch(addClub({clubId: response.club.data.id, userId: currentUserId, membership: response.membership}));
+      dispatch(addClub(response.membership));
     });
   };
 };

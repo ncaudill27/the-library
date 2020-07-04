@@ -19,10 +19,8 @@ const addUsers = ({data, included}) => ({
   memberships: included
 });
 
-const addClub = ({clubId, userId, membership}) => ({
+const addClub = membership => ({
   type: "ADD_CLUB",
-  clubId,
-  userId,
   membership
 });
 

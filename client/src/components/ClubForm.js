@@ -21,19 +21,21 @@ class ClubForm extends Component {
     e.preventDefault()
     const {
       state: {
-        name, description},
-        props: {
-          postClub, currentUser
-        }} = this;
+        name, description
+      },
+      props: {
+        postClub
+      }
+    } = this;
+
     const payload = {
       club: {
         name,
         description
       }
-    }
-    console.log(currentUser.id);
+    };
     
-    postClub(payload, currentUser.id);
+    postClub(payload);
     this.setState({
       name: '',
       description: ''

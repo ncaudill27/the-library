@@ -1,6 +1,5 @@
 const initialState = {
   data: [],
-  memberships: [],
   currentUser: false,
   pending: false
 }
@@ -42,17 +41,15 @@ const usersReducer = (state = initialState, action) => {
       console.log(users);
       
 
-      return {...state, data: state.data.concat(users), memberships: state.memberships.concat(memberships), pending: false};
+      return {...state, data: state.data.concat(users), pending: false};
 
-    case "ADD_CLUB":    
-      console.log(action);
-    
-      user = state.data.find(u => u.id === action.userId);
-      user.clubIds = user.clubIds.concat(action.clubId);
+      case "ADD_CLUB":
       console.log(action.membership);
-      user.modInfo = user.modInfo.concat(action.membership);
+      user = state.data.find(u => u.id === action.membership.userId);
+      user.memberships = user.memberships.concat(action.membership);
       users = state.data.map( u => u.id !== user.id ? u : user );
-
+      console.log(user);
+      
       return {...state, data: users, currentUser: user, pending: false}
 
     case "LOGIN_USER":

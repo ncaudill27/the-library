@@ -24,9 +24,10 @@ module Api::V1
 
         if @membership.save
           membership = {
-            membershipId: @membership.id.to_s,
+            id: @membership.id.to_s,
             clubId: @membership.club_id.to_s,
-            userId: @membership.user_id.to_s
+            userId: @membership.user_id.to_s,
+            isMod: @membership.mod
           }
           render json: {club: serialize(@club), membership: membership, success: "Created #{@club.name}"}, status: :created
 
