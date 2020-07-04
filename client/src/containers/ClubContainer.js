@@ -30,13 +30,15 @@ class ClubContainer extends Component {
   }
 
   currentUserIsMod = () => {
-    const { currentUser, clubId } = this.props;
-    return currentUser && currentUser.modInfo.find( m => m.clubId === clubId)
+    const { currentUser, clubId, memberships } = this.props;
+    const thisMembership = memberships.find( m => m.userId === currentUser.id && m.clubId === clubId );
+
+    return currentUser && !!thisMembership.isMod
   }
   
   currentUserIsMember = () => {
     const {currentUser, clubId, clubs} = this.props;
-    const club = clubs.find(club => club.id === clubId);
+    const club = clubs.find( club => club.id === clubId );
     return !!club.memberIds.includes(currentUser.id);
   }
 
@@ -95,10 +97,15 @@ class ClubContainer extends Component {
   renderClub = () => {
     const {
       props: {
-        clubId, clubs, threads, currentUser
+        clubId,
+        clubs,
+        threads,
+        currentUser,
+        memberships
       },
       renderMembershipButton
     } = this;
+
     const club = clubs.find(club => club.id === clubId);
     if (club && threads) {
       const {name, description, activeBook} = club
@@ -108,7 +115,7 @@ class ClubContainer extends Component {
         <>
           <div className='Club-details'>
             <h1>{name}</h1>
-            { currentUser ? renderMembershipButton(currentUser) : null }
+            { currentUser && memberships !== [] ? renderMembershipButton(currentUser) : null }
             <p>{description}</p>
           </div>
           <ClubBook isbn={activeBook} />
@@ -119,10 +126,12 @@ class ClubContainer extends Component {
   }
 
   render() {
-
+    const { memberships } = this.props;
+    // if (memberships.length) console.log(memberships);
+    
     return (
       <div className='Club-container'>
-          { this.renderModOptions() }
+          { memberships.length ? this.renderModOptions() : null }
           { this.state.members ? this.renderCurrentMembers() : this.renderClub() }
       </div>
     )
@@ -135,7 +144,8 @@ const mapStateToProps = ({clubs, threads, users}) => ({
   threads: threads.data,
   threadsPending: threads.pending,
   currentUser: users.currentUser,
-  users: users.data
+  users: users.data,
+  memberships: users.memberships
 });
 
 export default connect(mapStateToProps, { memberJoinRequest, memberLeaveRequest })(ClubContainer);

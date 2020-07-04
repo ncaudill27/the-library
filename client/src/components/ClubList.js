@@ -24,8 +24,16 @@ class ClubList extends Component {
   };
 
   renderClubsSidebar = () => {
-    let {props: {clubs, currentUser}} = this;
-    if (currentUser) clubs = clubs.filter(c => c.memberIds.includes(currentUser.id));
+    let {
+      props: {
+        clubs,
+        currentUser,
+        memberships
+      }
+    } = this;
+
+    const usersClubIds = memberships.filter( m => m.userId === currentUser.id );
+    if (currentUser) clubs = clubs.filter( club => usersClubIds.includes(club.id) );
     let list = clubs.map(({id, name, avatar}) => <ClubSideBar key={id} id={id} name={name} avatar={avatar} />);
 
     return <>
@@ -52,7 +60,8 @@ class ClubList extends Component {
 const mapStateToProps = ({clubs, users}) => ({
   clubs: clubs.data,
   clubsPending: clubs.pending,
-  currentUser: users.currentUser
+  currentUser: users.currentUser,
+  memberships: users.memberships
 });
 
 export default connect(mapStateToProps)(ClubList);

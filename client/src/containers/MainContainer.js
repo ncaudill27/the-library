@@ -17,7 +17,8 @@ class MainContainer extends Component {
   render() {
     const {
       currentUser,
-      message
+      message,
+      memberships
     } = this.props;
 
     return (
@@ -33,9 +34,13 @@ class MainContainer extends Component {
 
           <Route exact path='/clubs/new' render={ () => <ClubForm currentUser={currentUser}  /> } />
 
-          <Route exact path='/clubs/:id' render={ ({match}) =>
-            <ClubContainer clubId={match.params.id} currentUser={currentUser} />
-          } />
+          {
+            memberships !== []
+            ? <Route exact path='/clubs/:id' render={ ({match}) =>
+                <ClubContainer clubId={match.params.id} currentUser={currentUser} />
+              } />
+            : null
+          }
 
           <Route exact path='/bestsellers' component={NYTimes} />
 
@@ -56,7 +61,8 @@ const mapStateToProps = ({clubs, users, messages}) => {
   return {
     clubs: clubs.data,
     currentUser: users.currentUser,
-    message: messages.message
+    message: messages.message,
+    memberships: users.memberships
   }
 }
 
