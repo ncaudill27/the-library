@@ -1,18 +1,23 @@
 const initialState = {
   data: [],
+  memberships: [],
   currentUser: false,
   pending: false
 }
 
 const usersReducer = (state = initialState, action) => {
-  let user, users
+
+  let user, users, memberships
+
   switch(action.type) {
 
     case "BEGIN_USERS_REQUEST":
       return {...state, data: [...state.data], pending: true};
 
     case "ADD_USERS":
-      users = action.users.data.map(user=> {
+      console.log(action);
+
+      users = action.users.map(user=> {
         return {
           id: user.id,
           name: user.attributes.name,
@@ -27,7 +32,18 @@ const usersReducer = (state = initialState, action) => {
         };
       });
 
-      return {...state, data: state.data.concat(users), pending: false};
+      memberships = action.memberships.map( membership => {
+        return {
+          id: membership.id,
+          clubId: membership.attributes.clubId,
+          userId: membership.attributes.userId,
+          isMod: membership.attributes.mod
+        };
+      });
+      console.log(memberships);
+      
+
+      return {...state, data: state.data.concat(users), memberships: state.memberships.concat(memberships), pending: false};
 
     case "ADD_CLUB":    
     console.log(action);

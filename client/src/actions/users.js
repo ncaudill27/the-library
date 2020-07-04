@@ -13,9 +13,10 @@ const fetchUsers = () => {
   };
 };
 
-const addUsers = usersJSON => ({
+const addUsers = ({data, included}) => ({
   type: "ADD_USERS",
-  users: usersJSON
+  users: data,
+  memberships: included
 });
 
 const addClub = ({clubId, userId, membership}) => ({
