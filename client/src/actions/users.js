@@ -133,9 +133,10 @@ const memberLeaveRequest = membershipId => {
   };
 }
 
-const leaveClub = ({clubId}) => ({
+const leaveClub = ({clubId, userId}) => ({
   type: "LEAVE_CLUB",
-  clubId
+  clubId,
+  userId
 })
 
 const loginUser = userData => ({

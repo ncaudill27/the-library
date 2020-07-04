@@ -84,9 +84,9 @@ const usersReducer = (state = initialState, action) => {
       return {...state, currentUser: currentUser, pending: false}
 
     case "LEAVE_CLUB":
-      user = state.currentUser
-      let updatedClubs = user.clubIds.filter(id => id !== action.clubId);
-      let updatedUser = {...user, clubIds: updatedClubs};
+      user = state.data.find( user => user.id === action.userId );
+      let updatedMemberships = user.memberships.filter( membership => membership.clubId !== action.clubId);
+      let updatedUser = {...user, memberships: updatedMemberships};
       
       return {...state, currentUser: updatedUser, pending: false};
       

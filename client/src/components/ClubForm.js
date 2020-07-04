@@ -18,7 +18,7 @@ class ClubForm extends Component {
   };
 
   handleSubmit = e => {
-    e.preventDefault()
+    e.preventDefault();
     const {
       state: {
         name, description
