@@ -8,7 +8,7 @@ const Club = ({id, avatar, name, description, members}) =>
       <Avatar avatar={avatar} showing={name} />
       <div className='content'>
         <h3>{name}</h3>
-        <p>{description} <br/><small>{members.length} members</small></p>
+        <p>{description}</p>
       </div>
     </div>
   </NavLink>;

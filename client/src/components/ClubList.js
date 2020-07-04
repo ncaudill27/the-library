@@ -14,26 +14,25 @@ class ClubList extends Component {
     } = this.props;
 
     const usersMemberships = memberships.filter( m => m.userId === currentUser.id );
-    clubs  = usersMemberships.map( m => {
+    const usersClubs  = usersMemberships.map( m => {
       return clubs.find( c => c.id === m.clubId );
     });
-
-    console.log(clubs);
     
+    const userAssociatedClubIds = usersClubs.map( c => c.id );    
 
-    // clubs = currentUser ? clubs.filter(club => !currentUser.clubIds.includes(club.id)) : clubs;
-
-    // return clubs.map( ({id, name, avatar, description, memberIds}) =>
-    //   <Club
-    //     key={id}
-    //     id={id}
-    //     avatar={avatar}
-    //     name={name}
-    //     description={description}
-    //     members={memberIds}
-    //     currentUser={currentUser}
-    //   />
-    // );
+    clubs = currentUser ? clubs.filter(club => !userAssociatedClubIds.includes(club.id)) : clubs;
+    
+    return clubs.map( ({id, name, avatar, description, memberIds}) =>
+      <Club
+        key={id}
+        id={id}
+        avatar={avatar}
+        name={name}
+        description={description}
+        // members={memberIds}
+        currentUser={currentUser}
+      />
+    );
   };
 
   renderClubsSidebar = () => {
