@@ -28,7 +28,6 @@ class ClubContainer extends Component {
     this.toggleMembers();
   }
 
-  //! CLEARED
   currentUserIsMod = () => {
     const { currentUser, clubId, memberships } = this.props;
     const thisMembership = memberships.find( m => m.userId === currentUser.id && m.clubId === clubId ) ?? false;
@@ -36,7 +35,6 @@ class ClubContainer extends Component {
     return thisMembership.isMod
   }
   
-  //! CLEARED
   currentUserIsMember = () => {
     const {currentUser, clubId, memberships } = this.props;
     const thisMembership = memberships.find( m => m.userId === currentUser.id && m.clubId === clubId );
@@ -62,13 +60,17 @@ class ClubContainer extends Component {
         clubId,
         memberLeaveRequest,
         memberships
+      },
+      state: {
+        modding,
+        members
       }
     } = this;
 
     const thisMembership = memberships.find( m => m.userId === member.id && m.clubId === clubId );
 
     memberLeaveRequest(thisMembership.id);
-    closeMembers();
+    if (modding && members) closeMembers();
   }
 
   renderMembershipButton = currentUser => 
@@ -91,7 +93,6 @@ class ClubContainer extends Component {
     users = clubMemberships.map( m => {
       return users.find( u => u.id === m.userId );
     });
-    console.log(users);
 
     const members = users.map( member => {
       return <div key={member.id} className='member'>
@@ -103,7 +104,7 @@ class ClubContainer extends Component {
     return  <div className='members'>
               <button onClick={this.closeMembers}>X</button>
               {members}
-            </div>
+            </div>;
   }
   
 
@@ -140,7 +141,6 @@ class ClubContainer extends Component {
 
   render() {
     const { memberships } = this.props;
-    // if (memberships.length) console.log(memberships);
     
     return (
       <div className='Club-container'>

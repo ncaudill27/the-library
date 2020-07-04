@@ -72,7 +72,7 @@ const usersReducer = (state = initialState, action) => {
       return {...state, currentUser: currentUser, pending: false}
 
     case "LEAVE_CLUB":
-      memberships = user.memberships.filter( m => m.id !== action.id );
+      memberships = state.memberships.filter( m => m.id !== action.id );
       return {...state, memberships, pending: false};
       
     case "LOGOUT_USER":
