@@ -1,5 +1,5 @@
 import { flashMessage } from './messages';
-import { removeClubMember } from './clubs';
+// import { removeClubMember } from './clubs';
 
 const begin = func => func({type: "BEGIN_USERS_REQUEST"});
 const token = localStorage.getItem('token');
@@ -108,7 +108,7 @@ const updateUserRequest = (payload, userId) => {
     .then(response => {
       dispatch(loginUser(response.user.data));
     });
-  }
+  };
 };
 
 const memberLeaveRequest = membershipId => {
@@ -127,14 +127,15 @@ const memberLeaveRequest = membershipId => {
     .then(res => res.json())
     .then(response => {
       if (response.errors) return console.log(response.errors);
-      dispatch(removeClubMember(response));
+      // dispatch(removeClubMember(response));
       dispatch(leaveClub(response));
     })
   };
 }
 
-const leaveClub = ({clubId, userId}) => ({
+const leaveClub = ({id, clubId, userId}) => ({
   type: "LEAVE_CLUB",
+  id,
   clubId,
   userId
 })

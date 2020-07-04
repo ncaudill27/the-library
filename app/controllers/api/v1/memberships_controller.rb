@@ -21,7 +21,7 @@ module Api::V1
       @membership = Membership.find(params[:id])
       if @membership.destroy
         render json: {
-          membershipId: @membership.id.to_s,
+          id: @membership.id.to_s,
           userId: @membership.user_id.to_s,
           clubId: @membership.club_id.to_s,
           success: "#{@membership.user.name} left #{@membership.club.name}."

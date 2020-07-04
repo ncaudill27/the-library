@@ -76,10 +76,15 @@ const addClubMember = (clubId, userId) => ({
   userId
 });
 
-const removeClubMember = ({clubId, userId}) => ({
-  type: "REMOVE_CLUB_MEMBER",
-  clubId,
-  userId
-});
+// const removeClubMember = ({clubId, userId}) => ({
+//   type: "REMOVE_CLUB_MEMBER",
+//   clubId,
+//   userId
+// });
 
-export { fetchClubs, postClub, memberJoinRequest, removeClubMember };
+export {
+  fetchClubs,
+  postClub,
+  memberJoinRequest,
+  // removeClubMember 
+};

@@ -1,5 +1,6 @@
 const initialState = {
   data: [],
+  memberships: [],
   currentUser: false,
   pending: false
 }
@@ -15,16 +16,6 @@ const usersReducer = (state = initialState, action) => {
 
     case "ADD_USERS":
 
-      memberships = action.memberships.map( membership => {
-        return {
-          id: membership.id,
-          clubId: membership.attributes.clubId.toString(),
-          userId: membership.attributes.userId.toString(),
-          isMod: membership.attributes.mod
-        };
-      });
-      console.log(memberships);
-
       users = action.users.map( user => {
         return {
           id: user.id,
@@ -34,34 +25,33 @@ const usersReducer = (state = initialState, action) => {
           bio: user.attributes.bio,
           avatar: user.attributes.avatar,
           currentlyReading: !!user.attributes.favoriteBookIsbn13 ? user.attributes.favoriteBookIsbn13.replace(/-/g, '') : null,
-          commentIds: user.relationships.comments.data.map( comment => comment.id ),
-          memberships: memberships.filter( membership => membership.userId === user.id )
+          commentIds: user.relationships.comments.data.map( comment => comment.id )
         };
       });
-      console.log(users);
-      
 
-      return {...state, data: state.data.concat(users), pending: false};
+      memberships = action.memberships.map( membership => {
+        return {
+          id: membership.id,
+          clubId: membership.attributes.clubId.toString(),
+          userId: membership.attributes.userId.toString(),
+          isMod: membership.attributes.mod
+        };
+      });
+
+
+      return {...state, data: state.data.concat(users), memberships: state.memberships.concat(memberships), pending: false};
 
       case "ADD_CLUB":
-      console.log(action.membership);
-      user = state.data.find(u => u.id === action.membership.userId);
-      user.memberships = user.memberships.concat(action.membership);
-      users = state.data.map( u => u.id !== user.id ? u : user );
-      console.log(user);
-      
-      return {...state, data: users, currentUser: user, pending: false}
+      memberships = state.memberships.concat(action.membership);
+      return {...state, memberships, pending: false}
 
     case "LOGIN_USER":
       const {
         id,
         attributes: {
-          name, username, email, bio, avatar, favoriteBookIsbn13, modFor
+          name, username, email, bio, avatar, favoriteBookIsbn13
         },
         relationships: {
-          clubs: {
-            data: clubs
-          },
           comments: {
             data: comments
           }
@@ -76,19 +66,14 @@ const usersReducer = (state = initialState, action) => {
         bio: bio,
         avatar: avatar,
         currentlyReading: !!favoriteBookIsbn13 ? favoriteBookIsbn13.replace(/-/g, '') : null,
-        clubIds: clubs.map(club => club.id),
-        commentIds: comments.map(comment => comment.id),
-        modInfo: modFor.map( id => id )
+        commentIds: comments.map(comment => comment.id)
       };
 
       return {...state, currentUser: currentUser, pending: false}
 
     case "LEAVE_CLUB":
-      user = state.data.find( user => user.id === action.userId );
-      let updatedMemberships = user.memberships.filter( membership => membership.clubId !== action.clubId);
-      let updatedUser = {...user, memberships: updatedMemberships};
-      
-      return {...state, currentUser: updatedUser, pending: false};
+      memberships = user.memberships.filter( m => m.id !== action.id );
+      return {...state, memberships, pending: false};
       
     case "LOGOUT_USER":
       localStorage.clear();
