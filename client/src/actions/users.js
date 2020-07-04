@@ -111,6 +111,28 @@ const updateUserRequest = (payload, userId) => {
   };
 };
 
+const memberJoinRequest = payload => {
+  const requestObj = {
+    'method': 'POST',
+    'headers': {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    'body': JSON.stringify(payload)
+  };
+
+  return dispatch => {
+    begin(dispatch);
+    fetch(`/api/v1/memberships`, requestObj)
+    .then(res => res.json())
+    .then( async response => {
+      if (response.errors) return console.log(response.errors);
+      dispatch(addClub(response));
+    });
+  };
+};
+
 const memberLeaveRequest = membershipId => {
   const requestObj = {
     'method': 'DELETE',
@@ -160,6 +182,7 @@ export {
   loginUser,
   userPostRequest,
   updateUserRequest,
+  memberJoinRequest,
   memberLeaveRequest,
   leaveClub
 };

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { memberJoinRequest } from '../actions/clubs';
-import { memberLeaveRequest } from '../actions/users';
+import { memberJoinRequest, memberLeaveRequest } from '../actions/users';
 import ThreadList from '../components/ThreadList';
 import ClubBook from '../components/ClubBook';
 
@@ -29,17 +28,20 @@ class ClubContainer extends Component {
     this.toggleMembers();
   }
 
+  //! CLEARED
   currentUserIsMod = () => {
     const { currentUser, clubId, memberships } = this.props;
-    const thisMembership = memberships.find( m => m.userId === currentUser.id && m.clubId === clubId );
+    const thisMembership = memberships.find( m => m.userId === currentUser.id && m.clubId === clubId ) ?? false;
 
-    return currentUser && !!thisMembership.isMod
+    return thisMembership.isMod
   }
   
+  //! CLEARED
   currentUserIsMember = () => {
-    const {currentUser, clubId, clubs} = this.props;
-    const club = clubs.find( club => club.id === clubId );
-    return !!club.memberIds.includes(currentUser.id);
+    const {currentUser, clubId, memberships } = this.props;
+    const thisMembership = memberships.find( m => m.userId === currentUser.id && m.clubId === clubId );
+
+    return !!thisMembership;
   }
 
   handleJoin = () => {
@@ -54,12 +56,19 @@ class ClubContainer extends Component {
   }
 
   handleLeave = member => {
-    let { clubId, memberLeaveRequest, closeMembers } = this.props;
-    console.log(member.clubIds);
-    const id  = member.cludIds.find( id => id === clubId );
-    
-    // memberLeaveRequest(membership.membershipId);
-    // closeMembers();
+    const {
+      closeMembers,
+      props: {
+        clubId,
+        memberLeaveRequest,
+        memberships
+      }
+    } = this;
+
+    const thisMembership = memberships.find( m => m.userId === member.id && m.clubId === clubId );
+
+    memberLeaveRequest(thisMembership.id);
+    closeMembers();
   }
 
   renderMembershipButton = currentUser => 
@@ -76,10 +85,14 @@ class ClubContainer extends Component {
   }
 
   renderCurrentMembers = () => {
-    let { users, clubId } = this.props;
-    users = users.filter( user => user.clubIds.includes(clubId));
+    let { users, clubId, memberships } = this.props;
+    const clubMemberships = memberships.filter( m => m.clubId === clubId );
+
+    users = clubMemberships.map( m => {
+      return users.find( u => u.id === m.userId );
+    });
     console.log(users);
-    
+
     const members = users.map( member => {
       return <div key={member.id} className='member'>
         <p key={member.name}>{member.username}</p>

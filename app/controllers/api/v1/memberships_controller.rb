@@ -7,10 +7,10 @@ module Api::V1
       @membership.mod = false
       if @membership.save
         render json: {
-          membershipId: @membership.id,
+          id: @membership.id.to_s,
           userId: @membership.user_id.to_s,
           clubId: @membership.club_id.to_s,
-          success: "#{@membership.user.name} joined #{@membership.club.name}."
+          isMod: @membership.mod
         }, status: :created
       else
         render json: {errors: @membership.errors.full_messages}, status: :unprocessable_entity

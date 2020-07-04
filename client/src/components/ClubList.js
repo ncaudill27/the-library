@@ -33,7 +33,7 @@ class ClubList extends Component {
     } = this;
 
     const usersClubIds = memberships.filter( m => m.userId === currentUser.id );
-    if (currentUser) clubs = clubs.filter( club => usersClubIds.includes(club.id) );
+    if (currentUser) clubs = clubs.filter( club => usersClubIds.includes(club.id) ); //! NOT WORKING
     let list = clubs.map(({id, name, avatar}) => <ClubSideBar key={id} id={id} name={name} avatar={avatar} />);
 
     return <>

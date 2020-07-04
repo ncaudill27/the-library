@@ -48,28 +48,6 @@ const createClub = clubJSON => ({
   club: clubJSON
 });
 
-const memberJoinRequest = payload => {
-  const requestObj = {
-    'method': 'POST',
-    'headers': {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
-    'body': JSON.stringify(payload)
-  };
-
-  return dispatch => {
-    begin(dispatch);
-    fetch(`/api/v1/memberships`, requestObj)
-    .then(res => res.json())
-    .then( async response => {
-      if (response.errors) return console.log(response.errors);
-      dispatch(addClubMember(response.clubId, response.userId));
-    });
-  };
-};
-
 const addClubMember = (clubId, userId) => ({
   type: "ADD_CLUB_MEMBER",
   clubId,
@@ -84,7 +62,6 @@ const addClubMember = (clubId, userId) => ({
 
 export {
   fetchClubs,
-  postClub,
-  memberJoinRequest,
+  postClub
   // removeClubMember 
 };
