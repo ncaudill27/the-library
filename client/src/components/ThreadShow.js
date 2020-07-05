@@ -15,13 +15,18 @@ class ThreadShow extends Component {
   
   render() {
     const {
-                toggle,
       state: {
-                shown
+        shown
       },
       props: {
-                currentUser, handleSubmit, handleChange, threadId, title
-      }
+        currentUser,
+        handleSubmit,
+        handleChange,
+        threadId,
+        title,
+        mod
+      },
+      toggle,
     } = this;
 
     const currentState = shown ? 'Thread-card' : 'Thread-link';
@@ -32,7 +37,7 @@ class ThreadShow extends Component {
         {
           shown
           ? <>
-            <CommentList threadId={threadId}/>
+            <CommentList threadId={threadId} mod={mod} />
             <CommentField
               currentUser={currentUser}
               threadId={threadId}

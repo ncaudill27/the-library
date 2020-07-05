@@ -3,7 +3,7 @@ import Avatar from './Avatar';
 import { connect } from 'react-redux';
 import { patchCommentRequest } from '../actions/comments';
 
-const Comment = ({id, userId, content, time, users, currentUser, deleteComment, patchCommentRequest, commentsPending, commentsEditing}) => {
+const Comment = ({id, userId, content, time, users, currentUser, deleteComment, patchCommentRequest, commentsPending, commentsEditing, mod}) => {
 
   const user = users.find(user => user.id === userId);
   const {username, avatar} = user;
@@ -16,6 +16,7 @@ const Comment = ({id, userId, content, time, users, currentUser, deleteComment, 
 
   const [comment, commentSet] = useState(content);
 
+  const contentOwner = () => currentUser.id === userId;
 
   const editComment = e => {
     e.preventDefault();
@@ -37,11 +38,11 @@ const Comment = ({id, userId, content, time, users, currentUser, deleteComment, 
     </form>;
 
   const renderOptions = () => {
-    if (currentUser.id === userId && shown && !editable) {
+    if ( ( contentOwner() || mod() ) && shown && !editable ) {
       return  <div className='buttons' data-comment-id={id}>
                 <button className='delete' onClick={deleteComment}>DELETE</button>
                 <br/>
-                <button className='edit' onClick={openEdit}>EDIT</button>
+                { !mod() || contentOwner() ? <button className='edit' onClick={openEdit}>EDIT</button> : null }
               </div>;
     };
   }

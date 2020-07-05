@@ -117,7 +117,8 @@ class ClubContainer extends Component {
         currentUser,
         memberships
       },
-      renderMembershipButton
+      renderMembershipButton,
+      currentUserIsMod
     } = this;
 
     const club = clubs.find(club => club.id === clubId);
@@ -132,8 +133,8 @@ class ClubContainer extends Component {
             { currentUser && memberships !== [] ? renderMembershipButton(currentUser) : null }
             <p>{description}</p>
           </div>
-          <ClubBook isbn={activeBook} />
-          <ThreadList threads={clubThreads} club={club} currentUser={currentUser} />
+          <ClubBook isbn={activeBook} mod={currentUserIsMod} />
+          <ThreadList threads={clubThreads} club={club} currentUser={currentUser} mod={currentUserIsMod} />
         </>
       )
     }

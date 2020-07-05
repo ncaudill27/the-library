@@ -30,6 +30,7 @@ class CommentList extends Component {
         content={content}
         time={posted.toLocaleString('en-US')}
         deleteComment={deleteComment}
+        mod={this.props.mod}
       />;
     });
   }

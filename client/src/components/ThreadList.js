@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import ThreadShow from './ThreadShow';
 import ThreadForm from './ThreadForm';
 
-function ThreadList({threads, club: {id: clubId}, comments, currentUser}) {
+function ThreadList({threads, club: {id: clubId}, comments, currentUser, mod}) {
 
   const renderThreads = () => {
     threads = threads.filter(t => t.clubId === clubId);
@@ -11,15 +11,14 @@ function ThreadList({threads, club: {id: clubId}, comments, currentUser}) {
       const {id: threadId, title} = thread;
       const threadComments = comments.filter(comment => threadId === comment.threadId);
 
-      return <ThreadShow key={threadId} title ={title} threadId={threadId} comments={threadComments} currentUser={currentUser} />;
+      return <ThreadShow key={threadId} title ={title} threadId={threadId} comments={threadComments} currentUser={currentUser} mod={mod} />;
     });
   };
-
 
   return (
     <div className='Thread-list'>
       <h2>Threads</h2>
-      <ThreadForm  clubId={clubId} currentUserId={currentUser.id} />
+      { mod() ? <ThreadForm  clubId={clubId} currentUserId={currentUser.id} /> : null }
       {renderThreads()}
     </div>
   );

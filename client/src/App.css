@@ -147,7 +147,7 @@ div.Thread-list > div > div {
 }
 
 .mod {
-  position: fixed;
+  position: absolute;
   border: 1px solid black;
   top: 30px;
   right: 30px;
