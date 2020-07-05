@@ -6,12 +6,24 @@ import RightArrow from '../arrow.png';
 
 class AvatarSelection extends Component {
 
+  unsplash = new Unsplash({ accessKey: process.env.REACT_APP_UNSPLASH_ACCESS_KEY });
+
   state = {
     photos: [],
-    page: this.props.page
+    page: this.props.page,
+    search: this.props.search
   }
 
-  unsplash = new Unsplash({ accessKey: process.env.REACT_APP_UNSPLASH_ACCESS_KEY });
+  handleChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    }, () => console.log(this.state));
+  }
+
+  handleSearch = e => {
+    e.preventDefault();
+    this.fetchSelections();
+  }
 
   componentDidMount() {
     this.fetchSelections();
@@ -22,7 +34,7 @@ class AvatarSelection extends Component {
   }
   
   fetchSelections = async () => {
-    const photos = await this.unsplash.search.collections('nature', this.state.page, 5)
+    const photos = await this.unsplash.search.collections(this.state.search, this.state.page, 5)
     .then(toJson)
     .then( json => json.results
       .map( obj => obj.preview_photos
@@ -54,6 +66,12 @@ class AvatarSelection extends Component {
     return (
       <div className='Avatar-selection'>
         <h2>Choose an avatar!</h2>
+        <form onSubmit={this.handleSearch}>
+          <label>Category
+          <input type='text' name='search' value={this.state.search} onChange={this.handleChange} />
+          </label>
+          <input type='submit' value='Search' />
+        </form>
         <div className='photo-selection'>
           { this.renderSelections() }
         </div>
@@ -64,7 +82,8 @@ class AvatarSelection extends Component {
 }
 
 AvatarSelection.defaultProps = {
-  page: 1
+  page: 1,
+  search: 'Nature'
 }
 
 export default AvatarSelection;

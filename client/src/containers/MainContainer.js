@@ -46,7 +46,7 @@ class MainContainer extends Component {
 
           {
             currentUser
-            ? <Route exact path='/:username/settings' render={ ({match}) => <EditUser currentUser={currentUser} username={match} />} />
+            ? <Route exact path='/:username/settings' render={ () => <EditUser currentUser={currentUser} />} />
             : null
           }
           <Route exact path='/:username' component={ProfilePage} />

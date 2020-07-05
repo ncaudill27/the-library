@@ -60,6 +60,7 @@ class EditUser extends Component {
     return (
       <div className='Edit'>
         { !!currentUser && this.state.bio !== false ? this.renderEditForm() : null }
+        <AvatarSelection />
       </div>
     )
   }
