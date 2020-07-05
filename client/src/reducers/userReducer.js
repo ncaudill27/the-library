@@ -69,7 +69,9 @@ const usersReducer = (state = initialState, action) => {
         commentIds: comments.map(comment => comment.id)
       };
 
-      return {...state, currentUser: currentUser, pending: false}
+      users = state.data.map( user => user.id !== currentUser ? user : currentUser );
+
+      return {...state, data: users, currentUser: currentUser, pending: false}
 
     case "LEAVE_CLUB":
       memberships = state.memberships.filter( m => m.id !== action.id );

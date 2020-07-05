@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import Avatar from './Avatar';
 import Unsplash, { toJson } from 'unsplash-js';
+import { connect } from 'react-redux';
+import { updateUserRequest } from '../actions/users';
 import LeftArrow from '../return.png';
 import RightArrow from '../arrow.png';
+import Avatar from './Avatar';
 
 class AvatarSelection extends Component {
 
@@ -30,7 +32,7 @@ class AvatarSelection extends Component {
   }
 
   renderSelections = () => {
-    return this.state.photos.map( ({id, photo}) =>  <Avatar key={id} avatar={photo} /> );
+    return this.state.photos.map( ({id, photo}) =>  <div key={id} onClick={this.updateUserAvatar}><Avatar key={id} avatar={photo} /></div> );
   }
   
   fetchSelections = async () => {
@@ -61,6 +63,20 @@ class AvatarSelection extends Component {
       <img onClick={this.nextPage} src={RightArrow} alt='next page arrow' />
     </div>;
   
+  updateUserAvatar = e => {
+    const { currentUser: {id}, updateUserRequest } = this.props;
+    const avatar = e.target.src;
+    const payload = {
+      user: {
+        id,
+        avatar
+      }
+    };
+    console.log(payload);
+    
+    updateUserRequest(payload, id);
+  }
+  
   render() {
 
     return (
@@ -86,5 +102,5 @@ AvatarSelection.defaultProps = {
   search: 'Nature'
 }
 
-export default AvatarSelection;
+export default connect(null, { updateUserRequest })(AvatarSelection);
 
