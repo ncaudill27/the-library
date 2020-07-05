@@ -31,9 +31,10 @@ end
 end
 
 Club.all.each do |c|
+  c.users << User.all.sample
   3.times do
+    Membership.create(user_id: User.all.sample.id, club_id: c.id, mod: false)
     b = Board.create(title: Faker::Book.title)
-    c.users << User.all.sample
     c.boards << b
   end
 

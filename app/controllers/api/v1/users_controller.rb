@@ -23,7 +23,7 @@
         payload = {user_id: @user.id}
         token = encode_token(payload)
 
-        render json: {user: UserSerializer.new(@user), auth_token: token, success: "Welcome #{@user.name}!"}, status: :created
+        render json: {user: serialize(@user), auth_token: token, success: "Welcome #{@user.name}!"}, status: :created
       else
         render json: {errors: @user.errors.full_messages}, status: :unprocessable_entity
       end
@@ -33,7 +33,7 @@
     def update
       if @user.update(user_params(:name, :username, :bio, :avatar, :favorite_book_isbn13))
         #TODO Add token authorization with sessionuser
-        render json: {user: UserSerializer.new(@user), success: "Useful message"}, status: :accepted
+        render json: {user: serialize(@user), success: "Useful message"}, status: :accepted
       else
         render json: @user.errors, status: :unprocessable_entity
       end
@@ -46,23 +46,15 @@
     end
 
     private
-      # Use callbacks to share common setup or constraints between actions.
-      def set_user
-        @user = User.find(params[:id])
-      end
+    # Use callbacks to share common setup or constraints between actions.
+    def set_user
+      @user = User.find(params[:id])
+    end
 
-      # Only allow a trusted parameter "white list" through.
-      def user_params(*args)
-        params.require(:user).permit(args)
-        # :name :username :email :password :password_confirmation :bio
-      end
-
-      def serialization
-        options = {
-          include: [:clubs, :memberships, :comments],
-          links: {uri: request.base_url + "/users/#{@user.id}"}
-        }
-        serialize(@user, options)
-      end
+    # Only allow a trusted parameter "white list" through.
+    def user_params(*args)
+      params.require(:user).permit(args)
+      # :name :username :email :password :password_confirmation :bio
+    end
   end
 end

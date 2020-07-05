@@ -22,7 +22,7 @@ class ClubList extends Component {
 
     clubs = currentUser ? clubs.filter(club => !userAssociatedClubIds.includes(club.id)) : clubs;
     
-    return clubs.map( ({id, name, avatar, description, memberIds}) =>
+    return clubs.map( ({id, name, avatar, description}) =>
       <Club
         key={id}
         id={id}
