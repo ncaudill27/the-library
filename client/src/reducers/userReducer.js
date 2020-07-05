@@ -7,7 +7,7 @@ const initialState = {
 
 const usersReducer = (state = initialState, action) => {
 
-  let user, users, memberships
+  let users, memberships
 
   switch(action.type) {
 

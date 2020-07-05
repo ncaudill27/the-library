@@ -29,7 +29,6 @@ class ClubList extends Component {
         avatar={avatar}
         name={name}
         description={description}
-        // members={memberIds}
         currentUser={currentUser}
       />
     );

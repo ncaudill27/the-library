@@ -48,20 +48,7 @@ const createClub = clubJSON => ({
   club: clubJSON
 });
 
-const addClubMember = (clubId, userId) => ({
-  type: "ADD_CLUB_MEMBER",
-  clubId,
-  userId
-});
-
-// const removeClubMember = ({clubId, userId}) => ({
-//   type: "REMOVE_CLUB_MEMBER",
-//   clubId,
-//   userId
-// });
-
 export {
   fetchClubs,
   postClub
-  // removeClubMember 
 };

@@ -1,10 +1,11 @@
 const initialState = {
   data: [],
   pending: false 
-}
+};
 
 const clubsReducer = (state = initialState, action) => {
-  let club, clubs, updatedMembers, updatedClub, updatedClubs
+
+  let club, clubs;
 
   switch(action.type) {
 
@@ -19,7 +20,6 @@ const clubsReducer = (state = initialState, action) => {
           description: club.attributes.description,
           avatar: club.attributes.avatar,
           activeBook: "9780545010221",
-          // memberIds: club.relationships.users.data.map(user => user.id),
           threadIds: club.relationships.boards.data.map( board => board.id ),
         };
       });
@@ -39,26 +39,10 @@ const clubsReducer = (state = initialState, action) => {
         name,
         description,
         activeBook: "9780545010221",
-        // memberIds: users.map(user => user.id),
         threadIds: []
       };
 
       return { ...state, data: state.data.concat(club), pending: false };
-
-    // case "ADD_CLUB_MEMBER":
-    //   club = state.data.find(c => c.id === action.clubId);
-    //   updatedMembers = club.memberIds.concat(action.userId);
-    //   updatedClub = {...club, memberIds: updatedMembers};
-    //   updatedClubs = state.data.map(c => c.id !== club.id ? c : updatedClub);
-      
-    //   return {...state, data: updatedClubs, pending: false};
-
-    // case "REMOVE_CLUB_MEMBER":
-    //   club = state.data.find(c => c.id === action.clubId);
-    //   updatedMembers = club.memberIds.filter(id => id !== action.userId);
-    //   updatedClub = {...club, memberIds: updatedMembers};
-    //   updatedClubs = state.data.map(c => c.id !== club.id ? c : updatedClub);
-    //   return {...state, data: updatedClubs, pending: false};
 
     default:
       return state;

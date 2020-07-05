@@ -1,5 +1,4 @@
 import { flashMessage } from './messages';
-// import { removeClubMember } from './clubs';
 
 const begin = func => func({type: "BEGIN_USERS_REQUEST"});
 const token = localStorage.getItem('token');
@@ -149,7 +148,6 @@ const memberLeaveRequest = membershipId => {
     .then(res => res.json())
     .then(response => {
       if (response.errors) return console.log(response.errors);
-      // dispatch(removeClubMember(response));
       dispatch(leaveClub(response));
     })
   };
