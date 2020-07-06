@@ -34,7 +34,7 @@ class AvatarSelection extends Component {
 
   setAvatar = e => this.setState({ avatar: e.target.value }, () => console.log(this.state));
 
-  clearPreview = () => this.setState({ preview: '', avatar: '' });
+  clearPreview = () => this.setState({ preview: '', avatar: this.props.currentUser.username });
 
   componentDidMount() {
     this.fetchSelections();

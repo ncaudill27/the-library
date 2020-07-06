@@ -4,7 +4,7 @@ import Avatar from './Avatar';
 function AvatarPreview({src, cancel, clubsCurrentUserMods, currentUser, setAvatar}) {
 
   const clubOptions = () => {
-    return clubsCurrentUserMods().map( club => <option value={club.id}>{club.name}</option> );
+    return clubsCurrentUserMods().map( club => <option key={club.id} value={club.id}>{club.name}</option> );
   }
 
   const renderSelect = () => 

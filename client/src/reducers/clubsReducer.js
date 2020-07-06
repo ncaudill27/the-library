@@ -30,7 +30,8 @@ const clubsReducer = (state = initialState, action) => {
       let {
         id,
         attributes: {
-          name, description
+          name,
+          description
         }
       } = action.club.data;
       
@@ -44,6 +45,11 @@ const clubsReducer = (state = initialState, action) => {
 
       return { ...state, data: state.data.concat(club), pending: false };
 
+      case "UPDATE_CLUB":
+        console.log(action);
+        return state;
+
+      
     default:
       return state;
   };

@@ -18,7 +18,7 @@ const addClubs = clubsJSON => ({
   clubs: clubsJSON
 });
 
-const postClub = (payload) => {
+const postClub = payload => {
   const requestObj = {
     'method': 'POST',
     'headers': {
@@ -43,10 +43,38 @@ const postClub = (payload) => {
   };
 };
 
+const patchClub = (payload, clubId) => {
+  const requestObj = {
+    'method': 'PATCH',
+    'headers': {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    'body': JSON.stringify(payload)
+  };
+
+  return dispatch => {
+    begin(dispatch);
+    fetch(`/api/v1/clubs/${clubId}`)
+    .then( res => res.json() )
+    .then( response => {
+      console.log(response);
+
+      if (response.errors) console.log(response.errors)
+    })
+  }
+}
+
 const createClub = clubJSON => ({
   type: "CREATE_CLUB",
   club: clubJSON
 });
+
+const updateClub = payload => ({
+  type: "UPDATE_CLUB",
+  club: payload
+})
 
 export {
   fetchClubs,
