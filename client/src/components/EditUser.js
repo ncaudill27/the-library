@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import AvatarSelection from '../components/AvatarSelection';
 import FormField from './FormField';
 import { connect } from 'react-redux';
 import { updateUserRequest } from '../actions/users';
@@ -54,13 +53,12 @@ class EditUser extends Component {
   
   render() {
 
-    const { currentUser, currentUser: {username}, updateUserRequest } = this.props;
+    const { currentUser, currentUser: {username} } = this.props;
 
     if (this.state.redirect) return <Redirect to={`/${username}`} />
     return (
       <div className='Edit'>
         { !!currentUser && this.state.bio !== false ? this.renderEditForm() : null }
-        
       </div>
     )
   }

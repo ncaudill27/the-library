@@ -15,7 +15,8 @@ class AvatarSelection extends Component {
     photos: [],
     page: this.props.page,
     search: this.props.search,
-    preview: ''
+    preview: '',
+    avatar: this.props.currentUser.username
   }
 
   handleChange = e => {
@@ -29,13 +30,11 @@ class AvatarSelection extends Component {
     this.fetchSelections();
   }
 
-  setPreview = e => {
-    this.setState({
-      preview: e.target.src
-    });
-  }
+  setPreview = e => this.setState({ preview: e.target.src });
 
-  clearPreview = () => this.setState({ preview: '' });
+  setAvatar = e => this.setState({ avatar: e.target.value }, () => console.log(this.state));
+
+  clearPreview = () => this.setState({ preview: '', avatar: '' });
 
   componentDidMount() {
     this.fetchSelections();
@@ -100,17 +99,42 @@ class AvatarSelection extends Component {
     </form>
   
   render() {
-    console.log(this.props.memberships, this.props.currentUser);
+    const {
+      state: {
+        preview
+      },
+      props: {
+        clubsCurrentUserMods,
+        currentUser
+      },
+      searchBar,
+      clearPreview,
+      renderSelections,
+      navigation,
+      setAvatar
+    } = this;
+    
+    console.log(this.state);
     
     return (
       <div className='Avatar-selection'>
         <h2>Choose an avatar!</h2>
-        { this.searchBar() }
-        { this.state.preview ? <AvatarPreview src={this.state.preview} cancel={this.clearPreview} /> : null}
+        { searchBar() }
+        {
+          preview
+          ? <AvatarPreview
+              src={preview}
+              cancel={clearPreview}
+              clubsCurrentUserMods={clubsCurrentUserMods}
+              currentUser={currentUser}
+              setAvatar={setAvatar}
+            />
+          : null
+        }
         <div className='photo-selection'>
-          { this.renderSelections() }
+          { renderSelections() }
         </div>
-        { this.navigation() }
+        { navigation() }
       </div>
     );
   };

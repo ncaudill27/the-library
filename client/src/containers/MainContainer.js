@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { logOutUser, memberJoinRequest } from '../actions/users';
+import { logOutUser } from '../actions/users';
 
 import WelcomeContainer from '../components/WelcomeContainer';
 import NYTimes from './NYTimes';
