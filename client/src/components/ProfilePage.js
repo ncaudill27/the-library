@@ -21,7 +21,7 @@ function ProfilePage({
         <p>{bio}</p>
       </div>
       <div className='reading'>
-        { currentlyReading ? <ClubBook isbn={currentlyReading} /> : <>loading...</> }
+        { currentlyReading && !usersPending ? <ClubBook isbn={currentlyReading} /> : <>loading...</> }
       </div>
     </div>
   );
