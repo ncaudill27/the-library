@@ -173,7 +173,6 @@ class AvatarSelection extends Component {
     return (
       <div className='Avatar-selection'>
         <h2>Choose an avatar!</h2>
-        { searchBar() }
         {
           preview
           ? <AvatarPreview
@@ -186,6 +185,7 @@ class AvatarSelection extends Component {
             />
           : null
         }
+        { searchBar() }
         <div className='photo-selection'>
           { renderSelections() }
         </div>

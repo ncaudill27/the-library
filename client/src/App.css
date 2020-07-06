@@ -428,6 +428,7 @@ img#book {
   visibility: hidden;
 }
 
+.Avatar-preview,
 .Sign-up,
 .New-user,
 .Login-form,
@@ -437,6 +438,15 @@ img#book {
   text-align: center;
   background-color: #E2C18B;
   border-radius: 10px;
+}
+
+.Avatar-preview {
+  display: flexbox;
+  align-items: center;
+}
+
+.Avatar-preview .Avatar {
+  float: none;
 }
 
 .Club-form,

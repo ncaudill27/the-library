@@ -15,7 +15,7 @@ function AvatarPreview({src, cancel, clubsCurrentUserMods, currentUser, setUpdat
   
   return (
     <div className='Avatar-preview'>
-      <h2>Hello</h2>
+      <h2>Where would you like this picture?</h2>
       <Avatar avatar={src} />
       { renderSelect() }
       <button onClick={handleUpdate}>Update</button>
