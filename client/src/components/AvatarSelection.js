@@ -107,7 +107,7 @@ class AvatarSelection extends Component {
     const {
       props: {
         clubs,
-        updateClubAvatar
+        patchClubRequest
       },
       state: {
         toUpdate,
@@ -119,12 +119,12 @@ class AvatarSelection extends Component {
     const club = clubs.find( c => c.id === toUpdate )
     const payload = {
       club: {
-        id: club.id,
+        id: parseInt(club.id, 10),
         avatar: preview
       }
     };
 
-    updateClubAvatar(payload, club.id);
+    patchClubRequest(payload, club.id);
     clearPreview();
   }
 
@@ -200,7 +200,7 @@ AvatarSelection.defaultProps = {
   search: 'Nature'
 }
 
-const mapStateToProps = ({users}) => ({memberships: users.memberships});
+const mapStateToProps = ({users, clubs}) => ({memberships: users.memberships, clubs: clubs.data});
 
 
 export default connect( mapStateToProps, { updateUserRequest, patchClubRequest } )(AvatarSelection);

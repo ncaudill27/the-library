@@ -12,7 +12,7 @@ module Api::V1
 
     # GET /clubs/1
     def show
-      render json: serialization
+      render json: serialize(@club)
     end
 
     # POST /clubs
