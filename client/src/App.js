@@ -5,7 +5,7 @@ import './App.css';
 import SidebarContainer from './containers/SideBarContainer';
 import MainContainer from './containers/MainContainer';
 
-import { fetchClubs } from './actions/clubs';
+import { getClubsRequest } from './actions/clubs';
 import { fetchUsers } from './actions/users';
 import { fetchThreads } from './actions/threads';
 import { fetchComments } from './actions/comments';
@@ -14,9 +14,9 @@ import { authorizeToken } from './actions/users';
 class App extends Component {
 
   componentDidMount() {
-    const {props: {fetchClubs, fetchUsers, fetchThreads, fetchComments, authorizeToken}} = this
+    const {props: {getClubsRequest, fetchUsers, fetchThreads, fetchComments, authorizeToken}} = this
     if (!!localStorage.getItem('token')) authorizeToken() //TODO Add await and loading animation
-    fetchClubs()
+    getClubsRequest()
     fetchUsers()
     fetchThreads()
     fetchComments()
@@ -32,4 +32,4 @@ class App extends Component {
   };
 }
 
-export default connect(null, {fetchClubs, fetchUsers, fetchThreads, fetchComments, authorizeToken })(App);
+export default connect(null, {getClubsRequest, fetchUsers, fetchThreads, fetchComments, authorizeToken })(App);

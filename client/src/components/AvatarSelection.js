@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Unsplash, { toJson } from 'unsplash-js';
 import { connect } from 'react-redux';
 import { updateUserRequest } from '../actions/users';
+import { patchClubRequest } from '../actions/clubs';
 import LeftArrow from '../return.png';
 import RightArrow from '../arrow.png';
 import Avatar from './Avatar';
@@ -16,7 +17,7 @@ class AvatarSelection extends Component {
     page: this.props.page,
     search: this.props.search,
     preview: '',
-    avatar: this.props.currentUser.username
+    toUpdate: this.props.currentUser.username
   }
 
   handleChange = e => {
@@ -32,9 +33,9 @@ class AvatarSelection extends Component {
 
   setPreview = e => this.setState({ preview: e.target.src });
 
-  setAvatar = e => this.setState({ avatar: e.target.value }, () => console.log(this.state));
+  setUpdateTarget = e => this.setState({ toUpdate: e.target.value });
 
-  clearPreview = () => this.setState({ preview: '', avatar: this.props.currentUser.username });
+  clearPreview = () => this.setState({ preview: '', toUpdate: this.props.currentUser.username });
 
   componentDidMount() {
     this.fetchSelections();
@@ -76,18 +77,55 @@ class AvatarSelection extends Component {
       <img onClick={this.nextPage} src={RightArrow} alt='next page arrow' />
     </div>;
   
-  updateUserAvatar = e => {
-    const { currentUser: {id}, updateUserRequest } = this.props;
-    const avatar = e.target.src;
+  updateUserAvatar = () => {
+    const {
+      props: {
+        currentUser: {
+          id
+        },
+        updateUserRequest
+      },
+      state: {
+        toUpdate,
+        preview
+      },
+      clearPreview
+    } = this;
+
     const payload = {
       user: {
         id,
-        avatar
+        avatar: preview
       }
     };
-    console.log(payload);
-    
+
     updateUserRequest(payload, id);
+    clearPreview();
+  }
+
+  updateClubAvatar = () => {
+    const {
+      props: {
+        clubs,
+        updateClubAvatar
+      },
+      state: {
+        toUpdate,
+        preview
+      },
+      clearPreview
+    } = this;
+
+    const club = clubs.find( c => c.id === toUpdate )
+    const payload = {
+      club: {
+        id: club.id,
+        avatar: preview
+      }
+    };
+
+    updateClubAvatar(payload, club.id);
+    clearPreview();
   }
 
   searchBar = () => 
@@ -111,7 +149,7 @@ class AvatarSelection extends Component {
       clearPreview,
       renderSelections,
       navigation,
-      setAvatar
+      setUpdateTarget
     } = this;
     
     console.log(this.state);
@@ -127,7 +165,7 @@ class AvatarSelection extends Component {
               cancel={clearPreview}
               clubsCurrentUserMods={clubsCurrentUserMods}
               currentUser={currentUser}
-              setAvatar={setAvatar}
+              setUpdateTarget={setUpdateTarget}
             />
           : null
         }
@@ -148,4 +186,4 @@ AvatarSelection.defaultProps = {
 const mapStateToProps = ({users}) => ({memberships: users.memberships});
 
 
-export default connect( mapStateToProps, { updateUserRequest } )(AvatarSelection);
+export default connect( mapStateToProps, { updateUserRequest, patchClubRequest } )(AvatarSelection);

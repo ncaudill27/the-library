@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import FormField from './FormField';
-import { postClub } from '../actions/clubs';
+import { postClubRequest } from '../actions/clubs';
 import { addClub } from '../actions/users';
 import { connect } from 'react-redux';
 
@@ -24,7 +24,7 @@ class ClubForm extends Component {
         name, description
       },
       props: {
-        postClub
+        postClubRequest
       }
     } = this;
 
@@ -35,7 +35,7 @@ class ClubForm extends Component {
       }
     };
     
-    postClub(payload);
+    postClubRequest(payload);
     this.setState({
       name: '',
       description: ''
@@ -61,4 +61,4 @@ class ClubForm extends Component {
   }
 }
 
-export default connect(null, { postClub, addClub })(ClubForm);
+export default connect(null, { postClubRequest, addClub })(ClubForm);

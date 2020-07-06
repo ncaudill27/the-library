@@ -4,7 +4,7 @@ import { flashMessage } from './messages';
 const begin = func => func({type: "BEGIN_CLUBS_REQUEST"});
 const token = localStorage.getItem('token');
 
-const fetchClubs = () => {
+const getClubsRequest = () => {
   return (dispatch) => {
     begin(dispatch);
     fetch('/api/v1/clubs')
@@ -18,7 +18,7 @@ const addClubs = clubsJSON => ({
   clubs: clubsJSON
 });
 
-const postClub = payload => {
+const postClubRequest = payload => {
   const requestObj = {
     'method': 'POST',
     'headers': {
@@ -43,7 +43,7 @@ const postClub = payload => {
   };
 };
 
-const patchClub = (payload, clubId) => {
+const patchClubRequest = (payload, clubId) => {
   const requestObj = {
     'method': 'PATCH',
     'headers': {
@@ -77,6 +77,7 @@ const updateClub = payload => ({
 })
 
 export {
-  fetchClubs,
-  postClub
+  getClubsRequest,
+  postClubRequest,
+  patchClubRequest
 };

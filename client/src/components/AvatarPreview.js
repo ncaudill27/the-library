@@ -1,14 +1,14 @@
 import React from 'react';
 import Avatar from './Avatar';
 
-function AvatarPreview({src, cancel, clubsCurrentUserMods, currentUser, setAvatar}) {
+function AvatarPreview({src, cancel, clubsCurrentUserMods, currentUser, setUpdateTarget}) {
 
   const clubOptions = () => {
     return clubsCurrentUserMods().map( club => <option key={club.id} value={club.id}>{club.name}</option> );
   }
 
   const renderSelect = () => 
-    <select name='avatar' onChange={setAvatar}>
+    <select name='avatar' onChange={setUpdateTarget}>
       <option value={currentUser.username}>{currentUser.username}</option>
       {clubOptions()}
     </select>

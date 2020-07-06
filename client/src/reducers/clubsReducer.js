@@ -47,7 +47,7 @@ const clubsReducer = (state = initialState, action) => {
 
       case "UPDATE_CLUB":
         console.log(action);
-        return state;
+        return { state, pending: false };
 
       
     default:
