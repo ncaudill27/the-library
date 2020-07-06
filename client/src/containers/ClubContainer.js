@@ -118,6 +118,7 @@ class ClubContainer extends Component {
       props: {
         clubId,
         clubs,
+        clubsPending,
         threads,
         currentUser,
         memberships
@@ -127,9 +128,11 @@ class ClubContainer extends Component {
     } = this;
 
     const club = clubs.find(club => club.id === clubId);
+    console.log(club);
+
     if (club && threads) {
       const {name, description, activeBook} = club
-      const clubThreads = club.threadIds.map(threadId => threads.filter(thread=> thread.id === threadId)).flat()
+      const clubThreads = club.threadIds.map(threadId => threads.find(thread=> thread.id === threadId))
 
       return (
         <>
@@ -138,7 +141,7 @@ class ClubContainer extends Component {
             { currentUser && memberships !== [] ? renderMembershipButton(currentUser) : null }
             <p>{description}</p>
           </div>
-          <ClubBook isbn={activeBook} mod={currentUserIsMod} />
+          { !clubsPending ? <ClubBook isbn={activeBook} /> : null }
           <ThreadList threads={clubThreads} club={club} currentUser={currentUser} mod={currentUserIsMod} />
         </>
       )

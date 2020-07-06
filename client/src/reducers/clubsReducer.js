@@ -13,13 +13,13 @@ const clubsReducer = (state = initialState, action) => {
       return { ...state, data: [...state.data], pending: true };
 
     case "ADD_CLUBS":
-      clubs = action.clubs.data.map(club => {
+      clubs = action.clubs.data.map( club => {
         return {
           id: club.id,
           name: club.attributes.name,
           description: club.attributes.description,
           avatar: club.attributes.avatar,
-          activeBook: "9780545010221",
+          activeBook: club.attributes.activeBookIsbn13,
           threadIds: club.relationships.boards.data.map( board => board.id ),
         };
       });
@@ -54,8 +54,12 @@ const clubsReducer = (state = initialState, action) => {
         club.description = action.description;
         club.activeBook = action.activeBookIsbn13;
 
+        console.log(club);
+        
         clubs = state.data.map( c => c.id !== action.id ? c : club );
-        return { state, data: clubs, pending: false };
+        console.log(clubs);
+        
+        return { ...state, data: clubs, pending: false };
 
       
     default:
