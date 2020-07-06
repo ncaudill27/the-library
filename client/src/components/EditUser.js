@@ -54,13 +54,13 @@ class EditUser extends Component {
   
   render() {
 
-    const { currentUser, currentUser: {username} } = this.props;
+    const { currentUser, currentUser: {username}, updateUserRequest } = this.props;
 
     if (this.state.redirect) return <Redirect to={`/${username}`} />
     return (
       <div className='Edit'>
         { !!currentUser && this.state.bio !== false ? this.renderEditForm() : null }
-        <AvatarSelection currentUser={currentUser} />
+        
       </div>
     )
   }

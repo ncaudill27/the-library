@@ -32,7 +32,11 @@ class AvatarSelection extends Component {
   }
 
   renderSelections = () => {
-    return this.state.photos.map( ({id, photo}) =>  <div key={id} onClick={this.updateUserAvatar}><Avatar key={id} avatar={photo} /></div> );
+    return this.state.photos.map( ({id, photo}) =>
+      <div key={id} onClick={this.updateUserAvatar}>
+        <Avatar key={id} avatar={photo} />
+      </div>
+    );
   }
   
   fetchSelections = async () => {
@@ -50,7 +54,7 @@ class AvatarSelection extends Component {
     return { page: prevState.page + 1 }
   }, this.fetchSelections);
 
-  lastPage = () => {
+  previousPage = () => {
     if (this.state.page > 1) this.setState( prevState => {
       return { page: prevState.page - 1 }
     }, this.fetchSelections)
@@ -58,7 +62,7 @@ class AvatarSelection extends Component {
 
   navigation = () => 
     <div className='navigation'>
-      <img onClick={this.lastPage} src={LeftArrow} alt='previous page arrow' />
+      <img onClick={this.previousPage} src={LeftArrow} alt='previous page arrow' />
       <h2>{this.state.page}</h2>
       <img onClick={this.nextPage} src={RightArrow} alt='next page arrow' />
     </div>;
@@ -78,7 +82,8 @@ class AvatarSelection extends Component {
   }
   
   render() {
-
+    console.log(this.props.memberships, this.props.currentUser);
+    
     return (
       <div className='Avatar-selection'>
         <h2>Choose an avatar!</h2>
@@ -93,8 +98,8 @@ class AvatarSelection extends Component {
         </div>
         { this.navigation() }
       </div>
-    )
-  }
+    );
+  };
 }
 
 AvatarSelection.defaultProps = {
@@ -102,5 +107,7 @@ AvatarSelection.defaultProps = {
   search: 'Nature'
 }
 
-export default connect(null, { updateUserRequest })(AvatarSelection);
+const mapStateToProps = ({users}) => ({memberships: users.memberships});
 
+
+export default connect( mapStateToProps, { updateUserRequest } )(AvatarSelection);
