@@ -5,6 +5,7 @@ import { updateUserRequest } from '../actions/users';
 import LeftArrow from '../return.png';
 import RightArrow from '../arrow.png';
 import Avatar from './Avatar';
+import AvatarPreview from './AvatarPreview';
 
 class AvatarSelection extends Component {
 
@@ -13,7 +14,8 @@ class AvatarSelection extends Component {
   state = {
     photos: [],
     page: this.props.page,
-    search: this.props.search
+    search: this.props.search,
+    preview: ''
   }
 
   handleChange = e => {
@@ -27,13 +29,21 @@ class AvatarSelection extends Component {
     this.fetchSelections();
   }
 
+  setPreview = e => {
+    this.setState({
+      preview: e.target.src
+    });
+  }
+
+  clearPreview = () => this.setState({ preview: '' });
+
   componentDidMount() {
     this.fetchSelections();
   }
 
   renderSelections = () => {
     return this.state.photos.map( ({id, photo}) =>
-      <div key={id} onClick={this.updateUserAvatar}>
+      <div key={id} onClick={this.setPreview}>
         <Avatar key={id} avatar={photo} />
       </div>
     );
@@ -80,6 +90,14 @@ class AvatarSelection extends Component {
     
     updateUserRequest(payload, id);
   }
+
+  searchBar = () => 
+    <form onSubmit={this.handleSearch}>
+      <label>Category
+      <input type='text' name='search' value={this.state.search} onChange={this.handleChange} />
+      </label>
+      <input type='submit' value='Search' />
+    </form>
   
   render() {
     console.log(this.props.memberships, this.props.currentUser);
@@ -87,12 +105,8 @@ class AvatarSelection extends Component {
     return (
       <div className='Avatar-selection'>
         <h2>Choose an avatar!</h2>
-        <form onSubmit={this.handleSearch}>
-          <label>Category
-          <input type='text' name='search' value={this.state.search} onChange={this.handleChange} />
-          </label>
-          <input type='submit' value='Search' />
-        </form>
+        { this.searchBar() }
+        { this.state.preview ? <AvatarPreview src={this.state.preview} cancel={this.clearPreview} /> : null}
         <div className='photo-selection'>
           { this.renderSelections() }
         </div>
