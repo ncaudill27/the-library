@@ -56,7 +56,7 @@ class NYTimes extends Component {
               {this.selectOptions()}
             </select>
           </div>
-          <BookList books={this.state.books} />
+          <BookList books={this.state.books} clubsCurrentUserMods={this.props.clubsCurrentUserMods} />
         </div>
       </div>
     )

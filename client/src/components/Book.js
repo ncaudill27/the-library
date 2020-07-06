@@ -4,34 +4,40 @@ import { connect } from 'react-redux';
 import { updateUserRequest } from '../actions/users';
 import BookShow from './BookShow';
 
-function Book({title, author, description, src, isbn13, currentUser, updateUserRequest}) {
+function Book({title, author, description, src, isbn13, currentUser, updateUserRequest, clubsCurrentUserMods}) {
 
   const [showing, showingSet] = useState(false);
-  const show = () => showingSet(true);
-  const hide = () => showingSet(false);
+  const toggleShowing = () => showingSet(!showing);
   
-  const renderCurrentlyReadingButton = () => {
-    return <NavLink to={`/${currentUser.username}`} exact className='Navlink'
-    onClick={() => updateUserRequest({favorite_book_isbn13: isbn13}, currentUser.id)}
-      ><h3>Make favorite</h3></NavLink>
-  };
+  const renderCurrentlyReadingButton = () => <>
+    <h3>Mark as currently reading for: {select()}</h3><button onClick={() => updateUserRequest({favorite_book_isbn13: isbn13}, currentUser.id)}>Set</button>
+  </>;
+
+  const select = () =>
+    <select name='isbn'>
+      <option value={currentUser.username}>{currentUser.username}</option>
+      { clubOptions() }
+    </select>
+
+  const clubOptions = () => {
+    return clubsCurrentUserMods().map( club => <option key={club.id} value={club.id}>{club.name}</option> );
+  }
   
-  const listBook = () => (
+  const listBook = () =>
     <div className='Book'>
       <img src={src} alt={title + " Cover Picture"} />
       <div className='details'>
-        <h3 onClick={show} className='Navlink'>{title}</h3>
+        <h3 onClick={toggleShowing} className='Navlink'>{title}</h3>
         <h3>By: {author}</h3>
         <p>{description}</p>
       </div>
       <div className='buttons'>
         {currentUser ? renderCurrentlyReadingButton() : null}
       </div>
-    </div>
-  )
+    </div>;
   
   return (
-    showing ? <BookShow isbn={isbn13} hide={hide} /> : listBook()
+    showing ? <BookShow isbn={isbn13} hide={toggleShowing} /> : listBook()
   );
 }
 

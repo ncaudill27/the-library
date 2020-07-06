@@ -58,7 +58,7 @@ class MainContainer extends Component {
             : null
           }
 
-          <Route exact path='/bestsellers' component={NYTimes} />
+          <Route exact path='/bestsellers' render={ () => <NYTimes clubsCurrentUserMods={this.clubsCurrentUserMods} /> } />
 
           {
             currentUser

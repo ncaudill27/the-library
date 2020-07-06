@@ -15,6 +15,7 @@ class BookList extends Component {
         amazonUrl={book.amazon_product_url}
         isbn10={book.primary_isbn10}
         isbn13={book.primary_isbn13}
+        clubsCurrentUserMods={this.props.clubsCurrentUserMods}
       />
     );
   }

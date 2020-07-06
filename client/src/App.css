@@ -288,6 +288,7 @@ div.Thread-list > div > div {
   float: right;
   border-radius: 10px;
   color: white;
+  background-color: black;
   font-size: xx-small;
 }
 
