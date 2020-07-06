@@ -2,19 +2,29 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { updateUserRequest } from '../actions/users';
+import { patchClubRequest } from '../actions/clubs';
 import BookShow from './BookShow';
 
-function Book({title, author, description, src, isbn13, currentUser, updateUserRequest, clubsCurrentUserMods}) {
+function Book({title, author, description, src, isbn13, currentUser, updateUserRequest, patchClubRequest, clubsCurrentUserMods}) {
 
   const [showing, showingSet] = useState(false);
   const toggleShowing = () => showingSet(!showing);
+
+  const [updateTarget, updateTargetSet] = useState(currentUser.username);
+  const setUpdateTarget = e => updateTargetSet(e.target.value);
   
   const renderCurrentlyReadingButton = () => <>
-    <h3>Mark as currently reading for: {select()}</h3><button onClick={() => updateUserRequest({favorite_book_isbn13: isbn13}, currentUser.id)}>Set</button>
+    <h3>Mark as currently reading for: {select()}
+    <NavLink
+      to={linkDestination}
+      onClick={handleUpdate}
+      className='Navlink'
+    >Set</NavLink>
+    </h3>
   </>;
 
   const select = () =>
-    <select name='isbn'>
+    <select name='isbn' onChange={setUpdateTarget}>
       <option value={currentUser.username}>{currentUser.username}</option>
       { clubOptions() }
     </select>
@@ -22,7 +32,39 @@ function Book({title, author, description, src, isbn13, currentUser, updateUserR
   const clubOptions = () => {
     return clubsCurrentUserMods().map( club => <option key={club.id} value={club.id}>{club.name}</option> );
   }
-  
+
+  const linkDestination = () => {
+    return updateTarget === currentUser.username
+    ? `/${updateTarget}`
+    : `/clubs/${updateTarget}`
+  }
+
+  const handleUpdate = () => {
+    updateTarget === currentUser.username
+    ? userUpdate()
+    : clubUpdate();
+  }
+
+  const userUpdate = () => {
+    const payload = {
+      user: {
+        favorite_book_isbn13: isbn13
+      }
+    };
+
+    updateUserRequest(payload, currentUser.id);
+  }
+
+  const clubUpdate = () => {
+    const payload = {
+      club: {
+        active_book_isbn13: isbn13
+      }
+    };
+
+    patchClubRequest(payload, updateTarget);
+  }
+
   const listBook = () =>
     <div className='Book'>
       <img src={src} alt={title + " Cover Picture"} />
@@ -53,4 +95,4 @@ const mapStateToProps = ({users}) => ({
 });
 
 
-export default connect(mapStateToProps, { updateUserRequest })(Book);
+export default connect(mapStateToProps, { updateUserRequest, patchClubRequest })(Book);
