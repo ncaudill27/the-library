@@ -63,6 +63,7 @@ input[type=submit] {
 
 button {
   margin: 1px;
+  cursor: pointer;
 }
 
 textarea {

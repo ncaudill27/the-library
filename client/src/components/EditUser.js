@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, NavLink } from 'react-router-dom';
 import FormField from './FormField';
 import { connect } from 'react-redux';
 import { updateUserRequest } from '../actions/users';
@@ -58,6 +58,9 @@ class EditUser extends Component {
     if (this.state.redirect) return <Redirect to={`/${username}`} />
     return (
       <div className='Edit'>
+        <NavLink to='/avatar-selection' exact className='Navlink'>
+          Choose New Avatar
+        </NavLink>
         { !!currentUser && this.state.bio !== false ? this.renderEditForm() : null }
       </div>
     )

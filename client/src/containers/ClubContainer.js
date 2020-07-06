@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { memberJoinRequest, memberLeaveRequest } from '../actions/users';
 import ThreadList from '../components/ThreadList';
 import ClubBook from '../components/ClubBook';
+import { NavLink } from 'react-router-dom';
 
 class ClubContainer extends Component {
 
@@ -82,6 +83,10 @@ class ClubContainer extends Component {
     if ( this.currentUserIsMod() ) {
     return  <div onClick={this.toggleModding} className='mod'>
               <button onClick={this.toggleMembers}>Current Members</button>
+              <br />
+              <button><NavLink to='/avatar-selection' exact>
+                Choose New Avatar
+              </NavLink></button>
             </div>;
     };
   }
