@@ -33,7 +33,7 @@ class AvatarSelection extends Component {
 
   setPreview = e => this.setState({ preview: e.target.src });
 
-  setUpdateTarget = e => this.setState({ toUpdate: e.target.value });
+  setUpdateTarget = e => this.setState({ toUpdate: e.target.value }, ()=> console.log(typeof this.state.toUpdate));
 
   clearPreview = () => this.setState({ preview: '', toUpdate: this.props.currentUser.username });
 
@@ -128,6 +128,23 @@ class AvatarSelection extends Component {
     clearPreview();
   }
 
+  handleUpdate = () => {
+    const {
+      props: {
+        currentUser: {
+          username
+        }
+      },
+      state: {
+        toUpdate
+      },
+      updateClubAvatar,
+      updateUserAvatar 
+    } = this;
+
+    toUpdate === username ? updateUserAvatar() : updateClubAvatar();
+  }
+
   searchBar = () => 
     <form onSubmit={this.handleSearch}>
       <label>Category
@@ -149,10 +166,9 @@ class AvatarSelection extends Component {
       clearPreview,
       renderSelections,
       navigation,
-      setUpdateTarget
+      setUpdateTarget,
+      handleUpdate
     } = this;
-    
-    console.log(this.state);
     
     return (
       <div className='Avatar-selection'>
@@ -166,6 +182,7 @@ class AvatarSelection extends Component {
               clubsCurrentUserMods={clubsCurrentUserMods}
               currentUser={currentUser}
               setUpdateTarget={setUpdateTarget}
+              handleUpdate={handleUpdate}
             />
           : null
         }

@@ -1,7 +1,7 @@
 import React from 'react';
 import Avatar from './Avatar';
 
-function AvatarPreview({src, cancel, clubsCurrentUserMods, currentUser, setUpdateTarget}) {
+function AvatarPreview({src, cancel, clubsCurrentUserMods, currentUser, setUpdateTarget, handleUpdate}) {
 
   const clubOptions = () => {
     return clubsCurrentUserMods().map( club => <option key={club.id} value={club.id}>{club.name}</option> );
@@ -18,6 +18,7 @@ function AvatarPreview({src, cancel, clubsCurrentUserMods, currentUser, setUpdat
       <h2>Hello</h2>
       <Avatar avatar={src} />
       { renderSelect() }
+      <button onClick={handleUpdate}>Update</button>
       <button onClick={cancel}>Cancel</button>
     </div>
   );
