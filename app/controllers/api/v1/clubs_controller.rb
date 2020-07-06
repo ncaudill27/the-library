@@ -17,7 +17,7 @@ module Api::V1
 
     # POST /clubs
     def create
-      @club = Club.new(club_params(:name, :description, :user_id))
+      @club = Club.new(club_params)
       
       if @club.save
         @membership = Membership.new(club_id: @club.id, user_id: session_user.id, mod: true)
@@ -63,8 +63,8 @@ module Api::V1
     end
 
     # Only allow a trusted parameter "white list" through.
-    def club_params(*args)
-      params.require(:club).permit(args)
+    def club_params
+      params.require(:club).permit(:name, :description, :avatar, :active_book_isbn13)
     end
   end
 end

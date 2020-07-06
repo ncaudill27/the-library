@@ -119,7 +119,7 @@ class AvatarSelection extends Component {
     const club = clubs.find( c => c.id === toUpdate )
     const payload = {
       club: {
-        id: parseInt(club.id, 10),
+        id: club.id,
         avatar: preview
       }
     };

@@ -46,8 +46,16 @@ const clubsReducer = (state = initialState, action) => {
       return { ...state, data: state.data.concat(club), pending: false };
 
       case "UPDATE_CLUB":
-        console.log(action);
-        return { state, pending: false };
+        console.log(action.avatar);
+        
+        club = state.data.find( c => c.id === action.id );
+        club.name = action.name;
+        club.avatar = action.avatar;
+        club.description = action.description;
+        club.activeBook = action.activeBookIsbn13;
+
+        clubs = state.data.map( c => c.id !== action.id ? c : club );
+        return { state, data: clubs, pending: false };
 
       
     default:

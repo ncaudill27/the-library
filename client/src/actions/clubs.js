@@ -56,12 +56,11 @@ const patchClubRequest = (payload, clubId) => {
 
   return dispatch => {
     begin(dispatch);
-    fetch(`/api/v1/clubs/${clubId}`)
+    fetch(`/api/v1/clubs/${clubId}`, requestObj)
     .then( res => res.json() )
     .then( response => {
-      console.log(response);
-
-      if (response.errors) console.log(response.errors)
+      if (response.error) console.log(response.error);
+      dispatch(updateClub(response.data))
     })
   }
 }
@@ -71,9 +70,13 @@ const createClub = clubJSON => ({
   club: clubJSON
 });
 
-const updateClub = payload => ({
+const updateClub = ({id, attributes: {name, description, avatar, activeBookIsbn13}}) => ({
   type: "UPDATE_CLUB",
-  club: payload
+  id,
+  name,
+  description,
+  avatar,
+  activeBookIsbn13
 })
 
 export {

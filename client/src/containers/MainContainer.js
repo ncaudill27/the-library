@@ -28,7 +28,6 @@ class MainContainer extends Component {
       message,
       memberships
     } = this.props;
-    if (currentUser && memberships.length ) console.log(this.clubsCurrentUserMods());
 
     return (
       <main>
