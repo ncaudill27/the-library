@@ -22,10 +22,9 @@ class ClubContainer extends Component {
   // }
 
   fetchBookInfo = () => {
-    const { clubId, clubs } = this.props;
-    const {activeBook} = clubs.find( c => c.id === clubId );
+    const { activeBook } = this.props;
+    const key = process.env.REACT_APP_GOOGLE_BOOKS_KEY;
 
-    const key = `${process.env.REACT_APP_GOOGLE_BOOKS_KEY}`
     fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${activeBook}&key=${key}`)
     .then( res => res.json() )
     .then( data => {
@@ -50,7 +49,17 @@ class ClubContainer extends Component {
     this.toggleModding();
     this.toggleMembers();
   }
+  
+  handleJoin = () => {
+    const { id, memberJoinRequest} = this.props;
+    const payload = {
+      membership: {
+        club_id: id
+      }
+    };
 
+    memberJoinRequest(payload);
+  }
   // currentUserIsMod = () => {
   //   const { currentUser, clubId, memberships } = this.props;
   //   const thisMembership = memberships.find( m => m.userId === currentUser.id && m.clubId === clubId ) ?? false;
@@ -58,31 +67,22 @@ class ClubContainer extends Component {
   //   return thisMembership.isMod
   // }
   
-  currentUserIsMember = () => {
-    const {currentUser, clubId, memberships } = this.props;
-    const thisMembership = memberships.find( m => m.userId === currentUser.id && m.clubId === clubId );
+  // currentUserIsMember = () => {
+  //   const {currentUser, clubId, memberships } = this.props;
+  //   const thisMembership = memberships.find( m => m.userId === currentUser.id && m.clubId === clubId );
 
-    return !!thisMembership;
-  }
+  //   return !!thisMembership;
+  // }
 
-  handleJoin = () => {
-    const {clubId, memberJoinRequest} = this.props;
-    const payload = {
-      membership: {
-        club_id: clubId
-      }
-    };
 
-    memberJoinRequest(payload);
-  }
-
-  handleLeave = member => {
+  handleLeave = () => {
     const {
       closeMembers,
       props: {
-        clubId,
+        id,
         memberLeaveRequest,
-        memberships
+        currentUser,
+        findMembershipId
       },
       state: {
         modding,
@@ -90,19 +90,18 @@ class ClubContainer extends Component {
       }
     } = this;
 
-    const thisMembership = memberships.find( m => m.userId === member.id && m.clubId === clubId );
-
-    memberLeaveRequest(thisMembership.id);
+    const membershipId = findMembershipId({clubId: id, userId: currentUser.id});
+    memberLeaveRequest(membershipId);
     if (modding && members) closeMembers();
   }
 
-  renderMembershipButton = currentUser => 
-    this.currentUserIsMember()
-    ? <h3 id='leave' onClick={ () => this.handleLeave(currentUser) }>Leave Club</h3>
+  renderMembershipButton = () => 
+    this.props.currentUserIsMember
+    ? <h3 id='leave' onClick={this.handleLeave}>Leave Club</h3>
     : <h3 id='join' onClick={this.handleJoin}>Join Club</h3>;
 
   renderModOptions = () => {
-    if ( this.currentUserIsMod() ) {
+    if ( this.props.currentUserIsMod ) {
     return  <div onClick={this.toggleModding} className='mod'>
               <button onClick={this.toggleMembers}>Current Members</button>
               <br />
@@ -114,17 +113,12 @@ class ClubContainer extends Component {
   }
 
   renderCurrentMembers = () => {
-    let { users, clubId, memberships } = this.props;
-    const clubMemberships = memberships.filter( m => m.clubId === clubId );
+    let { members } = this.props;
 
-    users = clubMemberships.map( m => {
-      return users.find( u => u.id === m.userId );
-    });
-
-    const members = users.map( member => {
+    members = members.map( member => {
       return <div key={member.id} className='member'>
         <p key={member.name}>{member.username}</p>
-        <button key={member.username} onClick={() => this.handleLeave(member)}>remove</button>
+        <button key={member.username} onClick={this.handleLeave}>remove</button>
       </div>
     });
     
@@ -151,16 +145,8 @@ class ClubContainer extends Component {
 
     const {name, description, activeBook} = club
     const clubThreads = club.threadIds.map( threadId => threads.find(thread=> thread.id === threadId) )
-    let {title, authors, averageRating, imageLinks} = book;
     return (
       <>
-        <div className='Club-details'>
-          <h1>{name}</h1>
-          { currentUser ? renderMembershipButton(currentUser) : null }
-          <p>{description}</p>
-        </div>
-        { !clubsPending && book ? <ClubBook title={title} authors={authors} averageRating={averageRating} imageLinks={imageLinks} /> : null }
-        <ThreadList threads={clubThreads} club={club} currentUser={currentUser} mod={currentUserIsMod} />
       </>
     )
   }
@@ -168,26 +154,35 @@ class ClubContainer extends Component {
   render() {
     const {
       props: {
-        clubId,
-        clubs,
+        name,
+        description,
+        currentUserIsMod,
+        currentUser,
         clubsPending,
         userPending,
-        threadsPending,
+        threads,
         memberships
       },
       state: {
         book
-      }
+      },
+      renderMembershipButton
     } = this;
 
     console.log(this.props);
-
-    // if (!clubsPending) club = clubs.find(club => club.id === clubId);
+    let {title, authors, averageRating, imageLinks} = book;
     
     return (
       <div className='Club-container'>
-          {/* { memberships.length ? this.renderModOptions() : null }
-          {
+          { currentUserIsMod ? this.renderModOptions() : null }
+          <div className='Club-details'>
+          <h1>{name}</h1>
+          { currentUser ? renderMembershipButton() : null }
+          <p>{description}</p>
+        </div>
+        { book ? <ClubBook title={title} authors={authors} averageRating={averageRating} imageLinks={imageLinks} /> : null }
+        <ThreadList threads={threads} currentUser={currentUser} mod={currentUserIsMod} />
+          {/* {
             this.state.members
             ? this.renderCurrentMembers()
             : !clubsPending && !threadsPending && !userPending && memberships.length && club
@@ -201,10 +196,10 @@ class ClubContainer extends Component {
 
 const mapStateToProps = ({clubs, threads, users}) => ({
   // clubs: clubs.data,
-  threadsPending: threads.pending,
-  users: users.data,
-  memberships: users.memberships,
-  userPending: users.pending
+  // threadsPending: threads.pending,
+  // users: users.data,
+  // memberships: users.memberships,
+  // userPending: users.pending
 });
 
 export default connect(mapStateToProps, { memberJoinRequest, memberLeaveRequest })(ClubContainer);

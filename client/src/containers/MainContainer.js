@@ -35,15 +35,20 @@ class MainContainer extends Component {
     return clubMemberships.map( m => users.find( u => u.id === m.userId ) );
   }
 
+  findMembershipId = ({clubId, userId}) => {
+    const { memberships } = this.props;
+    return memberships.find( m => m.userId === userId && m.clubId === clubId ).id;
+  }
+
   reifyClubById = clubId => {
     const { clubs, clubsPending } = this.props;
     
     if ( !clubsPending ) {
       const club = clubs.find( c => c.id === clubId );
+      club.members = this.clubsMembers(club.id);
       club.threads = club.threadIds.map( threadId => this.props.threads.find( t => t.id === threadId ) );
       club.currentUserIsMod = this.clubsCurrentUserMods().includes(club);
       club.currentUserIsMember = this.clubsCurrentUserisMember().includes(club);
-      club.members = this.clubsMembers(club.id);
       return club
     };
   }
@@ -84,7 +89,7 @@ class MainContainer extends Component {
             currentUser && memberships.length
             ? <Route exact path='/clubs/:id' render={ ({match}) => {
               const club = this.reifyClubById(match.params.id);
-              return <ClubContainer {...club} currentUser={currentUser} />
+              return <ClubContainer {...club} currentUser={currentUser} findMembershipId={this.findMembershipId} />
             }
               } />
             : null
@@ -110,6 +115,7 @@ const mapStateToProps = ({clubs, users, threads, messages}) => ({
     clubs: clubs.data,
     clubsPending: clubs.pending,
     threads: threads.data,
+    threadsPending: threads.pending,
     users: users.data,
     usersPending: users.pending,
     currentUser: users.currentUser,
