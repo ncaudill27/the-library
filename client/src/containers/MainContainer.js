@@ -36,7 +36,7 @@ class MainContainer extends Component {
 
         <Switch>
 
-          { currentUser ? <Route exact path='/' render={ () => <WelcomeContainer currentUser={currentUser} /> } /> : null }
+          <Route exact path='/' render={ () => <WelcomeContainer currentUser={currentUser} /> } />
 
           {
             currentUser && memberships.length

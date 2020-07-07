@@ -113,50 +113,60 @@ class ClubContainer extends Component {
   }
   
 
-  renderClub = () => {
-    const {
+  renderClub = club => {
+    const { 
       props: {
-        clubId,
-        clubs,
-        clubsPending,
         threads,
-        currentUser,
-        memberships
+        currentUser 
       },
       renderMembershipButton,
       currentUserIsMod
     } = this;
 
-    const club = clubs.find(club => club.id === clubId);
-    console.log(club);
+    const {name, description, activeBook} = club
+    const clubThreads = club.threadIds.map( threadId => threads.find(thread=> thread.id === threadId) )
 
-    if (club && threads) {
-      const {name, description, activeBook} = club
-      const clubThreads = club.threadIds.map(threadId => threads.find(thread=> thread.id === threadId))
-
-      return (
-        <>
-          <div className='Club-details'>
-            <h1>{name}</h1>
-            { currentUser && memberships !== [] ? renderMembershipButton(currentUser) : null }
-            <p>{description}</p>
-          </div>
-          { !clubsPending ? <ClubBook isbn={activeBook} /> : null }
-          <ThreadList threads={clubThreads} club={club} currentUser={currentUser} mod={currentUserIsMod} />
-        </>
-      )
-    }
+    return (
+      <>
+        <div className='Club-details'>
+          <h1>{name}</h1>
+          { currentUser ? renderMembershipButton(currentUser) : null }
+          <p>{description}</p>
+        </div>
+        <ClubBook club={club.id} isbn={activeBook} />
+        <ThreadList threads={clubThreads} club={club} currentUser={currentUser} mod={currentUserIsMod} />
+      </>
+    )
   }
 
   render() {
-    const { memberships } = this.props;
+    const {
+      props: {
+        clubId,
+        clubs,
+        clubsPending,
+        userPending,
+        threadsPending,
+        memberships
+      }
+    } = this;
+
+    let club;
+
+    if (!clubsPending) club = clubs.find(club => club.id === clubId);
     
     return (
       <div className='Club-container'>
           { memberships.length ? this.renderModOptions() : null }
-          { this.state.members ? this.renderCurrentMembers() : this.renderClub() }
+          {
+            this.state.members
+            ? this.renderCurrentMembers()
+            : !clubsPending && !threadsPending && !userPending && memberships.length && club
+              ? this.renderClub(club)
+              : null
+          }
       </div>
-    )
+    );
   }
 }
 
@@ -167,7 +177,8 @@ const mapStateToProps = ({clubs, threads, users}) => ({
   threadsPending: threads.pending,
   currentUser: users.currentUser,
   users: users.data,
-  memberships: users.memberships
+  memberships: users.memberships,
+  userPending: users.pending
 });
 
 export default connect(mapStateToProps, { memberJoinRequest, memberLeaveRequest })(ClubContainer);
