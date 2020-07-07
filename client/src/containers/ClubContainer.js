@@ -13,13 +13,13 @@ class ClubContainer extends Component {
     book: false
   }
 
-  componentDidMount() {
-    this.fetchBookInfo();
-  }
+  // componentDidMount() {
+  //   this.fetchBookInfo();
+  // }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.clubId !== this.props.clubId) this.setState({book: false}, this.fetchBookInfo);;
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.clubId !== this.props.clubId) this.setState({book: false}, this.fetchBookInfo);;
+  // }
 
   fetchBookInfo = () => {
     const { clubId, clubs } = this.props;
@@ -51,12 +51,12 @@ class ClubContainer extends Component {
     this.toggleMembers();
   }
 
-  currentUserIsMod = () => {
-    const { currentUser, clubId, memberships } = this.props;
-    const thisMembership = memberships.find( m => m.userId === currentUser.id && m.clubId === clubId ) ?? false;
+  // currentUserIsMod = () => {
+  //   const { currentUser, clubId, memberships } = this.props;
+  //   const thisMembership = memberships.find( m => m.userId === currentUser.id && m.clubId === clubId ) ?? false;
 
-    return thisMembership.isMod
-  }
+  //   return thisMembership.isMod
+  // }
   
   currentUserIsMember = () => {
     const {currentUser, clubId, memberships } = this.props;
@@ -180,31 +180,28 @@ class ClubContainer extends Component {
       }
     } = this;
 
-    let club;
+    console.log(this.props);
 
-    if (!clubsPending) club = clubs.find(club => club.id === clubId);
+    // if (!clubsPending) club = clubs.find(club => club.id === clubId);
     
     return (
       <div className='Club-container'>
-          { memberships.length ? this.renderModOptions() : null }
+          {/* { memberships.length ? this.renderModOptions() : null }
           {
             this.state.members
             ? this.renderCurrentMembers()
             : !clubsPending && !threadsPending && !userPending && memberships.length && club
               ? this.renderClub(club)
               : null
-          }
+          } */}
       </div>
     );
   }
 }
 
 const mapStateToProps = ({clubs, threads, users}) => ({
-  clubs: clubs.data,
-  clubsPending: clubs.pending,
-  threads: threads.data,
+  // clubs: clubs.data,
   threadsPending: threads.pending,
-  currentUser: users.currentUser,
   users: users.data,
   memberships: users.memberships,
   userPending: users.pending

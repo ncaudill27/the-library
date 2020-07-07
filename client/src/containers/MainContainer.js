@@ -15,11 +15,41 @@ import AvatarSelection from '../components/AvatarSelection';
 
 class MainContainer extends Component {
 
+  clubsCurrentUserisMember = () => {
+    let { currentUser, memberships, clubs } = this.props;
+    const membershipAssociations = memberships.filter( m => m.userId === currentUser.id );
+    clubs = membershipAssociations.map( ({clubId}) => clubs.find( c => c.id === clubId ) );
+    return clubs;
+  }
   clubsCurrentUserMods = () => {
     let { currentUser, memberships, clubs } = this.props;
     const modAssociations = memberships.filter( m => m.userId === currentUser.id && m.isMod );
     clubs = modAssociations.map( ({clubId}) => clubs.find( c => c.id === clubId ) );
     return clubs;
+  }
+
+  clubsMembers = clubId => {
+    const { memberships, users } = this.props;
+    const clubMemberships = memberships.filter( m => m.clubId === clubId );
+
+    return clubMemberships.map( m => users.find( u => u.id === m.userId ) );
+  }
+
+  reifyClubById = clubId => {
+    const { clubs, clubsPending } = this.props;
+    
+    if ( !clubsPending ) {
+      const club = clubs.find( c => c.id === clubId );
+      club.threads = club.threadIds.map( threadId => this.props.threads.find( t => t.id === threadId ) );
+      club.currentUserIsMod = this.clubsCurrentUserMods().includes(club);
+      club.currentUserIsMember = this.clubsCurrentUserisMember().includes(club);
+      club.members = this.clubsMembers(club.id);
+      return club
+    };
+  }
+
+  findThreadsByClub = club => {
+    return 
   }
   
   render() {
@@ -52,8 +82,10 @@ class MainContainer extends Component {
 
           {
             currentUser && memberships.length
-            ? <Route exact path='/clubs/:id' render={ ({match}) =>
-                <ClubContainer clubId={match.params.id} currentUser={currentUser} />
+            ? <Route exact path='/clubs/:id' render={ ({match}) => {
+              const club = this.reifyClubById(match.params.id);
+              return <ClubContainer {...club} currentUser={currentUser} />
+            }
               } />
             : null
           }
@@ -73,13 +105,15 @@ class MainContainer extends Component {
   };
 }
 
-const mapStateToProps = ({clubs, users, messages}) => {
-  return {
+const mapStateToProps = ({clubs, users, threads, messages}) => ({
     message: messages.message,
     clubs: clubs.data,
+    clubsPending: clubs.pending,
+    threads: threads.data,
+    users: users.data,
+    usersPending: users.pending,
     currentUser: users.currentUser,
     memberships: users.memberships
-  }
-}
+});
 
 export default connect(mapStateToProps, { logOutUser })(MainContainer);
