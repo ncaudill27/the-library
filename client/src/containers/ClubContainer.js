@@ -17,6 +17,10 @@ class ClubContainer extends Component {
     this.fetchBookInfo();
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.clubId !== this.props.clubId) this.setState({book: false}, this.fetchBookInfo);;
+  }
+
   fetchBookInfo = () => {
     const { clubId, clubs } = this.props;
     const {activeBook} = clubs.find( c => c.id === clubId );
@@ -31,13 +35,13 @@ class ClubContainer extends Component {
   }
   
   toggleModding = () => {
-    this.setState(prevState => ({
+    this.setState( prevState => ({
       modding: !prevState.modding
     }));
   }
 
   toggleMembers = () => {
-    this.setState(prevState => ({
+    this.setState( prevState => ({
       members: !prevState.members
     }));
   }
@@ -135,7 +139,8 @@ class ClubContainer extends Component {
     const { 
       props: {
         threads,
-        currentUser 
+        currentUser,
+        clubsPending
       },
       state: {
         book
@@ -154,7 +159,7 @@ class ClubContainer extends Component {
           { currentUser ? renderMembershipButton(currentUser) : null }
           <p>{description}</p>
         </div>
-        { book ? <ClubBook title={title} authors={authors} averageRating={averageRating} imageLinks={imageLinks} /> : null }
+        { !clubsPending && book ? <ClubBook title={title} authors={authors} averageRating={averageRating} imageLinks={imageLinks} /> : null }
         <ThreadList threads={clubThreads} club={club} currentUser={currentUser} mod={currentUserIsMod} />
       </>
     )

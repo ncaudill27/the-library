@@ -2,7 +2,7 @@ import React from 'react';
 import Avatar from './Avatar';
 import { NavLink } from 'react-router-dom';
 
-const Club = ({id, avatar, name, description, members}) => 
+const Club = ({id, avatar, name, description}) => 
   <NavLink to={`/clubs/${id}`} exact className='Navlink'>
     <div className='Club'>
       <Avatar avatar={avatar} showing={name} />
