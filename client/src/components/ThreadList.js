@@ -3,32 +3,31 @@ import { connect } from 'react-redux';
 import ThreadShow from './ThreadShow';
 import ThreadForm from './ThreadForm';
 
-function ThreadList({threads, club: {id: clubId}, comments, currentUser, mod}) {
+function ThreadList({threads, clubId, comments, currentUser, currentUserIsMod}) {
 
+  const findThreadsComment = threadId => comments.filter(comment => threadId === comment.threadId);
+  
   const renderThreads = () => {
-    threads = threads.filter(t => t.clubId === clubId);
     return threads.map(thread => {
       const {id: threadId, title} = thread;
-      const threadComments = comments.filter(comment => threadId === comment.threadId);
+      const threadComments = findThreadsComment(threadId);
 
-      return <ThreadShow key={threadId} title ={title} threadId={threadId} comments={threadComments} currentUser={currentUser} mod={mod} />;
+      return <ThreadShow key={threadId} title ={title} threadId={threadId} comments={threadComments} currentUser={currentUser} currentUserIsMod={currentUserIsMod} />;
     });
   };
 
   return (
     <div className='Thread-list'>
       <h2>Threads</h2>
-      { mod() ? <ThreadForm  clubId={clubId} currentUserId={currentUser.id} /> : null }
+      { currentUserIsMod ? <ThreadForm clubId={clubId} currentUserId={currentUser.id} /> : null }
       {renderThreads()}
     </div>
   );
 }
 
-const mapStateToProps = ({comments, threads}) => ({
+const mapStateToProps = ({comments}) => ({
   comments: comments.data,
-  commentsPending: comments.pending,
-  threads: threads.data,
-  threadsPending: threads.pending
+  commentsPending: comments.pending
 });
 
 export default connect(mapStateToProps)(ThreadList);
