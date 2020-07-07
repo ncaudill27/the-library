@@ -3,7 +3,7 @@ import Avatar from './Avatar';
 import { connect } from 'react-redux';
 import { patchCommentRequest } from '../actions/comments';
 
-const Comment = ({id, userId, content, time, users, currentUser, deleteComment, patchCommentRequest, commentsPending, commentsEditing, mod}) => {
+const Comment = ({id, userId, content, posted, users, currentUser, deleteComment, patchCommentRequest, commentsPending, commentsEditing, currentUserIsMod}) => {
 
   const user = users.find(user => user.id === userId);
   const {username, avatar} = user;
@@ -38,11 +38,11 @@ const Comment = ({id, userId, content, time, users, currentUser, deleteComment, 
     </form>;
 
   const renderOptions = () => {
-    if ( ( contentOwner() || mod() ) && shown && !editable ) {
+    if ( ( contentOwner() || currentUserIsMod ) && shown && !editable ) {
       return  <div className='buttons' data-comment-id={id}>
                 <button className='delete' onClick={deleteComment}>DELETE</button>
                 <br/>
-                { !mod() || contentOwner() ? <button className='edit' onClick={openEdit}>EDIT</button> : null }
+                { !currentUserIsMod || contentOwner() ? <button className='edit' onClick={openEdit}>EDIT</button> : null }
               </div>;
     };
   }
@@ -52,7 +52,7 @@ const Comment = ({id, userId, content, time, users, currentUser, deleteComment, 
   return (
     <div className="Comment" onMouseEnter={toggleShown} onMouseLeave={toggleShown}>
       <Avatar avatar={avatar} showing={username} />
-      <p><strong>{username}</strong> - {time}</p>
+      <p><strong>{username}</strong> - {posted.toLocaleString('en-US')}</p>
       { editable ? editForm() : loadContent() }
       { renderOptions() }
     </div>
