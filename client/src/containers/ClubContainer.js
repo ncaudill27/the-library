@@ -9,7 +9,25 @@ class ClubContainer extends Component {
 
   state = {
     modding: false,
-    members: false
+    members: false,
+    book: false
+  }
+
+  componentDidMount() {
+    this.fetchBookInfo();
+  }
+
+  fetchBookInfo = () => {
+    const { clubId, clubs } = this.props;
+    const {activeBook} = clubs.find( c => c.id === clubId );
+
+    const key = `${process.env.REACT_APP_GOOGLE_BOOKS_KEY}`
+    fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${activeBook}&key=${key}`)
+    .then( res => res.json() )
+    .then( data => {
+      this.setState({ book: data.items[0].volumeInfo })
+    })
+    .catch(errors => console.log(errors));
   }
   
   toggleModding = () => {
@@ -119,13 +137,16 @@ class ClubContainer extends Component {
         threads,
         currentUser 
       },
+      state: {
+        book
+      },
       renderMembershipButton,
       currentUserIsMod
     } = this;
 
     const {name, description, activeBook} = club
     const clubThreads = club.threadIds.map( threadId => threads.find(thread=> thread.id === threadId) )
-
+    let {title, authors, averageRating, imageLinks} = book;
     return (
       <>
         <div className='Club-details'>
@@ -133,7 +154,7 @@ class ClubContainer extends Component {
           { currentUser ? renderMembershipButton(currentUser) : null }
           <p>{description}</p>
         </div>
-        <ClubBook club={club.id} isbn={activeBook} />
+        { book ? <ClubBook title={title} authors={authors} averageRating={averageRating} imageLinks={imageLinks} /> : null }
         <ThreadList threads={clubThreads} club={club} currentUser={currentUser} mod={currentUserIsMod} />
       </>
     )
@@ -148,6 +169,9 @@ class ClubContainer extends Component {
         userPending,
         threadsPending,
         memberships
+      },
+      state: {
+        book
       }
     } = this;
 
