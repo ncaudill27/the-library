@@ -16,7 +16,9 @@ const Comment = ({id, userId, content, posted, users, currentUser, deleteComment
 
   const [comment, commentSet] = useState(content);
 
-  const contentOwner = () => currentUser.id === userId;
+  const isContentOwner = () => currentUser.id === userId;
+  const isOwnerIsModShownNotEditable = () => ( isContentOwner() || currentUserIsMod ) && shown && !editable;
+  const isOwnerNotMod = () => !currentUserIsMod || isContentOwner();
 
   const editComment = e => {
     e.preventDefault();
@@ -32,20 +34,17 @@ const Comment = ({id, userId, content, posted, users, currentUser, deleteComment
 
   const editForm = () =>
     <form onSubmit={editComment}>
-      <input id='comment-edit' type='text' value={comment} onChange={e => commentSet(e.target.value)} />
+      <input id='comment-edit' type='text' value={comment} onChange={ e => commentSet(e.target.value) } />
       <input type='submit' value='Edit' />
       <button onClick={toggleEditable}>Cancel</button>
     </form>;
 
-  const renderOptions = () => {
-    if ( ( contentOwner() || currentUserIsMod ) && shown && !editable ) {
-      return  <div className='buttons' data-comment-id={id}>
-                <button className='delete' onClick={deleteComment}>DELETE</button>
-                <br/>
-                { !currentUserIsMod || contentOwner() ? <button className='edit' onClick={openEdit}>EDIT</button> : null }
-              </div>;
-    };
-  }
+  const renderOptions = () =>
+    <div className='buttons' data-comment-id={id}>
+      <button className='delete' onClick={deleteComment}>DELETE</button>
+      <br/>
+      { isOwnerNotMod() ? <button className='edit' onClick={openEdit}>EDIT</button> : null }
+    </div>;
 
   const loadContent = () => commentsPending && commentsEditing === id.toString(10) ? null : <p>{content}</p>
 
@@ -54,7 +53,7 @@ const Comment = ({id, userId, content, posted, users, currentUser, deleteComment
       <Avatar avatar={avatar} showing={username} />
       <p><strong>{username}</strong> - {posted.toLocaleString('en-US')}</p>
       { editable ? editForm() : loadContent() }
-      { renderOptions() }
+      { isOwnerIsModShownNotEditable() ? renderOptions() : null }
     </div>
   );
 };
