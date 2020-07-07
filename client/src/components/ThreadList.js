@@ -12,7 +12,14 @@ function ThreadList({threads, clubId, comments, currentUser, currentUserIsMod}) 
       const {id: threadId, title} = thread;
       const threadComments = findThreadsComment(threadId);
 
-      return <ThreadShow key={threadId} title ={title} threadId={threadId} comments={threadComments} currentUser={currentUser} currentUserIsMod={currentUserIsMod} />;
+      return <ThreadShow
+        key={threadId}
+        title ={title}
+        threadId={threadId}
+        comments={threadComments}
+        currentUser={currentUser}
+        currentUserIsMod={currentUserIsMod}      
+      />;
     });
   };
 

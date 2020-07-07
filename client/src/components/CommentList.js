@@ -5,8 +5,9 @@ import { connect } from 'react-redux';
 
 class CommentList extends Component {
 
-  sortCommentsByCreation(comments) {
-    return comments.sort((c1, c2) => new Date(c2.posted) - new Date(c1.posted));
+  sortCommentsByCreation = () => {
+    return this.props.comments
+    .sort((c1, c2) => new Date(c2.posted) - new Date(c1.posted));
   }
   
   renderComments() {
@@ -14,23 +15,18 @@ class CommentList extends Component {
       deleteComment,
       sortCommentsByCreation,
       props: {
-        comments,
-        threadId
+        comments
       }
     } = this;
-    
-    comments = comments.filter(c => c.threadId === threadId);
-    comments = sortCommentsByCreation(comments);
 
-    return comments.map(({id, userId, content, posted})=> {
+    comments = sortCommentsByCreation();
+
+    return comments.map( comment => {
       return <Comment
-        key={id}
-        id={id}
-        userId={userId}
-        content={content}
-        time={posted.toLocaleString('en-US')}
+        key={comment.id}
+        {...comment}
         deleteComment={deleteComment}
-        mod={this.props.mod}
+        currentUserIsMod={this.props.currentUserIsMod}
       />;
     });
   }
@@ -49,7 +45,4 @@ class CommentList extends Component {
   }
 }
 
-const mapStateToProps = ({comments}) => ({comments: comments.data});
-
-
-export default connect(mapStateToProps, { deleteCommentRequest })(CommentList);
+export default connect( null, { deleteCommentRequest })(CommentList);

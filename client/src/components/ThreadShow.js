@@ -19,12 +19,13 @@ class ThreadShow extends Component {
         shown
       },
       props: {
+        currentUserIsMod,
         currentUser,
         handleSubmit,
         handleChange,
+        comments,
         threadId,
-        title,
-        mod
+        title
       },
       toggle,
     } = this;
@@ -37,7 +38,7 @@ class ThreadShow extends Component {
         {
           shown
           ? <>
-            <CommentList threadId={threadId} mod={mod} />
+            <CommentList comments={comments} currentUserIsMod={currentUserIsMod} />
             <CommentField
               currentUser={currentUser}
               threadId={threadId}
@@ -52,6 +53,4 @@ class ThreadShow extends Component {
   };
 }
 
-const mapStateToProps = ({users}) => ({users});
-
-export default connect(mapStateToProps)(ThreadShow);
+export default ThreadShow;

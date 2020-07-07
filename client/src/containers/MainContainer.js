@@ -37,7 +37,8 @@ class MainContainer extends Component {
 
   findMembershipId = ({clubId, userId}) => {
     const { memberships } = this.props;
-    return memberships.find( m => m.userId === userId && m.clubId === clubId ).id;
+    return memberships.find( m => m.userId === userId && m.clubId === clubId )
+    .id;
   }
 
   reifyClubById = clubId => {
