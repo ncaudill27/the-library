@@ -12,18 +12,20 @@ class SidebarContainer extends Component {
     const {currentUser} = this.props
     return (
       <div className='Sidebar'>
-        { !!currentUser
-        ? <>
-          <UserBox user={currentUser} />
-          <NavLink to='/bestsellers' exact className='Create-club Navlink'
-            ><div className='Club-sidebar Create-club'
-              ><h3>Bestsellers</h3></div></NavLink>
-          <NavLink to='/clubs' exact className='Create-club Navlink'
-            ><div className='Club-sidebar Create-club'
-              ><h3>Clubs</h3></div></NavLink>
-          <ClubList styling='sidebar' />
-          </>
-        : <SideNav postion='sidebar' />}
+        {
+          !!currentUser
+          ? <>
+            <UserBox user={currentUser} />
+            <NavLink to='/bestsellers' exact className='Create-club Navlink'
+              ><div className='Club-sidebar Create-club'
+                ><h3>Bestsellers</h3></div></NavLink>
+            <NavLink to='/clubs' exact className='Create-club Navlink'
+              ><div className='Club-sidebar Create-club'
+                ><h3>Clubs</h3></div></NavLink>
+            <ClubList styling='sidebar' />
+            </>
+          : <SideNav postion='sidebar' />
+        }
       </div>
     );
   }

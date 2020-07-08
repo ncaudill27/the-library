@@ -13,20 +13,16 @@ class ClubContainer extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchBookInfo(this.props.activeBook);
+    this.fetchBookInfo();
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.id !== this.props.id) this.setState({book: false}, () => this.props.fetchBookInfo(this.props.activeBook));
+  componentDidUpdate(nextProps) {
+    if (nextProps.id !== this.props.id) this.fetchBookInfo();
   }
 
-  shouldComponentUpdate(nextProps) {
-    return nextProps.activeBook === this.props.activeBook
-  }
-
-  fetchBookInfo = async () => {
+  fetchBookInfo = () => {
     const { activeBook } = this.props;
-    await this.props.fetchBookInfo(activeBook);
+    this.props.fetchBookInfo(activeBook);
   }
 
   toggleModding = () => {

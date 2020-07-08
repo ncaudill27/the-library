@@ -25,7 +25,7 @@ class MainContainer extends Component {
     fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${activeBook}&key=${key}`)
     .then( res => res.json() )
     .then( data => {
-      this.setState({ book: data.items[0].volumeInfo })
+      this.setState({book: data.items[0].volumeInfo});
     })
     .catch(errors => console.log(errors));
   }
