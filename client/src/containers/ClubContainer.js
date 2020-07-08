@@ -37,19 +37,17 @@ class ClubContainer extends PureComponent {
 
   handleLeave = () => {
     const {
-      closeMembers,
-      props: {
-        id,
-        memberLeaveRequest,
-        currentUser,
-        findMembershipId,
-        modding
-      }
-    } = this;
+      id,
+      memberLeaveRequest,
+      currentUser,
+      findMembershipId,
+      modding,
+      toggleModding
+    } = this.props;
 
     const membershipId = findMembershipId({clubId: id, userId: currentUser.id});
     memberLeaveRequest(membershipId);
-    if (modding) closeMembers();
+    if (modding) toggleModding();
   }
 
   renderMembershipButton = () => 
@@ -71,8 +69,9 @@ class ClubContainer extends PureComponent {
 
     members = members.map( member => {
       return <div key={member.id} className='member'>
-        <p key={member.name}>{member.username}</p>
-        <button key={member.username} onClick={this.handleLeave}>remove</button>
+        <p key={member.name}>{member.username}
+          <button key={member.username} onClick={this.handleLeave}>remove</button>
+        </p>
       </div>
     });
     
@@ -106,13 +105,13 @@ class ClubContainer extends PureComponent {
     return (
       <div className='Club-container'>
         { currentUserIsMod ? renderModOptions() : null }
+        { modding ? renderCurrentMembers() : null }
         <div className='Club-details'>
           <h1>{name}</h1>
           { currentUser ? renderMembershipButton() : null }
           <p>{description}</p>
         </div>
         { isbn.test(book.infoLink) ? <ClubBook {...book} /> : null }
-        { modding ? renderCurrentMembers() : null }
         <ThreadList threads={threads} clubId={id} currentUser={currentUser} currentUserIsMod={currentUserIsMod} />
       </div>
     );

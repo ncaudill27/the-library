@@ -58,6 +58,7 @@ class EditUser extends Component {
     if (this.state.redirect) return <Redirect to={`/${username}`} />
     return (
       <div className='Edit'>
+        <h2>Edit User</h2>
         <NavLink to='/avatar-selection' exact className='Navlink'>
           Choose New Avatar
         </NavLink>

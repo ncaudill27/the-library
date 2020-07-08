@@ -153,15 +153,9 @@ div.Thread-list > div > div {
   right: 30px;
 }
 
-.members {
-  border: 1px solid pink;
-}
-
 .member {
-  border: 1px solid green;
-  display: flex;
   height: fit-content;
-  width: fit-content;
+  justify-content: center;
   margin: auto;
 }
 
@@ -429,12 +423,14 @@ img#book {
   visibility: hidden;
 }
 
+.members,
 .Avatar-preview,
+.Edit,
 .Sign-up,
 .New-user,
 .Login-form,
 .Club-form {
-  height: 11em;
+  height: fit-content;
   margin: 80px 33% 0px 33%;
   text-align: center;
   background-color: #E2C18B;
