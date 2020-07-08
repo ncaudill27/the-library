@@ -1,40 +1,36 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { PureComponent } from 'react';
 import ClubBook from './ClubBook';
 
-function ProfilePage({
-  comments,
-  commentsPending,
-  usersPending,
-  currentUser,
-  currentUser: {
-    name,
-    bio,
-    currentlyReading
-  }
-}) {
+class ProfilePage extends PureComponent {
 
-  return (
-    <div className='Profile'>
-      <div className='info'>
-        <h2>{name}</h2>
-        <p>{bio}</p>
+  componentDidMount() {
+    this.props.fetchBookInfo(this.props.currentUser.currentlyReading)
+  }
+
+  render() {
+    const {
+      book,
+      currentUser: {
+        name,
+        bio
+      }
+    } = this.props;
+
+    console.log(this.props);
+    
+
+    return (
+      <div className='Profile'>
+        <div className='info'>
+          <h2>{name}</h2>
+          <p>{bio}</p>
+        </div>
+        <div className='reading'>
+          <ClubBook {...book} />
+        </div>
       </div>
-      <div className='reading'>
-        { currentlyReading && !usersPending ? <ClubBook isbn={currentlyReading} /> : <>loading...</> }
-      </div>
-    </div>
-  );
+    );
+  };
 }
 
-const mapStateToProps = ({users, clubs, comments}) => ({
-  clubs: clubs.data.filter(club => club.id === users.currentUser.id),
-  comments: comments.data.filter(comment => comment.userId === users.currentUser.id).slice(0,5),
-  currentUser: users.currentUser,
-  commentsPending: comments.pending,
-  clubsPending: clubs.pending,
-  usersPending: users.pending
-});
-
-
-export default connect(mapStateToProps)(ProfilePage);
+export default ProfilePage;

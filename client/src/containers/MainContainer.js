@@ -83,7 +83,8 @@ class MainContainer extends Component {
       currentUser,
       message,
       memberships,
-      clubsPending
+      clubsPending,
+      usersPending
     } = this.props;
 
     return (
@@ -130,7 +131,13 @@ class MainContainer extends Component {
             ? <Route exact path='/:username/settings' render={ () => <EditUser currentUser={currentUser} />} />
             : null
           }
-          <Route exact path='/:username' component={ProfilePage} fetchBookInfo={this.fetchBookInfo} />
+          {
+            !usersPending
+            ? <Route exact path='/:username' render={ () => {
+              return <ProfilePage book={this.state.book} fetchBookInfo={this.fetchBookInfo} currentUser={currentUser} />
+            }} />
+            : null
+          }
 
         </Switch>
       </main>
