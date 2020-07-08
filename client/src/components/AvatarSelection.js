@@ -86,7 +86,6 @@ class AvatarSelection extends Component {
         updateUserRequest
       },
       state: {
-        toUpdate,
         preview
       },
       clearPreview
