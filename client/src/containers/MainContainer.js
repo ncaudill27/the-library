@@ -16,7 +16,14 @@ import AvatarSelection from '../components/AvatarSelection';
 class MainContainer extends Component {
 
   state = {
-    book: false
+    book: false,
+    modding: false
+  }
+
+  toggleModding = () => {
+    this.setState( prevState => ({
+      modding: !prevState.modding
+    }));
   }
 
   fetchBookInfo = activeBook => {
@@ -62,6 +69,8 @@ class MainContainer extends Component {
     if ( !clubsPending ) {
       const club = clubs.find( c => c.id === clubId );
       club.members = this.clubsMembers(club.id);
+      club.book = this.state.book;
+      club.modding = this.state.modding;
       club.threads = club.threadIds.map( threadId => this.props.threads.find( t => t.id === threadId ) );
       club.currentUserIsMod = this.clubsCurrentUserMods().includes(club);
       club.currentUserIsMember = this.clubsCurrentUserisMember().includes(club);
@@ -107,7 +116,7 @@ class MainContainer extends Component {
                         currentUser={currentUser}
                         findMembershipId={this.findMembershipId}
                         fetchBookInfo={this.fetchBookInfo}
-                        book={this.state.book} 
+                        toggleModding={this.toggleModding}
                       />
             }
               } />
