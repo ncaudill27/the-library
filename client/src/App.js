@@ -14,12 +14,12 @@ import { authorizeToken } from './actions/users';
 class App extends Component {
 
   componentDidMount() {
-    const {props: {getClubsRequest, fetchUsers, fetchThreads, fetchComments, authorizeToken}} = this
-    if (!!localStorage.getItem('token')) authorizeToken() //TODO Add await and loading animation
-    getClubsRequest()
-    fetchUsers()
-    fetchThreads()
-    fetchComments()
+    const { getClubsRequest, fetchUsers, fetchThreads, fetchComments, authorizeToken } = this.props;
+    if (!!localStorage.getItem('token')) authorizeToken(); //TODO Add await and loading animation
+    getClubsRequest();
+    fetchUsers();
+    fetchThreads();
+    fetchComments();
   }
 
   render() {

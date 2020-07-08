@@ -15,6 +15,21 @@ import AvatarSelection from '../components/AvatarSelection';
 
 class MainContainer extends Component {
 
+  state = {
+    book: false
+  }
+
+  fetchBookInfo = activeBook => {
+    const key = process.env.REACT_APP_GOOGLE_BOOKS_KEY;
+
+    fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${activeBook}&key=${key}`)
+    .then( res => res.json() )
+    .then( data => {
+      this.setState({ book: data.items[0].volumeInfo })
+    })
+    .catch(errors => console.log(errors));
+  }
+
   clubsCurrentUserisMember = () => {
     let { currentUser, memberships, clubs } = this.props;
     const membershipAssociations = memberships.filter( m => m.userId === currentUser.id );
@@ -54,10 +69,6 @@ class MainContainer extends Component {
     };
   }
 
-  findThreadsByClub = club => {
-    return 
-  }
-  
   render() {
     const {
       currentUser,
@@ -91,7 +102,13 @@ class MainContainer extends Component {
             currentUser && memberships.length && !clubsPending
             ? <Route exact path='/clubs/:id' render={ ({match}) => {
               const club = this.reifyClubById(match.params.id);
-              return <ClubContainer {...club} currentUser={currentUser} findMembershipId={this.findMembershipId} />
+              return  <ClubContainer
+                        {...club}
+                        currentUser={currentUser}
+                        findMembershipId={this.findMembershipId}
+                        fetchBookInfo={this.fetchBookInfo}
+                        book={this.state.book} 
+                      />
             }
               } />
             : null
@@ -104,7 +121,7 @@ class MainContainer extends Component {
             ? <Route exact path='/:username/settings' render={ () => <EditUser currentUser={currentUser} />} />
             : null
           }
-          <Route exact path='/:username' component={ProfilePage} />
+          <Route exact path='/:username' component={ProfilePage} fetchBookInfo={this.fetchBookInfo} />
 
         </Switch>
       </main>

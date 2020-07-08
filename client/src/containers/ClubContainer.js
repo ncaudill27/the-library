@@ -10,29 +10,25 @@ class ClubContainer extends Component {
   state = {
     modding: false,
     members: false,
-    book: false
   }
 
   componentDidMount() {
-    this.fetchBookInfo();
+    this.props.fetchBookInfo(this.props.activeBook);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.id !== this.props.id) this.setState({book: false}, this.fetchBookInfo);
+    if (nextProps.id !== this.props.id) this.setState({book: false}, () => this.props.fetchBookInfo(this.props.activeBook));
   }
 
-  fetchBookInfo = () => {
+  shouldComponentUpdate(nextProps) {
+    return nextProps.activeBook === this.props.activeBook
+  }
+
+  fetchBookInfo = async () => {
     const { activeBook } = this.props;
-    const key = process.env.REACT_APP_GOOGLE_BOOKS_KEY;
-
-    fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${activeBook}&key=${key}`)
-    .then( res => res.json() )
-    .then( data => {
-      this.setState({ book: data.items[0].volumeInfo })
-    })
-    .catch(errors => console.log(errors));
+    await this.props.fetchBookInfo(activeBook);
   }
-  
+
   toggleModding = () => {
     this.setState( prevState => ({
       modding: !prevState.modding
@@ -123,9 +119,9 @@ class ClubContainer extends Component {
         currentUserIsMod,
         currentUser,
         threads,
+        book
       },
       state: {
-        book,
         modding
       },
       renderMembershipButton,
