@@ -62,7 +62,8 @@ class MainContainer extends Component {
     const {
       currentUser,
       message,
-      memberships
+      memberships,
+      clubsPending
     } = this.props;
 
     return (
@@ -87,7 +88,7 @@ class MainContainer extends Component {
           <Route exact path='/clubs/new' render={ () => <ClubForm currentUser={currentUser}  /> } />
 
           {
-            currentUser && memberships.length
+            currentUser && memberships.length && !clubsPending
             ? <Route exact path='/clubs/:id' render={ ({match}) => {
               const club = this.reifyClubById(match.params.id);
               return <ClubContainer {...club} currentUser={currentUser} findMembershipId={this.findMembershipId} />
