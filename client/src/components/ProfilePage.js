@@ -12,12 +12,12 @@ class ProfilePage extends PureComponent {
       book,
       currentUser: {
         name,
-        bio
+        bio,
+        currentlyReading
       }
     } = this.props;
 
-    console.log(this.props);
-    
+    const isbn = RegExp(currentlyReading);
 
     return (
       <div className='Profile'>
@@ -26,7 +26,7 @@ class ProfilePage extends PureComponent {
           <p>{bio}</p>
         </div>
         <div className='reading'>
-          <ClubBook {...book} />
+          { isbn.test(book.infoLink) ? <ClubBook {...book} /> : null }
         </div>
       </div>
     );

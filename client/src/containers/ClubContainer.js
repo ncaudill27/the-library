@@ -87,18 +87,20 @@ class ClubContainer extends PureComponent {
       props: {
         id,
         name,
+        activeBook,
         description,
         currentUserIsMod,
         currentUser,
         threads,
-        book,
-        modding
+        modding,
+        book
       },
       renderMembershipButton,
       renderModOptions,
       renderCurrentMembers
     } = this;
 
+    const isbn = RegExp(activeBook);
     console.log(this.props);
 
     return (
@@ -109,7 +111,7 @@ class ClubContainer extends PureComponent {
           { currentUser ? renderMembershipButton() : null }
           <p>{description}</p>
         </div>
-        { book ? <ClubBook {...book} /> : null }
+        { isbn.test(book.infoLink) ? <ClubBook {...book} /> : null }
         { modding ? renderCurrentMembers() : null }
         <ThreadList threads={threads} clubId={id} currentUser={currentUser} currentUserIsMod={currentUserIsMod} />
       </div>
