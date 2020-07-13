@@ -1,4 +1,6 @@
 # The Library 📚
+[![Heroku](https://heroku-badge.herokuapp.com/?app=heroku-badge)](https://library-book-club.herokuapp.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ![Library Screenshot](libraryreadme.png)
 
