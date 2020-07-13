@@ -57,11 +57,13 @@ class ClubContainer extends PureComponent {
 
   renderModOptions = () => 
     <div className='mod'>
-      <button onClick={this.props.toggleModding}>Current Members</button>
+      <button onClick={this.props.toggleModding}>Current members</button>
       <br />
       <button><NavLink to='/avatar-selection' exact>
-        Choose New Avatar
+        Choose new avatar
       </NavLink></button>
+      <br />
+      <button><NavLink to='/bestsellers' exact>Set new book</NavLink></button>
     </div>;
 
   renderCurrentMembers = () => {

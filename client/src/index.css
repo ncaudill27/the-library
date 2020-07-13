@@ -72,3 +72,8 @@ textarea {
   border: none;
   background-color: #BF8176;
 }
+
+a {
+  text-decoration: none;
+  color: black;
+}
