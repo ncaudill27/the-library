@@ -1,25 +1,17 @@
-# README
-![Library Clip](https://giphy.com/gifs/iIH1HSia9w0pLJOxZ4)
+# The Library 📚
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+![Library Screenshot](libraryreadme.png)
 
-Things you may want to cover:
+## Description
+The Library is a social media experiment focused around bringing users together through books.
+Users will create and join book clubs to discuss their current reads.
 
-* Ruby version
+## Main Features
+* Ruby on Rails as an API
+* JSON Web Tokens to provide user authorization 🔒
+* [New York Times Book API](https://developer.nytimes.com/docs/books-product/1/overview) to give users access to current Best Sellers
+* [Google Books API](https://developers.google.com/books) 📖 for more detailed book information
 
-* System dependencies
+  ![Library Clip](https://media.giphy.com/media/iIH1HSia9w0pLJOxZ4/giphy.gif)
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* [Unsplash API](https://unsplash.com/documentation) for updating avatars
