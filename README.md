@@ -1,4 +1,5 @@
 # README
+![Library Clip](https://giphy.com/gifs/iIH1HSia9w0pLJOxZ4)
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
