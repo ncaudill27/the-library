@@ -8,7 +8,7 @@ function ClubBook({ title, authors, averageRating, imageLinks }) {
       <img id="clubbook" src={ imageLinks ? imageLinks.thumbnail : ''} alt={title + " Cover Art"} />
       <div className='Club-book-details'>
         <h3>{title}</h3>
-        <p>{authors}</p>
+        <p>{[...authors].join(', ')}</p>
         <StarRating count={averageRating} />
       </div>
     </div>
