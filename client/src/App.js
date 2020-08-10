@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import './App.css';
+import Container from '@material-ui/core/Container';
 import SidebarContainer from './containers/SideBarContainer';
 import MainContainer from './containers/MainContainer';
 
@@ -24,12 +25,13 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <Container>
         <SidebarContainer />
         <MainContainer />
-      </div>
+      </Container>
     );
   };
 }
+
 
 export default connect(null, {getClubsRequest, fetchUsers, fetchThreads, fetchComments, authorizeToken })(App);

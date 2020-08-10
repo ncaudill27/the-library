@@ -4,76 +4,9 @@ html {
 
 body {
   margin: 0;
-  background-color: #F2DEBD;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-main {
-  display: block;
-  margin-left: 300px;
-  z-index: 0;
-  text-align: left;
-}
-
-h3 {
-  margin: 0px;
-}
-
-h3 ~ p {
-  margin-top: 2px;
-}
-
-input[type=text],
-input[type=password] {
-  height: 0px;
-  padding: 0px;
-  border: 2px solid #BF8176;
-  background-color: #BF8176;
-  transition: background 2s ease-out;
-  transition: height 500ms ease-out;
-  outline: none;
-}
-
-input[type=text]:focus,
-input[type=password]:focus,
-input[type=text]:hover,
-input[type=password]:hover {
-  height: 20px;
-  background-color: #BF8176;
-}w
-
-input[type=text]:hover::after {
-  height: 5px;
-  border: 2px solid black;
-  transition: ease;
-  transition: background ease;
-}
-
-button,
-input[type=submit] {
-  background-color: #F2DEBD;
-  border: 2px solid  #BF8176;
-  height: 24px;
-  border: none;
-}
-
-button {
-  margin: 1px;
-  cursor: pointer;
-}
-
-textarea {
-  outline: none;
-  resize: none;
-  border: none;
-  background-color: #BF8176;
-}
-
-a {
-  text-decoration: none;
-  color: black;
 }
