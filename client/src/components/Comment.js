@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { patchCommentRequest } from '../actions/comments';
 
-import { Avatar, Typography, Box } from '@material-ui/core';
+import { Avatar, Typography, Box, Paper } from '@material-ui/core';
 
 const Comment = ({
   id,
@@ -72,7 +72,7 @@ const Comment = ({
   const loadContent = () => commentsPending && commentsEditing === id.toString(10) ? null : <Typography variant='body1' paragraph>{content}</Typography>
 
   return (
-    <div className="Comment" onMouseEnter={toggleShown} onMouseLeave={toggleShown}>
+    <Paper onMouseEnter={toggleShown} onMouseLeave={toggleShown}>
       <Box display='flex' alignItems='center' justifyContent='space-between'>
         <Avatar src={avatar} alt={username + "'s avatar"} />
         <Typography display='block' variant='h6' noWrap>
@@ -84,7 +84,7 @@ const Comment = ({
       </Box>
       { editable ? editForm() : loadContent() }
       { isOwnerIsModShownNotEditable() ? renderOptions() : null }
-    </div>
+    </Paper>
   );
 };
 

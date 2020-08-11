@@ -3,9 +3,8 @@ import CommentList from './CommentList';
 import { Typography, Paper, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles( themes => ({
-  card: {
-    padding: themes.spacing(1),
-    margin: themes.spacing(1)
+  paper: {
+    marginTop: themes.spacing(1)
   }
 }));
 
@@ -24,7 +23,7 @@ function ThreadShow ({
   const toggleOpen = () => setOpen(!open);
   
   return (
-    <Paper className={classes.card} elevation={2}>
+    <Paper className={classes.paper} elevation={5}>
       <Typography variant='h4' onClick={toggleOpen}>
         {title}
       </Typography>
