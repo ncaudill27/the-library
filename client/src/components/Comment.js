@@ -40,6 +40,15 @@ const Comment = ({
     toggleEditable();
   }
 
+  const parseTime = timeStamp => {
+    timeStamp = new Date(timeStamp);
+    const date = timeStamp.getDate();
+    const month = timeStamp.getMonth();
+    const year = timeStamp.getFullYear().toString().slice(2);
+
+    return `${month + 1}/${date}/${year}`
+  }
+
   const openEdit = async () => {
     await toggleEditable();
     const input = document.getElementById('comment-edit');
@@ -60,17 +69,17 @@ const Comment = ({
       { isOwnerNotMod() ? <button className='edit' onClick={openEdit}>EDIT</button> : null }
     </div>;
 
-  const loadContent = () => commentsPending && commentsEditing === id.toString(10) ? null : <p>{content}</p>
+  const loadContent = () => commentsPending && commentsEditing === id.toString(10) ? null : <Typography variant='body1' paragraph>{content}</Typography>
 
   return (
     <div className="Comment" onMouseEnter={toggleShown} onMouseLeave={toggleShown}>
-      <Box display='flex' alignItems='center'>
+      <Box display='flex' alignItems='center' justifyContent='space-between'>
         <Avatar src={avatar} alt={username + "'s avatar"} />
-        <Typography display='block' variant='h6'>
+        <Typography display='block' variant='h6' noWrap>
           {username}
         </Typography>
         <Typography variant='caption'>
-          - {posted.toLocaleString('en-US')}
+          • {parseTime(posted)}
         </Typography>
       </Box>
       { editable ? editForm() : loadContent() }
