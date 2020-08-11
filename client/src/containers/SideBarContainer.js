@@ -6,8 +6,11 @@ import UserBox from '../components/UserBox';
 import ClubList from '../components/ClubList';
 import SideNav from '../components/SideNav';
 
-import MenuIcon from '@material-ui/icons/MenuBook';
 import { Button, IconButton, AppBar, Toolbar, Typography, Menu, MenuItem } from '@material-ui/core';
+
+import MenuIcon from '@material-ui/icons/MenuBook';
+import ClearIcon from '@material-ui/icons/Clear';
+
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles( theme => ({
@@ -36,7 +39,7 @@ function SidebarContainer({currentUser}) {
       <AppBar position="static">
         <Toolbar>
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon onClick={handleMenu} />
+            { open ? <ClearIcon /> : <MenuIcon onClick={handleMenu} />}
           </IconButton>
           <Typography variant="h6" className={classes.title}>
             The Library
