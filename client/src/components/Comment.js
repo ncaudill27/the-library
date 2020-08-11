@@ -1,9 +1,23 @@
 import React, { useState } from 'react';
-import Avatar from './Avatar';
+// import Avatar from './Avatar';
 import { connect } from 'react-redux';
 import { patchCommentRequest } from '../actions/comments';
 
-const Comment = ({id, userId, content, posted, users, currentUser, deleteComment, patchCommentRequest, commentsPending, commentsEditing, currentUserIsMod}) => {
+import { Avatar, Typography, Box } from '@material-ui/core';
+
+const Comment = ({
+  id,
+  userId,
+  content,
+  posted,
+  users,
+  currentUser,
+  deleteComment,
+  patchCommentRequest,
+  commentsPending,
+  commentsEditing,
+  currentUserIsMod
+}) => {
 
   const user = users.find(user => user.id === userId);
   const {username, avatar} = user;
@@ -12,7 +26,7 @@ const Comment = ({id, userId, content, posted, users, currentUser, deleteComment
   const toggleEditable = () => editableSet(!editable);
   
   const [shown, shownSet] = useState(false);
-  const toggleShown = () => shownSet(!shown);
+  const toggleShown = () => shownSet( prev => !prev );
 
   const [comment, commentSet] = useState(content);
 
@@ -28,7 +42,7 @@ const Comment = ({id, userId, content, posted, users, currentUser, deleteComment
 
   const openEdit = async () => {
     await toggleEditable();
-    const input = document.querySelector('#comment-edit');
+    const input = document.getElementById('comment-edit');
     input.focus();
   }
 
@@ -50,8 +64,15 @@ const Comment = ({id, userId, content, posted, users, currentUser, deleteComment
 
   return (
     <div className="Comment" onMouseEnter={toggleShown} onMouseLeave={toggleShown}>
-      <Avatar avatar={avatar} showing={username} />
-      <p><strong>{username}</strong> - {posted.toLocaleString('en-US')}</p>
+      <Box display='flex' alignItems='center'>
+        <Avatar src={avatar} alt={username + "'s avatar"} />
+        <Typography display='block' variant='h6'>
+          {username}
+        </Typography>
+        <Typography variant='caption'>
+          - {posted.toLocaleString('en-US')}
+        </Typography>
+      </Box>
       { editable ? editForm() : loadContent() }
       { isOwnerIsModShownNotEditable() ? renderOptions() : null }
     </div>
