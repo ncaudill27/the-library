@@ -6,10 +6,11 @@ import { Typography } from '@material-ui/core';
 
 function ThreadList({threads, clubId, comments, currentUser, currentUserIsMod}) {
 
+  const clubThreads = threads.filter( thread => thread.clubId === clubId );
   const findThreadsComment = threadId => comments.filter(comment => threadId === comment.threadId);
-  
+
   const renderThreads = () => {
-    return threads.map( thread => {
+    return clubThreads.map( thread => {
       const {id: threadId, title} = thread;
       const threadComments = findThreadsComment(threadId);
 

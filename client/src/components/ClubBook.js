@@ -16,8 +16,9 @@ const useStyles = makeStyles( themes => ({
     overflow: 'auto'
   },
   details: {
-    margin: '10px',
-    float: 'left',
+    margin: themes.spacing(1),
+    padding: themes.spacing(1),
+    float: 'right',
   },
   image: {
     height: 'auto',

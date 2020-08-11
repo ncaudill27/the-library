@@ -106,7 +106,6 @@ class ClubContainer extends PureComponent {
     } = this;
 
     const isbn = RegExp(activeBook);
-    console.log(this.props);
 
     return (
       <div className='Club-container'>

@@ -3,10 +3,10 @@ import CommentList from './CommentList';
 import CommentField from './CommentField';
 import { Typography, Paper, makeStyles } from '@material-ui/core';
 
-const useStyles = () => ( themes => ({
+const useStyles = makeStyles( themes => ({
   card: {
-    padding: themes.spacing(2),
-    margin: '1em auto'
+    padding: themes.spacing(1),
+    margin: themes.spacing(1)
   }
 }));
 
