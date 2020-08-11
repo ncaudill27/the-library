@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
 import CommentList from './CommentList';
 import CommentField from './CommentField';
+import { Typography, Paper } from '@material-ui/core';
 
 class ThreadShow extends Component {
 
   state = {
-    shown: false
+    open: false
   };
 
-  toggle = () => {
-    this.state.shown ? this.setState({shown: false}) : this.setState({shown: true});
+  toggleOpen = () => {
+    this.state.open ? this.setState({open: false}) : this.setState({open: true});
   }
   
   render() {
     const {
       state: {
-        shown
+        open
       },
       props: {
         currentUserIsMod,
@@ -26,28 +27,25 @@ class ThreadShow extends Component {
         threadId,
         title
       },
-      toggle,
+      toggleOpen,
     } = this;
 
-    const currentState = shown ? 'Thread-card' : 'Thread-link';
-
     return (
-      <div className={currentState}>
-        <h3 onClick={toggle}>{title}</h3>
-        {
-          shown
-          ? <>
-            <CommentList comments={comments} currentUserIsMod={currentUserIsMod} />
-            <CommentField
-              currentUser={currentUser}
-              threadId={threadId}
-              handleChange={handleChange}
-              handleSubmit={handleSubmit}
-            />
+      <Paper elevation={2}>
+        <Typography variant='h3' onClick={toggleOpen}>
+          {title}
+        </Typography>
+        { !open || <>
+              <CommentList comments={comments} currentUserIsMod={currentUserIsMod} />
+              <CommentField
+                currentUser={currentUser}
+                threadId={threadId}
+                handleChange={handleChange}
+                handleSubmit={handleSubmit}
+              />
             </>
-          : null
         }
-      </div>
+      </Paper>
     );
   };
 }

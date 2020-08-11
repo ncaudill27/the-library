@@ -9,18 +9,20 @@ function ThreadList({threads, clubId, comments, currentUser, currentUserIsMod}) 
   const findThreadsComment = threadId => comments.filter(comment => threadId === comment.threadId);
   
   const renderThreads = () => {
-    return threads.map(thread => {
+    return threads.map( thread => {
       const {id: threadId, title} = thread;
       const threadComments = findThreadsComment(threadId);
 
-      return <ThreadShow
-        key={threadId}
-        title ={title}
-        threadId={threadId}
-        comments={threadComments}
-        currentUser={currentUser}
-        currentUserIsMod={currentUserIsMod}      
-      />;
+      return (
+        <ThreadShow
+          key={threadId}
+          title ={title}
+          threadId={threadId}
+          comments={threadComments}
+          currentUser={currentUser}
+          currentUserIsMod={currentUserIsMod}      
+        />
+      );
     });
   };
 
