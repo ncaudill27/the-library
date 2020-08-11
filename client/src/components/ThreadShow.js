@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import CommentList from './CommentList';
-import CommentField from './CommentField';
 import { Typography, Paper, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles( themes => ({
@@ -30,12 +29,13 @@ function ThreadShow ({
         {title}
       </Typography>
       { !open || <>
-            <CommentList comments={comments} currentUserIsMod={currentUserIsMod} />
-            <CommentField
+            <CommentList
+              comments={comments}
+              currentUserIsMod={currentUserIsMod}
               currentUser={currentUser}
-              threadId={threadId}
               handleChange={handleChange}
               handleSubmit={handleSubmit}
+              threadId={threadId}
             />
           </>
       }
