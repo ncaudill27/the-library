@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
   rating: {
-    height: 70
+    marginLeft: '6px'
   }
 })
 
@@ -23,7 +23,7 @@ function StarRating({count}) {
 
   return (
     count
-    ? <Grid container xs justify="flex-start" alignItems="flex-start">
+    ? <Grid className={classes.rating} container xs justify="flex-start" alignItems="center">
         {convertToStars()}
       </Grid>
     : null
