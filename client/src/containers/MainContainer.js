@@ -12,6 +12,10 @@ import ClubForm from '../components/ClubForm';
 import FlashMessage from '../components/FlashMessage';
 import EditUser from '../components/EditUser';
 import AvatarSelection from '../components/AvatarSelection';
+/* ----------
+  Material imports
+---------- */
+import { Container } from '@material-ui/core';
 
 class MainContainer extends Component {
 
@@ -88,7 +92,7 @@ class MainContainer extends Component {
     } = this.props;
 
     return (
-      <main>
+      <Container>
 
         { message ? <FlashMessage /> : null }
 
@@ -140,7 +144,7 @@ class MainContainer extends Component {
           }
 
         </Switch>
-      </main>
+      </Container>
     );
   };
 }
