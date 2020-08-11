@@ -21,15 +21,13 @@ function ThreadForm({clubId, postThread}) {
   };
 
   return (
-    <div className='Thread-form'>
       <FormField
         handleSubmit={handleSubmit}
         handleChange={handleChange}
-        inputNames={{1: 'title'}}
+        inputNames={{1: 'Start New Thread '}}
         inputValues={{1: title}}
         submitValue="Begin Thread"
       />
-    </div>
   );
 }
 
