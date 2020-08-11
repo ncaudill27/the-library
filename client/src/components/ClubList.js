@@ -3,6 +3,11 @@ import Club from './Club';
 import ClubSideBar from './ClubSideBar';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+/* ----------
+  Material imports
+----------- */
+import { Avatar, Typography, Link } from '@material-ui/core';
+import Box from '@material-ui/core/Box';
 
 class ClubList extends Component {
 
@@ -23,15 +28,27 @@ class ClubList extends Component {
     clubs = currentUser ? clubs.filter(club => !userAssociatedClubIds.includes(club.id)) : clubs;
     
     return clubs.map( ({id, name, avatar, description}) =>
-      <Club
-        key={id}
-        id={id}
-        avatar={avatar}
-        name={name}
-        description={description}
-        currentUser={currentUser}
-      />
+      <Box>
+        <Avatar alt={name} src={avatar} />
+        <Typography variant="h5">
+          <Link href={`/clubs/${id}`}>
+            {name}
+          </Link>
+        </Typography>
+        <Typography>
+          {description}
+        </Typography>
+      </Box>
     );
+    {/* OLD CODE
+      <Club
+      key={id}
+      id={id}
+      avatar={avatar}
+      name={name}
+      description={description}
+      currentUser={currentUser}
+    /> */}
   };
 
   renderClubsSidebar = () => {
@@ -61,7 +78,7 @@ class ClubList extends Component {
     const {renderClubs, renderClubsSidebar, props: {styling, memberships, clubs}} = this;
     return (
       <div className='Club-list'>
-        {styling === 'sidebar' ? null : <h2>Clubs</h2>}
+        {styling === 'sidebar' ? null : <Typography variant="h2">Clubs</Typography>}
         {
           memberships.length && clubs.length
           ? styling === 'sidebar' ? renderClubsSidebar() : renderClubs()
