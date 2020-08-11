@@ -15,7 +15,7 @@ const FormField = ({inputNames, inputValues, submitValue, handleChange, handleSu
       const value = inputValues[i]
 
       inputs.push(
-        <Grid item>
+        <Grid item key={name}>
           <Input
             key={name}
             name={name}

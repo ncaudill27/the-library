@@ -17,7 +17,7 @@ function CommentList({ deleteCommentRequest, comments, open, threadId, handleCha
 
     return sortedComments.map( comment => {
       return (
-        <Grow in={open} style={{transformOrigin: '0 0 0'}} { ...(open ? { timeout: 500 } : {}) }>
+        <Grow in={open} style={{transformOrigin: '0 0 0'}} { ...(open ? { timeout: 500 } : {}) } key={comment.id}>
           <Comment
             key={comment.id}
             {...comment}

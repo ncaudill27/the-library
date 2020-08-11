@@ -28,17 +28,14 @@ function ThreadShow ({
       <Typography variant='h4' onClick={toggleOpen}>
         {title}
       </Typography>
-      { !open || <>
-            <CommentList
-              comments={comments}
-              currentUserIsMod={currentUserIsMod}
-              currentUser={currentUser}
-              handleChange={handleChange}
-              handleSubmit={handleSubmit}
-              threadId={threadId}
-            />
-          </>
-      }
+      <CommentList
+        comments={comments}
+        currentUserIsMod={currentUserIsMod}
+        currentUser={currentUser}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        threadId={threadId}
+      />
     </Paper>
   );
 }

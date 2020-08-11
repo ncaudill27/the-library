@@ -38,8 +38,8 @@ function SidebarContainer({currentUser}) {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            { open ? <ClearIcon /> : <MenuIcon onClick={handleMenu} />}
+          <IconButton onClick={handleMenu} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+            { open ? <ClearIcon /> : <MenuIcon />}
           </IconButton>
           <Typography variant="h6" className={classes.title}>
             The Library

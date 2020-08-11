@@ -41,7 +41,7 @@ function ClubBook({ title, authors, averageRating, imageLinks, description }) {
         <Typography variant='h6' align='center'>
           Current Book
         </Typography>
-          <Grid className={classes.details} xs={6} container direction='column' spacing={0} justify='flex-start' alignItems='center'>
+          <Grid className={classes.details} xs={6} item container direction='column' spacing={0} justify='flex-start' alignItems='center'>
             <Grid item>
               <Typography variant='h5' align='center'>
                   {title}
