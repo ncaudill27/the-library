@@ -4,6 +4,10 @@ import { memberJoinRequest, memberLeaveRequest } from '../actions/users';
 import ThreadList from '../components/ThreadList';
 import ClubBook from '../components/ClubBook';
 import { NavLink } from 'react-router-dom';
+/* ------------
+  Material imports
+---------- */
+import { Button, Typography } from '@material-ui/core';
 
 class ClubContainer extends PureComponent {
 
@@ -52,8 +56,8 @@ class ClubContainer extends PureComponent {
 
   renderMembershipButton = () => 
     this.props.currentUserIsMember
-    ? <h3 id='leave' onClick={this.handleLeave}>Leave Club</h3>
-    : <h3 id='join' onClick={this.handleJoin}>Join Club</h3>;
+    ? <Button id='leave' onClick={this.handleLeave}>Leave Club</Button>
+    : <Button id='join' onClick={this.handleJoin}>Join Club</Button>;
 
   renderModOptions = () => 
     <div className='mod'>
@@ -109,9 +113,9 @@ class ClubContainer extends PureComponent {
         { currentUserIsMod ? renderModOptions() : null }
         { modding ? renderCurrentMembers() : null }
         <div className='Club-details'>
-          <h1>{name}</h1>
+          <Typography variant="h2">{name}</Typography>
           { currentUser ? renderMembershipButton() : null }
-          <p>{description}</p>
+          <Typography variant="subtitle1" paragraph>{description}</Typography>
         </div>
         { isbn.test(book.infoLink) ? <ClubBook {...book} /> : null }
         <ThreadList threads={threads} clubId={id} currentUser={currentUser} currentUserIsMod={currentUserIsMod} />
