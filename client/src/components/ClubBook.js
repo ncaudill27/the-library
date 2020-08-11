@@ -11,7 +11,7 @@ const useStyles = makeStyles({
     flexGrow: 1
   },
   image: {
-    height: 150,
+    height: 'auto',
     width: 'auto'
   },
   img: {
@@ -27,26 +27,26 @@ function ClubBook({ title, authors, averageRating, imageLinks }) {
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={2}>
-        <Grid item xs container direction="column" spacing={2} justify="flex-start" alignItems="flex-start">
+      <Grid container spacing={4} justify="space-around">
+        <Grid item xs={6} container direction="column" spacing={2} justify="flex-start" alignItems="flex-start">
           <Grid item>
             <Typography variant='h6'>
                 {title}
               </Typography>
           </Grid>
-          <Grid item justify="flex-start">
-            <Container className={classes.image}>
-              <img className={classes.img} src={ imageLinks ? imageLinks.thumbnail : ''} alt={title + " Cover Art"} />
-            </Container>
-          </Grid>
         </Grid>
-        <Grid item xs={12} sm container direction="column">
+        <Grid item xs={6} spacing={1} container direction="column" justify="flex-start" alignItems="flex-start">
           <Grid item>
             <Typography paragraph>
               {[...authors].join(', ')}
             </Typography>
           </Grid>
           <StarRating count={averageRating} />
+          <Grid item>
+            {/* <Container className={classes.image}> */}
+              <img className={classes.img} src={ imageLinks ? imageLinks.thumbnail : ''} alt={title + " Cover Art"} />
+            {/* </Container> */}
+          </Grid>
         </Grid>
       </Grid>
     </div>
