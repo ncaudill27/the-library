@@ -25,10 +25,10 @@ class App extends Component {
 
   render() {
     return (
-      <Container>
+      <>
         <SidebarContainer />
         <MainContainer />
-      </Container>
+      </>
     );
   };
 }
