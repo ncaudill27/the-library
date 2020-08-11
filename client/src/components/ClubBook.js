@@ -3,7 +3,7 @@ import StarRating from './StarRating';
 /* ----------
   Material imports
 ----------- */
-import { Grid, Typography, Paper } from '@material-ui/core';
+import { Grid, Container, Typography, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles( themes => ({
@@ -12,7 +12,12 @@ const useStyles = makeStyles( themes => ({
   },
   paper: {
     padding: themes.spacing(2),
-    backgroundColor: '#f0f0f0'
+    backgroundColor: '#f0f0f0',
+    overflow: 'auto'
+  },
+  details: {
+    margin: '10px',
+    float: 'left',
   },
   image: {
     height: 'auto',
@@ -30,35 +35,34 @@ function ClubBook({ title, authors, averageRating, imageLinks, description }) {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div>
       <Paper elevation={3} className={classes.paper}>
-        <Grid container spacing={1} justify="flex-start">
-          <Grid item xs={6} container direction="column" spacing={2} justify="flex-start" alignItems="flex-start">
+        <Typography variant='h6' align='center'>
+          Current Book
+        </Typography>
+          <Grid className={classes.details} xs={6} container direction='column' spacing={0} justify='flex-start' alignItems='center'>
             <Grid item>
-              <Typography variant='h5'>
+              <Typography variant='h5' align='center'>
                   {title}
                 </Typography>
             </Grid>
             <Grid item>
-              <Typography variant='h6'>
+              <Typography variant='h6' align='center'>
                 Author{authors.length <= 1 || 's'}: {[...authors].join(', ')}
               </Typography>
             </Grid>
-            <StarRating count={averageRating} />
             <Grid item>
+                <StarRating count={averageRating} />
               {/* <Container className={classes.image}> */}
-                <img className={classes.img} src={ imageLinks ? imageLinks.thumbnail : ''} alt={title + " Cover Art"} />
               {/* </Container> */}
             </Grid>
-          </Grid>
-          <Grid item xs={6} container alignItems="center" justify="flex-start">
             <Grid item>
-                <Typography paragraph>
-                    {description}
-                </Typography>
-              </Grid>
+              <img className={classes.img} src={imageLinks ? imageLinks.thumbnail : ''} alt={title + " Cover Art"} />
+            </Grid>
           </Grid>
-        </Grid>
+        <Typography paragraph>
+          {description}
+        </Typography>
       </Paper>
     </div>
   );

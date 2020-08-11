@@ -57,7 +57,7 @@ class ClubContainer extends PureComponent {
   renderMembershipButton = () => 
     this.props.currentUserIsMember
     ? <Button id='leave' onClick={this.handleLeave}>Leave Club</Button>
-    : <Button id='join' onClick={this.handleJoin}>Join Club</Button>;
+    : <Button color="primary" id='join' onClick={this.handleJoin}>Join Club</Button>;
 
   renderModOptions = () => 
     <div className='mod'>
