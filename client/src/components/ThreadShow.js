@@ -1,53 +1,46 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import CommentList from './CommentList';
 import CommentField from './CommentField';
-import { Typography, Paper } from '@material-ui/core';
+import { Typography, Paper, makeStyles } from '@material-ui/core';
 
-class ThreadShow extends Component {
-
-  state = {
-    open: false
-  };
-
-  toggleOpen = () => {
-    this.state.open ? this.setState({open: false}) : this.setState({open: true});
+const useStyles = () => ( themes => ({
+  card: {
+    padding: themes.spacing(2),
+    margin: '1em auto'
   }
-  
-  render() {
-    const {
-      state: {
-        open
-      },
-      props: {
-        currentUserIsMod,
-        currentUser,
-        handleSubmit,
-        handleChange,
-        comments,
-        threadId,
-        title
-      },
-      toggleOpen,
-    } = this;
+}));
 
-    return (
-      <Paper elevation={2}>
-        <Typography variant='h3' onClick={toggleOpen}>
-          {title}
-        </Typography>
-        { !open || <>
-              <CommentList comments={comments} currentUserIsMod={currentUserIsMod} />
-              <CommentField
-                currentUser={currentUser}
-                threadId={threadId}
-                handleChange={handleChange}
-                handleSubmit={handleSubmit}
-              />
-            </>
-        }
-      </Paper>
-    );
-  };
+function ThreadShow ({
+  currentUserIsMod,
+  currentUser,
+  handleSubmit,
+  handleChange,
+  comments,
+  threadId,
+  title
+}) {
+  const classes = useStyles();
+
+  const [open, setOpen] = useState(false);
+  const toggleOpen = () => setOpen(!open);
+  
+  return (
+    <Paper className={classes.card} elevation={2}>
+      <Typography variant='h4' onClick={toggleOpen}>
+        {title}
+      </Typography>
+      { !open || <>
+            <CommentList comments={comments} currentUserIsMod={currentUserIsMod} />
+            <CommentField
+              currentUser={currentUser}
+              threadId={threadId}
+              handleChange={handleChange}
+              handleSubmit={handleSubmit}
+            />
+          </>
+      }
+    </Paper>
+  );
 }
 
 export default ThreadShow;
