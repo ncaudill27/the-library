@@ -1,6 +1,8 @@
 import React from 'react';
 import Star from './Star';
 
+import { Grid } from '@material-ui/core';
+
 function StarRating({count}) {
 
   function convertToStars() {
@@ -13,11 +15,9 @@ function StarRating({count}) {
 
   return (
     count
-    ? <div className='Rating'>
-        <div className='Stars'>
-          {convertToStars()}
-        </div>
-      </div>
+    ? <Grid container xs justify="space-around" alignItems="center">
+        {convertToStars()}
+      </Grid>
     : null
   );
 }
