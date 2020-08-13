@@ -1,42 +1,62 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { updateUserRequest } from '../actions/users';
 import { patchClubRequest } from '../actions/clubs';
 import BookShow from './BookShow';
+import { FormControl, Select, InputLabel, MenuItem, Grid, Typography, makeStyles, Box } from '@material-ui/core';
+
+const useStyles = makeStyles( themes => ({
+  root: {
+    flexGrow: 1
+  },
+  image: {
+    height: 'auto',
+    width: '200px',
+    float: 'left'
+  },
+  img: {
+    maxWidth: '100%',
+    maxHeight: '100%',
+    float: 'left'
+  }
+}));
 
 function Book({title, author, description, src, isbn13, currentUser, updateUserRequest, patchClubRequest, clubsCurrentUserMods}) {
+  const classes = useStyles();
 
   const [showing, showingSet] = useState(false);
   const toggleShowing = () => showingSet(!showing);
 
   const [updateTarget, updateTargetSet] = useState(currentUser.username);
   const setUpdateTarget = e => updateTargetSet(e.target.value);
-  
-  const renderCurrentlyReadingButton = () => <>
-    <h3>Mark as currently reading for: {select()}
-    <NavLink
-      to={linkDestination}
-      onClick={handleUpdate}
-      className='Navlink'
-    >Set</NavLink>
-    </h3>
-  </>;
-
-  const select = () =>
-    <select name='isbn' onChange={setUpdateTarget}>
-      <option value={currentUser.username}>{currentUser.username}</option>
-      { clubOptions() }
-    </select>
-
-  const clubOptions = () => {
-    return clubsCurrentUserMods().map( club => <option key={club.id} value={club.id}>{club.name}</option> );
-  }
 
   const linkDestination = () => {
     return updateTarget === currentUser.username
     ? `/${updateTarget}`
     : `/clubs/${updateTarget}`
+  }
+
+  const renderBookSelectForm = () => <>
+    {select()}
+    <Link
+      href={linkDestination()}
+      onClick={handleUpdate}
+    >Set</Link>
+  </>;
+
+  const select = () => (
+    <FormControl fullWidth>
+      <InputLabel>Set {title} for:</InputLabel>
+      <Select name='isbn' onChange={setUpdateTarget}>
+        <MenuItem value={currentUser.username}>{currentUser.username}</MenuItem>
+        { clubOptions() }
+      </Select>
+    </FormControl>
+  );
+
+  const clubOptions = () => {
+    return clubsCurrentUserMods().map( club => <MenuItem key={club.id} value={club.id}>{club.name}</MenuItem> );
   }
 
   const handleUpdate = () => {
@@ -66,17 +86,25 @@ function Book({title, author, description, src, isbn13, currentUser, updateUserR
   }
 
   const listBook = () =>
-    <div className='Book'>
-      <img src={src} alt={title + " Cover Picture"} />
-      <div className='details'>
-        <h3 onClick={toggleShowing} className='Navlink'>{title}</h3>
-        <h3>By: {author}</h3>
-        <p>{description}</p>
-      </div>
-      <div className='buttons'>
-        {currentUser ? renderCurrentlyReadingButton() : null}
-      </div>
-    </div>;
+    <Box>
+      <Grid container alignItems='flex-start' justifyItems='spread-evenly' fullWidth>
+        <Grid className={classes.image} item xs={3}>
+          <img className={classes.img} src={src} alt={title + " Cover Picture"} />
+        </Grid>
+        <Grid item>
+          <Typography variant='h4' onClick={toggleShowing} className='Navlink'>
+            {title}
+          </Typography>
+          <Typography variant='h5'>
+            By: {author}
+          </Typography>
+          <Typography>
+            {description}
+          </Typography>
+        </Grid>
+      </Grid>
+      {currentUser ? renderBookSelectForm() : null}
+    </Box>;
   
   return (
     showing ? <BookShow isbn={isbn13} hide={toggleShowing} /> : listBook()

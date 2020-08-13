@@ -95,7 +95,7 @@ class MainContainer extends Component {
     return (
       <Container>
 
-        { message ? <FlashMessage /> : null }
+        { !message || <FlashMessage /> }
 
         <Switch>
 
