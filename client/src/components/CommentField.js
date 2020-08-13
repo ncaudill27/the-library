@@ -22,6 +22,7 @@ const CommentField = ({currentUser: {id: userId, avatar, username}, threadId, po
       board_id: threadId,
       content: comment
     };
+    console.log(payload);
     postComment(payload);
     setComment('');
   };

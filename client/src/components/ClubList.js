@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 /* ----------
   Material imports
 ----------- */
-import { Avatar, Typography, Link } from '@material-ui/core';
+import { Avatar, Typography, Link, MenuItem } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 
 class ClubList extends Component {
@@ -28,17 +28,19 @@ class ClubList extends Component {
     clubs = currentUser ? clubs.filter(club => !userAssociatedClubIds.includes(club.id)) : clubs;
     
     return clubs.map( ({id, name, avatar, description}) =>
-      <Box>
-        <Avatar alt={name} src={avatar} />
-        <Typography variant="h5">
-          <Link href={`/clubs/${id}`}>
-            {name}
-          </Link>
-        </Typography>
+      <>
+        <Box display='flex' alignItems='center'>
+          <Avatar alt={name} src={avatar} />
+          <Typography variant="h5">
+            <Link href={`/clubs/${id}`}>
+              {name}
+            </Link>
+          </Typography>
+        </Box>
         <Typography>
           {description}
         </Typography>
-      </Box>
+      </>
     );
     {/* OLD CODE
       <Club
@@ -55,22 +57,29 @@ class ClubList extends Component {
     let {
       clubs,
       currentUser,
-      memberships
+      memberships,
+      handleClose
     } = this.props;
 
     const usersMemberships = memberships.filter( m => m.userId === currentUser.id );
     clubs  = usersMemberships.map( m => {
       return clubs.find( c => c.id === m.clubId );
     });
-    clubs = clubs.map(({id, name, avatar}) => <ClubSideBar key={id} id={id} name={name} avatar={avatar} />);
+    clubs = clubs.map(({id, name, avatar}) => {
+      return (
+        <MenuItem onClick={handleClose}>
+          <ClubSideBar key={id} id={id} name={name} avatar={avatar} />
+        </MenuItem>
+      )
+    });
 
     return <>
       {clubs}
-      <NavLink
-        to='/clubs/new'
-        exact
-        className='Create-club Navlink'
-      ><div className='Club-sidebar Create-club'><h3>Create Club</h3></div></NavLink>
+      <MenuItem>
+        <Link href='/clubs/new'>
+          Create Club
+        </Link>
+      </MenuItem>
     </>;
   };
 

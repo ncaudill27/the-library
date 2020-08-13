@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { patchCommentRequest } from '../actions/comments';
 
-import { Avatar, Typography, Box, Paper } from '@material-ui/core';
+import { Avatar, Typography, Box, Paper, Button } from '@material-ui/core';
 
 const Comment = ({
   id,
@@ -40,6 +40,7 @@ const Comment = ({
     toggleEditable();
   }
 
+// todo move to utils folder
   const parseTime = timeStamp => {
     timeStamp = new Date(timeStamp);
     const date = timeStamp.getDate();
@@ -63,10 +64,10 @@ const Comment = ({
     </form>;
 
   const renderOptions = () =>
-    <div className='buttons' data-comment-id={id}>
-      <button className='delete' onClick={deleteComment}>DELETE</button>
+    <div data-comment-id={id}>
+      <Button onClick={deleteComment}>DELETE</Button>
       <br/>
-      { isOwnerNotMod() ? <button className='edit' onClick={openEdit}>EDIT</button> : null }
+      { isOwnerNotMod() ? <Button className='edit' onClick={openEdit}>EDIT</Button> : null }
     </div>;
 
   const loadContent = () => commentsPending && commentsEditing === id.toString(10) ? null : <Typography variant='body1' paragraph>{content}</Typography>

@@ -12,6 +12,7 @@ const useStyles = makeStyles( themes => ({
   },
   paper: {
     padding: themes.spacing(2),
+    marginBottom: themes.spacing(4),
     backgroundColor: '#f0f0f0',
     overflow: 'auto'
   },
