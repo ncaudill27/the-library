@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import BookList from '../components/BookList';
+import Book from '../components/Book';
+/* ------------
+  Material imports
+------------ */
 import { Typography, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 
-const { REACT_APP_NY_TIMES_KEY } = process.env
-
+const { REACT_APP_NY_TIMES_KEY } = process.env;
 
 class NYTimes extends Component {
 
@@ -41,6 +43,23 @@ class NYTimes extends Component {
     )
   }
 
+  renderBooks = () => {
+    return this.state.books.map( book => 
+      <Book
+        key={book.primary_isbn13}
+        title={book.title}
+        author={book.author}
+        publisher={book.publisher}
+        description={book.description}
+        src={book.book_image}
+        amazonUrl={book.amazon_product_url}
+        isbn10={book.primary_isbn10}
+        isbn13={book.primary_isbn13}
+        clubsCurrentUserMods={this.props.clubsCurrentUserMods}
+      />
+    );
+  }
+
   handleSelectChange = e => {
     localStorage.setItem('NYSelector', e.target.value);
     this.setState({ 
@@ -59,7 +78,7 @@ class NYTimes extends Component {
           {this.selectOptions()}
         </Select>
       </FormControl>
-      <BookList books={this.state.books} clubsCurrentUserMods={this.props.clubsCurrentUserMods} />
+      { this.renderBooks() }
     </>
   }
 }
