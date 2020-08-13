@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import StarRating from './StarRating';
 /* ----------
   Material imports
 ----------- */
-import { Grid, Container, Typography, Paper } from '@material-ui/core';
+import { Grid, Typography, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+const { REACT_APP_GOOGLE_BOOKS_KEY } = process.env;
 
 const useStyles = makeStyles( themes => ({
   root: {
@@ -33,32 +34,39 @@ const useStyles = makeStyles( themes => ({
   }
 }));
 
-function ClubBook({ title, authors, averageRating, imageLinks, description }) {
+function ClubBook({ isbn, hide }) {
   const classes = useStyles();
+
+  const [book, setBook] = useState(null);
+  const { title, authors, averageRating, imageLinks, description } = book;
+
+  useEffect( () => {
+    fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&key=${REACT_APP_GOOGLE_BOOKS_KEY}`)
+    .then( res => res.json() )
+    .then( data => setBook(data.items[0].volumeInfo) )
+    .catch(errors => console.log(errors));
+  }, []);
 
   return (
     <Paper elevation={3} className={classes.paper}>
-      <Typography variant='h6' align='center'>
-        Current Book
-      </Typography>
-        <Grid className={classes.details} xs={6} item container direction='column' spacing={0} justify='flex-start' alignItems='center'>
-          <Grid item>
-            <Typography variant='h5' align='center'>
-                {title}
-              </Typography>
-          </Grid>
-          <Grid item>
-            <Typography variant='h6' align='center'>
-              Author{authors.length <= 1 || 's'}: {[...authors].join(', ')}
+      <Grid className={classes.details} xs={6} item container direction='column' spacing={0} justify='flex-start' alignItems='center'>
+        <Grid item>
+          <Typography variant='h5' align='center'>
+              {title}
             </Typography>
-          </Grid>
-          <Grid item>
-              <StarRating count={averageRating} />
-          </Grid>
-          <Grid item>
-            <img className={classes.img} src={imageLinks ? imageLinks.thumbnail : ''} alt={title + " Cover Art"} />
-          </Grid>
         </Grid>
+        <Grid item>
+          <Typography variant='h6' align='center'>
+            Author{authors.length <= 1 || 's'}: {[...authors].join(', ')}
+          </Typography>
+        </Grid>
+        <Grid item>
+            <StarRating count={averageRating} />
+        </Grid>
+        <Grid item>
+          <img className={classes.img} src={imageLinks ? imageLinks.thumbnail : ''} alt={title + " Cover Art"} />
+        </Grid>
+      </Grid>
       <Typography paragraph>
         {description}
       </Typography>
