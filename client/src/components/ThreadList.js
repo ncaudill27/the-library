@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import ThreadShow from './ThreadShow';
 import ThreadForm from './ThreadForm';
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 
 function ThreadList({threads, clubId, comments, currentUser, currentUserIsMod}) {
 
@@ -11,7 +11,7 @@ function ThreadList({threads, clubId, comments, currentUser, currentUserIsMod}) 
 
   const renderThreads = () => {
     return clubThreads.map( thread => {
-      const {id: threadId, title} = thread;
+      const { id: threadId, title } = thread;
       const threadComments = findThreadsComment(threadId);
 
       return (
@@ -27,15 +27,13 @@ function ThreadList({threads, clubId, comments, currentUser, currentUserIsMod}) 
     });
   };
 
-  return (
-    <div className='Thread-list'>
-      <Typography variant='h3'>
-        Threads
-      </Typography>
-      { currentUserIsMod ? <ThreadForm clubId={clubId} currentUserId={currentUser.id} /> : null }
-      {renderThreads()}
-    </div>
-  );
+  return <>
+    <Typography variant='h3'>
+      Threads
+    </Typography>
+    { currentUserIsMod ? <ThreadForm clubId={clubId} currentUserId={currentUser.id} /> : null }
+    {renderThreads()}
+  </>
 }
 
 const mapStateToProps = ({comments}) => ({
