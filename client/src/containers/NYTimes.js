@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import BookList from '../components/BookList';
+import { Typography, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
+
+const { REACT_APP_NY_TIMES_KEY } = process.env
+
 
 class NYTimes extends Component {
 
@@ -10,15 +14,14 @@ class NYTimes extends Component {
   }
 
   async componentDidMount() {
-    let options = await this.fetchOptions()
-    options = [...new Set(options)]
-    this.setState({options})
-    this.fetchBestSellers()
+    let options = await this.fetchOptions();
+    options = [...new Set(options)];
+    this.setState({options});
+    this.fetchBestSellers();
   }
 
   fetchBestSellers = () => {
-    const key = process.env.REACT_APP_NY_TIMES_KEY
-    fetch(`https://api.nytimes.com/svc/books/v3/lists/current/${this.state.select}.json?api-key=${key}`)
+    fetch(`https://api.nytimes.com/svc/books/v3/lists/current/${this.state.select}.json?api-key=${REACT_APP_NY_TIMES_KEY}`)
     .then(res => res.json())
     .then(list => this.setState({
       books: list.results.books
@@ -34,7 +37,7 @@ class NYTimes extends Component {
 
   selectOptions() {
     return this.state.options.map((cat, idx) =>
-      <option key={idx} value={cat.replace(/\s/g, '-').toLowerCase()}>{cat}</option>
+      <MenuItem key={idx} value={cat.replace(/\s/g, '-').toLowerCase()}>{cat}</MenuItem>
     )
   }
 
@@ -46,20 +49,18 @@ class NYTimes extends Component {
   }
   
   render() {
-    return (
-      <div>
-        <h1>New York Times Best Sellers</h1>
-        <div className='NYTimes'>
-          <div className='select-container'>
-            <label>Categories </label>
-            <select onChange={this.handleSelectChange} value={this.state.select} className='select'>
-              {this.selectOptions()}
-            </select>
-          </div>
-          <BookList books={this.state.books} clubsCurrentUserMods={this.props.clubsCurrentUserMods} />
-        </div>
-      </div>
-    )
+    return <>
+      <Typography variant='h3'>
+        New York Times Best Sellers
+      </Typography>
+      <FormControl fullWidth>
+        <InputLabel id='bestsellers-categories'>Categories</InputLabel>
+        <Select onChange={this.handleSelectChange} value={this.state.select} className='select'>
+          {this.selectOptions()}
+        </Select>
+      </FormControl>
+      <BookList books={this.state.books} clubsCurrentUserMods={this.props.clubsCurrentUserMods} />
+    </>
   }
 }
 
