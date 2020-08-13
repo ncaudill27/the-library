@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
-import { NavLink, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { updateUserRequest } from '../actions/users';
 import { patchClubRequest } from '../actions/clubs';
 import BookShow from './BookShow';
-import { FormControl, Select, InputLabel, MenuItem, Grid, Typography, makeStyles, Box } from '@material-ui/core';
+import { FormControl, Select, InputLabel, MenuItem, Link, Typography, makeStyles, Box, Grid, Button } from '@material-ui/core';
 
 const useStyles = makeStyles( themes => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    padding: themes.spacing(2)
   },
   image: {
     height: 'auto',
-    width: '200px',
+    width: '100px',
     float: 'left'
   },
   img: {
@@ -34,15 +34,16 @@ function Book({title, author, description, src, isbn13, currentUser, updateUserR
   const linkDestination = () => {
     return updateTarget === currentUser.username
     ? `/${updateTarget}`
-    : `/clubs/${updateTarget}`
+    : `/clubs/${updateTarget}`;
   }
 
   const renderBookSelectForm = () => <>
     {select()}
-    <Link
-      href={linkDestination()}
-      onClick={handleUpdate}
-    >Set</Link>
+      <Link href={linkDestination()} onClick={handleUpdate} underline='none' fullWidth>
+        <Button variant='outlined' fullWidth>
+          Set
+        </Button>
+      </Link>
   </>;
 
   const select = () => (
@@ -86,22 +87,22 @@ function Book({title, author, description, src, isbn13, currentUser, updateUserR
   }
 
   const listBook = () =>
-    <Box>
-      <Grid container alignItems='flex-start' justifyItems='spread-evenly' fullWidth>
-        <Grid className={classes.image} item xs={3}>
-          <img className={classes.img} src={src} alt={title + " Cover Picture"} />
-        </Grid>
-        <Grid item>
-          <Typography variant='h4' onClick={toggleShowing} className='Navlink'>
-            {title}
-          </Typography>
-          <Typography variant='h5'>
-            By: {author}
-          </Typography>
-          <Typography>
-            {description}
-          </Typography>
-        </Grid>
+    <Box className={classes.root}>
+      <Grid container direction='row' fullWidth>
+      <Grid className={classes.image} item xs={3}>
+        <img className={classes.img} src={src} alt={title + " Cover Picture"} />
+      </Grid>
+      <Grid item xs={9}>
+        <Typography variant='h4' onClick={toggleShowing} className='Navlink'>
+          {title}
+        </Typography>
+        <Typography variant='h5'>
+          By: {author}
+        </Typography>
+      </Grid>
+        <Typography>
+          {description}
+        </Typography>
       </Grid>
       {currentUser ? renderBookSelectForm() : null}
     </Box>;
@@ -110,6 +111,37 @@ function Book({title, author, description, src, isbn13, currentUser, updateUserR
     showing ? <BookShow isbn={isbn13} hide={toggleShowing} /> : listBook()
   );
 }
+
+{/* <Grid container direction='row' alignItems='flex-start' justify='spread-evenly' fullWidth>
+<Grid className={classes.image} item xs={3}>
+  <img className={classes.img} src={src} alt={title + " Cover Picture"} />
+</Grid>
+<Grid item xs={6}>
+  <Typography variant='h4' onClick={toggleShowing} className='Navlink'>
+    {title}
+  </Typography>
+  <Typography variant='h5'>
+    By: {author}
+  </Typography>
+</Grid>
+  <Typography>
+    {description}
+  </Typography>
+</Grid> */}
+
+{/* <Container className={classes.image}>
+<img className={classes.img} src={src} alt={title + " Cover Picture"} />
+</Container>
+<Typography variant='h4' onClick={toggleShowing} className='Navlink'>
+  {title}
+</Typography>
+<Typography variant='h5'>
+  By: {author}
+</Typography>
+<Typography>
+  {description}
+</Typography>
+{currentUser ? renderBookSelectForm() : null} */}
 
 Book.defaultProps = {
   title: "Title Missing",

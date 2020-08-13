@@ -44,20 +44,24 @@ class NYTimes extends Component {
   }
 
   renderBooks = () => {
-    return this.state.books.map( book => 
-      <Book
-        key={book.primary_isbn13}
-        title={book.title}
-        author={book.author}
-        publisher={book.publisher}
-        description={book.description}
-        src={book.book_image}
-        amazonUrl={book.amazon_product_url}
-        isbn10={book.primary_isbn10}
-        isbn13={book.primary_isbn13}
-        clubsCurrentUserMods={this.props.clubsCurrentUserMods}
-      />
-    );
+    return this.state.books.map( book => {
+      const title = book.title.replace(/\b[A-Z]+\b/g, x => x.charAt(0) + x.slice(1).toLowerCase() );
+
+      return (
+          <Book
+          key={book.primary_isbn13}
+          title={title}
+          author={book.author}
+          publisher={book.publisher}
+          description={book.description}
+          src={book.book_image}
+          amazonUrl={book.amazon_product_url}
+          isbn10={book.primary_isbn10}
+          isbn13={book.primary_isbn13}
+          clubsCurrentUserMods={this.props.clubsCurrentUserMods}
+        />
+      )
+    });
   }
 
   handleSelectChange = e => {
