@@ -3,10 +3,19 @@ import Comment from './Comment';
 import CommentField from './CommentField';
 import { deleteCommentRequest } from '../actions/comments';
 import { connect } from 'react-redux';
-import { Grow } from '@material-ui/core';
+import { Grow, Box } from '@material-ui/core';
 
-function CommentList({ deleteCommentRequest, comments, open, threadId, handleChange, handleSubmit, currentUser, currentUserIsMod }) {
-
+function CommentList({
+  open,
+  comments,
+  threadId,
+  currentUser,
+  handleChange,
+  handleSubmit,
+  currentUserIsMod,
+  deleteCommentRequest
+}) {
+  console.log(open);
   const sortCommentsByCreation = () => {
     return comments.sort((c1, c2) => new Date(c2.posted) - new Date(c1.posted));
   }
@@ -17,33 +26,31 @@ function CommentList({ deleteCommentRequest, comments, open, threadId, handleCha
 
     return sortedComments.map( comment => {
       return (
-        <Grow in={open} style={{transformOrigin: '0 0 0'}} { ...(open ? { timeout: 500 } : {}) } key={comment.id}>
-          <Comment
-            key={comment.id}
-            {...comment}
-            deleteComment={deleteCommentRequest}
-            currentUserIsMod={currentUserIsMod}
-          /> 
-        </Grow>
-      )
+        <Comment
+          key={comment.id}
+          {...comment}
+          deleteComment={deleteComment}
+          currentUserIsMod={currentUserIsMod}
+        /> 
+      );
     });
   }
 
-  const deleteComment = (e) => {
+  const deleteComment = e => {
     const commentId = e.target.parentNode.dataset.commentId;
-    this.props.deleteCommentRequest(commentId);
+    deleteCommentRequest(commentId);
   }
   
   return (
-    <div className='list-comments'>
-      { renderComments() }
-      <CommentField
+    <Box>
+      { !open || renderComments() }
+      { !open || <CommentField
         currentUser={currentUser}
         threadId={threadId}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
-      />
-    </div>
+      />}
+    </Box>
   );
 }
 

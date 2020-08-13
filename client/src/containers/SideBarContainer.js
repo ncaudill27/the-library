@@ -6,7 +6,7 @@ import UserBox from '../components/UserBox';
 import ClubList from '../components/ClubList';
 import SideNav from '../components/SideNav';
 
-import { Button, IconButton, AppBar, Toolbar, Typography, Menu, MenuItem } from '@material-ui/core';
+import { Button, IconButton, AppBar, Toolbar, Typography, Menu, MenuItem, Link } from '@material-ui/core';
 
 import MenuIcon from '@material-ui/icons/MenuBook';
 import ClearIcon from '@material-ui/icons/Clear';
@@ -55,23 +55,23 @@ function SidebarContainer({currentUser}) {
           onClose={handleClose}
           >
             <MenuItem onClick={handleClose}>
-              <NavLink
-                to='/bestsellers'
-                exact
-                className='Create-club Navlink'
+              <Link
+                href='/bestsellers'
               >
                 Bestsellers {/* <----------- link text */}
-              </NavLink>
+              </Link>
             </MenuItem>
             <MenuItem onClick={handleClose}>
-            <NavLink
-              to='/clubs'
-              exact
-              className='Create-club Navlink'
+            <Link
+              href='/clubs'
             >
               Clubs {/* <--------------- link text */}
-            </NavLink>
+            </Link>
             </MenuItem>
+            <MenuItem>
+              Your clubs
+            </MenuItem>
+            <ClubList styling='sidebar' handleClose={handleClose} />
           </Menu>
         </Toolbar>
       </AppBar>
@@ -83,7 +83,6 @@ function SidebarContainer({currentUser}) {
 //   !!currentUser
 //   ? <>
 //     <UserBox user={currentUser} />
-//     <ClubList styling='sidebar' />
 //     </>
 //   : <SideNav postion='sidebar' />
 // }

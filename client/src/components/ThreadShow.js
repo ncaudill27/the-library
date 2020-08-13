@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import CommentList from './CommentList';
-import { Typography, Paper, makeStyles } from '@material-ui/core';
+import { Typography, Paper, Grow, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles( themes => ({
   paper: {
@@ -28,6 +28,7 @@ function ThreadShow ({
         {title}
       </Typography>
       <CommentList
+        open={open}
         comments={comments}
         currentUserIsMod={currentUserIsMod}
         currentUser={currentUser}

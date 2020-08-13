@@ -24,7 +24,7 @@ const Input = ({name, value, handleChange}) => {
 
     case "description":
     case "bio":
-      return <TextField label={parseName()} variant='outlined' multiline name={name} onChange={handleChange} value={value} />;
+      return <TextField label={parseName()} variant='outlined' multiline name={name} rows='4' onChange={handleChange} value={value} />;
 
     default:
       return <TextField label={parseName()} variant='outlined' name={name} type='text' onChange={handleChange} value={value} autoComplete='off' />;
