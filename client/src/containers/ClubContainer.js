@@ -7,7 +7,8 @@ import { NavLink } from 'react-router-dom';
 /* ------------
   Material imports
 ---------- */
-import { Button, Typography } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
 class ClubContainer extends PureComponent {
 
@@ -57,10 +58,9 @@ class ClubContainer extends PureComponent {
   renderMembershipButton = () => 
     this.props.currentUserIsMember
     ? <Button id='leave' onClick={this.handleLeave}>Leave Club</Button>
-    : <Button color="primary" id='join' onClick={this.handleJoin}>Join Club</Button>;
+    : <Button color='primary' id='join' onClick={this.handleJoin}>Join Club</Button>;
 
-  renderModOptions = () => 
-    <div className='mod'>
+  renderModOptions = () => <>
       <button onClick={this.props.toggleModding}>Current members</button>
       <br />
       <button><NavLink to='/avatar-selection' exact>
@@ -68,7 +68,7 @@ class ClubContainer extends PureComponent {
       </NavLink></button>
       <br />
       <button><NavLink to='/bestsellers' exact>Set new book</NavLink></button>
-    </div>;
+    </>;
 
   renderCurrentMembers = () => {
     let { members, toggleModding } = this.props;

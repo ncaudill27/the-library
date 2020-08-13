@@ -72,6 +72,7 @@ class MainContainer extends Component {
     
     if ( !clubsPending ) {
       const club = clubs.find( c => c.id === clubId );
+      club.id = clubId;
       club.members = this.clubsMembers(club.id);
       club.book = this.state.book;
       club.modding = this.state.modding;
@@ -113,6 +114,7 @@ class MainContainer extends Component {
           <Route exact path='/clubs/new' render={ () => <ClubForm currentUser={currentUser}  /> } />
 
           {
+            //TODO dig into why the container doesn't recognize clubId
             currentUser && memberships.length && !clubsPending
             ? <Route exact path='/clubs/:id' render={ ({match}) => {
               const club = this.reifyClubById(match.params.id);
