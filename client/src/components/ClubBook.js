@@ -37,36 +37,32 @@ function ClubBook({ title, authors, averageRating, imageLinks, description }) {
   const classes = useStyles();
 
   return (
-    <div>
-      <Paper elevation={3} className={classes.paper}>
-        <Typography variant='h6' align='center'>
-          Current Book
-        </Typography>
-          <Grid className={classes.details} xs={6} item container direction='column' spacing={0} justify='flex-start' alignItems='center'>
-            <Grid item>
-              <Typography variant='h5' align='center'>
-                  {title}
-                </Typography>
-            </Grid>
-            <Grid item>
-              <Typography variant='h6' align='center'>
-                Author{authors.length <= 1 || 's'}: {[...authors].join(', ')}
+    <Paper elevation={3} className={classes.paper}>
+      <Typography variant='h6' align='center'>
+        Current Book
+      </Typography>
+        <Grid className={classes.details} xs={6} item container direction='column' spacing={0} justify='flex-start' alignItems='center'>
+          <Grid item>
+            <Typography variant='h5' align='center'>
+                {title}
               </Typography>
-            </Grid>
-            <Grid item>
-                <StarRating count={averageRating} />
-              {/* <Container className={classes.image}> */}
-              {/* </Container> */}
-            </Grid>
-            <Grid item>
-              <img className={classes.img} src={imageLinks ? imageLinks.thumbnail : ''} alt={title + " Cover Art"} />
-            </Grid>
           </Grid>
-        <Typography paragraph>
-          {description}
-        </Typography>
-      </Paper>
-    </div>
+          <Grid item>
+            <Typography variant='h6' align='center'>
+              Author{authors.length <= 1 || 's'}: {[...authors].join(', ')}
+            </Typography>
+          </Grid>
+          <Grid item>
+              <StarRating count={averageRating} />
+          </Grid>
+          <Grid item>
+            <img className={classes.img} src={imageLinks ? imageLinks.thumbnail : ''} alt={title + " Cover Art"} />
+          </Grid>
+        </Grid>
+      <Typography paragraph>
+        {description}
+      </Typography>
+    </Paper>
   );
 }
 
