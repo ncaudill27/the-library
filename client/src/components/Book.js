@@ -41,7 +41,7 @@ function Book({title, author, description, src, isbn13, currentUser, updateUserR
 
   const renderBookSelectForm = () => <>
     {select()}
-      <Link href={linkDestination()} onClick={handleUpdate} underline='none' fullWidth>
+      <Link href={linkDestination()} onClick={handleUpdate} underline='none'>
         <Button variant='outlined' fullWidth>
           Set
         </Button>
@@ -90,13 +90,13 @@ function Book({title, author, description, src, isbn13, currentUser, updateUserR
 
   const listBook = () =>
     <Box className={classes.root}>
-      <Grid container direction='row' fullWidth>
+      <Grid container direction='row'>
       <Grid className={classes.image} item xs={3}>
         <img className={classes.img} src={src} alt={title + " Cover Picture"} />
       </Grid>
       <Grid item xs={9}>
         <Typography variant='h4' onClick={toggleShowing} className='Navlink'>
-          {title}
+          <Link>{title}</Link>
         </Typography>
         <Typography variant='h5'>
           By: {author}
