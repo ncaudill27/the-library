@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { updateUserRequest } from '../actions/users';
 import { patchClubRequest } from '../actions/clubs';
 import BookShow from './BookShow';
-import ClubBook from './ClubBook';
 
 import { FormControl, Select, InputLabel, MenuItem, Link, Typography, makeStyles, Box, Grid, Button } from '@material-ui/core';
 
@@ -110,8 +109,7 @@ function Book({title, author, description, src, isbn13, currentUser, updateUserR
     </Box>;
   
   return (
-    // showing ? <BookShow isbn={isbn13} hide={toggleShowing} /> : listBook()
-    showing ? <ClubBook isbn={isbn13} hide={toggleShowing} /> : listBook()
+    showing ? <BookShow isbn={isbn13} hide={toggleShowing} /> : listBook()
   );
 }
 
