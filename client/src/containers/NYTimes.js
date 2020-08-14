@@ -76,7 +76,7 @@ class NYTimes extends Component {
       <Typography variant='h3'>
         New York Times Best Sellers
       </Typography>
-      <FormControl fullWidth>
+      <FormControl>
         <InputLabel id='bestsellers-categories'>Categories</InputLabel>
         <Select onChange={this.handleSelectChange} value={this.state.select} className='select'>
           {this.selectOptions()}

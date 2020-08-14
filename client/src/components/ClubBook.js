@@ -38,7 +38,6 @@ function ClubBook({ isbn, hide }) {
   const classes = useStyles();
 
   const [book, setBook] = useState(null);
-  const { title, authors, averageRating, imageLinks, description } = book;
 
   useEffect( () => {
     fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&key=${REACT_APP_GOOGLE_BOOKS_KEY}`)
@@ -47,28 +46,29 @@ function ClubBook({ isbn, hide }) {
     .catch(errors => console.log(errors));
   }, []);
 
-  return (
-    <Paper elevation={3} className={classes.paper}>
+  if (!book) return <h2 onClick={hide}>loading...</h2>;
+  else return (
+    <Paper elevation={3} className={classes.paper} onClick={hide}>
       <Grid className={classes.details} xs={6} item container direction='column' spacing={0} justify='flex-start' alignItems='center'>
         <Grid item>
           <Typography variant='h5' align='center'>
-              {title}
+              {book.title}
             </Typography>
         </Grid>
         <Grid item>
           <Typography variant='h6' align='center'>
-            Author{authors.length <= 1 || 's'}: {[...authors].join(', ')}
+            Author{book.authors.length <= 1 || 's'}: {[...book.authors].join(', ')}
           </Typography>
         </Grid>
         <Grid item>
-            <StarRating count={averageRating} />
+            <StarRating count={book.averageRating} />
         </Grid>
         <Grid item>
-          <img className={classes.img} src={imageLinks ? imageLinks.thumbnail : ''} alt={title + " Cover Art"} />
+          <img className={classes.img} src={book.imageLinks ? book.imageLinks.thumbnail : ''} alt={book.title + " Cover Art"} />
         </Grid>
       </Grid>
       <Typography paragraph>
-        {description}
+        {book.description}
       </Typography>
     </Paper>
   );
