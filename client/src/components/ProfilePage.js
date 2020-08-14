@@ -1,21 +1,14 @@
 import React, { PureComponent } from 'react';
-import ClubBook from './ClubBook';
+import BookShow from './BookShow';
 
 class ProfilePage extends PureComponent {
 
-  componentDidMount() {
-    this.props.fetchBookInfo(this.props.currentUser.currentlyReading)
-  }
-
   render() {
     const {
-      book,
-      currentUser: {
-        name,
-        bio,
-        currentlyReading
-      }
-    } = this.props;
+      bio,
+      name,
+      currentlyReading
+    } = this.props.currentUser;
 
     const isbn = RegExp(currentlyReading);
 
@@ -26,7 +19,7 @@ class ProfilePage extends PureComponent {
           <p>{bio}</p>
         </div>
         <div className='reading'>
-          { isbn.test(book.infoLink) ? <ClubBook {...book} /> : null }
+          <BookShow isbn={currentlyReading} />
         </div>
       </div>
     );

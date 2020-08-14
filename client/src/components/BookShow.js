@@ -1,68 +1,77 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import StarRating from './StarRating';
+/* ----------
+  Material imports
+----------- */
+import { Grid, Typography, Paper } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+const { REACT_APP_GOOGLE_BOOKS_KEY } = process.env;
 
-class BookShow extends Component {
-
-  state = {
-    bookData: {},
-    errorMessage: <h3 className='error'>loading...</h3>
-  };
-
-  componentDidMount() {
-    this.fetchReview();
-    this.renderErrorMessage();
+const useStyles = makeStyles( themes => ({
+  root: {
+    flexGrow: 1
+  },
+  paper: {
+    padding: themes.spacing(2),
+    marginBottom: themes.spacing(4),
+    backgroundColor: '#f0f0f0',
+    overflow: 'auto'
+  },
+  details: {
+    margin: themes.spacing(1),
+    padding: themes.spacing(1),
+    float: 'right',
+  },
+  image: {
+    height: 'auto',
+    width: 'auto'
+  },
+  img: {
+    margin: 'auto',
+    display: 'block',
+    maxWidth: '100%',
+    maxHeight: '100%'
   }
+}));
 
-  fetchReview = () => {
-    const {isbn} = this.props
-    const key = `${process.env.REACT_APP_GOOGLE_BOOKS_KEY}`
-    fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&key=${key}`)
-    .then(res => res.json())
-    .then(data => this.setState({ bookData: data.items[0].volumeInfo }))
+function BookShow({ isbn, hide }) {
+  const classes = useStyles();
+
+  const [book, setBook] = useState(null);
+
+  useEffect( () => {
+    fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&key=${REACT_APP_GOOGLE_BOOKS_KEY}`)
+    .then( res => res.json() )
+    .then( data => setBook(data.items[0].volumeInfo) )
     .catch(errors => console.log(errors));
-  }
+  }, []);
 
-  renderErrorMessage = () => 
-    setTimeout(() => {
-      this.setState({
-        errorMessage: <h3 className='error'>Sorry we couldn't seem to find that book. <strong onClick={this.props.hide}>Go back</strong></h3>
-      })
-    }, 1500);
-
-  renderBook = bookData => {
-    const {hide} = this.props;
-
-    if (this.state.bookData && Object.keys(this.state.bookData).length !== 0) {
-
-      const { title, authors, publisher, publishedDate,
-              description, categories, averageRating, imageLinks} = this.state.bookData;
-
-      return (
-        <>
-        <img id='book' src={ imageLinks ? imageLinks.thumbnail : ''} alt={title + " Cover Art"} />
-        <div className='details'>
-          <h3 onClick={hide}>{title}</h3>
-          <h3>By: { authors ? [...authors].join(', ') : ''}</h3>
-          { averageRating > 0 ? <StarRating count={averageRating} /> : null}
-          <p>Categories: { categories ? [...categories].join(', ') : ''}</p>
-          <p>Published: {publishedDate}</p>
-          <p>Publisher: {publisher}</p>
-        </div>
-        <p>{description}</p>
-        </>
-      );
-    } else {
-      return this.state.errorMessage;
-    };
-  };
-
-  render() {
-    return (
-      <div className='Book-show'>
-        {this.renderBook()}
-      </div>
-    );
-  };
+  if (!book) return <h2 onClick={hide}>loading...</h2>;
+  else return (
+    <Paper elevation={3} className={classes.paper} onClick={hide}>
+      <Grid className={classes.details} xs={6} item container direction='column' spacing={0} justify='flex-start' alignItems='center'>
+        <Grid item>
+          <Typography variant='h5' align='center'>
+              {book.title}
+            </Typography>
+        </Grid>
+        <Grid item>
+          <Typography variant='h6' align='center'>
+            Author{book.authors.length <= 1 || 's'}: {[...book.authors].join(', ')}
+          </Typography>
+        </Grid>
+        <Grid item>
+            <StarRating count={book.averageRating} />
+        </Grid>
+        <Grid item>
+          <img className={classes.img} src={book.imageLinks ? book.imageLinks.thumbnail : ''} alt={book.title + " Cover Art"} />
+        </Grid>
+      </Grid>
+      <Typography paragraph>
+        {book.description}
+      </Typography>
+    </Paper>
+  );
 }
 
 export default BookShow;

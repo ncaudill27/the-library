@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { memberJoinRequest, memberLeaveRequest } from '../actions/users';
 import ThreadList from '../components/ThreadList';
-import ClubBook from '../components/ClubBook';
+import BookShow from '../components/BookShow';
 import { NavLink } from 'react-router-dom';
 /* ------------
   Material imports
@@ -12,23 +12,10 @@ import Typography from '@material-ui/core/Typography';
 
 class ClubContainer extends PureComponent {
 
-  componentDidMount() {
-    this.fetchBookInfo();
-  }
-
-  componentDidUpdate(nextProps) {
-    if (nextProps.id !== this.props.id) this.fetchBookInfo();
-  }
-
   componentWillUnmount() {
     if (this.props.modding) this.props.toggleModding();
   }
 
-  fetchBookInfo = () => {
-    const { activeBook } = this.props;
-    this.props.fetchBookInfo(activeBook);
-  }
-  
   handleJoin = () => {
     const { id, memberJoinRequest } = this.props;
     const payload = {
@@ -60,6 +47,7 @@ class ClubContainer extends PureComponent {
     ? <Button id='leave' onClick={this.handleLeave}>Leave Club</Button>
     : <Button color='primary' id='join' onClick={this.handleJoin}>Join Club</Button>;
 
+    // TODO fix this
   renderModOptions = () => <>
       <button onClick={this.props.toggleModding}>Current members</button>
       <br />
@@ -92,20 +80,17 @@ class ClubContainer extends PureComponent {
       props: {
         id,
         name,
-        activeBook,
-        description,
-        currentUserIsMod,
-        currentUser,
         threads,
         modding,
-        book
+        activeBook,
+        currentUser,
+        description,
+        currentUserIsMod
       },
       renderMembershipButton,
       renderModOptions,
       renderCurrentMembers
     } = this;
-
-    const isbn = RegExp(activeBook);
 
     return (
       <div className='Club-container'>
@@ -116,7 +101,7 @@ class ClubContainer extends PureComponent {
           { currentUser ? renderMembershipButton() : null }
           <Typography variant="subtitle1" paragraph>{description}</Typography>
         </div>
-        { isbn.test(book.infoLink) ? <ClubBook {...book} /> : null }
+        <BookShow isbn={activeBook} />
         <ThreadList threads={threads} clubId={id} currentUser={currentUser} currentUserIsMod={currentUserIsMod} />
       </div>
     );

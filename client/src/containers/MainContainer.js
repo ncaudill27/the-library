@@ -20,7 +20,6 @@ import { Container } from '@material-ui/core';
 class MainContainer extends Component {
 
   state = {
-    book: false,
     modding: false
   }
 
@@ -28,17 +27,6 @@ class MainContainer extends Component {
     this.setState( prevState => ({
       modding: !prevState.modding
     }));
-  }
-
-  fetchBookInfo = activeBook => {
-    const key = process.env.REACT_APP_GOOGLE_BOOKS_KEY;
-
-    fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${activeBook}&key=${key}`)
-    .then( res => res.json() )
-    .then( data => {
-      this.setState({book: data.items[0].volumeInfo});
-    })
-    .catch(errors => console.log(errors));
   }
 
   clubsCurrentUserisMember = () => {
@@ -74,7 +62,6 @@ class MainContainer extends Component {
       const club = clubs.find( c => c.id === clubId );
       club.id = clubId;
       club.members = this.clubsMembers(club.id);
-      club.book = this.state.book;
       club.modding = this.state.modding;
       club.threads = club.threadIds.map( threadId => this.props.threads.find( t => t.id === threadId ) );
       club.currentUserIsMod = this.clubsCurrentUserMods().includes(club);
@@ -122,7 +109,6 @@ class MainContainer extends Component {
                         {...club}
                         currentUser={currentUser}
                         findMembershipId={this.findMembershipId}
-                        fetchBookInfo={this.fetchBookInfo}
                         toggleModding={this.toggleModding}
                       />
             }
@@ -140,7 +126,7 @@ class MainContainer extends Component {
           {
             !usersPending
             ? <Route exact path='/:username' render={ () => {
-              return <ProfilePage book={this.state.book} fetchBookInfo={this.fetchBookInfo} currentUser={currentUser} />
+              return <ProfilePage currentUser={currentUser} />
             }} />
             : null
           }
