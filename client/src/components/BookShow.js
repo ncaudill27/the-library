@@ -44,7 +44,7 @@ function BookShow({ isbn, hide }) {
     .then( res => res.json() )
     .then( data => setBook(data.items[0].volumeInfo) )
     .catch(errors => console.log(errors));
-  }, []);
+  }, [isbn]);
 
   if (!book) return <h2 onClick={hide}>loading...</h2>;
   else return (

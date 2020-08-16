@@ -14,18 +14,21 @@ function ClubContainer({
   id,
   name,
   threads,
-  modding,
+  members,
   activeBook,
   currentUser,
   description,
+  findMembershipId,
   currentUserIsMod,
-  memberJoinRequest
+  memberJoinRequest,
+  memberLeaveRequest,
+  currentUserIsMember
 }) {
 
   const [modding, setModding] = useState(false);
-  const toggleModding = setModding( prev => !prev );
+  const toggleModding = () => setModding( prev => !prev );
   
-  handleJoin = () => {
+  const handleJoin = () => {
     const payload = {
       membership: {
         club_id: id
@@ -35,75 +38,58 @@ function ClubContainer({
     memberJoinRequest(payload);
   }
 
-  handleLeave = () => {
-    const {
-      id,
-      memberLeaveRequest,
-      currentUser,
-      findMembershipId,
-      modding,
-      toggleModding
-    } = this.props;
-
+  const handleLeave = () => {
     const membershipId = findMembershipId({clubId: id, userId: currentUser.id});
     memberLeaveRequest(membershipId);
     if (modding) toggleModding();
   }
 
-  renderMembershipButton = () => 
-    this.props.currentUserIsMember
-    ? <Button id='leave' onClick={this.handleLeave}>Leave Club</Button>
-    : <Button color='primary' id='join' onClick={this.handleJoin}>Join Club</Button>;
+  const renderMembershipButton = () => (
+    currentUserIsMember
+    ? <Button id='leave' onClick={handleLeave}>Leave Club</Button>
+    : <Button color='primary' id='join' onClick={handleJoin}>Join Club</Button>
+  );
 
-    // TODO fix this
-  renderModOptions = () => <>
-      <button onClick={this.props.toggleModding}>Current members</button>
-      <br />
-      <button><NavLink to='/avatar-selection' exact>
-        Choose new avatar
-      </NavLink></button>
-      <br />
-      <button><NavLink to='/bestsellers' exact>Set new book</NavLink></button>
-    </>;
 
-  renderCurrentMembers = () => {
-    let { members, toggleModding } = this.props;
+  // TODO fix this
+  const renderModOptions = () => <>
+    <button onClick={toggleModding}>Current members</button>
+    <button><NavLink to='/avatar-selection' exact>
+      Choose new avatar
+    </NavLink></button>
+    <button><NavLink to='/bestsellers' exact>Set new book</NavLink></button>
+  </>;
 
+  const renderCurrentMembers = () => {
     members = members.map( member => {
       return <div key={member.id} className='member'>
         <p key={member.name}>{member.username}
-          <button key={member.username} onClick={this.handleLeave}>remove</button>
+          <button key={member.username} onClick={handleLeave}>remove</button>
         </p>
       </div>
     });
     
-    return  <div className='members'>
-              <button onClick={toggleModding}>CLOSE</button>
-              {members}
-            </div>;
-  }
-
-  render() {
-    const {
-      renderMembershipButton,
-      renderModOptions,
-      renderCurrentMembers
-    } = this;
-
-    return (
-      <div className='Club-container'>
-        { currentUserIsMod ? renderModOptions() : null }
-        { modding ? renderCurrentMembers() : null }
-        <div className='Club-details'>
-          <Typography variant="h2">{name}</Typography>
-          { currentUser ? renderMembershipButton() : null }
-          <Typography variant="subtitle1" paragraph>{description}</Typography>
-        </div>
-        <BookShow isbn={activeBook} />
-        <ThreadList threads={threads} clubId={id} currentUser={currentUser} currentUserIsMod={currentUserIsMod} />
+    return  (
+      <div className='members'>
+        <button onClick={toggleModding}>CLOSE</button>
+        {members}
       </div>
     );
   }
+
+  return (
+    <div className='Club-container'>
+      { !currentUserIsMod || renderModOptions() }
+      { !modding || renderCurrentMembers() }
+      <div className='Club-details'>
+        <Typography variant="h2">{name}</Typography>
+        { !currentUser || renderMembershipButton() }
+        <Typography variant="subtitle1" paragraph>{description}</Typography>
+      </div>
+      <BookShow isbn={activeBook} />
+      <ThreadList threads={threads} clubId={id} currentUser={currentUser} currentUserIsMod={currentUserIsMod} />
+    </div>
+  );
 }
 
 export default connect( null, { memberJoinRequest, memberLeaveRequest })(ClubContainer);
