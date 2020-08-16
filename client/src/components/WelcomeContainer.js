@@ -5,16 +5,8 @@ import SignUp from './SignUp';
 import NewUser from './NewUser';
 import { loginRequest, loginUser } from '../actions/users';
 import { connect } from 'react-redux';
-import { makeStyles } from '@material-ui/core';
-
-const useStyles = makeStyles( themes => ({
-  form: {
-    margin: themes.spacing(4)
-  }
-}));
 
 function WelcomeContainer({currentUser}) {
-  const classes = useStyles();
 
   return (
     <div className='WelcomeContainer'>

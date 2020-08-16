@@ -1,58 +1,54 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import FormField from './FormField';
 import { userPostRequest } from '../actions/users';
 import { connect } from 'react-redux';
+import { Button, Typography, FormControl, TextField, makeStyles, Box } from '@material-ui/core';
 
-class SignUp extends Component {
+const useStyles = makeStyles( themes => ({
+  form: {
+    margin: themes.spacing(4)
+  }
+}));
 
-  state = {
-    email: '',
-    password: '',
-    confirmPassword: ''
-  };
+function SignUp({userPostRequest}) {
+  const classes = useStyles();
 
-  handleChange = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  };
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmation, setConfirmation] = useState('');
 
-  handleSubmit = e => {
-    e.preventDefault()
-    const {email, password, confirmPassword} = this.state
+  const handleChange = (setFn, e) => {
+    const value = e.currentTarget.value;
+    setFn(value);
+  }
+  
+  const handleSubmit = e => {
     const payload = {
         user: {
           email,
           password,
-          password_confirmation: confirmPassword
+          password_confirmation: confirmation
         }
     }
-    this.props.userPostRequest(payload);
-    this.setState({
-      email: '',
-      password: '',
-      confirmPassword: ''
-    })
+    userPostRequest(payload);
+    setEmail('');
+    setPassword('');
+    setConfirmation('');
   }
-  
-  render() {
-    const {handleChange, handleSubmit, state} = this;
-    const inputNames = Object.keys(state);
-    const inputValues = Object.values(state);
 
-    return (
-      <div className='Sign-up'>
-        <h2>Sign Up</h2>
-        <FormField
-          inputNames={inputNames}
-          inputValues={inputValues}
-          handleChange={handleChange}
-          handleSubmit={handleSubmit}
-          submitValue="Sign Up"
-        />
-      </div>
-    );
-  };
+  return (
+    <Box className={classes.form}>
+      <Typography variant='h4'>
+        Sign Up
+      </Typography>
+      <FormControl fullWidth>
+        <TextField label='Email' onChange={ e => handleChange(setEmail, e) } />
+        <TextField type='password' label='Password' onChange={ e => handleChange(setPassword, e) } />
+        <TextField type='password' label='Confirmation' onChange={ e => handleChange(setConfirmation, e) } />
+        <Button onClick={handleSubmit}>Sign Up</Button>
+      </FormControl>
+    </Box>
+  );
 }
 
 export default connect(null, { userPostRequest })(SignUp);
