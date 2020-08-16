@@ -42,11 +42,16 @@ function SidebarContainer({currentUser, logOutUser}) {
           <Typography variant="h6" className={classes.title}>
             The Library
           </Typography>
-          <Button onClick={logOutUser}>
-            <Link href='/'>
-              Log Out
-            </Link>
-          </Button>
+          {
+             !currentUser
+             || ( 
+              <Button onClick={logOutUser}>
+                <Link href='/'>
+                  Log Out
+                </Link>
+            </Button>
+             )
+          }
           <Menu
           anchorEl={anchorEl}
           anchorOrigin={{
