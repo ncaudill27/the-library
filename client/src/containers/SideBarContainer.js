@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
-import { addClub } from '../actions/users';
-import UserBox from '../components/UserBox';
 import ClubList from '../components/ClubList';
-import SideNav from '../components/SideNav';
+import { connect } from 'react-redux';
+import { addClub } from '../actions/users';
+import { logOutUser } from '../actions/users';
 
 import { Button, IconButton, AppBar, Toolbar, Typography, Menu, MenuItem, Link } from '@material-ui/core';
 
@@ -26,7 +24,7 @@ const useStyles = makeStyles( theme => ({
 }));
 
 
-function SidebarContainer({currentUser}) {
+function SidebarContainer({currentUser, logOutUser}) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -44,7 +42,11 @@ function SidebarContainer({currentUser}) {
           <Typography variant="h6" className={classes.title}>
             The Library
           </Typography>
-          <Button>Log Out</Button>
+          <Button onClick={logOutUser}>
+            <Link href='/'>
+              Log Out
+            </Link>
+          </Button>
           <Menu
           anchorEl={anchorEl}
           anchorOrigin={{
@@ -92,4 +94,4 @@ const mapStateToProps = ({users}) => {
   }
 };
 
-export default connect(mapStateToProps, { addClub })(SidebarContainer);
+export default connect(mapStateToProps, { addClub, logOutUser })(SidebarContainer);

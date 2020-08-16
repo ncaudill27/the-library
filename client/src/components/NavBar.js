@@ -1,6 +1,5 @@
 import React from 'react';
 import StyledLink from './StyledLink';
-import { logOutUser } from '../actions/users';
 import { connect } from 'react-redux';
 
 const NavBar = ({currentUser, logOutUser}) =>{
