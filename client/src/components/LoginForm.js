@@ -2,9 +2,16 @@ import React, { useState } from 'react';
 import FormField from './FormField';
 import { loginRequest } from '../actions/users';
 import { connect } from 'react-redux';
-import { FormControl, TextField, Button, Box, makeStyles } from '@material-ui/core';
+import { Typography, FormControl, TextField, Button, Box, makeStyles } from '@material-ui/core';
+
+const useStyles = makeStyles( themes => ({
+  form: {
+    margin: themes.spacing(4)
+  }
+}));
 
 function LoginForm({loginRequest}) {
+  const classes = useStyles();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -15,7 +22,6 @@ function LoginForm({loginRequest}) {
   }
 
   const handleSubmit = e => {
-    e.preventDefault();
     const payload = {
       username,
       password
@@ -27,8 +33,10 @@ function LoginForm({loginRequest}) {
   };
 
   return (
-    <Box>
-      <h2>Login</h2>
+    <Box className={classes.form}>
+      <Typography variant='h4'>
+        Login
+      </Typography>
       <FormControl fullWidth>
         <TextField label='Username' onChange={ e => handleChange(setUsername, e) } />
         <TextField type='password' label='Password' />
