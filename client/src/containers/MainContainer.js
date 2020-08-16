@@ -19,42 +19,34 @@ import { Container } from '@material-ui/core';
 
 class MainContainer extends Component {
 
-  state = {
-    modding: false
-  }
-
-  toggleModding = () => {
-    this.setState( prevState => ({
-      modding: !prevState.modding
-    }));
-  }
-
+  //TODO move to helpers folder
   clubsCurrentUserisMember = () => {
     let { currentUser, memberships, clubs } = this.props;
     const membershipAssociations = memberships.filter( m => m.userId === currentUser.id );
     clubs = membershipAssociations.map( ({clubId}) => clubs.find( c => c.id === clubId ) );
     return clubs;
   }
+  //TODO move to helpers folder
   clubsCurrentUserMods = () => {
     let { currentUser, memberships, clubs } = this.props;
     const modAssociations = memberships.filter( m => m.userId === currentUser.id && m.isMod );
     clubs = modAssociations.map( ({clubId}) => clubs.find( c => c.id === clubId ) );
     return clubs;
   }
-
+  //TODO move to helpers folder
   clubsMembers = clubId => {
     const { memberships, users } = this.props;
     const clubMemberships = memberships.filter( m => m.clubId === clubId );
 
     return clubMemberships.map( m => users.find( u => u.id === m.userId ) );
   }
-
+  //TODO move to helpers folder
   findMembershipId = ({clubId, userId}) => {
     const { memberships } = this.props;
     return memberships.find( m => m.userId === userId && m.clubId === clubId )
     .id;
   }
-
+  //TODO move to helpers folder
   reifyClubById = clubId => {
     const { clubs, clubsPending } = this.props;
     
