@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { memberJoinRequest, memberLeaveRequest } from '../actions/users';
 import ThreadList from '../components/ThreadList';
@@ -10,14 +10,22 @@ import { NavLink } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
-class ClubContainer extends PureComponent {
+function ClubContainer({
+  id,
+  name,
+  threads,
+  modding,
+  activeBook,
+  currentUser,
+  description,
+  currentUserIsMod,
+  memberJoinRequest
+}) {
 
-  componentWillUnmount() {
-    if (this.props.modding) this.props.toggleModding();
-  }
-
+  const [modding, setModding] = useState(false);
+  const toggleModding = setModding( prev => !prev );
+  
   handleJoin = () => {
-    const { id, memberJoinRequest } = this.props;
     const payload = {
       membership: {
         club_id: id
@@ -77,16 +85,6 @@ class ClubContainer extends PureComponent {
 
   render() {
     const {
-      props: {
-        id,
-        name,
-        threads,
-        modding,
-        activeBook,
-        currentUser,
-        description,
-        currentUserIsMod
-      },
       renderMembershipButton,
       renderModOptions,
       renderCurrentMembers
