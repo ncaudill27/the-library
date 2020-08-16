@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import FormField from './FormField';
 import { loginRequest } from '../actions/users';
 import { connect } from 'react-redux';
-import { FormControl, TextField } from '@material-ui/core';
+import { FormControl, TextField, Button, Box, makeStyles } from '@material-ui/core';
 
 function LoginForm({loginRequest}) {
 
@@ -21,17 +21,20 @@ function LoginForm({loginRequest}) {
       password
     };
     loginRequest(payload);
+    // TODO redirect to '/'
     setUsername('');
     setPassword('');
   };
 
   return (
-    <div className='Login-form'>
+    <Box>
       <h2>Login</h2>
-      <FormControl>
-        
+      <FormControl fullWidth>
+        <TextField label='Username' onChange={ e => handleChange(setUsername, e) } />
+        <TextField type='password' label='Password' />
+        <Button onClick={handleSubmit}>Login</Button>
       </FormControl>
-    </div>
+    </Box>
   );
 }
 
