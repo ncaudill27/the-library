@@ -1,33 +1,21 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import FormField from './FormField';
 import { postClubRequest } from '../actions/clubs';
 import { addClub } from '../actions/users';
 import { connect } from 'react-redux';
+import { Typography, FormControl, TextField, Button, Box } from '@material-ui/core';
 
-class ClubForm extends Component {
+function ClubForm({postClubRequest, addClub}) {
 
-  state = {
-    name: '',
-    description: '',
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+
+  const handleChange = (setFn, e)=> {
+    const value = e.target.value;
+    setFn(value);
   }
 
-  handleChange = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  };
-
-  handleSubmit = e => {
-    e.preventDefault();
-    const {
-      state: {
-        name, description
-      },
-      props: {
-        postClubRequest
-      }
-    } = this;
-
+  const handleSubmit = e => {
     const payload = {
       club: {
         name,
@@ -36,29 +24,34 @@ class ClubForm extends Component {
     };
     
     postClubRequest(payload);
-    this.setState({
-      name: '',
-      description: ''
-    });
-  };
-
-  render() {
-    const {handleChange, handleSubmit, state} = this;
-    const inputNames = Object.keys(state);
-    const inputValues = Object.values(state);
-    
-    return (
-      <div className='Club-form'>
-        <h2>Create Club</h2>
-        <FormField
-          inputNames={inputNames}
-          inputValues={inputValues}
-          handleChange={handleChange}
-          handleSubmit={handleSubmit}
-        />
-    </div>
-    )
+    setName('');
+    setDescription('');
   }
+
+  return (
+    <Box>
+      <Typography variant='h4'>
+        Create Club
+      </Typography>
+      <FormControl fullWidth>
+        <TextField
+          label='Club name'
+          value={name}
+          onChange={ e => handleChange(setName, e)}
+        />
+        <TextField
+          label='Description'
+          value={description}
+          multiline
+          rowsMax={6}
+          onChange={ e => handleChange(setDescription, e)}
+        />
+        <Button onClick={handleSubmit}>
+          Create Club
+        </Button>
+      </FormControl>
+    </Box>
+  );
 }
 
 export default connect(null, { postClubRequest, addClub })(ClubForm);
