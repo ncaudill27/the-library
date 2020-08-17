@@ -120,11 +120,10 @@ class MainContainer extends Component {
             : null
           }
           {
-            !usersPending
-            ? <Route exact path='/:username' render={ () => {
+            usersPending
+            || <Route exact path='/:username' render={ () => {
               return <ProfilePage currentUser={currentUser} />
             }} />
-            : null
           }
 
         </Switch>

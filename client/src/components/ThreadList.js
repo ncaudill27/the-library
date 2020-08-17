@@ -4,22 +4,14 @@ import ThreadShow from './ThreadShow';
 import ThreadForm from './ThreadForm';
 import Typography from '@material-ui/core/Typography';
 
-function ThreadList({threads, clubId, comments, currentUser, currentUserIsMod}) {
-
-  const clubThreads = threads.filter( thread => thread.clubId === clubId );
-  const findThreadsComment = threadId => comments.filter(comment => threadId === comment.threadId);
+function ThreadList({threads, clubId, currentUser, currentUserIsMod}) {
 
   const renderThreads = () => {
-    return clubThreads.map( thread => {
-      const { id: threadId, title } = thread;
-      const threadComments = findThreadsComment(threadId);
-
+    return threads.map( thread => {
       return (
         <ThreadShow
-          key={threadId}
-          title ={title}
-          threadId={threadId}
-          comments={threadComments}
+          key={thread.id}
+          {...thread}
           currentUser={currentUser}
           currentUserIsMod={currentUserIsMod}      
         />
@@ -36,9 +28,4 @@ function ThreadList({threads, clubId, comments, currentUser, currentUserIsMod}) 
   </>
 }
 
-const mapStateToProps = ({comments}) => ({
-  comments: comments.data,
-  commentsPending: comments.pending
-});
-
-export default connect(mapStateToProps)(ThreadList);
+export default ThreadList;
