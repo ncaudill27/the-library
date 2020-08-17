@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { memberJoinRequest, memberLeaveRequest } from '../actions/users';
-import ThreadList from '../components/ThreadList';
+import ThreadShow from '../components/ThreadShow';
 import BookShow from '../components/BookShow';
 /* ------------
   Material imports
@@ -91,6 +91,19 @@ function ClubContainer({
     );
   }
 
+  const renderThreads = () => {
+    return threads.map( thread => {
+      return (
+        <ThreadShow
+          key={thread.id}
+          {...thread}
+          currentUser={currentUser}
+          currentUserIsMod={currentUserIsMod}      
+        />
+      );
+    })
+  }
+
   return (
     <div className='Club-container'>
       { !currentUserIsMod || renderModOptions() }
@@ -101,7 +114,10 @@ function ClubContainer({
         <Typography variant="subtitle1" paragraph>{description}</Typography>
       </div>
       <BookShow isbn={activeBook} />
-      <ThreadList threads={threads} clubId={id} currentUser={currentUser} currentUserIsMod={currentUserIsMod} />
+      <Typography variant='h3'>
+        Threads
+      </Typography>
+      { renderThreads() }
     </div>
   );
 }
