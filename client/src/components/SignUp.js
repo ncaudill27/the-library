@@ -28,7 +28,8 @@ function SignUp({userPostRequest}) {
           password,
           password_confirmation: confirmation
         }
-    }
+    };
+
     userPostRequest(payload);
     setEmail('');
     setPassword('');

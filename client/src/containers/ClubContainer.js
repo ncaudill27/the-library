@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { memberJoinRequest, memberLeaveRequest } from '../actions/users';
 import ThreadList from '../components/ThreadList';
@@ -9,6 +9,7 @@ import { NavLink } from 'react-router-dom';
 ---------- */
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { Link } from '@material-ui/core';
 
 function ClubContainer({
   id,
@@ -53,25 +54,37 @@ function ClubContainer({
 
   // TODO fix this
   const renderModOptions = () => <>
-    <button onClick={toggleModding}>Current members</button>
-    <button><NavLink to='/avatar-selection' exact>
-      Choose new avatar
-    </NavLink></button>
-    <button><NavLink to='/bestsellers' exact>Set new book</NavLink></button>
+    <Button onClick={toggleModding}>
+      Current members
+    </Button>
+    <Button>
+      <Link href='/avatar-selection' color='inherit'>
+        Choose new avatar
+      </Link>
+    </Button>
+    <Button>
+    <Link to='/bestsellers' color='inherit'>
+      Set new book
+    </Link>
+    </Button>
   </>;
 
   const renderCurrentMembers = () => {
     members = members.map( member => {
-      return <div key={member.id} className='member'>
-        <p key={member.name}>{member.username}
-          <button key={member.username} onClick={handleLeave}>remove</button>
-        </p>
-      </div>
+      if (member.id !== currentUser.id) {
+        return (
+          <div key={member.id} className='member'>
+          <p key={member.name}>{member.username}
+            <Button key={member.username} onClick={handleLeave}>remove</Button>
+          </p>
+        </div>
+        );
+      };
     });
     
     return  (
       <div className='members'>
-        <button onClick={toggleModding}>CLOSE</button>
+        <Button onClick={toggleModding}>CLOSE</Button>
         {members}
       </div>
     );

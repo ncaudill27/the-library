@@ -11,12 +11,13 @@ import ClearIcon from '@material-ui/icons/Clear';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles( theme => ({
+const useStyles = makeStyles( themes => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    marginBottom: themes.spacing(2)
   },
   menuButton: {
-    marginRight: theme.spacing(2)
+    marginRight: themes.spacing(2)
   },
   title: {
     flexGrow: 1
@@ -46,7 +47,7 @@ function SidebarContainer({currentUser, logOutUser}) {
              !currentUser
              || ( 
               <Button onClick={logOutUser}>
-                <Link href='/'>
+                <Link href='/' color='inherit'>
                   Log Out
                 </Link>
             </Button>
@@ -64,6 +65,7 @@ function SidebarContainer({currentUser, logOutUser}) {
             <MenuItem onClick={handleClose}>
               <Link
                 href='/bestsellers'
+                color='inherit'
               >
                 Bestsellers {/* <----------- link text */}
               </Link>
@@ -71,6 +73,7 @@ function SidebarContainer({currentUser, logOutUser}) {
             <MenuItem onClick={handleClose}>
             <Link
               href='/clubs'
+              color='inherit'
             >
               Clubs {/* <--------------- link text */}
             </Link>
@@ -86,17 +89,6 @@ function SidebarContainer({currentUser, logOutUser}) {
   );
 }
 
-// {
-//   !!currentUser
-//   ? <>
-//     <UserBox user={currentUser} />
-//     </>
-//   : <SideNav postion='sidebar' />
-// }
-const mapStateToProps = ({users}) => {
-  return {
-    currentUser: users.currentUser
-  }
-};
+const mapStateToProps = ({users}) => ({currentUser: users.currentUser});
 
 export default connect(mapStateToProps, { addClub, logOutUser })(SidebarContainer);
