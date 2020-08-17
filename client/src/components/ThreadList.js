@@ -31,7 +31,7 @@ function ThreadList({threads, clubId, comments, currentUser, currentUserIsMod}) 
     <Typography variant='h3'>
       Threads
     </Typography>
-    { currentUserIsMod ? <ThreadForm clubId={clubId} currentUserId={currentUser.id} /> : null }
+    { !currentUserIsMod || <ThreadForm clubId={clubId} currentUserId={currentUser.id} /> }
     {renderThreads()}
   </>
 }
