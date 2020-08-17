@@ -42,7 +42,7 @@ function CommentList({
   }
   
   return (
-    <Box>
+    <>
       { !open || renderComments() }
       { !open || <CommentField
         currentUser={currentUser}
@@ -50,7 +50,7 @@ function CommentList({
         handleChange={handleChange}
         handleSubmit={handleSubmit}
       />}
-    </Box>
+    </>
   );
 }
 
