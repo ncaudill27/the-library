@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { updateUserRequest, loginUser } from '../actions/users';
+import { updateUserRequest } from '../actions/users';
 import { Box, Button, Typography, FormControl, TextField, makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles( themes => ({
@@ -9,7 +9,7 @@ const useStyles = makeStyles( themes => ({
   }
 }));
 
-function NewUser({currentUser, loginUser, updateUserRequest}) {
+function NewUser({currentUser, updateUserRequest}) {
   const classes = useStyles();
 
   const [name, setName] = useState('');
@@ -52,4 +52,4 @@ function NewUser({currentUser, loginUser, updateUserRequest}) {
   );
 }
 
-export default connect(null, {updateUserRequest})(NewUser);
+export default connect(null, { updateUserRequest })(NewUser);

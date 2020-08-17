@@ -113,37 +113,6 @@ function Book({title, author, description, src, isbn13, currentUser, updateUserR
   );
 }
 
-{/* <Grid container direction='row' alignItems='flex-start' justify='spread-evenly' fullWidth>
-<Grid className={classes.image} item xs={3}>
-  <img className={classes.img} src={src} alt={title + " Cover Picture"} />
-</Grid>
-<Grid item xs={6}>
-  <Typography variant='h4' onClick={toggleShowing} className='Navlink'>
-    {title}
-  </Typography>
-  <Typography variant='h5'>
-    By: {author}
-  </Typography>
-</Grid>
-  <Typography>
-    {description}
-  </Typography>
-</Grid> */}
-
-{/* <Container className={classes.image}>
-<img className={classes.img} src={src} alt={title + " Cover Picture"} />
-</Container>
-<Typography variant='h4' onClick={toggleShowing} className='Navlink'>
-  {title}
-</Typography>
-<Typography variant='h5'>
-  By: {author}
-</Typography>
-<Typography>
-  {description}
-</Typography>
-{currentUser ? renderBookSelectForm() : null} */}
-
 Book.defaultProps = {
   title: "Title Missing",
   author: "Author Missing",

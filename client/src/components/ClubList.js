@@ -40,15 +40,6 @@ class ClubList extends Component {
         </Typography>
       </>
     );
-    {/* OLD CODE
-      <Club
-      key={id}
-      id={id}
-      avatar={avatar}
-      name={name}
-      description={description}
-      currentUser={currentUser}
-    /> */}
   };
 
   renderClubsSidebar = () => {

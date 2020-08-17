@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { memberJoinRequest, memberLeaveRequest } from '../actions/users';
 import ThreadList from '../components/ThreadList';
 import BookShow from '../components/BookShow';
-import { NavLink } from 'react-router-dom';
 /* ------------
   Material imports
 ---------- */
@@ -71,15 +70,17 @@ function ClubContainer({
 
   const renderCurrentMembers = () => {
     members = members.map( member => {
-      if (member.id !== currentUser.id) {
         return (
-          <div key={member.id} className='member'>
-          <p key={member.name}>{member.username}
-            <Button key={member.username} onClick={handleLeave}>remove</Button>
-          </p>
-        </div>
+          member.id === currentUser.id
+          ? null
+          : (
+            <div key={member.id} className='member'>
+              <p key={member.name}>{member.username}
+                <Button key={member.username} onClick={handleLeave}>remove</Button>
+              </p>
+            </div>
+          )
         );
-      };
     });
     
     return  (

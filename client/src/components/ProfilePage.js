@@ -10,8 +10,6 @@ class ProfilePage extends PureComponent {
       currentlyReading
     } = this.props.currentUser;
 
-    const isbn = RegExp(currentlyReading);
-
     return (
       <div className='Profile'>
         <div className='info'>
