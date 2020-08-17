@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { patchCommentRequest } from '../actions/comments';
 
-import { Avatar, Typography, Box, Paper, Button } from '@material-ui/core';
+import { Avatar, Typography, Box, Paper, Button, Container } from '@material-ui/core';
 
 const Comment = ({
   id,
@@ -50,8 +50,8 @@ const Comment = ({
     return `${month + 1}/${date}/${year}`
   }
 
-  const openEdit = async () => {
-    await toggleEditable();
+  const openEdit = () => {
+    toggleEditable();
     const input = document.getElementById('comment-edit');
     input.focus();
   }
@@ -73,19 +73,21 @@ const Comment = ({
   const loadContent = () => commentsPending && commentsEditing === id.toString(10) ? null : <Typography variant='body1' paragraph>{content}</Typography>
 
   return (
-    <Paper onMouseEnter={toggleShown} onMouseLeave={toggleShown}>
+    <Container onMouseEnter={toggleShown} onMouseLeave={toggleShown}>
       <Box display='flex' alignItems='center' justifyContent='space-between'>
-        <Avatar src={avatar} alt={username + "'s avatar"} />
-        <Typography display='block' variant='h6' noWrap>
-          {username}
-        </Typography>
-        <Typography variant='caption'>
-          • {parseTime(posted)}
-        </Typography>
+        <Box display='flex' alignItems='center' justifyContent='flex-start'>
+          <Avatar src={avatar} alt={username + "'s avatar"} />
+          <Typography display='block' variant='h6' noWrap>
+            {username}
+          </Typography>
+        </Box>
+          <Typography variant='caption'>
+            • {parseTime(posted)}
+          </Typography>
       </Box>
       { editable ? editForm() : loadContent() }
       { isOwnerIsModShownNotEditable() ? renderOptions() : null }
-    </Paper>
+    </Container>
   );
 };
 
