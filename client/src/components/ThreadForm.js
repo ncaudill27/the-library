@@ -2,16 +2,14 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { postThread } from '../actions/threads';
 import FormField from './FormField';
+import { FormControl, TextField, Button, Box, Grid } from '@material-ui/core';
 
 function ThreadForm({clubId, postThread}) {
   const [title, setTitle] = useState('');
 
-  const handleChange = event => {
-    setTitle(event.target.value);
-  };
+  const handleChange = e => setTitle(e.target.value);
 
-  const handleSubmit = event => {
-    event.preventDefault();
+  const handleSubmit = e => {
     const payload = {
       club_id: clubId,
       title
@@ -21,13 +19,18 @@ function ThreadForm({clubId, postThread}) {
   };
 
   return (
-      <FormField
-        handleSubmit={handleSubmit}
-        handleChange={handleChange}
-        inputNames={{1: 'Start New Thread '}}
-        inputValues={{1: title}}
-        submitValue="Begin Thread"
-      />
+    <FormControl>
+      <Grid container spacing={0} alignItems='flex-end' justify='space-evenly'>
+        <Grid item xs={6}>
+          <TextField label='Open new thread' variant='outlined' size='small' value={title} onChange={handleChange} />
+        </Grid>
+        <Grid item>
+          <Button onClick={handleSubmit}>
+            Create Discussion
+          </Button>
+        </Grid>
+      </Grid>
+    </FormControl>
   );
 }
 
