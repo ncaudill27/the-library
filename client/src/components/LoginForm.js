@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import FormField from './FormField';
 import { loginRequest } from '../actions/users';
 import { connect } from 'react-redux';
 import { Typography, FormControl, TextField, Button, Box, makeStyles } from '@material-ui/core';

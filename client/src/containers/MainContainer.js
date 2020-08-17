@@ -36,8 +36,11 @@ class MainContainer extends Component {
   //TODO move to helpers folder
   clubsMembers = clubId => {
     const { memberships, users } = this.props;
+    // ! optimize this
+    // ! clubMemberIds = memberships.map( m => m.clubId !== clubId || m.userId )
     const clubMemberships = memberships.filter( m => m.clubId === clubId );
-
+    // ! clubMemberIds.map( id => users.find( u => u.id === id ) )
+    // ? a way to keep this below O(n2) ?
     return clubMemberships.map( m => users.find( u => u.id === m.userId ) );
   }
   //TODO move to helpers folder

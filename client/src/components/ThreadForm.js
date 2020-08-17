@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { postThread } from '../actions/threads';
-import FormField from './FormField';
-import { FormControl, TextField, Button, Box, Grid } from '@material-ui/core';
+import { FormControl, TextField, Button, Grid } from '@material-ui/core';
 
 function ThreadForm({clubId, postThread}) {
   const [title, setTitle] = useState('');

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import CommentList from './CommentList';
-import { Typography, Paper, Grow, makeStyles } from '@material-ui/core';
+import { Typography, Paper, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles( themes => ({
   paper: {

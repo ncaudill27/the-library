@@ -3,7 +3,7 @@ import Input from './Input';
 /* ----------
   Material imports
 ---------- */
-import { Button, Box, FormControl, Grid } from '@material-ui/core';
+import { Button, FormControl, Grid } from '@material-ui/core';
 
 // This component takes in objects the names and values of forms about to be rendered.
 // Iterating over these objects it will dynamically create a form depending on the objects passed in.
