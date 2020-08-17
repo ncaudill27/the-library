@@ -1,54 +1,43 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import FormField from './FormField';
 import { connect } from 'react-redux';
-import { updateUserRequest } from '../actions/users';
+import { updateUserRequest, loginUser } from '../actions/users';
+import { Typography } from '@material-ui/core'
 
-class NewUser extends Component {
+function NewUser({currentUser, loginUser, updateUserRequest}) {
 
-  state = {
-    name: '',
-    username: '',
-    bio: ''
-  }
+  const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
+  const [bio, setBio] = useState('');
 
-  handleChange = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
+  const handleChange = (setFn, e) => {
+    const value = e.target.value;
+    setFn(value);
   };
 
-  handleSubmit = e => {
-    e.preventDefault()
-    const { updateUserRequest, currentUser } = this.props
-    updateUserRequest(this.state, currentUser.id);
-    this.setState({
-      name: '',
-      username: '',
-      bio: ''
-    });
+  const handleSubmit = e => {
+    const payload = {
+      name,
+      username,
+      bio
+    }
+    updateUserRequest(payload, currentUser.id);
+    setName('');
+    setUsername('');
+    setBio('');
   };
-
-  render() {
-    const {handleChange, handleSubmit, state} = this;
-    const inputNames = Object.keys(state);
-    const inputValues = Object.values(state);
     
-    return (
-      <div class='New-user'>
-        <h2>Welcome!</h2> 
-        <p>
+  return (
+    <div class='New-user'>
+      <Typography variant='h4'>
+        Welcome!
+      </Typography> 
+      <Typography paragraph>
         Please fill out this information.
         Don't worry your name or email won't be made public.
-        </p>
-        <FormField
-          inputNames={inputNames}
-          inputValues={inputValues}
-          handleChange={handleChange}
-          handleSubmit={handleSubmit}
-        />
-      </div>
-    );
-  };
+      </Typography>
+    </div>
+  );
 }
 
 export default connect(null, {updateUserRequest})(NewUser);
