@@ -42,9 +42,9 @@ function SignUp({userPostRequest}) {
         Sign Up
       </Typography>
       <FormControl fullWidth>
-        <TextField label='Email' onChange={ e => handleChange(setEmail, e) } />
-        <TextField type='password' label='Password' onChange={ e => handleChange(setPassword, e) } />
-        <TextField type='password' label='Confirmation' onChange={ e => handleChange(setConfirmation, e) } />
+        <TextField label='Email' value={email} onChange={ e => handleChange(setEmail, e) } />
+        <TextField type='password' label='Password' value={password} onChange={ e => handleChange(setPassword, e) } />
+        <TextField type='password' label='Confirmation' value={confirmation} onChange={ e => handleChange(setConfirmation, e) } />
         <Button onClick={handleSubmit}>Sign Up</Button>
       </FormControl>
     </Box>
