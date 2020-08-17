@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import Club from './Club';
 import ClubSideBar from './ClubSideBar';
-import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 /* ----------
   Material imports
@@ -76,7 +74,7 @@ class ClubList extends Component {
     return <>
       {clubs}
       <MenuItem>
-        <Link href='/clubs/new'>
+        <Link href='/clubs/new' color='inherit'>
           Create Club
         </Link>
       </MenuItem>
