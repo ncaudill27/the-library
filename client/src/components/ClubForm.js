@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
-import FormField from './FormField';
 import { postClubRequest } from '../actions/clubs';
 import { addClub } from '../actions/users';
 import { connect } from 'react-redux';
-import { Typography, FormControl, TextField, Button, Box } from '@material-ui/core';
+import { Typography, FormControl, TextField, Button, Box, makeStyles } from '@material-ui/core';
+
+const useStyles = makeStyles( themes => ({
+  form: {
+    margin: themes.spacing(3)
+  }
+}))
 
 function ClubForm({postClubRequest, addClub}) {
+  const classes = useStyles();
 
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -29,7 +35,7 @@ function ClubForm({postClubRequest, addClub}) {
   }
 
   return (
-    <Box>
+    <Box className={classes.form}>
       <Typography variant='h4'>
         Create Club
       </Typography>
