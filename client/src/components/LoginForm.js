@@ -26,6 +26,7 @@ function LoginForm({loginRequest}) {
       username,
       password
     };
+    console.log(username, password);
     loginRequest(payload);
     // TODO redirect to '/'
     setUsername('');
@@ -39,7 +40,7 @@ function LoginForm({loginRequest}) {
       </Typography>
       <FormControl fullWidth>
         <TextField label='Username' onChange={ e => handleChange(setUsername, e) } />
-        <TextField type='password' label='Password' />
+        <TextField type='password' label='Password' onChange={ e => handleChange(setPassword, e) } />
         <Button onClick={handleSubmit}>Login</Button>
       </FormControl>
     </Box>
