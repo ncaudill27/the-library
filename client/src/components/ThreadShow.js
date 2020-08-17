@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import CommentList from './CommentList';
 import { Typography, Paper, makeStyles } from '@material-ui/core';
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles( themes => ({
   paper: {
@@ -14,13 +15,15 @@ function ThreadShow ({
   handleSubmit,
   handleChange,
   comments,
-  threadId,
-  title
+  title,
+  id
 }) {
   const classes = useStyles();
 
   const [open, setOpen] = useState(false);
   const toggleOpen = () => setOpen(!open);
+
+  comments = comments.filter(comment => id === comment.threadId);
   
   return (
     <Paper className={classes.paper} elevation={5}>
@@ -34,10 +37,15 @@ function ThreadShow ({
         currentUser={currentUser}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
-        threadId={threadId}
+        threadId={id}
       />
     </Paper>
   );
 }
 
-export default ThreadShow;
+const mapStateToProps = ({comments}) => ({
+  comments: comments.data,
+  commentsPending: comments.pending
+});
+
+export default connect(mapStateToProps)(ThreadShow);
