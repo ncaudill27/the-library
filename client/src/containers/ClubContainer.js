@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { memberJoinRequest, memberLeaveRequest } from '../actions/users';
 import ThreadShow from '../components/ThreadShow';
+import ThreadForm from '../components/ThreadForm';
 import BookShow from '../components/BookShow';
 /* ------------
   Material imports
@@ -49,41 +50,39 @@ function ClubContainer({
     if (modding) toggleModding();
   }
 
-  const renderMembershipButton = () => (
+  const MembershipButton = () => (
     currentUserIsMember
     ? (
-      <MenuItem onClick={handleClose}>
-        <Button id='leave' onClick={handleLeave}>
-          Leave Club
-        </Button>
+      <MenuItem onClick={handleClose, handleLeave}>
+        Leave Club
       </MenuItem>
     )
     : (
-      <MenuItem onClick={handleClose}>
-        <Button color='primary' id='join' onClick={handleJoin}>
-          Join Club
-        </Button>
+      <MenuItem onClick={handleClose, handleJoin}>
+        Join Club
       </MenuItem>
     )
   );
 
-
-  // TODO fix this
-  const renderModOptions = () => <>
-    <Button onClick={toggleModding}>
-      Current members
-    </Button>
-    <Button>
-      <Link href='/avatar-selection' color='inherit'>
-        Choose new avatar
-      </Link>
-    </Button>
-    <Button>
-    <Link to='/bestsellers' color='inherit'>
-      Set new book
-    </Link>
-    </Button>
-  </>;
+  const ModOptions = () => (
+    currentUserIsMod
+    ? <>
+        <MenuItem onClose={handleClose, toggleModding}>
+          Current members {/* create modal popout for this */}
+        </MenuItem>
+        <MenuItem onClose={handleClose}>
+          <Link href='/avatar-selection' color='inherit'>
+            Choose new avatar
+          </Link>
+        </MenuItem>
+        <MenuItem>
+          <Link href='/bestsellers' color='inherit'>
+            Set new book
+          </Link>
+        </MenuItem>
+      </>
+    : null
+  )
 
   const renderCurrentMembers = () => {
     members = members.map( member => {
@@ -101,10 +100,12 @@ function ClubContainer({
     });
     
     return  (
-      <div className='members'>
+      modding
+      ? <>
         <Button onClick={toggleModding}>CLOSE</Button>
         {members}
-      </div>
+      </>
+      : null
     );
   }
 
@@ -132,15 +133,16 @@ function ClubContainer({
     <Menu
       anchorEl={anchorEl}
       anchorOrigin={{
-        top: 'top',
+        top: 'bottom', 
         horizontal: 'right'
       }}
       open={open}
       onClose={handleClose}
+      getContentAnchorEl={null}
     >
-      { renderMembershipButton() }
-      { !currentUserIsMod || renderModOptions() }
-      { !modding || renderCurrentMembers() }
+      <MembershipButton />
+      <ModOptions />
+      { renderCurrentMembers() }
     </Menu>
   </>
 
@@ -155,6 +157,7 @@ function ClubContainer({
       <Typography variant='h3'>
         Threads
       </Typography>
+      { !currentUserIsMod || <ThreadForm clubId={id} />} {/* //! not rendering on creation */}
       <ThreadList />
     </div>
   );
