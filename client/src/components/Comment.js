@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-// import Avatar from './Avatar';
 import { connect } from 'react-redux';
 import { patchCommentRequest } from '../actions/comments';
 
-import { Avatar, Typography, Box, Paper, Button, Container } from '@material-ui/core';
+import { Avatar, Typography, Box, Button, Container, FormControl, TextField } from '@material-ui/core';
 
 const Comment = ({
   id,
@@ -50,25 +49,23 @@ const Comment = ({
     return `${month + 1}/${date}/${year}`
   }
 
-  const openEdit = () => {
-    toggleEditable();
-    const input = document.getElementById('comment-edit');
-    input.focus();
-  }
+  const editForm = () => (
+    <FormControl>
+      <Box display='flex' alignItems='center' justifyContent='flex-start'>
+        <TextField id='comment-edit' type='text' variant='outlined' size='small' value={comment} onChange={ e => commentSet(e.target.value) } />
+        <Button size='small' onClick={editComment}>Edit</Button>
+        <Button size='small' onClick={toggleEditable}>Cancel</Button>
+      </Box>
+    </FormControl>
+  )
 
-  const editForm = () =>
-    <form onSubmit={editComment}>
-      <input id='comment-edit' type='text' value={comment} onChange={ e => commentSet(e.target.value) } />
-      <input type='submit' value='Edit' />
-      <button onClick={toggleEditable}>Cancel</button>
-    </form>;
-
-  const renderOptions = () =>
-    <div data-comment-id={id}>
+  const renderOptions = () => (
+    <Box display='flex' justifyContent='flex-end' data-comment-id={id}>
+      { isOwnerNotMod() ? <Button className='edit' onClick={toggleEditable}>EDIT</Button> : null }
       <Button onClick={deleteComment}>DELETE</Button>
-      <br/>
-      { isOwnerNotMod() ? <Button className='edit' onClick={openEdit}>EDIT</Button> : null }
-    </div>;
+    </Box>
+  );
+
 
   const loadContent = () => commentsPending && commentsEditing === id.toString(10) ? null : <Typography variant='body1' paragraph>{content}</Typography>
 

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import FormField from './FormField';
 import { postComment } from '../actions/comments';
 /* ----------
   Material imports
