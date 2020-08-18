@@ -27,6 +27,7 @@ const useStyles = makeStyles( themes => ({
 
 function SidebarContainer({currentUser, logOutUser}) {
   const classes = useStyles();
+
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 

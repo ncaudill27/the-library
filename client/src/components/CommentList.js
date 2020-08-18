@@ -3,7 +3,6 @@ import Comment from './Comment';
 import CommentField from './CommentField';
 import { deleteCommentRequest } from '../actions/comments';
 import { connect } from 'react-redux';
-import { Box } from '@material-ui/core';
 
 function CommentList({
   open,
@@ -15,9 +14,8 @@ function CommentList({
   currentUserIsMod,
   deleteCommentRequest
 }) {
-  console.log(open);
   const sortCommentsByCreation = () => {
-    return comments.sort((c1, c2) => new Date(c2.posted) - new Date(c1.posted));
+    return comments.sort((c1, c2) => new Date(c1.posted) - new Date(c2.posted));
   }
   
   const renderComments = () => {
