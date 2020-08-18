@@ -6,9 +6,8 @@ import BookShow from '../components/BookShow';
 /* ------------
   Material imports
 ---------- */
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import { Link } from '@material-ui/core';
+import { Link, Button, Typography, Menu, MenuItem, IconButton } from '@material-ui/core';
+import SettingsIcon from '@material-ui/icons/Settings';
 
 function ClubContainer({
   id,
@@ -28,6 +27,12 @@ function ClubContainer({
   const [modding, setModding] = useState(false);
   const toggleModding = () => setModding( prev => !prev );
   
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleMenu = e => setAnchorEl(e.currentTarget);
+  const handleClose = () => setAnchorEl(null);
+
   const handleJoin = () => {
     const payload = {
       membership: {
@@ -46,8 +51,20 @@ function ClubContainer({
 
   const renderMembershipButton = () => (
     currentUserIsMember
-    ? <Button id='leave' onClick={handleLeave}>Leave Club</Button>
-    : <Button color='primary' id='join' onClick={handleJoin}>Join Club</Button>
+    ? (
+      <MenuItem onClick={handleClose}>
+        <Button id='leave' onClick={handleLeave}>
+          Leave Club
+        </Button>
+      </MenuItem>
+    )
+    : (
+      <MenuItem onClick={handleClose}>
+        <Button color='primary' id='join' onClick={handleJoin}>
+          Join Club
+        </Button>
+      </MenuItem>
+    )
   );
 
 
@@ -91,7 +108,7 @@ function ClubContainer({
     );
   }
 
-  const renderThreads = () => {
+  const ThreadList = () => {
     return threads.map( thread => {
       return (
         <ThreadShow
@@ -104,20 +121,41 @@ function ClubContainer({
     })
   }
 
-  return (
-    <div className='Club-container'>
+  const ClubMenu = () => <>
+    {
+      !currentUser || (
+        <IconButton onClick={handleMenu} edge='end' aria-label='menu'>
+          <SettingsIcon />
+        </IconButton>
+      )
+    }
+    <Menu
+      anchorEl={anchorEl}
+      anchorOrigin={{
+        top: 'top',
+        horizontal: 'right'
+      }}
+      open={open}
+      onClose={handleClose}
+    >
+      { renderMembershipButton() }
       { !currentUserIsMod || renderModOptions() }
       { !modding || renderCurrentMembers() }
+    </Menu>
+  </>
+
+  return (
+    <div className='Club-container'>
+      <ClubMenu />
       <div className='Club-details'>
         <Typography variant="h2">{name}</Typography>
-        { !currentUser || renderMembershipButton() }
         <Typography variant="subtitle1" paragraph>{description}</Typography>
       </div>
       <BookShow isbn={activeBook} />
       <Typography variant='h3'>
         Threads
       </Typography>
-      { renderThreads() }
+      <ThreadList />
     </div>
   );
 }
