@@ -24,17 +24,6 @@ const useStyles = makeStyles( themes => ({
   }
 }));
 
-const WrappedMenuItem = React.forwardRef((props, ref) => (
-  <MenuItem onClick={props.handleClose} ref={ref}>
-    <Link 
-      href={props.href}
-      color={props.color}
-    >
-      {props.text}
-    </Link>
-  </MenuItem>
-) )
-
 function SidebarContainer({currentUser, logOutUser}) {
   const classes = useStyles();
 
@@ -66,22 +55,29 @@ function SidebarContainer({currentUser, logOutUser}) {
             : null
           }
           <Menu
-          anchorEl={anchorEl}
-          anchorOrigin={{
-            vertical: "top",
-            horizontal: "right"
-          }}
-          open={open}
-          onClose={handleClose}
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right"
+            }}
+            open={open}
+            onClose={handleClose}
           >
-
             <MenuItem onClick={handleClose}>
-            <Link
-              href='/clubs'
-              color='inherit'
-            >
-              Clubs {/* <--------------- link text */}
-            </Link>
+              <Link 
+                href='/bestsellers'
+                color='inherit'
+              >
+                Bestsellers
+              </Link>
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
+              <Link
+                href='/clubs'
+                color='inherit'
+              >
+                Clubs {/* <--------------- link text */}
+              </Link>
             </MenuItem>
             <MenuItem>
               Your clubs
