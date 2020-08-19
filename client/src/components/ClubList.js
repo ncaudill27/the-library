@@ -27,15 +27,15 @@ class ClubList extends Component {
     
     return clubs.map( ({id, name, avatar, description}) =>
       <>
-        <Box display='flex' alignItems='center'>
-          <Avatar alt={name} src={avatar} />
-          <Typography variant="h5">
-            <Link href={`/clubs/${id}`}>
+        <Box key={id} display='flex' alignItems='center'>
+          <Avatar key={id} alt={name} src={avatar} />
+          <Typography key={id} variant="h5">
+            <Link key={id} href={`/clubs/${id}`}>
               {name}
             </Link>
           </Typography>
         </Box>
-        <Typography>
+        <Typography key={id}>
           {description}
         </Typography>
       </>
@@ -56,7 +56,7 @@ class ClubList extends Component {
     });
     clubs = clubs.map(({id, name, avatar}) => {
       return (
-        <MenuItem onClick={handleClose}>
+        <MenuItem key={id} onClick={handleClose}>
           <ClubSideBar key={id} id={id} name={name} avatar={avatar} />
         </MenuItem>
       )

@@ -76,7 +76,7 @@ class MainContainer extends Component {
     return (
       <Container>
 
-        { !message || <FlashMessage /> }
+        { message ? <FlashMessage /> : null }
 
         <Switch>
 
@@ -121,9 +121,12 @@ class MainContainer extends Component {
           }
           {
             usersPending
-            || <Route exact path='/:username' render={ () => {
-              return <ProfilePage currentUser={currentUser} />
-            }} />
+            ? null
+            : (
+              <Route exact path='/:username' render={ () => {
+                return <ProfilePage currentUser={currentUser} />
+              }} />
+            )
           }
 
         </Switch>
