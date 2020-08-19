@@ -24,6 +24,16 @@ const useStyles = makeStyles( themes => ({
   }
 }));
 
+const WrappedMenuItem = React.forwardRef((props, ref) => (
+  <MenuItem onClick={props.handleClose} ref={ref}>
+    <Link 
+      href={props.href}
+      color={props.color}
+    >
+      {props.text}
+    </Link>
+  </MenuItem>
+) )
 
 function SidebarContainer({currentUser, logOutUser}) {
   const classes = useStyles();
@@ -45,14 +55,15 @@ function SidebarContainer({currentUser, logOutUser}) {
             The Library
           </Typography>
           {
-             !currentUser
-             || ( 
+            !currentUser
+            ? ( 
               <Button onClick={logOutUser}>
                 <Link href='/' color='inherit'>
                   Log Out
                 </Link>
-            </Button>
-             )
+              </Button>
+            )
+            : null
           }
           <Menu
           anchorEl={anchorEl}
@@ -63,14 +74,7 @@ function SidebarContainer({currentUser, logOutUser}) {
           open={open}
           onClose={handleClose}
           >
-            <MenuItem onClick={handleClose}>
-              <Link
-                href='/bestsellers'
-                color='inherit'
-              >
-                Bestsellers {/* <----------- link text */}
-              </Link>
-            </MenuItem>
+
             <MenuItem onClick={handleClose}>
             <Link
               href='/clubs'
