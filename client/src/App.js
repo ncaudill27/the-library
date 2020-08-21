@@ -11,6 +11,9 @@ import { fetchThreads } from './actions/threads';
 import { fetchComments } from './actions/comments';
 import { authorizeToken } from './actions/users';
 
+import { ThemeProvider } from '@material-ui/core/styles';
+import { theme } from './theme/theme';
+
 class App extends Component {
 
   componentDidMount() {
@@ -24,10 +27,10 @@ class App extends Component {
 
   render() {
     return (
-      <>
+      <ThemeProvider theme={theme}>
         <SidebarContainer />
         <MainContainer />
-      </>
+      </ThemeProvider>
     );
   };
 }
