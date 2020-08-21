@@ -5,19 +5,13 @@ import { addClub } from '../actions/users';
 import { logOutUser } from '../actions/users';
 
 import { Button, IconButton, AppBar, Toolbar, Typography, Menu, MenuItem, Link } from '@material-ui/core';
-
 import MenuIcon from '@material-ui/icons/MenuBook';
 import ClearIcon from '@material-ui/icons/Clear';
-
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles( themes => ({
-  root: {
-    flexGrow: 1,
-    marginBottom: themes.spacing(2)
-  },
+const useStyles = makeStyles( theme => ({
   menuButton: {
-    marginRight: themes.spacing(2)
+    marginRight: theme.spacing(2)
   },
   title: {
     flexGrow: 1
@@ -34,7 +28,6 @@ function SidebarContainer({currentUser, logOutUser}) {
   const handleClose = () => setAnchorEl(null);
 
   return (
-    <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
           <IconButton onClick={handleMenu} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
@@ -44,10 +37,10 @@ function SidebarContainer({currentUser, logOutUser}) {
             The Library
           </Typography>
           {
-            !currentUser
+            currentUser
             ? ( 
-              <Button onClick={logOutUser}>
-                <Link href='/' color='inherit'>
+              <Button onClick={logOutUser} color='inherit' size='small'>
+                <Link href='/' color='inherit' underline='none'>
                   Log Out
                 </Link>
               </Button>
@@ -67,6 +60,8 @@ function SidebarContainer({currentUser, logOutUser}) {
               <Link 
                 href='/bestsellers'
                 color='inherit'
+                underline='none'
+                
               >
                 Bestsellers
               </Link>
@@ -86,7 +81,6 @@ function SidebarContainer({currentUser, logOutUser}) {
           </Menu>
         </Toolbar>
       </AppBar>
-    </div>
   );
 }
 
