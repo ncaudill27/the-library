@@ -4,11 +4,18 @@ import { postComment } from '../actions/comments';
 /* ----------
   Material imports
 ---------- */
-import { Avatar, Box, Button, FormControl, TextField, Container } from '@material-ui/core';
+import { makeStyles, Avatar, Box, Button, FormControl, TextField, Container } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
+
+const useStyles = makeStyles( theme => ({
+  root: {
+    marginTop: theme.spacing(2)
+  }
+}))
 
 const CommentField = ({currentUser: {id: userId, avatar, username}, threadId, postComment}) => {
   const [comment, setComment] = useState('');
+  const classes = useStyles();
 
   const handleChange = event => {
     setComment(event.target.value);
@@ -26,13 +33,13 @@ const CommentField = ({currentUser: {id: userId, avatar, username}, threadId, po
   };
 
   return (
-    <Container>
+    <Container className={classes.root}>
       <Box display='flex' alignItems='center' justifyContent='space-between'>
         <Avatar src={avatar} showing={username + "'s avatar"} />
         <FormControl>
-          <Box display='flex' alignItems='center' justifyContent='spread-evenly'>
-            <TextField label='New comment' variant='outlined' size='small' value={comment} onChange={handleChange} />
-            <Button onClick={handleSubmit}><SendIcon /></Button>
+          <Box display='flex' alignItems='center' justifyContent='flex-end'>
+            <TextField label='New comment' variant='outlined' size='small' color='secondary' value={comment} onChange={handleChange} />
+            <Button onClick={handleSubmit}><SendIcon color='secondary' /></Button>
           </Box>
         </FormControl>
       </Box>
