@@ -7,9 +7,19 @@ import BookShow from '../components/BookShow';
 /* ------------
   Material imports
 ---------- */
-import { Link, Button, Typography, Menu, MenuItem, IconButton } from '@material-ui/core';
+import { makeStyles, Link, Button, Typography, Menu, MenuItem, IconButton } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/Settings';
 
+const useStyles = makeStyles( theme => ({
+  root: {
+    position: 'relative'
+  },
+  cog: {
+    position: 'absolute',
+    top: '0',
+    right: '0',
+  }
+}))
 function ClubContainer({
   id,
   name,
@@ -24,6 +34,8 @@ function ClubContainer({
   memberLeaveRequest,
   currentUserIsMember
 }) {
+
+  const classes = useStyles();
 
   const [modding, setModding] = useState(false);
   const toggleModding = () => setModding( prev => !prev );
@@ -125,8 +137,8 @@ function ClubContainer({
   const ClubMenu = () => <>
     {
       !currentUser || (
-        <IconButton onClick={handleMenu} edge='end' aria-label='menu'>
-          <SettingsIcon />
+        <IconButton onClick={handleMenu} edge='end' aria-label='menu' className={classes.cog}>
+          <SettingsIcon color='secondary' />
         </IconButton>
       )
     }
@@ -147,7 +159,7 @@ function ClubContainer({
   </>
 
   return (
-    <div className='Club-container'>
+    <div className={classes.root}>
       <ClubMenu />
       <div className='Club-details'>
         <Typography variant="h2">{name}</Typography>
