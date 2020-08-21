@@ -42,7 +42,8 @@ function ClubContainer({
   
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-
+  console.log(anchorEl);
+  
   const handleMenu = e => setAnchorEl(e.currentTarget);
   const handleClose = () => setAnchorEl(null);
 

@@ -23,7 +23,7 @@ class NYTimes extends Component {
   }
 
   fetchBestSellers = () => {
-    fetch(`https://api.nytimes.com/svc/books/v3/lists/current/${this.state.select}.json?api-key=${REACT_APP_NY_TIMES_KEY}`)
+    fetch(`https://api.nytimes.com/svc/books/v3/lists/current/${this.state.select}.json?api-key=` + REACT_APP_NY_TIMES_KEY)
     .then(res => res.json())
     .then(list => this.setState({
       books: list.results.books
@@ -32,7 +32,7 @@ class NYTimes extends Component {
   }
 
   fetchOptions() {
-    return fetch('https://api.nytimes.com/svc/books/v3/lists/names.json?api-key=' + process.env.REACT_APP_NY_TIMES_KEY)
+    return fetch('https://api.nytimes.com/svc/books/v3/lists/names.json?api-key=' + REACT_APP_NY_TIMES_KEY)
     .then(res => res.json())
     .then(list => list.results.map(type => type.list_name));
   }
