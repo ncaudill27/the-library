@@ -14,6 +14,7 @@ function CommentList({
   currentUserIsMod,
   deleteCommentRequest
 }) {
+  
   const sortCommentsByCreation = () => {
     return comments.sort((c1, c2) => new Date(c1.posted) - new Date(c2.posted));
   }

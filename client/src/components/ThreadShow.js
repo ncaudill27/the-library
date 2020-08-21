@@ -5,7 +5,9 @@ import { connect } from 'react-redux';
 
 const useStyles = makeStyles( themes => ({
   paper: {
-    marginTop: themes.spacing(1)
+    padding: themes.spacing(1),
+    marginBottom: themes.spacing(2),
+    backgroundColor: themes.palette.primary.light
   }
 }));
 

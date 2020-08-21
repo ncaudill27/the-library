@@ -3,6 +3,15 @@ import { connect } from 'react-redux';
 import { patchCommentRequest } from '../actions/comments';
 
 import { Avatar, Typography, Box, Button, Container, FormControl, TextField } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles( theme => ({
+  comment: {
+    borderBottom: `1px solid ${theme.palette.primary.dark}`,
+    marginTop: theme.spacing(1)
+  }
+}))
+
 
 const Comment = ({
   id,
@@ -18,6 +27,8 @@ const Comment = ({
   currentUserIsMod
 }) => {
 
+  const classes = useStyles();
+  
   const user = users.find(user => user.id === userId);
   const {username, avatar} = user;
 
@@ -70,7 +81,7 @@ const Comment = ({
   const loadContent = () => commentsPending && commentsEditing === id.toString(10) ? null : <Typography variant='body1' paragraph>{content}</Typography>
 
   return (
-    <Container onMouseEnter={toggleShown} onMouseLeave={toggleShown}>
+    <Container onMouseEnter={toggleShown} onMouseLeave={toggleShown} className={classes.comment}>
       <Box display='flex' alignItems='center' justifyContent='space-between'>
         <Box display='flex' alignItems='center' justifyContent='flex-start'>
           <Avatar src={avatar} alt={username + "'s avatar"} />

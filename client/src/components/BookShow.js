@@ -14,16 +14,17 @@ const useStyles = makeStyles( theme => ({
   paper: {
     padding: theme.spacing(1),
     marginBottom: theme.spacing(4),
-    backgroundColor: '#eaa29f',
+    backgroundColor: '#f0f0f0',
     overflow: 'auto'
   },
   title: {
+    backgroundColor: theme.palette.secondary.dark,
+    paddingTop: theme.spacing(1),
     height: '100%',
     width: '100%'
   },
   details: {
-    margin: theme.spacing(1),
-    padding: theme.spacing(1),
+    // margin: theme.spacing(1),
     float: 'right',
   },
   image: {
@@ -37,7 +38,6 @@ const useStyles = makeStyles( theme => ({
     maxHeight: '100%'
   },
   description: {
-    marginTop: theme.spacing(2)
   }
 }));
 
@@ -57,31 +57,31 @@ function BookShow({ isbn, hide }) {
 
   if (!book) return <h2 onClick={hide}>loading...</h2>;
   else return (
-    <Paper elevation={3} className={classes.paper} onClick={hide} color={theme.palette.secondary.light}>
-      <Grid item >
-        <Box className={classes.title}>
-        <Typography variant='h5' align='center'>
-            {book.title}
+    <Box className={classes.root}>
+      <Paper elevation={3}>
+        <Typography variant='h5' align='center' className={classes.title}>
+          {book.title}
         </Typography>
-        </Box>
-      </Grid>
-      <Grid className={classes.details} xs={6} item container direction='column' spacing={0} justify='flex-start' alignItems='center'>
-        <Grid item>
-          <Typography variant='h6' align='center'>
-            Author{book.authors.length <= 1 || 's'}: {[...book.authors].join(', ')}
-          </Typography>
+      </Paper>
+      <Paper elevation={1} className={classes.paper} onClick={hide} square>
+        <Grid className={classes.details} xs={6} item container direction='column' spacing={0} justify='flex-start' alignItems='center'>
+          <Grid item>
+            <Typography variant='h6' align='center'>
+              Author{book.authors.length <= 1 || 's'}: {[...book.authors].join(', ')}
+            </Typography>
+          </Grid>
+          <Grid item>
+              <StarRating count={book.averageRating} />
+          </Grid>
+          <Grid item>
+            <img className={classes.img} src={book.imageLinks ? book.imageLinks.thumbnail : ''} alt={book.title + " Cover Art"} />
+          </Grid>
         </Grid>
-        <Grid item>
-            <StarRating count={book.averageRating} />
-        </Grid>
-        <Grid item>
-          <img className={classes.img} src={book.imageLinks ? book.imageLinks.thumbnail : ''} alt={book.title + " Cover Art"} />
-        </Grid>
-      </Grid>
-      <Typography paragraph className={classes.description}>
-        {book.description}
-      </Typography>
-    </Paper>
+        <Typography paragraph className={classes.description}>
+          {book.description}
+        </Typography>
+      </Paper>
+    </Box>
   );
 }
 
