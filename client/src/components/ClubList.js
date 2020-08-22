@@ -25,17 +25,17 @@ class ClubList extends Component {
 
     clubs = currentUser ? clubs.filter(club => !userAssociatedClubIds.includes(club.id)) : clubs;
     
-    return clubs.map( ({id, name, avatar, description}) =>
+    return clubs.map( ({id, name, avatar, description}, idx) =>
       <>
-        <Box key={id} display='flex' alignItems='center'>
-          <Avatar key={id} alt={name} src={avatar} />
-          <Typography key={id} variant="h5">
+        <Box key={idx} display='flex' alignItems='center'>
+          <Avatar key={avatar} alt={name} src={avatar} />
+          <Typography key={name} variant="h5">
             <Link key={id} href={`/clubs/${id}`}>
               {name}
             </Link>
           </Typography>
         </Box>
-        <Typography key={id}>
+        <Typography key={description}>
           {description}
         </Typography>
       </>
