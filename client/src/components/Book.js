@@ -6,14 +6,14 @@ import BookShow from './BookShow';
 
 import { FormControl, Select, InputLabel, MenuItem, Link, Typography, makeStyles, Box, Grid, Button } from '@material-ui/core';
 
-const useStyles = makeStyles( themes => ({
+const useStyles = makeStyles( theme => ({
   root: {
     flexGrow: 1,
-    marginTop: themes.spacing(2),
-    marginBottom: themes.spacing(1)
+    marginTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2)
   },
   link: {
-    color: themes.palette.secondary.main
+    color: theme.palette.secondary.main
   },
   image: {
     height: 'auto',
@@ -26,7 +26,7 @@ const useStyles = makeStyles( themes => ({
     float: 'left'
   },
   button: {
-    backgroundColor: themes.palette.primary.dark
+    backgroundColor: theme.palette.primary.dark
   }
 }));
 
@@ -96,7 +96,7 @@ function Book({title, author, description, src, isbn13, currentUser, updateUserR
 
   const listBook = () =>
     <Box className={classes.root}>
-      <Grid container direction='row' spacing={1} justify='space-evenly'>
+      <Grid container direction='row' spacing={1} justify='center'>
       <Grid className={classes.image} item xs={3}>
         <img className={classes.img} src={src} alt={title + " Cover Picture"} />
       </Grid>

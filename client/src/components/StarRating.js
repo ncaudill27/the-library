@@ -4,11 +4,14 @@ import Star from './Star';
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles( theme => ({
   rating: {
-    marginBottom: '6px'
+    marginBottom: '6px',
+    backgroundColor: theme.palette.primary.dark,
+    padding: theme.spacing(0.5),
+    borderRadius: '3px'
   }
-})
+}))
 
 function StarRating({count}) {
   const classes = useStyles();
@@ -23,7 +26,7 @@ function StarRating({count}) {
 
   return (
     count
-    ? <Grid className={classes.rating} container xs justify="center" alignItems="center">
+    ? <Grid className={classes.rating} container xs justify="center" alignItems="flex-end">
         {convertToStars()}
       </Grid>
     : null
