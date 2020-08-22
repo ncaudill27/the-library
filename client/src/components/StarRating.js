@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles( theme => ({
   rating: {
     marginBottom: '6px',
-    backgroundColor: theme.palette.primary.dark,
+    backgroundColor: theme.palette.primary.main,
     padding: theme.spacing(0.5),
     borderRadius: '3px'
   }
