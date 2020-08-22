@@ -15,6 +15,9 @@ const useStyles = makeStyles( theme => ({
   },
   title: {
     flexGrow: 1
+  },
+  menu: {
+    backgroundColor: theme.palette.secondary.main
   }
 }));
 
@@ -55,13 +58,13 @@ function SidebarContainer({currentUser, logOutUser}) {
             }}
             open={open}
             onClose={handleClose}
+            className={{ paper: classes.menu}}
           >
             <MenuItem onClick={handleClose}>
               <Link 
                 href='/bestsellers'
                 color='inherit'
                 underline='none'
-                
               >
                 Bestsellers
               </Link>

@@ -18,6 +18,11 @@ const useStyles = makeStyles( theme => ({
     position: 'absolute',
     top: '0',
     right: '0',
+  },
+  threads: {
+    backgroundColor: theme.palette.primary.light,
+    margin: theme.spacing(-2),
+    padding: theme.spacing(2)
   }
 }))
 function ClubContainer({
@@ -167,11 +172,13 @@ function ClubContainer({
         <Typography variant="subtitle1" paragraph>{description}</Typography>
       </div>
       <BookShow isbn={activeBook} />
-      <Typography variant='h3'>
-        Threads
-      </Typography>
-      { !currentUserIsMod || <ThreadForm clubId={id} />} {/* //! not rendering on creation */}
-      <ThreadList />
+      <div className={classes.threads}>
+        <Typography variant='h3'>
+          Threads
+        </Typography>
+        { currentUserIsMod ? <ThreadForm clubId={id} /> : null }
+        <ThreadList />
+      </div>
     </div>
   );
 }

@@ -7,7 +7,7 @@ const useStyles = makeStyles( themes => ({
   paper: {
     padding: themes.spacing(1),
     marginBottom: themes.spacing(2),
-    backgroundColor: themes.palette.primary.light
+    backgroundColor: '#f0f0f0'
   }
 }));
 
