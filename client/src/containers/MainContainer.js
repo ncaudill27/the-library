@@ -66,8 +66,8 @@ class MainContainer extends Component {
 
   render() {
     const {
-      currentUser,
       message,
+      currentUser,
       memberships,
       clubsPending,
       usersPending

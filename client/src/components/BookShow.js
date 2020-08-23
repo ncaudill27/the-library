@@ -4,7 +4,7 @@ import StarRating from './StarRating';
   Material imports
 ----------- */
 import { Grid, Typography, Paper, Box } from '@material-ui/core';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 const { REACT_APP_GOOGLE_BOOKS_KEY } = process.env;
 
 const useStyles = makeStyles( theme => ({
@@ -43,10 +43,8 @@ const useStyles = makeStyles( theme => ({
 
 function BookShow({ isbn, hide }) {
   const classes = useStyles();
-  const theme = useTheme();
 
   const [book, setBook] = useState(null);
-  console.log(theme);
 
   useEffect( () => {
     fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&key=${REACT_APP_GOOGLE_BOOKS_KEY}`)
