@@ -67,7 +67,7 @@ function BookShow({ isbn, hide }) {
         <Grid className={classes.details} xs={6} item container direction='column' spacing={0} justify='flex-start' alignItems='center'>
           <Grid item>
             <Typography variant='h6' align='center'>
-              Author{book.authors.length <= 1 || 's'}: {[...book.authors].join(', ')}
+              Author{book.authors.length <= 1 ? '' : 's'}: {[...book.authors].join(', ')}
             </Typography>
           </Grid>
           <Grid item>

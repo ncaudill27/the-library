@@ -34,7 +34,7 @@ function SidebarContainer({currentUser, logOutUser}) {
       <AppBar position="static">
         <Toolbar>
           <IconButton onClick={handleMenu} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            { open ? <ClearIcon /> : <MenuIcon />}
+            <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
             The Library
@@ -58,7 +58,6 @@ function SidebarContainer({currentUser, logOutUser}) {
             }}
             open={open}
             onClose={handleClose}
-            className={{ paper: classes.menu}}
           >
             <MenuItem onClick={handleClose}>
               <Link 
