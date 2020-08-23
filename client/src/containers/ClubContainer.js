@@ -45,7 +45,7 @@ const MembershipButton = ({currentUserIsMember, handleClose, handleLeave, handle
       </MenuItem>
     )
     : (
-      <MenuItem onClick={handleClose, handleJoin}>
+      <MenuItem onClick={handleClose, handleJoin} className={classes.menuItem}>
         Join Club
       </MenuItem>
     )
@@ -106,6 +106,20 @@ const ClubMenu = ({anchorEl, handleClose, open, handleMenu, currentUser, renderC
   </>
 }
 
+const ThreadList = ({currentUser, currentUserIsMember, currentUserIsMod, threads}) => {
+  return threads.map( thread => {
+    return (
+      <ThreadShow
+        key={thread.id}
+        {...thread}
+        currentUser={currentUser}
+        currentUserIsMod={currentUserIsMod}      
+        currentUserIsMember={currentUserIsMember}
+      />
+    );
+  })
+}
+
 function ClubContainer({
   id,
   name,
@@ -128,7 +142,6 @@ function ClubContainer({
   
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  console.log(anchorEl);
   
   const handleMenu = e => setAnchorEl(e.currentTarget);
   const handleClose = () => setAnchorEl(null);
@@ -174,20 +187,6 @@ function ClubContainer({
     );
   }
 
-  const ThreadList = ({currentUser, currentUserIsMember, currentUserIsMod}) => {
-    return threads.map( thread => {
-      return (
-        <ThreadShow
-          key={thread.id}
-          {...thread}
-          currentUser={currentUser}
-          currentUserIsMod={currentUserIsMod}      
-          currentUserIsMember={currentUserIsMember}
-        />
-      );
-    })
-  }
-
   return (
     <div className={classes.root}>
       <ClubMenu
@@ -214,12 +213,13 @@ function ClubContainer({
         </Typography>
         { currentUserIsMod ? <ThreadForm clubId={id} /> : null }
         {
-           threads.length
+           threads.length 
            ? (
             <ThreadList
-              currentUserIsMember={currentUserIsMember}
+              threads={threads}
               currentUser={currentUser}
               currentUserIsMod={currentUserIsMod}
+              currentUserIsMember={currentUserIsMember}
             />
            )
            : null 
