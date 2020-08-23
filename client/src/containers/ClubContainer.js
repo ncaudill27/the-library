@@ -158,7 +158,7 @@ function ClubContainer({
     );
   }
 
-  const ThreadList = () => {
+  const ThreadList = ({currentUser, currentUserIsMember, currentUserIsMod}) => {
     return threads.map( thread => {
       return (
         <ThreadShow
@@ -166,6 +166,7 @@ function ClubContainer({
           {...thread}
           currentUser={currentUser}
           currentUserIsMod={currentUserIsMod}      
+          currentUserIsMember={currentUserIsMember}
         />
       );
     })
@@ -194,7 +195,7 @@ function ClubContainer({
           Threads
         </Typography>
         { currentUserIsMod ? <ThreadForm clubId={id} /> : null }
-        { threads.length ? <ThreadList /> : null }
+        { threads.length ? <ThreadList currentUserIsMember={currentUserIsMember} currentUser={currentUser} currentUserIsMod={currentUserIsMod} /> : null }
       </div>
     </div>
   );

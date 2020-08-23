@@ -12,11 +12,12 @@ function CommentList({
   handleChange,
   handleSubmit,
   currentUserIsMod,
-  deleteCommentRequest
+  currentUserIsMember,
+  deleteCommentRequest,
 }) {
   
   const sortCommentsByCreation = () => {
-    return comments.sort((c1, c2) => new Date(c1.posted) - new Date(c2.posted));
+    return comments.sort( (c1, c2) => new Date(c1.posted) - new Date(c2.posted) );
   }
   
   const renderComments = () => {
@@ -42,13 +43,17 @@ function CommentList({
   
   return (
     <>
-      { !open || renderComments() }
-      { !open || <CommentField
-        currentUser={currentUser}
-        threadId={threadId}
-        handleChange={handleChange}
-        handleSubmit={handleSubmit}
-      />}
+      { open ? renderComments() : null }
+      {
+        open && currentUserIsMember
+        ? <CommentField
+          threadId={threadId}
+          currentUser={currentUser}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+        />
+        : null
+      }
     </>
   );
 }

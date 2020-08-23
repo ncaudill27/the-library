@@ -12,6 +12,7 @@ const useStyles = makeStyles( themes => ({
 }));
 
 function ThreadShow ({
+  currentUserIsMember,
   currentUserIsMod,
   currentUser,
   handleSubmit,
@@ -34,12 +35,13 @@ function ThreadShow ({
       </Typography>
       <CommentList
         open={open}
+        threadId={id}
         comments={comments}
-        currentUserIsMod={currentUserIsMod}
         currentUser={currentUser}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
-        threadId={id}
+        currentUserIsMod={currentUserIsMod}
+        currentUserIsMember={currentUserIsMember}
       />
     </Paper>
   );

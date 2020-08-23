@@ -1,6 +1,6 @@
 import React from 'react';
 import LoginForm from './LoginForm';
-import LibraryImg from '../library-welcome1.jpg'
+// import LibraryImg from '../library-welcome1.jpg'
 import SignUp from './SignUp';
 import NewUser from './NewUser';
 
