@@ -9,6 +9,9 @@ import MenuIcon from '@material-ui/icons/MenuBook';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles( theme => ({
+  root: {
+    marginBottom: theme.spacing(2)
+  },
   menuButton: {
     marginRight: theme.spacing(2)
   },
@@ -54,7 +57,7 @@ function SidebarContainer({currentUser, logOutUser}) {
   const handleClose = () => setAnchorEl(null);
 
   return (
-      <AppBar position="static">
+      <AppBar position="static" className={classes.root}>
         <Toolbar>
           <IconButton onClick={handleMenu} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
             <MenuIcon />

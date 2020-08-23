@@ -4,8 +4,37 @@ import { connect } from 'react-redux';
 /* ----------
   Material imports
 ----------- */
-import { Avatar, Typography, Link, MenuItem } from '@material-ui/core';
+import { Avatar, Typography, Link, MenuItem, Container, makeStyles } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
+
+const useStyles = makeStyles( theme => ({
+  clubBox: {
+    marginTop: theme.spacing(2)
+  },
+  title: {
+    color: theme.palette.secondary.dark,
+  }
+}))
+
+const Club = ({id, name, avatar, description}) => {
+  const classes = useStyles();
+
+  return (
+    <Box display='flex' className={classes.clubBox}>
+      <Avatar alt={name} src={avatar} />
+      <Container className={classes.description}>
+        <Typography variant="h5">
+          <Link href={`/clubs/${id}`} underline='none' className={classes.title}>
+            {name}
+          </Link>
+        </Typography>
+        <Typography>
+          {description}
+        </Typography>
+      </Container>
+    </Box>
+  );
+}
 
 class ClubList extends Component {
 
@@ -25,20 +54,8 @@ class ClubList extends Component {
 
     clubs = currentUser ? clubs.filter(club => !userAssociatedClubIds.includes(club.id)) : clubs;
     
-    return clubs.map( ({id, name, avatar, description}, idx) =>
-      <>
-        <Box key={idx} display='flex' alignItems='center'>
-          <Avatar key={avatar} alt={name} src={avatar} />
-          <Typography key={name} variant="h5">
-            <Link key={id} href={`/clubs/${id}`}>
-              {name}
-            </Link>
-          </Typography>
-        </Box>
-        <Typography key={description}>
-          {description}
-        </Typography>
-      </>
+    return clubs.map( club =>
+      <Club key={club.id} {...club} />
     );
   };
 

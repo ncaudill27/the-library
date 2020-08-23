@@ -19,6 +19,14 @@ const useStyles = makeStyles( theme => ({
     top: '0',
     right: '0',
   },
+  menuItem: {
+    backgroundColor: '#fff',
+    color: theme.palette.secondary.dark,
+    marginBottom: theme.spacing(0.25)
+  },
+  link: {
+    color: theme.palette.secondary.dark
+  },
   threads: {
     backgroundColor: theme.palette.primary.light,
     margin: theme.spacing(-2),
@@ -26,39 +34,47 @@ const useStyles = makeStyles( theme => ({
   }
 }))
 
-const MembershipButton = ({currentUserIsMember, handleClose, handleLeave, handleJoin}) => (
-  currentUserIsMember
-  ? (
-    <MenuItem onClick={handleClose, handleLeave}>
-      Leave Club
-    </MenuItem>
-  )
-  : (
-    <MenuItem onClick={handleClose, handleJoin}>
-      Join Club
-    </MenuItem>
-  )
-);
+const MembershipButton = ({currentUserIsMember, handleClose, handleLeave, handleJoin}) => {
+  const classes = useStyles();
 
-const ModOptions = ({currentUserIsMod, handleClose, toggleModding}) => (
-  currentUserIsMod
-  ? <>
-      <MenuItem onClose={handleClose, toggleModding}>
-        Current members {/* create modal popout for this */}
+  return (
+    currentUserIsMember
+    ? (
+      <MenuItem onClick={handleClose, handleLeave} className={classes.menuItem}>
+        Leave Club
       </MenuItem>
-      <MenuItem onClose={handleClose}>
-        <Link href='/avatar-selection' color='inherit'>
-          Choose new avatar
-        </Link>
+    )
+    : (
+      <MenuItem onClick={handleClose, handleJoin}>
+        Join Club
       </MenuItem>
-      <MenuItem>
-        <Link href='/bestsellers' color='inherit'>
-          Set new book
-        </Link>
-      </MenuItem>
-    </>
-  : null
-)
+    )
+  )
+};
+
+const ModOptions = ({currentUserIsMod, handleClose, toggleModding}) => {
+  const classes = useStyles();
+
+  return (
+    currentUserIsMod
+    ? <>
+        <MenuItem onClose={handleClose, toggleModding} className={classes.menuItem}>
+          Current members {/* create modal popout for this */}
+        </MenuItem>
+        <MenuItem onClose={handleClose} className={classes.menuItem}>
+          <Link href='/avatar-selection' color='inherit'>
+            Choose new avatar
+          </Link>
+        </MenuItem>
+        <MenuItem className={classes.menuItem}>
+          <Link href='/bestsellers' color='inherit'>
+            Set new book
+          </Link>
+        </MenuItem>
+      </>
+    : null
+  )
+}
 
 const ClubMenu = ({anchorEl, handleClose, open, handleMenu, currentUser, renderCurrentMembers, currentUserIsMod, currentUserIsMember, handleLeave, handleJoin, toggleModding}) => {
   const classes = useStyles();
