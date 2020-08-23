@@ -21,10 +21,10 @@ function ThreadForm({clubId, postThread}) {
     <FormControl>
       <Grid container spacing={0} alignItems='flex-end' justify='space-evenly'>
         <Grid item xs={6}>
-          <TextField label='Open new thread' variant='outlined' size='small' value={title} onChange={handleChange} />
+          <TextField label='Open new thread' variant='standard' size='small' color='secondary' value={title} onChange={handleChange} />
         </Grid>
         <Grid item>
-          <Button onClick={handleSubmit}>
+          <Button onClick={handleSubmit} color='secondary' variant='contained' size='small'>
             Create Discussion
           </Button>
         </Grid>

@@ -74,7 +74,7 @@ class MainContainer extends Component {
     } = this.props;
 
     return (
-      <Container>
+      <Container maxWidth='sm'>
 
         { message ? <FlashMessage /> : null }
 
