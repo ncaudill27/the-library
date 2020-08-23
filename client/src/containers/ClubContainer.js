@@ -25,6 +25,71 @@ const useStyles = makeStyles( theme => ({
     padding: theme.spacing(2)
   }
 }))
+
+const MembershipButton = ({currentUserIsMember, handleClose, handleLeave, handleJoin}) => (
+  currentUserIsMember
+  ? (
+    <MenuItem onClick={handleClose, handleLeave}>
+      Leave Club
+    </MenuItem>
+  )
+  : (
+    <MenuItem onClick={handleClose, handleJoin}>
+      Join Club
+    </MenuItem>
+  )
+);
+
+const ModOptions = ({currentUserIsMod, handleClose, toggleModding}) => (
+  currentUserIsMod
+  ? <>
+      <MenuItem onClose={handleClose, toggleModding}>
+        Current members {/* create modal popout for this */}
+      </MenuItem>
+      <MenuItem onClose={handleClose}>
+        <Link href='/avatar-selection' color='inherit'>
+          Choose new avatar
+        </Link>
+      </MenuItem>
+      <MenuItem>
+        <Link href='/bestsellers' color='inherit'>
+          Set new book
+        </Link>
+      </MenuItem>
+    </>
+  : null
+)
+
+const ClubMenu = ({anchorEl, handleClose, open, handleMenu, currentUser, renderCurrentMembers, currentUserIsMod, currentUserIsMember, handleLeave, handleJoin, toggleModding}) => {
+  const classes = useStyles();
+
+  return <>
+    {
+      currentUser
+      ? (
+        <IconButton onClick={handleMenu} edge='end' aria-label='menu' className={classes.cog}>
+          <SettingsIcon color='secondary' />
+        </IconButton>
+      )
+      : null
+    }
+    <Menu
+      anchorEl={anchorEl}
+      anchorOrigin={{
+        vertical: 'bottom', 
+        horizontal: 'right'
+      }}
+      open={open}
+      onClose={handleClose}
+      getContentAnchorEl={null}
+    >
+      <MembershipButton currentUserIsMember={currentUserIsMember} handleLeave={handleLeave} handleJoin={handleJoin} handleClose={handleClose} />
+      <ModOptions currentUserIsMod={currentUserIsMod} handleClose={handleClose} toggleModding={toggleModding} />
+      { renderCurrentMembers() }
+    </Menu>
+  </>
+}
+
 function ClubContainer({
   id,
   name,
@@ -68,40 +133,6 @@ function ClubContainer({
     if (modding) toggleModding();
   }
 
-  const MembershipButton = () => (
-    currentUserIsMember
-    ? (
-      <MenuItem onClick={handleClose, handleLeave}>
-        Leave Club
-      </MenuItem>
-    )
-    : (
-      <MenuItem onClick={handleClose, handleJoin}>
-        Join Club
-      </MenuItem>
-    )
-  );
-
-  const ModOptions = () => (
-    currentUserIsMod
-    ? <>
-        <MenuItem onClose={handleClose, toggleModding}>
-          Current members {/* create modal popout for this */}
-        </MenuItem>
-        <MenuItem onClose={handleClose}>
-          <Link href='/avatar-selection' color='inherit'>
-            Choose new avatar
-          </Link>
-        </MenuItem>
-        <MenuItem>
-          <Link href='/bestsellers' color='inherit'>
-            Set new book
-          </Link>
-        </MenuItem>
-      </>
-    : null
-  )
-
   const renderCurrentMembers = () => {
     members = members.map( member => {
         return (
@@ -140,33 +171,19 @@ function ClubContainer({
     })
   }
 
-  const ClubMenu = () => <>
-    {
-      !currentUser || (
-        <IconButton onClick={handleMenu} edge='end' aria-label='menu' className={classes.cog}>
-          <SettingsIcon color='secondary' />
-        </IconButton>
-      )
-    }
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        top: 'bottom', 
-        horizontal: 'right'
-      }}
-      open={open}
-      onClose={handleClose}
-      getContentAnchorEl={null}
-    >
-      <MembershipButton />
-      <ModOptions />
-      { renderCurrentMembers() }
-    </Menu>
-  </>
-
   return (
     <div className={classes.root}>
-      <ClubMenu />
+      <ClubMenu
+        anchorEl={anchorEl}
+        handleJoin={handleJoin}
+        handleMenu={handleMenu}
+        handleLeave={handleLeave}
+        currentUser={currentUser}
+        handleClose={handleClose} open={open}
+        currentUserIsMod={currentUserIsMod}
+        currentUserIsMember={currentUserIsMember}
+        renderCurrentMembers={renderCurrentMembers}
+      />
       <div className='Club-details'>
         <Typography variant="h2">{name}</Typography>
         <Typography variant="subtitle1" paragraph>{description}</Typography>
@@ -177,7 +194,7 @@ function ClubContainer({
           Threads
         </Typography>
         { currentUserIsMod ? <ThreadForm clubId={id} /> : null }
-        <ThreadList />
+        { threads.length ? <ThreadList /> : null }
       </div>
     </div>
   );

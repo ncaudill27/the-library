@@ -26,7 +26,7 @@ function StarRating({count}) {
 
   return (
     count
-    ? <Grid className={classes.rating} container xs justify="center" alignItems="flex-end">
+    ? <Grid className={classes.rating} container justify="center" alignItems="flex-end">
         {convertToStars()}
       </Grid>
     : null

@@ -21,7 +21,7 @@ const store = createStore(
   );
 
 ReactDOM.render(
-  <React.StrictMode>
+  <React.Fragment>
     <Provider store={store}>
       <Router>
         <ErrorBoundary>
@@ -29,7 +29,7 @@ ReactDOM.render(
         </ErrorBoundary>
       </Router>
     </Provider>
-  </React.StrictMode>,
+  </React.Fragment>,
   document.getElementById('root')
 );
 
