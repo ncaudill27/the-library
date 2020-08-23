@@ -1,7 +1,7 @@
 import React from 'react';
 import star from '../star.png';
 import { Grid } from '@material-ui/core';
-import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles( theme => ({
   star: {

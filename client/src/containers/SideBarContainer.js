@@ -6,7 +6,6 @@ import { logOutUser } from '../actions/users';
 
 import { Button, IconButton, AppBar, Toolbar, Typography, Menu, MenuItem, Link } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/MenuBook';
-import ClearIcon from '@material-ui/icons/Clear';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles( theme => ({
