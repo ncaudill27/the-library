@@ -15,10 +15,34 @@ const useStyles = makeStyles( theme => ({
   title: {
     flexGrow: 1
   },
+  menuItem: {
+    backgroundColor: '#fff',
+    color: '#000',
+    marginBottom: theme.spacing(0.25)
+  },
+  create: {
+    backgroundColor: theme.palette.secondary.dark,
+    color: '#fff'
+  },
+  link: {
+    color: theme.palette.secondary.dark
+  },
   menu: {
     backgroundColor: theme.palette.secondary.main
   }
 }));
+
+const CreateClubButton = () => {
+  const classes = useStyles();
+
+  return (
+    <MenuItem className={classes.create}>
+      <Link href='/clubs/new' color='inherit'>
+        Create New Club
+      </Link>
+    </MenuItem>
+  );
+}
 
 function SidebarContainer({currentUser, logOutUser}) {
   const classes = useStyles();
@@ -58,27 +82,29 @@ function SidebarContainer({currentUser, logOutUser}) {
             open={open}
             onClose={handleClose}
           >
-            <MenuItem onClick={handleClose}>
+            <MenuItem onClick={handleClose} className={classes.menuItem}>
               <Link 
                 href='/bestsellers'
-                color='inherit'
                 underline='none'
+                className={classes.link}
               >
                 Bestsellers
               </Link>
             </MenuItem>
-            <MenuItem onClick={handleClose}>
+            <MenuItem onClick={handleClose} className={classes.menuItem}>
               <Link
                 href='/clubs'
-                color='inherit'
+                className={classes.link}
+                underline='none'
               >
                 Clubs {/* <--------------- link text */}
               </Link>
             </MenuItem>
-            <MenuItem>
+            <MenuItem >
               Your clubs
             </MenuItem>
             <ClubList styling='sidebar' handleClose={handleClose} />
+            <CreateClubButton />
           </Menu>
         </Toolbar>
       </AppBar>

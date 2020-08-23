@@ -12,5 +12,12 @@ export const theme = createMuiTheme({
       light: '#ffd4d0',
       dark: '#b67371'
     }
+  },
+  overrides: {
+    MuiPaper: {
+      root: {
+        backgroundColor: '#ffd4d0'
+      }
+    }
   }
 });
