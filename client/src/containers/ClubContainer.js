@@ -175,12 +175,14 @@ function ClubContainer({
   return (
     <div className={classes.root}>
       <ClubMenu
+        child
+        open={open}
         anchorEl={anchorEl}
         handleJoin={handleJoin}
         handleMenu={handleMenu}
         handleLeave={handleLeave}
         currentUser={currentUser}
-        handleClose={handleClose} open={open}
+        handleClose={handleClose}
         currentUserIsMod={currentUserIsMod}
         currentUserIsMember={currentUserIsMember}
         renderCurrentMembers={renderCurrentMembers}
@@ -192,10 +194,20 @@ function ClubContainer({
       <BookShow isbn={activeBook} />
       <div className={classes.threads}>
         <Typography variant='h3'>
-          Threads
+          Discussion
         </Typography>
         { currentUserIsMod ? <ThreadForm clubId={id} /> : null }
-        { threads.length ? <ThreadList currentUserIsMember={currentUserIsMember} currentUser={currentUser} currentUserIsMod={currentUserIsMod} /> : null }
+        {
+           threads.length
+           ? (
+            <ThreadList
+              currentUserIsMember={currentUserIsMember}
+              currentUser={currentUser}
+              currentUserIsMod={currentUserIsMod}
+            />
+           )
+           : null 
+        }
       </div>
     </div>
   );

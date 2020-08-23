@@ -9,7 +9,8 @@ import SendIcon from '@material-ui/icons/Send';
 
 const useStyles = makeStyles( theme => ({
   root: {
-    marginTop: theme.spacing(2)
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(1),
   }
 }))
 
@@ -36,12 +37,8 @@ const CommentField = ({currentUser: {id: userId, avatar, username}, threadId, po
     <Container className={classes.root}>
       <Box display='flex' alignItems='center' justifyContent='space-between'>
         <Avatar src={avatar} showing={username + "'s avatar"} />
-        <FormControl>
-          <Box display='flex' alignItems='center' justifyContent='flex-end'>
-            <TextField label='New comment' variant='outlined' size='small' color='secondary' value={comment} onChange={handleChange} />
-            <Button onClick={handleSubmit}><SendIcon color='secondary' /></Button>
-          </Box>
-        </FormControl>
+        <TextField label='New comment' variant='outlined' size='small' color='secondary' value={comment} onChange={handleChange} />
+        <Button onClick={handleSubmit}><SendIcon color='secondary' /></Button>
       </Box>
     </Container>
   );

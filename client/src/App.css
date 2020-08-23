@@ -1,0 +1,3 @@
+div[role="menu"] > div > span {
+  background-color: red !important;
+}

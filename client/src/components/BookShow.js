@@ -18,7 +18,7 @@ const useStyles = makeStyles( theme => ({
     overflow: 'auto'
   },
   title: {
-    backgroundColor: theme.palette.secondary.dark,
+    backgroundColor: theme.palette.primary.light,
     paddingTop: theme.spacing(1),
     height: '100%',
     width: '100%'
