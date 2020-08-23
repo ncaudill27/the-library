@@ -56,19 +56,12 @@ class ClubList extends Component {
     });
     clubs = clubs.map(({id, name, avatar}) => {
       return (
-        <MenuItem key={id} onClick={handleClose}>
-          <ClubSideBar key={id} id={id} name={name} avatar={avatar} />
-        </MenuItem>
+        <ClubSideBar key={id} id={id} name={name} avatar={avatar} handleClose={this.props.handleClose} />
       )
     });
 
     return <>
       {clubs}
-      <MenuItem>
-        <Link href='/clubs/new' color='inherit'>
-          Create Club
-        </Link>
-      </MenuItem>
     </>;
   };
 
