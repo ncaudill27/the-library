@@ -3,10 +3,14 @@ import { connect } from 'react-redux';
 import { updateUserRequest } from '../actions/users';
 import { Box, Button, Typography, FormControl, TextField, makeStyles } from '@material-ui/core'
 
-const useStyles = makeStyles( themes => ({
+const useStyles = makeStyles( theme => ({
   form: {
-    margin: themes.spacing(3)
+    margin: theme.spacing(3)
+  },
+  button: {
+    backgroundColor: theme.palette.primary.dark
   }
+
 }));
 
 function NewUser({currentUser, updateUserRequest}) {
@@ -46,7 +50,13 @@ function NewUser({currentUser, updateUserRequest}) {
         <TextField label='Name' value={name} onChange={ e => handleChange(setName, e) } />
         <TextField label='Username' value={username} onChange={ e => handleChange(setUsername, e) } />
         <TextField label='Bio' value={bio} multiline rowsMax={6} onChange={ e => handleChange(setBio, e) } />
-        <Button onClick={handleSubmit}>Enter Library</Button>
+        <Button
+          onClick={handleSubmit}
+          variant='contained'
+          className={classes.button}
+        >
+          Enter Library
+        </Button>
       </FormControl>
     </Box>
   );

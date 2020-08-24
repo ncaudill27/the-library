@@ -3,9 +3,12 @@ import { loginRequest } from '../actions/users';
 import { connect } from 'react-redux';
 import { Typography, FormControl, TextField, Button, Box, makeStyles } from '@material-ui/core';
 
-const useStyles = makeStyles( themes => ({
+const useStyles = makeStyles( theme => ({
   form: {
-    margin: themes.spacing(4)
+    margin: theme.spacing(4)
+  },
+  button: {
+    backgroundColor: theme.palette.primary.dark
   }
 }));
 
@@ -27,7 +30,6 @@ function LoginForm({loginRequest}) {
     };
     console.log(username, password);
     loginRequest(payload);
-    // TODO redirect to '/'
     setUsername('');
     setPassword('');
   };
@@ -40,7 +42,13 @@ function LoginForm({loginRequest}) {
       <FormControl fullWidth>
         <TextField label='Username' onChange={ e => handleChange(setUsername, e) } />
         <TextField type='password' label='Password' onChange={ e => handleChange(setPassword, e) } />
-        <Button onClick={handleSubmit}>Login</Button>
+        <Button
+          onClick={handleSubmit}
+          variant='outlined'
+          className={classes.button}
+        >
+          Login
+        </Button>
       </FormControl>
     </Box>
   );
