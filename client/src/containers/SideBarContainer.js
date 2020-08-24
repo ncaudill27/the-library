@@ -103,11 +103,17 @@ function SidebarContainer({currentUser, logOutUser}) {
                 Clubs {/* <--------------- link text */}
               </Link>
             </MenuItem>
-            <MenuItem >
-              Your clubs
-            </MenuItem>
-            <ClubList styling='sidebar' handleClose={handleClose} />
-            <CreateClubButton />
+            {
+              currentUser
+              ? <>
+                <MenuItem >
+                  Your clubs
+                </MenuItem>
+                <ClubList styling='sidebar' handleClose={handleClose} />
+                <CreateClubButton />
+              </>
+              : null
+            }
           </Menu>
         </Toolbar>
       </AppBar>
