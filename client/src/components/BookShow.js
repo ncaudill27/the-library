@@ -9,7 +9,7 @@ const { REACT_APP_GOOGLE_BOOKS_KEY } = process.env;
 
 const useStyles = makeStyles( theme => ({
   root: {
-    flexGrow: 1
+    margin: theme.spacing(-1)
   },
   paper: {
     padding: theme.spacing(1),
@@ -18,13 +18,16 @@ const useStyles = makeStyles( theme => ({
     overflow: 'auto'
   },
   title: {
-    backgroundColor: theme.palette.primary.light,
+    backgroundColor: theme.palette.primary.main,
+    fontWeight: '500',
     paddingTop: theme.spacing(1),
     height: '100%',
     width: '100%'
   },
   details: {
-    // margin: theme.spacing(1),
+    marginTop: theme.spacing(1),
+    marginLeft: theme.spacing(2),
+
     float: 'right',
   },
   image: {
@@ -38,6 +41,7 @@ const useStyles = makeStyles( theme => ({
     maxHeight: '100%'
   },
   description: {
+    textAlign: 'justify'
   }
 }));
 
@@ -64,15 +68,15 @@ function BookShow({ isbn, hide }) {
       <Paper elevation={1} className={classes.paper} onClick={hide} square>
         <Grid className={classes.details} xs={6} item container direction='column' spacing={0} justify='flex-start' alignItems='center'>
           <Grid item>
+            <img className={classes.img} src={book.imageLinks ? book.imageLinks.thumbnail : ''} alt={book.title + " Cover Art"} />
+          </Grid>
+          <Grid item>
             <Typography variant='h6' align='center'>
               Author{book.authors.length <= 1 ? '' : 's'}: {[...book.authors].join(', ')}
             </Typography>
           </Grid>
           <Grid item>
               <StarRating count={book.averageRating} />
-          </Grid>
-          <Grid item>
-            <img className={classes.img} src={book.imageLinks ? book.imageLinks.thumbnail : ''} alt={book.title + " Cover Art"} />
           </Grid>
         </Grid>
         <Typography paragraph className={classes.description}>
