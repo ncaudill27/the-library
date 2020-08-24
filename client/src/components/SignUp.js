@@ -3,9 +3,12 @@ import { userPostRequest } from '../actions/users';
 import { connect } from 'react-redux';
 import { Button, Typography, FormControl, TextField, makeStyles, Box } from '@material-ui/core';
 
-const useStyles = makeStyles( themes => ({
+const useStyles = makeStyles( theme => ({
   form: {
-    margin: themes.spacing(4)
+    margin: theme.spacing(4)
+  },
+  button: {
+    backgroundColor: theme.palette.primary.dark
   }
 }));
 
@@ -44,8 +47,14 @@ function SignUp({userPostRequest}) {
       <FormControl fullWidth>
         <TextField label='Email' value={email} onChange={ e => handleChange(setEmail, e) } />
         <TextField type='password' label='Password' value={password} onChange={ e => handleChange(setPassword, e) } />
-        <TextField type='password' label='Confirmation' value={confirmation} onChange={ e => handleChange(setConfirmation, e) } />
-        <Button onClick={handleSubmit}>Sign Up</Button>
+        <TextField type='password' label='Confirm Password' value={confirmation} onChange={ e => handleChange(setConfirmation, e) } />
+        <Button
+          onClick={handleSubmit}
+          variant='outlined'
+          className={classes.button}
+        >
+          Sign Up
+        </Button>
       </FormControl>
     </Box>
   );
