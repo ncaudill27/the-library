@@ -79,13 +79,12 @@ class MainContainer extends Component {
 
           {
             //TODO dig into why the container doesn't recognize clubId
-            currentUser && memberships.length && !clubsPending && !usersPending
+            memberships.length
             ? <Route exact path='/clubs/:id' render={ ({match}) => {
               const club = this.reifyClubById(match.params.id);
               return  (
                 <ClubContainer
                   {...club}
-                  currentUser={currentUser}
                 />
               )
             }

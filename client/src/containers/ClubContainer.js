@@ -40,13 +40,17 @@ const MembershipButton = ({currentUserIsMember, handleClose, handleLeave, handle
   return (
     currentUserIsMember
     ? (
-      <MenuItem onClick={handleClose, handleLeave} className={classes.menuItem}>
-        Leave Club
+      <MenuItem onClick={handleClose} className={classes.menuItem}>
+        <Button onClick={handleLeave}>
+          Leave Club
+        </Button>
       </MenuItem>
     )
     : (
-      <MenuItem onClick={handleClose, handleJoin} className={classes.menuItem}>
-        Join Club
+      <MenuItem onClick={handleClose} className={classes.menuItem}>
+        <Button onClick={handleJoin}>
+          Join Club
+        </Button>
       </MenuItem>
     )
   )
