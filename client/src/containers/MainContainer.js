@@ -33,22 +33,7 @@ class MainContainer extends Component {
     clubs = modAssociations.map( ({clubId}) => clubs.find( c => c.id === clubId ) );
     return clubs;
   }
-  //TODO move to helpers folder
-  clubsMembers = clubId => {
-    const { memberships, users } = this.props;
-    // ! optimize this
-    // ! clubMemberIds = memberships.map( m => m.clubId !== clubId || m.userId )
-    const clubMemberships = memberships.filter( m => m.clubId === clubId );
-    // ! clubMemberIds.map( id => users.find( u => u.id === id ) )
-    // ? a way to keep this below O(n2) ?
-    return clubMemberships.map( m => users.find( u => u.id === m.userId ) );
-  }
-  //TODO move to helpers folder
-  findMembershipId = ({clubId, userId}) => {
-    const { memberships } = this.props;
-    return memberships.find( m => m.userId === userId && m.clubId === clubId )
-    .id;
-  }
+
   //TODO move to helpers folder
   reifyClubById = clubId => {
     const { clubs, clubsPending } = this.props;
@@ -56,8 +41,6 @@ class MainContainer extends Component {
     if ( !clubsPending ) {
       const club = clubs.find( c => c.id === clubId );
       club.id = clubId;
-      club.members = this.clubsMembers(club.id);
-      club.threads = club.threadIds.map( threadId => this.props.threads.find( t => t.id === threadId ) );
       club.currentUserIsMod = this.clubsCurrentUserMods().includes(club);
       club.currentUserIsMember = this.clubsCurrentUserisMember().includes(club);
       return club
@@ -103,8 +86,6 @@ class MainContainer extends Component {
                 <ClubContainer
                   {...club}
                   currentUser={currentUser}
-                  findMembershipId={this.findMembershipId}
-                  toggleModding={this.toggleModding}
                 />
               )
             }
@@ -112,7 +93,9 @@ class MainContainer extends Component {
             : null
           }
 
-          <Route exact path='/bestsellers' render={ () => <NYTimes clubsCurrentUserMods={this.clubsCurrentUserMods} /> } />
+          <Route exact path='/bestsellers' render={ () => 
+              <NYTimes clubsCurrentUserMods={this.clubsCurrentUserMods} /> 
+          }/>
 
           {
             currentUser
@@ -123,9 +106,9 @@ class MainContainer extends Component {
             usersPending
             ? null
             : (
-              <Route exact path='/:username' render={ () => {
-                return <ProfilePage currentUser={currentUser} />
-              }} />
+              <Route exact path='/:username' render={ () => 
+                <ProfilePage currentUser={currentUser} />
+              }/>
             )
           }
 
@@ -135,12 +118,10 @@ class MainContainer extends Component {
   };
 }
 
-const mapStateToProps = ({clubs, users, threads, messages}) => ({
+const mapStateToProps = ({clubs, users, messages}) => ({
     message: messages.message,
     clubs: clubs.data,
     clubsPending: clubs.pending,
-    threads: threads.data,
-    threadsPending: threads.pending,
     users: users.data,
     usersPending: users.pending,
     currentUser: users.currentUser,

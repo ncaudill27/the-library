@@ -123,12 +123,12 @@ const ThreadList = ({currentUser, currentUserIsMember, currentUserIsMod, threads
 function ClubContainer({
   id,
   name,
+  users,
   threads,
-  members,
+  memberships,
   activeBook,
   currentUser,
   description,
-  findMembershipId,
   currentUserIsMod,
   memberJoinRequest,
   memberLeaveRequest,
@@ -136,6 +136,7 @@ function ClubContainer({
 }) {
 
   const classes = useStyles();
+  threads = threads.filter( t => t.clubId === id );
 
   const [modding, setModding] = useState(false);
   const toggleModding = () => setModding( prev => !prev );
@@ -146,6 +147,22 @@ function ClubContainer({
   const handleMenu = e => setAnchorEl(e.currentTarget);
   const handleClose = () => setAnchorEl(null);
 
+  
+  const findMembershipId = ({clubId, userId}) => {
+    return memberships.find( m => m.userId === userId && m.clubId === clubId )
+    .id;
+  }
+
+  const clubMembers = () => {
+    // ! optimize this
+    // ! clubMemberIds = memberships.map( m => m.clubId !== clubId || m.userId )
+    const clubMemberships = memberships.filter( m => m.clubId === id );
+    // ! clubMemberIds.map( id => users.find( u => u.id === id ) )
+    // ? a way to keep this below O(n2) ?
+    const members = clubMemberships.map( m => users.find( u => u.id === m.userId ) );
+    return members
+  }
+  
   const handleJoin = () => {
     const payload = {
       membership: {
@@ -163,7 +180,7 @@ function ClubContainer({
   }
 
   const renderCurrentMembers = () => {
-    members = members.map( member => {
+    const members = clubMembers().map( member => {
         return (
           member.id === currentUser.id
           ? null
@@ -229,4 +246,13 @@ function ClubContainer({
   );
 }
 
-export default connect( null, { memberJoinRequest, memberLeaveRequest })(ClubContainer);
+const mapStateToProps = ({threads, users}) => ({
+  threads: threads.data,
+  threadsPending: threads.pending,
+  users: users.data,
+  usersPending: users.pending,
+  currentUser: users.currentUser,
+  memberships: users.memberships
+})
+
+export default connect( mapStateToProps, { memberJoinRequest, memberLeaveRequest } )(ClubContainer);
