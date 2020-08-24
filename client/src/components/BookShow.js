@@ -42,8 +42,33 @@ const useStyles = makeStyles( theme => ({
   },
   description: {
     textAlign: 'justify'
+  },
+  fallback: {
+    marginTop: theme.spacing(2),
+    padding: theme.spacing(1)
   }
 }));
+
+function Fallback({hide}) {
+  const classes = useStyles();
+
+  const [message, setMessage] = useState('loading...');
+  
+  useEffect( () => {
+    const timer = setTimeout( () => {
+      setMessage(`Sorry we couldn't seem to find more details for this book.`);
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <Paper elevation={3} onClick={hide} className={classes.fallback}>
+      <Typography variant='h5'>
+        {message}
+      </Typography>
+    </Paper>
+  )
+}
 
 function BookShow({ isbn, hide }) {
   const classes = useStyles();
@@ -57,15 +82,15 @@ function BookShow({ isbn, hide }) {
     .catch(errors => console.log(errors));
   }, [isbn]);
 
-  if (!book) return <h2 onClick={hide}>loading...</h2>;
+  if (!book) return <Fallback hide={hide} />;
   else return (
-    <Box className={classes.root}>
+    <Box className={classes.root} onClick={hide}>
       <Paper elevation={3}>
         <Typography variant='h5' align='center' className={classes.title}>
           {book.title}
         </Typography>
       </Paper>
-      <Paper elevation={1} className={classes.paper} onClick={hide} square>
+      <Paper elevation={1} className={classes.paper} square>
         <Grid className={classes.details} xs={6} item container direction='column' spacing={0} justify='flex-start' alignItems='center'>
           <Grid item>
             <img className={classes.img} src={book.imageLinks ? book.imageLinks.thumbnail : ''} alt={book.title + " Cover Art"} />
