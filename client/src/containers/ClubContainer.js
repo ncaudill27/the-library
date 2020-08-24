@@ -7,8 +7,8 @@ import BookShow from '../components/BookShow';
 /* ------------
   Material imports
 ---------- */
-import { makeStyles, Link, Button, Typography, Menu, MenuItem, IconButton } from '@material-ui/core';
-import SettingsIcon from '@material-ui/icons/Settings';
+import { makeStyles, Link, Button, Typography, Box, Menu, MenuItem, IconButton } from '@material-ui/core';
+import SettingsIcon from '@material-ui/icons/MenuBook';
 
 const useStyles = makeStyles( theme => ({
   root: {
@@ -28,7 +28,7 @@ const useStyles = makeStyles( theme => ({
     color: theme.palette.secondary.dark
   },
   threads: {
-    backgroundColor: theme.palette.primary.light,
+    backgroundColor: theme.palette.primary.main,
     margin: theme.spacing(-2),
     padding: theme.spacing(2)
   }
@@ -41,16 +41,16 @@ const MembershipButton = ({currentUserIsMember, handleClose, handleLeave, handle
     currentUserIsMember
     ? (
       <MenuItem onClick={handleClose} className={classes.menuItem}>
-        <Button onClick={handleLeave}>
+        <Box onClick={handleLeave}>
           Leave Club
-        </Button>
+        </Box>
       </MenuItem>
     )
     : (
       <MenuItem onClick={handleClose} className={classes.menuItem}>
-        <Button onClick={handleJoin}>
+        <Box onClick={handleJoin}>
           Join Club
-        </Button>
+        </Box>
       </MenuItem>
     )
   )
@@ -66,12 +66,12 @@ const ModOptions = ({currentUserIsMod, handleClose, toggleModding}) => {
           Current members {/* create modal popout for this */}
         </MenuItem>
         <MenuItem onClose={handleClose} className={classes.menuItem}>
-          <Link href='/avatar-selection' color='inherit'>
+          <Link href='/avatar-selection' color='inherit' underline='none'>
             Choose new avatar
           </Link>
         </MenuItem>
         <MenuItem className={classes.menuItem}>
-          <Link href='/bestsellers' color='inherit'>
+          <Link href='/bestsellers' color='inherit' underline='none'>
             Set new book
           </Link>
         </MenuItem>
