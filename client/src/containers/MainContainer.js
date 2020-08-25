@@ -106,7 +106,7 @@ class MainContainer extends Component {
             ? null
             : (
               <Route exact path='/:username' render={ () => 
-                <ProfilePage currentUser={currentUser} />
+                <ProfilePage {...currentUser} />
               }/>
             )
           }

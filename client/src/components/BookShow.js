@@ -3,7 +3,7 @@ import StarRating from './StarRating';
 /* ----------
   Material imports
 ----------- */
-import { Grid, Typography, Paper, Box } from '@material-ui/core';
+import { Grid, Button, Link, Typography, Paper, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 const { REACT_APP_GOOGLE_BOOKS_KEY } = process.env;
 
@@ -46,9 +46,33 @@ const useStyles = makeStyles( theme => ({
   fallback: {
     marginTop: theme.spacing(2),
     padding: theme.spacing(1)
+  },
+  button: {
+    backgroundColor: theme.palette.primary.dark,
+    marginBottom: theme.spacing(1)
   }
 }));
 
+function Missing() {
+  const classes = useStyles();
+
+  return (
+    <Paper className={classes.paper}>
+      <Typography variant='h5'>
+        Select a book
+      </Typography>
+      <Link
+        href='/bestsellers'
+        underline='none'
+        component={Button}
+        variant='contained'
+        className={classes.button}
+      >
+        New York Times Bestsellers
+      </Link>
+    </Paper>
+  )
+}
 function Fallback({hide}) {
   const classes = useStyles();
 
@@ -82,6 +106,8 @@ function BookShow({ isbn, hide }) {
     .catch(errors => console.log(errors));
   }, [isbn]);
 
+
+  if (!isbn) return <Missing />;
   if (!book) return <Fallback hide={hide} />;
   else return (
     <Box className={classes.root} onClick={hide}>
