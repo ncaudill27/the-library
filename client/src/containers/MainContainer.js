@@ -24,7 +24,7 @@ class MainContainer extends Component {
     let { currentUser, memberships, clubs } = this.props;
     const membershipAssociations = memberships.filter( m => m.userId === currentUser.id );
     clubs = membershipAssociations.map( ({clubId}) => clubs.find( c => c.id === clubId ) );
-    return clubs;
+    return clubs ? clubs : [];
   }
   //TODO move to helpers folder
   clubsCurrentUserMods = () => {
@@ -63,7 +63,7 @@ class MainContainer extends Component {
 
         <Switch>
 
-          <Route exact path='/' render={ () => <WelcomeContainer currentUser={currentUser} /> } />
+          <Route exact path='/' render={ () => <WelcomeContainer currentUser={currentUser} clubsCurrentUserisMember={this.clubsCurrentUserisMember}  /> } />
 
           {
             currentUser && memberships.length
