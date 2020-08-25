@@ -7,6 +7,9 @@ import { Typography, FormControl, TextField, Button, Box, makeStyles } from '@ma
 const useStyles = makeStyles( themes => ({
   form: {
     margin: themes.spacing(3)
+  },
+  button: {
+    backgroundColor: themes.palette.primary.dark
   }
 }))
 
@@ -52,7 +55,11 @@ function ClubForm({postClubRequest, addClub}) {
           rowsMax={6}
           onChange={ e => handleChange(setDescription, e)}
         />
-        <Button onClick={handleSubmit}>
+        <Button
+          onClick={handleSubmit}
+          variant='contained'
+          className={classes.button}
+        >
           Create Club
         </Button>
       </FormControl>

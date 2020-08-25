@@ -62,8 +62,10 @@ const ModOptions = ({currentUserIsMod, handleClose, toggleModding}) => {
   return (
     currentUserIsMod
     ? <>
-        <MenuItem onClose={handleClose, toggleModding} className={classes.menuItem}>
-          Current members {/* create modal popout for this */}
+        <MenuItem onClick={handleClose} className={classes.menuItem}>
+          <Box onClick={toggleModding}>
+            Current members {/* create modal popout for this */}
+          </Box>
         </MenuItem>
         <MenuItem onClose={handleClose} className={classes.menuItem}>
           <Link href='/avatar-selection' color='inherit' underline='none'>

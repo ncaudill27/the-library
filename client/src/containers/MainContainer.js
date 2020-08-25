@@ -52,7 +52,6 @@ class MainContainer extends Component {
       message,
       currentUser,
       memberships,
-      clubsPending,
       usersPending
     } = this.props;
 

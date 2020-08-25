@@ -35,6 +35,22 @@ const useStyles = makeStyles( theme => ({
   }
 }));
 
+const MenuLink = ({href, text, handleClose}) => {
+  const classes = useStyles();
+
+  return (
+    <MenuItem onClick={handleClose} className={classes.menuItem}>
+      <Link
+        href={href}
+        className={classes.link}
+        underline='none'
+      >
+        {text}
+      </Link>
+    </MenuItem>
+  )
+}
+
 const CreateClubButton = () => {
   const classes = useStyles();
 
@@ -85,35 +101,11 @@ function SidebarContainer({currentUser, logOutUser}) {
             open={open}
             onClose={handleClose}
           >
-            <MenuItem onClick={handleClose} className={classes.menuItem}>
-              <Link 
-                href='/bestsellers'
-                underline='none'
-                className={classes.link}
-              >
-                Bestsellers
-              </Link>
-            </MenuItem>
-            <MenuItem onClick={handleClose} className={classes.menuItem}>
-              <Link
-                href='/clubs'
-                className={classes.link}
-                underline='none'
-              >
-                Clubs {/* <--------------- link text */}
-              </Link>
-            </MenuItem>
-            {
-              currentUser
-              ? <>
-                <MenuItem >
-                  Your clubs
-                </MenuItem>
-                <ClubList styling='sidebar' handleClose={handleClose} />
-                <CreateClubButton />
-              </>
-              : null
-            }
+            <MenuLink href='/bestsellers' text='Bestsellers' handleClose={handleClose} />
+            <MenuLink href='/clubs' text='Browse Clubs' handleClose={handleClose} />
+            { currentUser ? <MenuItem >Your clubs</MenuItem> : null }
+            { currentUser ? <ClubList styling='sidebar' handleClose={handleClose} /> : null }
+            { currentUser ? <CreateClubButton /> : null }
           </Menu>
         </Toolbar>
       </AppBar>

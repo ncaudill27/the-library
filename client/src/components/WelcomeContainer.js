@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import LoginForm from './LoginForm';
 import BookShow from './BookShow';
 // import LibraryImg from '../library-welcome1.jpg'
 import SignUp from './SignUp';
 import NewUser from './NewUser';
-import { useEffect } from 'react';
 import { makeStyles, Typography, Box, Link, Button, Paper } from '@material-ui/core';
 
 const useStyles = makeStyles( theme => ({
@@ -127,14 +126,14 @@ function ProperWelcome({currentUser, currentUsersClubs, isbn}) {
 
 function WelcomeContainer({currentUser, currentUsersClubs}) {
 
-  // const [featured, setFeatured] = useState('');
+  const [featured, setFeatured] = useState('');
   
   // todo create Interest class on backend that will fill search query for recommendation
-  // useEffect( () => {
-  //   fetch('https://www.googleapis.com/books/v1/volumes?q=""+orderBy=relevance')
-  //   .then( res => res.json() )
-  //   .then( data => setFeatured(data.items[0].volumeInfo.industryIdentifiers[0].identifier) )
-  // }, [])
+  useEffect( () => {
+    fetch('https://www.googleapis.com/books/v1/volumes?q=""+orderBy=relevance')
+    .then( res => res.json() )
+    .then( data => setFeatured(data.items[0].volumeInfo.industryIdentifiers[0].identifier) )
+  }, [])
 
   // console.log(currentUser, currentUsersClubs());
   
