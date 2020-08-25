@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import BookShow from './BookShow';
 
 import { Typography } from '@material-ui/core';
@@ -6,14 +6,14 @@ import { Typography } from '@material-ui/core';
 function ProfilePage({bio, name, currentlyReading}) {
   
   return (
-    <div className='Profile'>
-      <div className='info'>
-        <h2>{name}</h2>
-        <p>{bio}</p>
-      </div>
-      <div className='reading'>
+    <div>
+        <Typography variant='h2'>
+          {name}
+        </Typography>
+        <Typography variant='body1' paragraph>
+          {bio}
+        </Typography>
         <BookShow isbn={currentlyReading} />
-      </div>
     </div>
   );
 }
