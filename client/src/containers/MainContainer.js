@@ -20,7 +20,7 @@ import { Container } from '@material-ui/core';
 class MainContainer extends Component {
 
   //TODO move to helpers folder
-  clubsCurrentUserisMember = () => {
+  currentUsersClubs = () => {
     let { currentUser, memberships, clubs } = this.props;
     const membershipAssociations = memberships.filter( m => m.userId === currentUser.id );
     clubs = membershipAssociations.map( ({clubId}) => clubs.find( c => c.id === clubId ) );
@@ -42,7 +42,7 @@ class MainContainer extends Component {
       const club = clubs.find( c => c.id === clubId );
       club.id = clubId;
       club.currentUserIsMod = this.clubsCurrentUserMods().includes(club);
-      club.currentUserIsMember = this.clubsCurrentUserisMember().includes(club);
+      club.currentUserIsMember = this.currentUsersClubs().includes(club);
       return club
     };
   }
@@ -63,7 +63,7 @@ class MainContainer extends Component {
 
         <Switch>
 
-          <Route exact path='/' render={ () => <WelcomeContainer currentUser={currentUser} clubsCurrentUserisMember={this.clubsCurrentUserisMember}  /> } />
+          <Route exact path='/' render={ () => <WelcomeContainer currentUser={currentUser} currentUsersClubs={this.currentUsersClubs}  /> } />
 
           {
             currentUser && memberships.length

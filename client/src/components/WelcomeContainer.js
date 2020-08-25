@@ -102,11 +102,11 @@ function OnboardingMessage({classes, isOnboarded, isMember, isReading}) {
   );
 }
 
-function ProperWelcome({currentUser, clubsCurrentUserisMember, isbn}) {
+function ProperWelcome({currentUser, currentUsersClubs, isbn}) {
   const classes = useStyles();
 
   const isReading = () => !!currentUser.currentlyReading;
-  const isMember = () => !!clubsCurrentUserisMember().length;
+  const isMember = () => !!currentUsersClubs().length;
   const isOnboarded = () => !isReading() || !isMember();
 
   return (
@@ -125,7 +125,7 @@ function ProperWelcome({currentUser, clubsCurrentUserisMember, isbn}) {
   )
 }
 
-function WelcomeContainer({currentUser, clubsCurrentUserisMember}) {
+function WelcomeContainer({currentUser, currentUsersClubs}) {
 
   // const [featured, setFeatured] = useState('');
   
@@ -136,7 +136,7 @@ function WelcomeContainer({currentUser, clubsCurrentUserisMember}) {
   //   .then( data => setFeatured(data.items[0].volumeInfo.industryIdentifiers[0].identifier) )
   // }, [])
 
-  // console.log(currentUser, clubsCurrentUserisMember());
+  // console.log(currentUser, currentUsersClubs());
   
   return (
     <div className='WelcomeContainer'>
@@ -144,7 +144,7 @@ function WelcomeContainer({currentUser, clubsCurrentUserisMember}) {
       {
         !!currentUser
         ? !!currentUser.name
-          ? <ProperWelcome currentUser={currentUser} clubsCurrentUserisMember={clubsCurrentUserisMember} />
+          ? <ProperWelcome currentUser={currentUser} currentUsersClubs={currentUsersClubs} />
           : <NewUser currentUser={currentUser} />
         : <>
           <LoginForm />
