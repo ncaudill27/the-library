@@ -106,7 +106,7 @@ function ProperWelcome({currentUser, clubsCurrentUserisMember, isbn}) {
   const classes = useStyles();
 
   const isReading = () => !!currentUser.currentlyReading;
-  const isMember = () => !!clubsCurrentUserisMember.length ;
+  const isMember = () => !!clubsCurrentUserisMember().length;
   const isOnboarded = () => !isReading() || !isMember();
 
   return (
