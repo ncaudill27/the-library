@@ -5,8 +5,6 @@ import StarRating from './StarRating';
 ----------- */
 import { FormControlLabel, Switch, Grid, Button, Link, Typography, Paper, Box, Collapse } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 
 const { REACT_APP_GOOGLE_BOOKS_KEY } = process.env;
 
@@ -56,7 +54,6 @@ const useStyles = makeStyles( theme => ({
     marginBottom: theme.spacing(1)
   },
   switch: {
-    // marginTop: theme.spacing(1),
     backgroundColor: theme.palette.primary.dark,
     color: '#fff',
     marginBottom: theme.spacing(3)
@@ -159,7 +156,7 @@ function BookShow({ isbn, hide }) {
         </Paper>
       </Collapse>
       <Grid container justify='center' className={classes.switch}>
-        { reqHeight > 184 && (
+        { reqHeight > 185 && (
             <FormControlLabel
               control={<Switch checked={open} onChange={toggleOpen} />}
               label={ open ? 'Close' : 'Open' }

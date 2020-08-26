@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import Comment from './Comment';
 import CommentField from './CommentField';
 import { deleteCommentRequest } from '../actions/comments';
 import { connect } from 'react-redux';
+import { makeStyles, Box, Grow, Collapse } from '@material-ui/core';
 
 function CommentList({
   open,
   comments,
   threadId,
+  toggleOpen,
   currentUser,
   handleChange,
   handleSubmit,
@@ -15,7 +17,7 @@ function CommentList({
   currentUserIsMember,
   deleteCommentRequest,
 }) {
-  
+
   const sortCommentsByCreation = () => {
     return comments.sort( (c1, c2) => new Date(c1.posted) - new Date(c2.posted) );
   }
@@ -24,14 +26,18 @@ function CommentList({
 
     let sortedComments = sortCommentsByCreation();
 
-    return sortedComments.map( comment => {
+    return sortedComments.map( (comment, idx) => {
       return (
-        <Comment
-          key={comment.id}
-          {...comment}
-          deleteComment={deleteComment}
-          currentUserIsMod={currentUserIsMod}
-        /> 
+        <Grow in={open} {...(open ? { timeout: idx * 250 } : {})} key={comment.id}>
+          <div>
+            <Comment
+              key={comment.id}
+              {...comment}
+              deleteComment={deleteComment}
+              currentUserIsMod={currentUserIsMod}
+            />
+          </div> 
+        </Grow>
       );
     });
   }
@@ -40,21 +46,32 @@ function CommentList({
     const commentId = e.target.parentNode.dataset.commentId;
     deleteCommentRequest(commentId);
   }
-  
+
   return (
-    <>
-      { open ? renderComments() : null }
-      {
-        open && currentUserIsMember
-        ? <CommentField
-          threadId={threadId}
-          currentUser={currentUser}
-          handleChange={handleChange}
-          handleSubmit={handleSubmit}
-        />
-        : null
-      }
-    </>
+    <div>
+      <Collapse in={open}>
+        <div>
+          <Box>
+            { open && renderComments() }
+          </Box>
+          {
+            (open && currentUserIsMember)
+            && (
+              <Grow in={open} {...(open ? { timeout: (comments.length + 1) * 250 } : {})}>
+                <div>
+                  <CommentField
+                    threadId={threadId}
+                    currentUser={currentUser}
+                    handleChange={handleChange}
+                    handleSubmit={handleSubmit}
+                  />
+                </div>
+              </Grow>
+            )
+          }
+        </div>
+      </Collapse>
+    </div>
   );
 }
 
