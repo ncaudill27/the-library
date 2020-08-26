@@ -24,16 +24,49 @@ class App extends Component {
     fetchThreads();
     fetchComments();
   }
+    //TODO move to helpers folder
+    currentUsersClubs = () => {
+      let { currentUser, memberships, clubs } = this.props;
+      const membershipAssociations = memberships.filter( m => m.userId === currentUser.id );
+      clubs = membershipAssociations.map( ({clubId}) => clubs.find( c => c.id === clubId ) );
+      return clubs ? clubs : [];
+    }
+    //TODO move to helpers folder
+    clubsCurrentUserMods = () => {
+      let { currentUser, memberships, clubs } = this.props;
+      const modAssociations = memberships.filter( m => m.userId === currentUser.id && m.isMod );
+      clubs = modAssociations.map( ({clubId}) => clubs.find( c => c.id === clubId ) );
+      return clubs;
+    }
+  
+    //TODO move to helpers folder
+    reifyClubById = clubId => {
+      const { clubs, clubsPending } = this.props;
+      
+      if ( !clubsPending ) {
+        const club = clubs.find( c => c.id === clubId );
+        club.id = clubId;
+        club.currentUserIsMod = this.clubsCurrentUserMods().includes(club);
+        club.currentUserIsMember = this.currentUsersClubs().includes(club);
+        return club
+      };
+    }
 
   render() {
     return (
       <ThemeProvider theme={theme}>
-        <SidebarContainer />
-        <MainContainer />
+        <SidebarContainer currentUsersClubs={this.currentUsersClubs} />
+        <MainContainer currentUsersClubs={this.currentUsersClubs} clubsCurrentUserMods={this.clubsCurrentUserMods} reifyClubById={this.reifyClubById} />
       </ThemeProvider>
     );
   };
 }
 
+const mapStateToProps = ({clubs, users}) => ({
+  clubs: clubs.data,
+  clubsPending: clubs.pending,
+  currentUser: users.currentUser,
+  memberships: users.memberships
+});
 
-export default connect(null, {getClubsRequest, fetchUsers, fetchThreads, fetchComments, authorizeToken })(App);
+export default connect(mapStateToProps, {getClubsRequest, fetchUsers, fetchThreads, fetchComments, authorizeToken })(App);

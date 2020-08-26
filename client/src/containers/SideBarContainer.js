@@ -100,7 +100,7 @@ function SidebarContainer({currentUser, logOutUser}) {
             open={open}
             onClose={handleClose}
           >
-            <MenuLink href='/bestsellers' text='Bestsellers' handleClose={handleClose} />
+            <MenuLink href='/bestsellers' text='NY Times Bestsellers' handleClose={handleClose} />
             <MenuLink href='/clubs' text='Browse Clubs' handleClose={handleClose} />
             { currentUser ? <MenuItem disabled>Your clubs</MenuItem> : null }
             { currentUser ? <ClubList styling='sidebar' handleClose={handleClose} /> : null }
