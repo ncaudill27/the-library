@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createRef } from 'react';
 import StarRating from './StarRating';
 /* ----------
   Material imports
@@ -47,6 +47,7 @@ const useStyles = makeStyles( theme => ({
   },
   fallback: {
     marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(4),
     padding: theme.spacing(1)
   },
   button: {
@@ -55,7 +56,9 @@ const useStyles = makeStyles( theme => ({
     marginBottom: theme.spacing(1)
   },
   switch: {
-    marginTop: theme.spacing(1),
+    // marginTop: theme.spacing(1),
+    backgroundColor: theme.palette.primary.dark,
+    color: '#fff',
     marginBottom: theme.spacing(3)
   }
 }));
@@ -108,6 +111,8 @@ function BookShow({ isbn, hide }) {
   const [open, setOpen] = useState(false);
   const toggleOpen = () => setOpen( prev => !prev );
 
+  const [reqHeight, setHeight] = useState(null);
+
   useEffect( () => {
     fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&key=${REACT_APP_GOOGLE_BOOKS_KEY}`)
     .then( res => res.json() )
@@ -115,6 +120,14 @@ function BookShow({ isbn, hide }) {
     .catch(errors => console.log(errors));
   }, [isbn]);
 
+  const infoRef = createRef();
+
+  useEffect( () => {
+    if (infoRef.current) {
+      const height = infoRef.current.getBoundingClientRect().height;
+      setHeight(height);
+    };
+  }, [infoRef]);
 
   if (!isbn) return <Missing />;
   if (!book) return <Fallback hide={hide} />;
@@ -125,8 +138,8 @@ function BookShow({ isbn, hide }) {
           {book.title}
         </Typography>
       </Paper>
-      <Collapse in={open} collapsedHeight={300}>
-        <Paper elevation={1} className={classes.paper} square>
+      <Collapse in={open} collapsedHeight={320}>
+        <Paper elevation={1} className={classes.paper} square ref={infoRef}>
           <Grid className={classes.details} xs={6} item container direction='column' spacing={0} justify='flex-start' alignItems='center'>
             <Grid item>
               <img className={classes.img} src={book.imageLinks ? book.imageLinks.thumbnail : ''} alt={book.title + " Cover Art"} />
@@ -146,10 +159,12 @@ function BookShow({ isbn, hide }) {
         </Paper>
       </Collapse>
       <Grid container justify='center' className={classes.switch}>
-        <FormControlLabel
-          control={<Switch checked={open} onChange={toggleOpen} />}
-          label={ open ? 'Close' : 'Open' }
-        />
+        { reqHeight > 184 && (
+            <FormControlLabel
+              control={<Switch checked={open} onChange={toggleOpen} />}
+              label={ open ? 'Close' : 'Open' }
+            />
+        )}
       </Grid>
     </Box>
   );
