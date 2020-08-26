@@ -40,15 +40,15 @@ const EditForm = ({comment, commentSet, editComment, toggleEditable, editable}) 
   );
 }
 
-const CommentOptions = ({id, toggleEditable, deleteComment, isOwnerNotMod, shown}) => {
+const CommentOptions = ({id, toggleEditable, deleteComment, currentUserIsMod, isContentOwner, shown}) => {
   const classes = useStyles();
 
   return (
     <Box display='flex' justifyContent='flex-end' data-comment-id={id} className={classes.pushBot}>
       <Slide  direction='left' in={shown} mountOnEnter unmountOnExit>
         <div>
-          { isOwnerNotMod() ? <Button className={classes.edit} variant='contained' onClick={toggleEditable}>EDIT</Button> : null }
-          <Button className={classes.delete} variant='contained' onClick={deleteComment}>DELETE</Button>
+          { isContentOwner() && <Button className={classes.edit} variant='contained' onClick={toggleEditable}>EDIT</Button> }
+          { ( currentUserIsMod || isContentOwner() ) && <Button className={classes.delete} variant='contained' onClick={deleteComment}>DELETE</Button> }
         </div>
       </Slide>
     </Box>
@@ -96,7 +96,6 @@ const Comment = ({
   const [comment, commentSet] = useState(content);
 
   const isContentOwner = () => currentUser.id === userId;
-  const isOwnerNotMod = () => !currentUserIsMod || isContentOwner();
 
   const editComment = e => {
     e.preventDefault();
@@ -146,7 +145,8 @@ const Comment = ({
         shown={shown}
         toggleShown={toggleShown}
         deleteComment={deleteComment}
-        isOwnerNotMod={isOwnerNotMod}
+        isContentOwner={isContentOwner}
+        currentUserIsMod={currentUserIsMod}
         toggleEditable={toggleEditable}
       />
     </Container>
