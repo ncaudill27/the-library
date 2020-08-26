@@ -21,15 +21,13 @@ const store = createStore(
   );
 
 ReactDOM.render(
-  <React.Fragment>
     <Provider store={store}>
       <Router>
         <ErrorBoundary>
           <App />
         </ErrorBoundary>
       </Router>
-    </Provider>
-  </React.Fragment>,
+    </Provider>,
   document.getElementById('root')
 );
 

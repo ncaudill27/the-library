@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, forwardRef } from 'react';
 import ClubList from '../components/ClubList';
 import { connect } from 'react-redux';
 import { addClub } from '../actions/users';
 import { logOutUser } from '../actions/users';
 
-import { Button, IconButton, AppBar, Toolbar, Typography, Menu, MenuItem, Link } from '@material-ui/core';
+import { makeStyles, Button, IconButton, AppBar, Toolbar, Typography, Menu, MenuItem, Link } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles( theme => ({
   root: {
@@ -35,11 +34,11 @@ const useStyles = makeStyles( theme => ({
   }
 }));
 
-const MenuLink = ({href, text, handleClose}) => {
+const MenuLink = forwardRef( ({href, text, handleClose}, ref) => {
   const classes = useStyles();
 
   return (
-    <MenuItem onClick={handleClose} className={classes.menuItem}>
+    <MenuItem onClick={handleClose} className={classes.menuItem} ref={ref}>
       <Link
         href={href}
         className={classes.link}
@@ -48,8 +47,8 @@ const MenuLink = ({href, text, handleClose}) => {
         {text}
       </Link>
     </MenuItem>
-  )
-}
+  );
+});
 
 const CreateClubButton = () => {
   const classes = useStyles();
