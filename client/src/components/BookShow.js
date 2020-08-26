@@ -156,7 +156,7 @@ function BookShow({ isbn, hide }) {
         </Paper>
       </Collapse>
       <Grid container justify='center' className={classes.switch}>
-        { reqHeight > 185 && (
+        { reqHeight > 195 && (
             <FormControlLabel
               control={<Switch checked={open} onChange={toggleOpen} />}
               label={ open ? 'Close' : 'Open' }

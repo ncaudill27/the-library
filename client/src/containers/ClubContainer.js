@@ -7,7 +7,7 @@ import BookShow from '../components/BookShow';
 /* ------------
   Material imports
 ---------- */
-import { makeStyles, Link, Button, Typography, Box, Menu, MenuItem, IconButton } from '@material-ui/core';
+import { makeStyles, Link, Button, Typography, Box, Menu, MenuItem, IconButton, Backdrop, Modal } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/MenuBook';
 
 const useStyles = makeStyles( theme => ({
@@ -31,6 +31,17 @@ const useStyles = makeStyles( theme => ({
     backgroundColor: theme.palette.primary.main,
     margin: theme.spacing(-2),
     padding: theme.spacing(2)
+  },
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  innerModal: {
+    backgroundColor: theme.palette.primary.main,
+    padding: theme.spacing(4),
+    borderRadius: '2px',
+    postion: 'relative'
   }
 }))
 
@@ -56,14 +67,51 @@ const MembershipButton = forwardRef( ({currentUserIsMember, handleClose, handleL
   );
 });
 
-const ModOptions = ({currentUserIsMod, handleClose, toggleModding}) => {
+const ManageUsers = ({clubMembers, currentUser, modMembers, toggleModMembers, handleKick}) => {
+  const classes = useStyles();
+
+  const members = clubMembers().map( member => {
+      return (
+        member.id !== currentUser.id && (
+          <Box key={member.id} display='flex' justifyContent='center' alignItems='center'>
+              <Typography variant='h5'>
+                {member.username}
+              </Typography>
+              <Button onClick={ () => handleKick(member.id)} variant='kick'>
+                Kick
+              </Button>
+          </Box>
+        )
+      );
+  });
+  
+  if (!modMembers) return null
+  return  (
+    <Modal
+      className={classes.modal}
+      open={modMembers}
+      onClose={toggleModMembers}
+      closeAfterTransition
+      BackdropComponenent={Backdrop}
+      BackdropProps={{
+        timeout: 500
+      }}
+    >
+      <div className={classes.innerModal}>
+        {members}
+      </div>
+    </Modal>
+  );
+}
+
+const ModOptions = ({currentUserIsMod, handleClose, toggleModMembers}) => {
   const classes = useStyles();
 
   return (
     currentUserIsMod
     ? <>
         <MenuItem onClick={handleClose} className={classes.menuItem}>
-          <Box onClick={toggleModding}>
+          <Box onClick={toggleModMembers}>
             Current members {/* create modal popout for this */}
           </Box>
         </MenuItem>
@@ -82,7 +130,7 @@ const ModOptions = ({currentUserIsMod, handleClose, toggleModding}) => {
   )
 }
 
-const ClubMenu = ({anchorEl, handleClose, open, handleMenu, currentUser, renderCurrentMembers, currentUserIsMod, currentUserIsMember, handleLeave, handleJoin, toggleModding}) => {
+const ClubMenu = ({anchorEl, handleClose, open, handleMenu, currentUser, renderCurrentMembers, currentUserIsMod, currentUserIsMember, handleLeave, handleJoin, toggleModMembers}) => {
   const classes = useStyles();
 
   return <>
@@ -106,8 +154,7 @@ const ClubMenu = ({anchorEl, handleClose, open, handleMenu, currentUser, renderC
       getContentAnchorEl={null}
     >
       <MembershipButton currentUserIsMember={currentUserIsMember} handleLeave={handleLeave} handleJoin={handleJoin} handleClose={handleClose} />
-      <ModOptions currentUserIsMod={currentUserIsMod} handleClose={handleClose} toggleModding={toggleModding} />
-      { renderCurrentMembers() }
+      <ModOptions currentUserIsMod={currentUserIsMod} handleClose={handleClose} toggleModMembers={toggleModMembers} />
     </Menu>
   </>
 }
@@ -144,8 +191,8 @@ function ClubContainer({
   const classes = useStyles();
   threads = threads.filter( t => t.clubId === id );
 
-  const [modding, setModding] = useState(false);
-  const toggleModding = () => setModding( prev => !prev );
+  const [modMembers, setModding] = useState(false);
+  const toggleModMembers = () => setModding( prev => !prev );
   
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -182,32 +229,10 @@ function ClubContainer({
   const handleLeave = () => {
     const membershipId = findMembershipId({clubId: id, userId: currentUser.id});
     memberLeaveRequest(membershipId);
-    if (modding) toggleModding();
   }
 
-  const renderCurrentMembers = () => {
-    const members = clubMembers().map( member => {
-        return (
-          member.id === currentUser.id
-          ? null
-          : (
-            <div key={member.id} className='member'>
-              <p key={member.name}>{member.username}
-                <Button key={member.username} onClick={handleLeave}>remove</Button>
-              </p>
-            </div>
-          )
-        );
-    });
-    
-    return  (
-      modding
-      ? <>
-        <Button onClick={toggleModding}>CLOSE</Button>
-        {members}
-      </>
-      : null
-    );
+  const handleKick = userId => {
+    memberLeaveRequest(userId);
   }
 
   return (
@@ -223,8 +248,8 @@ function ClubContainer({
         currentUser={currentUser}
         handleClose={handleClose}
         currentUserIsMod={currentUserIsMod}
+        toggleModMembers={toggleModMembers}
         currentUserIsMember={currentUserIsMember}
-        renderCurrentMembers={renderCurrentMembers}
       />
       <Typography variant="subtitle1" paragraph>{description}</Typography>
       <BookShow isbn={activeBook} />
@@ -232,20 +257,10 @@ function ClubContainer({
         <Typography variant='h3'>
           Discussion
         </Typography>
-        { currentUserIsMod ? <ThreadForm clubId={id} /> : null }
-        {
-           threads.length 
-           ? (
-            <ThreadList
-              threads={threads}
-              currentUser={currentUser}
-              currentUserIsMod={currentUserIsMod}
-              currentUserIsMember={currentUserIsMember}
-            />
-           )
-           : null 
-        }
+        { currentUserIsMod && <ThreadForm clubId={id} /> }
+        { threads.length && <ThreadList threads={threads} currentUser={currentUser} currentUserIsMod={currentUserIsMod} currentUserIsMember={currentUserIsMember} /> }
       </div>
+      <ManageUsers clubMembers={clubMembers} currentUser={currentUser} modMembers={modMembers} toggleModMembers={toggleModMembers} handleKick={handleKick} />
     </div>
   );
 }
