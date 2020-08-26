@@ -30,6 +30,7 @@ const useStyles = makeStyles( theme => ({
   threads: {
     backgroundColor: theme.palette.primary.main,
     margin: theme.spacing(-2),
+    marginTop: theme.spacing(2),
     padding: theme.spacing(2)
   },
   modal: {
@@ -247,7 +248,6 @@ function ClubContainer({
     <div className={classes.root}>
       <Typography variant="h2">{name}</Typography>
       <ClubMenu
-        child
         open={open}
         anchorEl={anchorEl}
         handleJoin={handleJoin}
@@ -266,7 +266,7 @@ function ClubContainer({
           Discussion
         </Typography>
         { currentUserIsMod && <ThreadForm clubId={id} /> }
-        { threads.length && <ThreadList threads={threads} currentUser={currentUser} currentUserIsMod={currentUserIsMod} currentUserIsMember={currentUserIsMember} /> }
+        { !!threads.length && <ThreadList threads={threads} currentUser={currentUser} currentUserIsMod={currentUserIsMod} currentUserIsMember={currentUserIsMember} /> }
       </div>
       <ManageUsers clubMembers={clubMembers} currentUser={currentUser} modMembers={modMembers} toggleModMembers={toggleModMembers} handleKick={handleKick} />
     </div>

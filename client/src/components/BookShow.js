@@ -72,7 +72,6 @@ function Missing() {
         href='/bestsellers'
         underline='none'
         component={Button}
-        variant='contained'
         className={classes.button}
       >
         New York Times Bestsellers
@@ -113,7 +112,9 @@ function BookShow({ isbn, hide }) {
   useEffect( () => {
     fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&key=${REACT_APP_GOOGLE_BOOKS_KEY}`)
     .then( res => res.json() )
-    .then( data => setBook(data.items[0].volumeInfo) )
+    .then( data => {
+      if (data.items) setBook(data.items[0].volumeInfo)
+    })
     .catch(errors => console.log(errors));
   }, [isbn]);
 
