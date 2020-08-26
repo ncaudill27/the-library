@@ -40,8 +40,7 @@ function ThreadShow ({
   const toggleOpen = () => setOpen( prev => !prev );
 
   comments = comments.filter(comment => id === comment.threadId);
-  
-  console.log(open);
+
   return (
     <Paper className={classes.paper} elevation={5}>
       <Typography variant='h4'>

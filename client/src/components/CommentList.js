@@ -28,7 +28,7 @@ function CommentList({
 
     return sortedComments.map( (comment, idx) => {
       return (
-        <Grow in={open} {...(open ? { timeout: idx * 250 } : {})} key={comment.id}>
+        <Grow in={open} {...(open ? { timeout: idx * 500 } : {})} key={comment.id}>
           <div>
             <Comment
               key={comment.id}
@@ -57,7 +57,7 @@ function CommentList({
           {
             (open && currentUserIsMember)
             && (
-              <Grow in={open} {...(open ? { timeout: (comments.length + 1) * 250 } : {})}>
+              <Grow in={open} {...(open ? { timeout: (comments.length + 1) * 500 } : {})}>
                 <div>
                   <CommentField
                     threadId={threadId}
