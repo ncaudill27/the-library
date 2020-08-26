@@ -3,8 +3,11 @@ import StarRating from './StarRating';
 /* ----------
   Material imports
 ----------- */
-import { Grid, Button, Link, Typography, Paper, Box } from '@material-ui/core';
+import { FormControlLabel, Switch, Grid, Button, Link, Typography, Paper, Box, Collapse } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+
 const { REACT_APP_GOOGLE_BOOKS_KEY } = process.env;
 
 const useStyles = makeStyles( theme => ({
@@ -13,7 +16,6 @@ const useStyles = makeStyles( theme => ({
   },
   paper: {
     padding: theme.spacing(1),
-    marginBottom: theme.spacing(4),
     backgroundColor: '#f0f0f0',
     overflow: 'auto'
   },
@@ -51,6 +53,10 @@ const useStyles = makeStyles( theme => ({
     backgroundColor: theme.palette.primary.dark,
     color: '#fff',
     marginBottom: theme.spacing(1)
+  },
+  switch: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(3)
   }
 }));
 
@@ -81,7 +87,7 @@ function Fallback({hide}) {
   
   useEffect( () => {
     const timer = setTimeout( () => {
-      setMessage(`Sorry we couldn't seem to find more details for this book.`);
+      setMessage(`Sorry, additional information for this book is unavailable.`);
     }, 1500);
     return () => clearTimeout(timer);
   }, []);
@@ -99,6 +105,8 @@ function BookShow({ isbn, hide }) {
   const classes = useStyles();
 
   const [book, setBook] = useState(null);
+  const [open, setOpen] = useState(false);
+  const toggleOpen = () => setOpen( prev => !prev );
 
   useEffect( () => {
     fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&key=${REACT_APP_GOOGLE_BOOKS_KEY}`)
@@ -117,24 +125,32 @@ function BookShow({ isbn, hide }) {
           {book.title}
         </Typography>
       </Paper>
-      <Paper elevation={1} className={classes.paper} square>
-        <Grid className={classes.details} xs={6} item container direction='column' spacing={0} justify='flex-start' alignItems='center'>
-          <Grid item>
-            <img className={classes.img} src={book.imageLinks ? book.imageLinks.thumbnail : ''} alt={book.title + " Cover Art"} />
+      <Collapse in={open} collapsedHeight={300}>
+        <Paper elevation={1} className={classes.paper} square>
+          <Grid className={classes.details} xs={6} item container direction='column' spacing={0} justify='flex-start' alignItems='center'>
+            <Grid item>
+              <img className={classes.img} src={book.imageLinks ? book.imageLinks.thumbnail : ''} alt={book.title + " Cover Art"} />
+            </Grid>
+            <Grid item>
+              <Typography variant='h6' align='center'>
+                Author{book.authors.length <= 1 ? '' : 's'}: {[...book.authors].join(', ')}
+              </Typography>
+            </Grid>
+            <Grid item>
+                <StarRating count={book.averageRating} />
+            </Grid>
           </Grid>
-          <Grid item>
-            <Typography variant='h6' align='center'>
-              Author{book.authors.length <= 1 ? '' : 's'}: {[...book.authors].join(', ')}
-            </Typography>
-          </Grid>
-          <Grid item>
-              <StarRating count={book.averageRating} />
-          </Grid>
-        </Grid>
-        <Typography paragraph className={classes.description}>
-          {book.description}
-        </Typography>
-      </Paper>
+          <Typography className={classes.description}>
+            {book.description}
+          </Typography>
+        </Paper>
+      </Collapse>
+      <Grid container justify='center' className={classes.switch}>
+        <FormControlLabel
+          control={<Switch checked={open} onChange={toggleOpen} />}
+          label={ open ? 'Close' : 'Open' }
+        />
+      </Grid>
     </Box>
   );
 }
