@@ -31,7 +31,7 @@ const postClubRequest = payload => {
 
   return dispatch => {
     begin(dispatch);
-    fetch('/api/v1/clubs', requestObj)
+    return fetch('/api/v1/clubs', requestObj)
     .then(res => res.json())
     .then( async response => {
       console.log(response);
@@ -39,6 +39,7 @@ const postClubRequest = payload => {
       await dispatch(createClub(response.club));
 
       dispatch(addClub(response.membership));
+      return response;
     });
   };
 };
