@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { patchCommentRequest } from '../actions/comments';
 
-import { makeStyles, Avatar, Typography, Box, Button, Container, TextField } from '@material-ui/core';
+import { makeStyles, Avatar, Typography, Box, Button, Container, TextField, Slide } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 
 const useStyles = makeStyles( theme => ({
@@ -26,34 +26,46 @@ const useStyles = makeStyles( theme => ({
   }
 }))
 
-const EditForm = ({comment, commentSet, editComment, toggleEditable}) => {
+const EditForm = ({comment, commentSet, editComment, toggleEditable, editable}) => {
   const classes = useStyles();
 
   return (
-    <Box display='flex' alignItems='center' justifyContent='flex-start' className={classes.pushBot}>
-      <TextField id='comment-edit' type='text' variant='outlined' size='small' color='secondary' value={comment} onChange={ e => commentSet(e.target.value) } />
-      <Button size='small' onClick={editComment} variant='contained' className={classes.edit}>Edit</Button>
-      <Button size='small' onClick={toggleEditable} variant='contained'><ClearIcon /></Button>
-    </Box>
+    <Slide direction='right' in={editable} mountOnEnter unmountOnExit>
+      <Box display='flex' alignItems='center' justifyContent='flex-start' className={classes.pushBot}>
+        <TextField id='comment-edit' type='text' variant='outlined' size='small' color='secondary' value={comment} onChange={ e => commentSet(e.target.value) } />
+        <Button size='small' onClick={editComment} variant='contained' className={classes.edit}>Edit</Button>
+        <Button size='small' onClick={toggleEditable} variant='contained'><ClearIcon /></Button>
+      </Box>
+    </Slide>
   );
 }
 
-const CommentOptions = ({id, toggleEditable, toggleShown, deleteComment, isOwnerNotMod}) => {
+const CommentOptions = ({id, toggleEditable, deleteComment, isOwnerNotMod, shown}) => {
   const classes = useStyles();
 
   return (
     <Box display='flex' justifyContent='flex-end' data-comment-id={id} className={classes.pushBot}>
-      { isOwnerNotMod() ? <Button className={classes.edit} variant='contained' onClick={toggleEditable}>EDIT</Button> : null }
-      <Button className={classes.delete} variant='contained' onClick={deleteComment}>DELETE</Button>
+      <Slide  direction='left' in={shown} mountOnEnter unmountOnExit>
+        <div>
+          { isOwnerNotMod() ? <Button className={classes.edit} variant='contained' onClick={toggleEditable}>EDIT</Button> : null }
+          <Button className={classes.delete} variant='contained' onClick={deleteComment}>DELETE</Button>
+        </div>
+      </Slide>
     </Box>
   );
 }
 
-const CommentContent = ({commentsPending, commentsEditing, id, content}) => {
+const CommentContent = ({commentsPending, commentsEditing, id, content, editable}) => {
   const classes = useStyles();
 
   if (commentsPending && commentsEditing === id.toString(10)) return null
-  return <Typography variant='body1' className={classes.pushBot}>{content}</Typography>
+  return (
+    <Slide direction='left' in={!editable} mountOnEnter unmountOnExit>
+      <div>
+        <Typography variant='body1' className={classes.pushBot}>{content}</Typography>
+      </div>
+    </Slide>
+  );
 }
 
 const Comment = ({
@@ -84,7 +96,6 @@ const Comment = ({
   const [comment, commentSet] = useState(content);
 
   const isContentOwner = () => currentUser.id === userId;
-  const isOwnerIsModShownNotEditable = () => ( isContentOwner() || currentUserIsMod ) && shown && !editable;
   const isOwnerNotMod = () => !currentUserIsMod || isContentOwner();
 
   const editComment = e => {
@@ -116,38 +127,28 @@ const Comment = ({
           • {parseTime(posted)}
         </Typography>
       </Box>
-      {
-         editable
-         ? (
-          <EditForm
-            comment={comment}
-            commentSet={commentSet}
-            editComment={editComment}
-            toggleEditable={toggleEditable}
-          />
-         )
-         : (
-          <CommentContent
-            id={id}
-            content={content}
-            commentsPending={commentsPending}
-            commentsEditing={commentsEditing}
-          />
-         )
-      }
-      {
-         isOwnerIsModShownNotEditable()
-         ? (
-          <CommentOptions
-            id={id}
-            toggleShown={toggleShown}
-            deleteComment={deleteComment}
-            isOwnerNotMod={isOwnerNotMod}
-            toggleEditable={toggleEditable}
-          />
-         )
-         : null 
-      }
+      <EditForm
+        comment={comment}
+        editable={editable}
+        commentSet={commentSet}
+        editComment={editComment}
+        toggleEditable={toggleEditable}
+      />
+      <CommentContent
+        id={id}
+        editable={editable}
+        content={content}
+        commentsPending={commentsPending}
+        commentsEditing={commentsEditing}
+      />
+      <CommentOptions
+        id={id}
+        shown={shown}
+        toggleShown={toggleShown}
+        deleteComment={deleteComment}
+        isOwnerNotMod={isOwnerNotMod}
+        toggleEditable={toggleEditable}
+      />
     </Container>
   );
 };
