@@ -17,10 +17,12 @@ const useStyles = makeStyles( theme => ({
     marginLeft: theme.spacing(1)
   },
   edit: {
-    backgroundColor: theme.palette.primary.dark
+    backgroundColor: theme.palette.primary.dark,
+    color: '#fff'
   },
   delete: {
-    backgroundColor: theme.palette.secondary.dark
+    backgroundColor: theme.palette.secondary.dark,
+    color: '#fff'
   }
 }))
 

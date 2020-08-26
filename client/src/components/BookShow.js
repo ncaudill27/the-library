@@ -49,6 +49,7 @@ const useStyles = makeStyles( theme => ({
   },
   button: {
     backgroundColor: theme.palette.primary.dark,
+    color: '#fff',
     marginBottom: theme.spacing(1)
   }
 }));
