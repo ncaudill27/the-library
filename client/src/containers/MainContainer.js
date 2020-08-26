@@ -19,40 +19,15 @@ import { Container } from '@material-ui/core';
 
 class MainContainer extends Component {
 
-  //TODO move to helpers folder
-  currentUsersClubs = () => {
-    let { currentUser, memberships, clubs } = this.props;
-    const membershipAssociations = memberships.filter( m => m.userId === currentUser.id );
-    clubs = membershipAssociations.map( ({clubId}) => clubs.find( c => c.id === clubId ) );
-    return clubs ? clubs : [];
-  }
-  //TODO move to helpers folder
-  clubsCurrentUserMods = () => {
-    let { currentUser, memberships, clubs } = this.props;
-    const modAssociations = memberships.filter( m => m.userId === currentUser.id && m.isMod );
-    clubs = modAssociations.map( ({clubId}) => clubs.find( c => c.id === clubId ) );
-    return clubs;
-  }
-
-  //TODO move to helpers folder
-  reifyClubById = clubId => {
-    const { clubs, clubsPending } = this.props;
-    
-    if ( !clubsPending ) {
-      const club = clubs.find( c => c.id === clubId );
-      club.id = clubId;
-      club.currentUserIsMod = this.clubsCurrentUserMods().includes(club);
-      club.currentUserIsMember = this.currentUsersClubs().includes(club);
-      return club
-    };
-  }
-
   render() {
     const {
       message,
       currentUser,
       memberships,
-      usersPending
+      usersPending,
+      reifyClubById,
+      currentUsersClubs,
+      clubsCurrentUserMods
     } = this.props;
 
     return (
@@ -62,12 +37,12 @@ class MainContainer extends Component {
 
         <Switch>
 
-          <Route exact path='/' render={ () => <WelcomeContainer currentUser={currentUser} currentUsersClubs={this.currentUsersClubs}  /> } />
+          <Route exact path='/' render={ () => <WelcomeContainer currentUser={currentUser} currentUsersClubs={currentUsersClubs}  /> } />
 
           {
             currentUser && memberships.length
             ? <Route exact path='/avatar-selection' render={ () =>
-                <AvatarSelection currentUser={currentUser} clubsCurrentUserMods={this.clubsCurrentUserMods} />
+                <AvatarSelection currentUser={currentUser} clubsCurrentUserMods={clubsCurrentUserMods} />
               } />
             : null
           }
@@ -80,7 +55,7 @@ class MainContainer extends Component {
             //TODO dig into why the container doesn't recognize clubId
             memberships.length
             ? <Route exact path='/clubs/:id' render={ ({match}) => {
-              const club = this.reifyClubById(match.params.id);
+              const club = reifyClubById(match.params.id);
               return  (
                 <ClubContainer
                   {...club}
