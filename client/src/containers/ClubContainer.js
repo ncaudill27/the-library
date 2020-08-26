@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, forwardRef } from 'react';
 import { connect } from 'react-redux';
 import { memberJoinRequest, memberLeaveRequest } from '../actions/users';
 import ThreadShow from '../components/ThreadShow';
@@ -34,27 +34,27 @@ const useStyles = makeStyles( theme => ({
   }
 }))
 
-const MembershipButton = ({currentUserIsMember, handleClose, handleLeave, handleJoin}) => {
+const MembershipButton = forwardRef( ({currentUserIsMember, handleClose, handleLeave, handleJoin}, ref) => {
   const classes = useStyles();
 
   return (
     currentUserIsMember
     ? (
-      <MenuItem onClick={handleClose} className={classes.menuItem}>
+      <MenuItem onClick={handleClose} className={classes.menuItem} ref={ref}>
         <Box onClick={handleLeave}>
           Leave Club
         </Box>
       </MenuItem>
     )
     : (
-      <MenuItem onClick={handleClose} className={classes.menuItem}>
+      <MenuItem onClick={handleClose} className={classes.menuItem} ref={ref}>
         <Box onClick={handleJoin}>
           Join Club
         </Box>
       </MenuItem>
     )
-  )
-};
+  );
+});
 
 const ModOptions = ({currentUserIsMod, handleClose, toggleModding}) => {
   const classes = useStyles();
