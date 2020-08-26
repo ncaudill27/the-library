@@ -4,7 +4,7 @@ import { postComment } from '../actions/comments';
 /* ----------
   Material imports
 ---------- */
-import { makeStyles, Avatar, Box, Button, TextField, Container } from '@material-ui/core';
+import { makeStyles, Box, Button, TextField, Container } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 
 const useStyles = makeStyles( theme => ({
@@ -14,7 +14,13 @@ const useStyles = makeStyles( theme => ({
   }
 }))
 
-const CommentField = ({currentUser: {id: userId, avatar, username}, threadId, postComment}) => {
+const CommentField = ({
+  currentUser: {
+    id: userId
+  },
+  postComment,
+  threadId
+}) => {
   const [comment, setComment] = useState('');
   const classes = useStyles();
 
