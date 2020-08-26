@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { postClubRequest } from '../actions/clubs';
 import { addClub } from '../actions/users';
 import { connect } from 'react-redux';
-import { Typography, FormControl, TextField, Button, Link, Box, makeStyles } from '@material-ui/core';
+import { Typography, FormControl, TextField, Button, Box, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles( themes => ({
   form: {
@@ -37,9 +37,8 @@ function ClubForm({postClubRequest, addClub}) {
     
     postClubRequest(payload)
     .then( club => {
-      console.log(club.club.data.id)
       setClubId(club.club.data.id)
-    } )
+    });
     setName('');
     setDescription('');
   }

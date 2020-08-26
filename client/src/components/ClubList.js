@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 /* ----------
   Material imports
 ----------- */
-import { Avatar, Typography, Link, MenuItem, Container, makeStyles } from '@material-ui/core';
+import { Avatar, Typography, Link, Container, makeStyles } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles( theme => ({
@@ -73,7 +73,7 @@ class ClubList extends Component {
     });
     clubs = clubs.map(({id, name, avatar}) => {
       return (
-        <ClubSideBar key={id} id={id} name={name} avatar={avatar} handleClose={this.props.handleClose} />
+        <ClubSideBar key={id} id={id} name={name} avatar={avatar} handleClose={handleClose} />
       )
     });
 

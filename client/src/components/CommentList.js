@@ -1,9 +1,9 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import Comment from './Comment';
 import CommentField from './CommentField';
 import { deleteCommentRequest } from '../actions/comments';
 import { connect } from 'react-redux';
-import { makeStyles, Box, Grow, Collapse } from '@material-ui/core';
+import { Box, Grow, Collapse } from '@material-ui/core';
 
 function CommentList({
   open,
