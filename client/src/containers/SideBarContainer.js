@@ -62,7 +62,7 @@ const CreateClubButton = () => {
   );
 }
 
-function SidebarContainer({currentUser, logOutUser}) {
+function SidebarContainer({currentUser, logOutUser, currentUsersClubs}) {
   const classes = useStyles();
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -102,7 +102,7 @@ function SidebarContainer({currentUser, logOutUser}) {
           >
             <MenuLink href='/bestsellers' text='NY Times Bestsellers' handleClose={handleClose} />
             <MenuLink href='/clubs' text='Browse Clubs' handleClose={handleClose} />
-            { currentUser ? <MenuItem disabled>Your clubs</MenuItem> : null }
+            { !!currentUsersClubs().length ? <MenuItem disabled>Your clubs</MenuItem> : null }
             { currentUser ? <ClubList styling='sidebar' handleClose={handleClose} /> : null }
             { currentUser ? <CreateClubButton /> : null }
           </Menu>
