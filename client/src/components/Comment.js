@@ -30,8 +30,8 @@ const EditForm = ({comment, commentSet, editComment, toggleEditable}) => {
   return (
     <Box display='flex' alignItems='center' justifyContent='flex-start' className={classes.pushBot}>
       <TextField id='comment-edit' type='text' variant='outlined' size='small' color='secondary' value={comment} onChange={ e => commentSet(e.target.value) } />
-      <Button size='small' onClick={editComment} variant='contained'>Edit</Button>
-      <Button size='small' onClick={toggleEditable} variant='contained'>Cancel</Button>
+      <Button size='small' onClick={editComment} variant='contained' className={classes.edit}>Edit</Button>
+      <Button size='small' onClick={toggleEditable} variant='contained'><ClearIcon /></Button>
     </Box>
   );
 }
@@ -43,7 +43,6 @@ const CommentOptions = ({id, toggleEditable, toggleShown, deleteComment, isOwner
     <Box display='flex' justifyContent='flex-end' data-comment-id={id} className={classes.pushBot}>
       { isOwnerNotMod() ? <Button className={classes.edit} variant='contained' onClick={toggleEditable}>EDIT</Button> : null }
       <Button className={classes.delete} variant='contained' onClick={deleteComment}>DELETE</Button>
-      <Button onClick={toggleShown}><ClearIcon /></Button>
     </Box>
   );
 }
@@ -103,7 +102,7 @@ const Comment = ({
   }
 
   return (
-    <Container onMouseEnter={toggleShown} onMouseLeave={toggleShown} className={classes.comment}>
+    <Container onClick={toggleShown} className={classes.comment}>
       <Box display='flex' alignItems='center' justifyContent='space-between' className={classes.pushBot}>
         <Box display='flex' alignItems='center' justifyContent='flex-start'>
           <Avatar src={avatar} alt={username + "'s avatar"} />
