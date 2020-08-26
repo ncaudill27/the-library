@@ -4,7 +4,7 @@ import { postComment } from '../actions/comments';
 /* ----------
   Material imports
 ---------- */
-import { makeStyles, Avatar, Box, Button, FormControl, TextField, Container } from '@material-ui/core';
+import { makeStyles, Avatar, Box, Button, TextField, Container } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 
 const useStyles = makeStyles( theme => ({
@@ -28,7 +28,6 @@ const CommentField = ({currentUser: {id: userId, avatar, username}, threadId, po
       board_id: threadId,
       content: comment
     };
-    console.log(payload);
     postComment(payload);
     setComment('');
   };
@@ -36,7 +35,6 @@ const CommentField = ({currentUser: {id: userId, avatar, username}, threadId, po
   return (
     <Container className={classes.root}>
       <Box display='flex' alignItems='center' justifyContent='space-between'>
-        <Avatar src={avatar} showing={username + "'s avatar"} />
         <TextField label='New comment' variant='outlined' size='small' color='secondary' value={comment} onChange={handleChange} />
         <Button onClick={handleSubmit}><SendIcon color='secondary' /></Button>
       </Box>
