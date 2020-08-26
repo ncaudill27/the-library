@@ -2,29 +2,71 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { patchCommentRequest } from '../actions/comments';
 
-import { Avatar, Typography, Box, Button, Container, FormControl, TextField } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Avatar, Typography, Box, Button, Container, TextField } from '@material-ui/core';
+import ClearIcon from '@material-ui/icons/Clear';
 
 const useStyles = makeStyles( theme => ({
   comment: {
     borderBottom: `1px solid ${theme.palette.primary.dark}`,
     marginTop: theme.spacing(1)
+  },
+  pushBot: {
+    marginBottom: theme.spacing(1)
+  },
+  username: {
+    marginLeft: theme.spacing(1)
+  },
+  edit: {
+    backgroundColor: theme.palette.primary.dark
+  },
+  delete: {
+    backgroundColor: theme.palette.secondary.dark
   }
 }))
 
+const EditForm = ({comment, commentSet, editComment, toggleEditable}) => {
+  const classes = useStyles();
+
+  return (
+    <Box display='flex' alignItems='center' justifyContent='flex-start' className={classes.pushBot}>
+      <TextField id='comment-edit' type='text' variant='outlined' size='small' color='secondary' value={comment} onChange={ e => commentSet(e.target.value) } />
+      <Button size='small' onClick={editComment} variant='contained'>Edit</Button>
+      <Button size='small' onClick={toggleEditable} variant='contained'>Cancel</Button>
+    </Box>
+  );
+}
+
+const CommentOptions = ({id, toggleEditable, toggleShown, deleteComment, isOwnerNotMod}) => {
+  const classes = useStyles();
+
+  return (
+    <Box display='flex' justifyContent='flex-end' data-comment-id={id} className={classes.pushBot}>
+      { isOwnerNotMod() ? <Button className={classes.edit} variant='contained' onClick={toggleEditable}>EDIT</Button> : null }
+      <Button className={classes.delete} variant='contained' onClick={deleteComment}>DELETE</Button>
+      <Button onClick={toggleShown}><ClearIcon /></Button>
+    </Box>
+  );
+}
+
+const CommentContent = ({commentsPending, commentsEditing, id, content}) => {
+  const classes = useStyles();
+
+  if (commentsPending && commentsEditing === id.toString(10)) return null
+  return <Typography variant='body1' className={classes.pushBot}>{content}</Typography>
+}
 
 const Comment = ({
   id,
+  users,
+  posted,
   userId,
   content,
-  posted,
-  users,
   currentUser,
   deleteComment,
-  patchCommentRequest,
-  commentsPending,
   commentsEditing,
-  currentUserIsMod
+  commentsPending,
+  currentUserIsMod,
+  patchCommentRequest
 }) => {
 
   const classes = useStyles();
@@ -33,7 +75,7 @@ const Comment = ({
   const {username, avatar} = user;
 
   const [editable, editableSet] = useState(false);
-  const toggleEditable = () => editableSet(!editable);
+  const toggleEditable = () => editableSet( prev => !prev);
   
   const [shown, shownSet] = useState(false);
   const toggleShown = () => shownSet( prev => !prev );
@@ -60,41 +102,51 @@ const Comment = ({
     return `${month + 1}/${date}/${year}`
   }
 
-  const editForm = () => (
-    <FormControl>
-      <Box display='flex' alignItems='center' justifyContent='flex-start'>
-        <TextField id='comment-edit' type='text' variant='outlined' size='small' value={comment} onChange={ e => commentSet(e.target.value) } />
-        <Button size='small' onClick={editComment}>Edit</Button>
-        <Button size='small' onClick={toggleEditable}>Cancel</Button>
-      </Box>
-    </FormControl>
-  )
-
-  const renderOptions = () => (
-    <Box display='flex' justifyContent='flex-end' data-comment-id={id}>
-      { isOwnerNotMod() ? <Button className='edit' onClick={toggleEditable}>EDIT</Button> : null }
-      <Button onClick={deleteComment}>DELETE</Button>
-    </Box>
-  );
-
-
-  const loadContent = () => commentsPending && commentsEditing === id.toString(10) ? null : <Typography variant='body1' paragraph>{content}</Typography>
-
   return (
     <Container onMouseEnter={toggleShown} onMouseLeave={toggleShown} className={classes.comment}>
-      <Box display='flex' alignItems='center' justifyContent='space-between'>
+      <Box display='flex' alignItems='center' justifyContent='space-between' className={classes.pushBot}>
         <Box display='flex' alignItems='center' justifyContent='flex-start'>
           <Avatar src={avatar} alt={username + "'s avatar"} />
-          <Typography display='block' variant='h6' noWrap>
+          <Typography display='block' variant='h6' noWrap className={classes.username}>
             {username}
           </Typography>
         </Box>
-          <Typography variant='caption'>
-            • {parseTime(posted)}
-          </Typography>
+        <Typography variant='caption'>
+          • {parseTime(posted)}
+        </Typography>
       </Box>
-      { editable ? editForm() : loadContent() }
-      { isOwnerIsModShownNotEditable() ? renderOptions() : null }
+      {
+         editable
+         ? (
+          <EditForm
+            comment={comment}
+            commentSet={commentSet}
+            editComment={editComment}
+            toggleEditable={toggleEditable}
+          />
+         )
+         : (
+          <CommentContent
+            id={id}
+            content={content}
+            commentsPending={commentsPending}
+            commentsEditing={commentsEditing}
+          />
+         )
+      }
+      {
+         isOwnerIsModShownNotEditable()
+         ? (
+          <CommentOptions
+            id={id}
+            toggleShown={toggleShown}
+            deleteComment={deleteComment}
+            isOwnerNotMod={isOwnerNotMod}
+            toggleEditable={toggleEditable}
+          />
+         )
+         : null 
+      }
     </Container>
   );
 };
