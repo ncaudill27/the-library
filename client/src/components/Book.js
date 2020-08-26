@@ -26,7 +26,8 @@ const useStyles = makeStyles( theme => ({
     float: 'left'
   },
   button: {
-    backgroundColor: theme.palette.primary.dark
+    backgroundColor: theme.palette.primary.dark,
+    color: '#fff'
   }
 }));
 

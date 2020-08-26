@@ -8,7 +8,8 @@ const useStyles = makeStyles( theme => ({
     margin: theme.spacing(3)
   },
   button: {
-    backgroundColor: theme.palette.primary.dark
+    backgroundColor: theme.palette.primary.dark,
+    color: '#fff'
   }
 
 }));

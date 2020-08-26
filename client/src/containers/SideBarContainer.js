@@ -23,7 +23,7 @@ const useStyles = makeStyles( theme => ({
     marginBottom: theme.spacing(0.25)
   },
   create: {
-    backgroundColor: theme.palette.secondary.dark,
+    backgroundColor: theme.palette.primary.dark,
     color: '#fff'
   },
   link: {
@@ -55,7 +55,7 @@ const CreateClubButton = () => {
 
   return (
     <MenuItem className={classes.create}>
-      <Link href='/clubs/new' color='inherit'>
+      <Link href='/clubs/new' color='inherit' underline='none'>
         Create New Club
       </Link>
     </MenuItem>
@@ -102,7 +102,7 @@ function SidebarContainer({currentUser, logOutUser}) {
           >
             <MenuLink href='/bestsellers' text='Bestsellers' handleClose={handleClose} />
             <MenuLink href='/clubs' text='Browse Clubs' handleClose={handleClose} />
-            { currentUser ? <MenuItem >Your clubs</MenuItem> : null }
+            { currentUser ? <MenuItem disabled>Your clubs</MenuItem> : null }
             { currentUser ? <ClubList styling='sidebar' handleClose={handleClose} /> : null }
             { currentUser ? <CreateClubButton /> : null }
           </Menu>

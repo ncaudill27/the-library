@@ -9,12 +9,13 @@ import { makeStyles, Typography, Box, Link, Button, Paper } from '@material-ui/c
 const useStyles = makeStyles( theme => ({
   button: {
     backgroundColor: theme.palette.primary.dark,
+    color: '#fff',
     marginBottom: theme.spacing(1)
   },
   intro: {
     padding: theme.spacing(1),
     marginBottom: theme.spacing(2),
-    backgroundColor: theme.palette.warning.main
+    backgroundColor: '#f0f0f0',
   },
   soon: {
     marginBottom: theme.spacing(2)

@@ -16,7 +16,7 @@ const useStyles = makeStyles( theme => ({
   },
   cog: {
     position: 'absolute',
-    top: '0',
+    top: '-24px',
     right: '0',
   },
   menuItem: {
@@ -212,6 +212,7 @@ function ClubContainer({
 
   return (
     <div className={classes.root}>
+      <Typography variant="h2">{name}</Typography>
       <ClubMenu
         child
         open={open}
@@ -225,10 +226,7 @@ function ClubContainer({
         currentUserIsMember={currentUserIsMember}
         renderCurrentMembers={renderCurrentMembers}
       />
-      <div className='Club-details'>
-        <Typography variant="h2">{name}</Typography>
-        <Typography variant="subtitle1" paragraph>{description}</Typography>
-      </div>
+      <Typography variant="subtitle1" paragraph>{description}</Typography>
       <BookShow isbn={activeBook} />
       <div className={classes.threads}>
         <Typography variant='h3'>
