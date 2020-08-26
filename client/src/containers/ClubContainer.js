@@ -7,7 +7,7 @@ import BookShow from '../components/BookShow';
 /* ------------
   Material imports
 ---------- */
-import { makeStyles, Link, Button, Typography, Box, Menu, MenuItem, IconButton, Backdrop, Modal } from '@material-ui/core';
+import { makeStyles, Link, Button, Typography, Box, Menu, MenuItem, Fade, IconButton, Backdrop, Modal } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/MenuBook';
 
 const useStyles = makeStyles( theme => ({
@@ -35,13 +35,19 @@ const useStyles = makeStyles( theme => ({
   modal: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    borderRadius: '2px'
   },
   innerModal: {
     backgroundColor: theme.palette.primary.main,
-    padding: theme.spacing(4),
+    padding: theme.spacing(2),
     borderRadius: '2px',
     postion: 'relative'
+  },
+  kickButton: {
+    backgroundColor: theme.palette.secondary.dark,
+    color: '#fff',
+    margin: theme.spacing(1)
   }
 }))
 
@@ -73,11 +79,11 @@ const ManageUsers = ({clubMembers, currentUser, modMembers, toggleModMembers, ha
   const members = clubMembers().map( member => {
       return (
         member.id !== currentUser.id && (
-          <Box key={member.id} display='flex' justifyContent='center' alignItems='center'>
+          <Box key={member.id} display='flex' justifyContent='space-evenly' alignItems='center'>
               <Typography variant='h5'>
                 {member.username}
               </Typography>
-              <Button onClick={ () => handleKick(member.id)} variant='kick'>
+              <Button onClick={ () => handleKick(member.id)} variant='contained' className={classes.kickButton}>
                 Kick
               </Button>
           </Box>
@@ -85,21 +91,23 @@ const ManageUsers = ({clubMembers, currentUser, modMembers, toggleModMembers, ha
       );
   });
   
-  if (!modMembers) return null
+  // if (!modMembers) return null
   return  (
     <Modal
       className={classes.modal}
       open={modMembers}
       onClose={toggleModMembers}
       closeAfterTransition
-      BackdropComponenent={Backdrop}
+      BackdropComponent={Backdrop}
       BackdropProps={{
         timeout: 500
       }}
     >
-      <div className={classes.innerModal}>
-        {members}
-      </div>
+      <Fade in={modMembers}>
+        <div className={classes.innerModal}>
+          {members}
+        </div>
+      </Fade>
     </Modal>
   );
 }
