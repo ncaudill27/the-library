@@ -12,11 +12,12 @@ import SettingsIcon from '@material-ui/icons/MenuBook';
 
 const useStyles = makeStyles( theme => ({
   root: {
-    position: 'relative'
+    position: 'relative',
+    marginTop: theme.spacing(4)
   },
   cog: {
     position: 'absolute',
-    top: '-24px',
+    top: theme.spacing(-3.5),
     right: '0',
   },
   menuItem: {
