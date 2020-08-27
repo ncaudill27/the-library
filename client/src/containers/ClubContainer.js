@@ -1,32 +1,19 @@
-import React, { useState, forwardRef } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { memberJoinRequest, memberLeaveRequest } from '../actions/users';
+import { memberLeaveRequest } from '../actions/users';
+import ClubMenu from '../components/ClubMenu';
 import ThreadShow from '../components/ThreadShow';
 import ThreadForm from '../components/ThreadForm';
 import BookShow from '../components/BookShow';
 /* ------------
   Material imports
 ---------- */
-import { makeStyles, Link, Button, Typography, Box, Menu, MenuItem, Fade, IconButton, Backdrop, Modal } from '@material-ui/core';
-import SettingsIcon from '@material-ui/icons/MenuBook';
+import { makeStyles, Button, Typography, Box, Fade, Backdrop, Modal } from '@material-ui/core';
 
 const useStyles = makeStyles( theme => ({
   root: {
     position: 'relative',
     marginTop: theme.spacing(4)
-  },
-  cog: {
-    position: 'absolute',
-    top: theme.spacing(-3.5),
-    right: '0',
-  },
-  menuItem: {
-    backgroundColor: '#fff',
-    color: theme.palette.secondary.dark,
-    marginBottom: theme.spacing(0.25)
-  },
-  link: {
-    color: theme.palette.secondary.dark
   },
   threads: {
     backgroundColor: theme.palette.primary.main,
@@ -53,30 +40,12 @@ const useStyles = makeStyles( theme => ({
   }
 }))
 
-const MembershipButton = forwardRef( ({currentUserIsMember, handleClose, handleLeave, handleJoin}, ref) => {
+const ManageUsers = ({clubMembers, currentUser, modMembers, toggleModMembers}) => {
   const classes = useStyles();
 
-  return (
-    currentUserIsMember
-    ? (
-      <MenuItem onClick={handleClose} className={classes.menuItem} ref={ref}>
-        <Box onClick={handleLeave}>
-          Leave Club
-        </Box>
-      </MenuItem>
-    )
-    : (
-      <MenuItem onClick={handleClose} className={classes.menuItem} ref={ref}>
-        <Box onClick={handleJoin}>
-          Join Club
-        </Box>
-      </MenuItem>
-    )
-  );
-});
-
-const ManageUsers = ({clubMembers, currentUser, modMembers, toggleModMembers, handleKick}) => {
-  const classes = useStyles();
+  const handleKick = userId => {
+    memberLeaveRequest(userId);
+  }
 
   const members = clubMembers().map( member => {
       return (
@@ -114,61 +83,6 @@ const ManageUsers = ({clubMembers, currentUser, modMembers, toggleModMembers, ha
   );
 }
 
-const ModOptions = ({currentUserIsMod, handleClose, toggleModMembers}) => {
-  const classes = useStyles();
-
-  return (
-    currentUserIsMod
-    ? <>
-        <MenuItem onClick={handleClose} className={classes.menuItem}>
-          <Box onClick={toggleModMembers}>
-            Current members {/* create modal popout for this */}
-          </Box>
-        </MenuItem>
-        <MenuItem onClose={handleClose} className={classes.menuItem}>
-          <Link href='/avatar-selection' color='inherit' underline='none'>
-            Choose new avatar
-          </Link>
-        </MenuItem>
-        <MenuItem className={classes.menuItem}>
-          <Link href='/bestsellers' color='inherit' underline='none'>
-            Set new book
-          </Link>
-        </MenuItem>
-      </>
-    : null
-  )
-}
-
-const ClubMenu = ({anchorEl, handleClose, open, handleMenu, currentUser, renderCurrentMembers, currentUserIsMod, currentUserIsMember, handleLeave, handleJoin, toggleModMembers}) => {
-  const classes = useStyles();
-
-  return <>
-    {
-      currentUser
-      ? (
-        <IconButton onClick={handleMenu} edge='end' aria-label='menu' className={classes.cog}>
-          <SettingsIcon color='secondary' />
-        </IconButton>
-      )
-      : null
-    }
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: 'bottom', 
-        horizontal: 'right'
-      }}
-      open={open}
-      onClose={handleClose}
-      getContentAnchorEl={null}
-    >
-      <MembershipButton currentUserIsMember={currentUserIsMember} handleLeave={handleLeave} handleJoin={handleJoin} handleClose={handleClose} />
-      <ModOptions currentUserIsMod={currentUserIsMod} handleClose={handleClose} toggleModMembers={toggleModMembers} />
-    </Menu>
-  </>
-}
-
 const ThreadList = ({currentUser, currentUserIsMember, currentUserIsMod, threads}) => {
   return threads.map( thread => {
     return (
@@ -193,7 +107,6 @@ function ClubContainer({
   currentUser,
   description,
   currentUserIsMod,
-  memberJoinRequest,
   memberLeaveRequest,
   currentUserIsMember
 }) {
@@ -203,18 +116,6 @@ function ClubContainer({
 
   const [modMembers, setModding] = useState(false);
   const toggleModMembers = () => setModding( prev => !prev );
-  
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
-  
-  const handleMenu = e => setAnchorEl(e.currentTarget);
-  const handleClose = () => setAnchorEl(null);
-
-  
-  const findMembershipId = ({clubId, userId}) => {
-    return memberships.find( m => m.userId === userId && m.clubId === clubId )
-    .id;
-  }
 
   const clubMembers = () => {
     // ! optimize this
@@ -225,42 +126,21 @@ function ClubContainer({
     const members = clubMemberships.map( m => users.find( u => u.id === m.userId ) );
     return members
   }
-  
-  const handleJoin = () => {
-    const payload = {
-      membership: {
-        club_id: id
-      }
-    };
-
-    memberJoinRequest(payload);
-  }
-
-  const handleLeave = () => {
-    const membershipId = findMembershipId({clubId: id, userId: currentUser.id});
-    memberLeaveRequest(membershipId);
-  }
-
-  const handleKick = userId => {
-    memberLeaveRequest(userId);
-  }
 
   return (
     <div className={classes.root}>
-      <Typography variant="h2">{name}</Typography>
+      <Typography variant="h2">
+        {name}
+      </Typography>
       <ClubMenu
-        open={open}
-        anchorEl={anchorEl}
-        handleJoin={handleJoin}
-        handleMenu={handleMenu}
-        handleLeave={handleLeave}
-        currentUser={currentUser}
-        handleClose={handleClose}
+        id={id}
         currentUserIsMod={currentUserIsMod}
         toggleModMembers={toggleModMembers}
         currentUserIsMember={currentUserIsMember}
       />
-      <Typography variant="subtitle1" paragraph>{description}</Typography>
+      <Typography variant="subtitle1" paragraph>
+        {description}
+      </Typography>
       <BookShow isbn={activeBook} />
       <div className={classes.threads}>
         <Typography variant='h3'>
@@ -269,7 +149,13 @@ function ClubContainer({
         { currentUserIsMod && <ThreadForm clubId={id} /> }
         { !!threads.length && <ThreadList threads={threads} currentUser={currentUser} currentUserIsMod={currentUserIsMod} currentUserIsMember={currentUserIsMember} /> }
       </div>
-      <ManageUsers clubMembers={clubMembers} currentUser={currentUser} modMembers={modMembers} toggleModMembers={toggleModMembers} handleKick={handleKick} />
+      <ManageUsers
+        modMembers={modMembers}
+        clubMembers={clubMembers}
+        currentUser={currentUser}
+        toggleModMembers={toggleModMembers}
+        memberLeaveRequest={memberLeaveRequest}
+      />
     </div>
   );
 }
@@ -283,4 +169,4 @@ const mapStateToProps = ({threads, users}) => ({
   memberships: users.memberships
 })
 
-export default connect( mapStateToProps, { memberJoinRequest, memberLeaveRequest } )(ClubContainer);
+export default connect( mapStateToProps, { memberLeaveRequest } )(ClubContainer);
